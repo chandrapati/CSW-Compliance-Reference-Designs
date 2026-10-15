@@ -33,8 +33,9 @@ risk, and visibility into your existing IdP, EDR, and CSPM tooling.
 
 **Where to start.** Sections 2–4 for pillar-by-pillar capability
 mapping; section 5 for the coverage summary across all pillars;
-section 6 for a phased deployment plan; section 8 if your team uses a
-scorecard format.
+sections 6–7 for the scope tree and the enforcement policy that move
+the Networks pillar to Advanced; section 8 for a phased deployment
+plan; section 10 if your team uses a scorecard format.
 
 ---
 
@@ -196,7 +197,144 @@ Phase 3 — Optimal (Ongoing):
 
 ---
 
-## 6. CSW Deployment Phases for ZTMM
+## 6. Scope Architecture for ZTMM
+
+Maturity is claimed per pillar, so the scope tree has to make a pillar
+claim provable for a named set of workloads. Build the tree before any
+enforcement work: the Networks and Applications pillars both move from
+Initial to Advanced on the strength of *which* workloads sit inside a
+deny-by-default boundary, not on the existence of policy in general.
+
+### 6.1 Suggested Scope Architecture
+
+```
+Root Scope
+└── Zero-Trust-Estate
+    ├── High-Value-Assets                  (HVA register — OMB M-22-09 priority)
+    │   ├── Mission-Applications
+    │   └── Authoritative-Data-Stores
+    ├── Enterprise-Applications
+    │   ├── Public-Facing
+    │   └── Internal-Facing
+    ├── Identity-Infrastructure            (IdP, directory, PKI — Identity pillar edge)
+    ├── Security-Services                  (EDR, SIEM, scanners, CSPM)
+    ├── Privileged-Access-Paths            (bastions / jump hosts)
+    └── Untrusted
+        ├── Internet-Edge
+        └── Partner-Connectivity
+```
+
+The `Untrusted` branch matters more here than in a compliance-boundary
+design: ZTMM treats the network as hostile by default, so the tree should
+name the untrusted side explicitly rather than leave it as the implicit
+remainder.
+
+### 6.2 Inventory Filters
+
+```
+Filter: High-Value-Assets
+  - Tag: hva = true
+  - Tag: fisma_impact = high | moderate
+  - Hostname / application pattern matches the HVA register
+
+Filter: Authoritative-Data-Stores
+  - Tag: data_category = authoritative | sensitive
+  - Listening port: 1433, 1521, 3306, 5432, 27017
+
+Filter: Identity-Infrastructure
+  - Listening port: 88, 389, 636, 3268, 1812
+  - Tag: application = idp | directory | pki
+
+Filter: Partner-Connectivity
+  - Destination outside agency on-prem and cloud allow-lists
+  - Tag: managed_by = partner | contractor
+```
+
+### 6.3 Labeling Strategy
+
+| Label key | Example values | Why it matters for ZTMM |
+|---|---|---|
+| `zt_pillar` | networks, applications, data, identity, devices | Routes each workload's evidence to the right pillar in the section 10 scorecard |
+| `zt_stage` | traditional, initial, advanced, optimal | Records the stage actually claimed per workload, so the scorecard is defensible per-asset rather than per-agency |
+| `hva` | true, false | Sequences Advanced/Optimal work onto OMB M-22-09 high-value assets first |
+| `data_category` | authoritative, sensitive, internal, public | Data pillar isolation and plaintext-flow findings |
+| `fisma_impact` | high, moderate, low | Aligns enforcement stringency to the FIPS 199 categorisation |
+| `application` | <named app> | Connects workloads to the systems named in the ZTMM self-assessment |
+| `owner` | <named function> | Accountability |
+| `compliance` | cisa-ztmm | Filters CSW evidence to the ZTMM assessment boundary |
+
+`zt_stage` is the label that makes quarterly OMB M-22-09 reporting cheap.
+Without it, every reporting cycle restates the agency's maturity from
+memory; with it, the stage claim is a queryable property of the inventory.
+
+---
+
+## 7. Policy Design — Networks & Workloads Enforcement
+
+### 7.1 ZTMM-Aligned Policy Framework
+
+**Absolute policies:**
+
+```
+DENY  Any                        → High-Value-Assets           (default deny inbound)
+DENY  High-Value-Assets          → Internet                    (no direct internet egress from HVAs)
+DENY  Untrusted                  → Enterprise-Applications     (no direct untrusted-to-workload path)
+DENY  Enterprise-Applications    → Enterprise-Applications     (no implicit east-west inside the tier)
+```
+
+The fourth rule is the one that separates Initial from Advanced on the
+Networks pillar. Perimeter-shaped policy denies north-south and leaves
+east-west implicit; ZTMM Advanced expects the inverse.
+
+**Allowlist policies (least privilege):**
+
+```
+ALLOW Internet-Edge              → Public-Facing               tcp/443
+ALLOW Public-Facing              → Internal-Facing             tcp/443
+ALLOW Internal-Facing            → Authoritative-Data-Stores   tcp/<db-port-tls>
+ALLOW Mission-Applications       → Identity-Infrastructure     tcp/636, tcp/88
+ALLOW Privileged-Access-Paths    → High-Value-Assets           tcp/22, tcp/3389
+ALLOW Zero-Trust-Estate          → Security-Services           tcp/443
+```
+
+**Catch-all:**
+
+```
+LOG   Any                        → High-Value-Assets           (unmatched inbound)
+LOG   High-Value-Assets          → Any                         (unmatched outbound)
+LOG   Zero-Trust-Estate          → Any                         (plaintext: tcp/80, tcp/21, tcp/23, tcp/389, udp/161)
+```
+
+The plaintext catch-all is the detection input for the Networks pillar
+encryption expectation. Treat it as a finding generator first; convert
+those rows to `DENY` only once the application owners have a TLS path.
+
+### 7.2 Policy Workspace Lifecycle
+
+| Phase | Mode | Duration | Purpose |
+|---|---|---|---|
+| 1 | Simulation | 2 weeks | Validate the candidate policy |
+| 2 | Enforcement (high-confidence rules only) | 1 week | Enforce obvious deny rules |
+| 3 | Full Enforcement | Ongoing | Workload allowlist enforced; monthly exception review |
+
+### 7.3 Enforcement State to Networks Pillar Stage
+
+The maturity claim should follow the workspace state, not the project plan.
+Use this to keep the section 10 scorecard honest:
+
+| Workspace state | Networks pillar stage | Evidence to retain |
+|---|---|---|
+| ADM running, no workspace | Traditional | ADM baseline export |
+| Workspace in Simulation | Initial | Policy export + simulation report |
+| Enforcement on HVA scopes, deny-by-default inbound | Advanced | Policy export + Denied Connections sample |
+| Enforcement estate-wide, east-west denied by default, 90-day ADM re-run closing the loop | Optimal | Re-run comparison + API audit log |
+
+Workspace snapshots and the Denied Connections log are the two artifacts an
+assessor will ask for when the agency claims Advanced or better.
+
+---
+
+## 8. CSW Deployment Phases for ZTMM
 
 ### Phase 1 — Establish Visibility (Traditional → Initial)
 ```
@@ -226,7 +364,7 @@ Ongoing:    Maturity assessment vs ZTMM scorecard
 
 ---
 
-## 7. ZTMM Assessment Evidence Package
+## 9. ZTMM Assessment Evidence Package
 
 | Evidence Item | CSW Source | ZTMM Pillar | Maturity Stage |
 |---|---|---|---|
@@ -241,7 +379,7 @@ Ongoing:    Maturity assessment vs ZTMM scorecard
 
 ---
 
-## 8. ZTMM Scorecard Template
+## 10. ZTMM Scorecard Template
 
 | Pillar | Current Stage | Target Stage | CSW Actions Required |
 |---|---|---|---|
