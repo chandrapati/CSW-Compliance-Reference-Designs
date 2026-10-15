@@ -58,9 +58,10 @@ your incident response process, and the SIEM destination for log
 forwarding. CSW augments these; it does not author the Profile.
 
 **Where to start.** Section 2 if you're scoping CSW relative to your
-CSF Profile; section 3 if Govern is the new gap (most common
-post-2.0 question); sections 4–8 walk Identify through Recover
-mapped to CSW.
+CSF Profile; sections 3–4 for the scope tree and the policy set that
+make the Protect outcomes demonstrable; section 5 if Govern is the new
+gap (most common post-2.0 question); sections 6–10 walk Identify
+through Recover mapped to CSW.
 
 ---
 
@@ -202,7 +203,144 @@ Step 3: Schedule Subcategory-aligned evidence pulls
 
 ---
 
-## 3. Govern (GV) — Organisational Context, Strategy, Oversight
+## 3. Scope Architecture and Labeling
+
+Section 2 sets the Profile labels. This section turns them into the scope
+tree that the Identify and Protect functions are assessed against. The
+tree is the direct evidence artifact for **ID.AM-03** — representations of
+authorized network communication and internal and external data flows —
+which is the Subcategory most organisations satisfy with a stale Visio
+diagram.
+
+### 3.1 Suggested Scope Architecture
+
+```
+Root Scope
+└── Enterprise
+    ├── Crown-Jewel-Systems               (crit_band = crown-jewel)
+    │   ├── Business-Critical-Applications
+    │   └── Critical-Data-Stores
+    ├── Business-Applications
+    │   ├── External-Facing
+    │   └── Internal-Facing
+    ├── Shared-Infrastructure
+    │   ├── Identity-Services
+    │   └── Logging-and-Monitoring
+    ├── Privileged-Access-Paths
+    └── Third-Party-Connectivity
+```
+
+Mirror `crit_band` onto the top-level branches rather than inventing a
+second criticality vocabulary. The Profile in section 2 is what the
+Govern function reports against, so a scope tree that disagrees with it
+produces two different answers to the same risk question.
+
+### 3.2 Inventory Filters
+
+```
+Filter: Crown-Jewel-Systems
+  - Tag: crit_band = crown-jewel
+  - Tag: business_function matches the Target Profile priority list
+
+Filter: Critical-Data-Stores
+  - Tag: data_class = regulated | confidential
+  - Listening port: 1433, 1521, 3306, 5432, 27017
+
+Filter: Third-Party-Connectivity
+  - Destination outside on-prem and cloud allow-lists
+  - Tag: managed_by = vendor | service-provider
+
+Filter: Profile-Gap-Candidates
+  - Tag: profile_scope = in-target
+  - No enforcing policy workspace covering the workload
+```
+
+`Profile-Gap-Candidates` is the filter that makes CSF progress tracking
+mechanical: it returns exactly the workloads the Target Profile claims
+will be protected but which no enforced policy currently covers.
+
+### 3.3 Labeling Strategy
+
+The five keys from section 2 carry the Profile; the rest below make the
+Protect and Detect Subcategories queryable.
+
+| Label key | Example values | Why it matters for CSF 2.0 |
+|---|---|---|
+| `csf_tier` | partial, risk-informed, repeatable, adaptive | *(section 2)* Governance tier the workload's evidence supports |
+| `business_function` | <function the workload supports> | *(section 2)* Ties technical evidence to the Govern function's business context |
+| `data_class` | public, internal, confidential, regulated | *(section 2)* PR.DS scope membership and plaintext-flow findings |
+| `crit_band` | crown-jewel, high, medium, low | *(section 2)* Drives scope placement and enforcement sequencing |
+| `profile_scope` | in-target, not-in-target | *(section 2)* Separates Current Profile reality from Target Profile intent |
+| `dependency_tier` | edge, app, data, shared | Makes the ID.AM-03 flow representation readable per tier |
+| `recovery_tier` | rto-critical, rto-standard | RC.RP sequencing — which scopes come back first |
+| `compliance` | nist-csf-2 | Filters CSW evidence to the CSF assessment boundary |
+
+---
+
+## 4. Policy Design — PR.IR and PR.AA Enforcement
+
+CSF 2.0 is outcome-based rather than prescriptive, so the policy set is
+not a checklist item — it is the mechanism by which several Protect
+Subcategories become demonstrable. Write it so each rule maps to a
+Subcategory an assessor can name.
+
+### 4.1 Subcategory-Aligned Policy Framework
+
+**Absolute policies:**
+
+```
+DENY  Any                         → Crown-Jewel-Systems      (default deny inbound — PR.IR-01)
+DENY  Crown-Jewel-Systems         → Internet                 (no direct egress from crown jewels)
+DENY  Third-Party-Connectivity    → Crown-Jewel-Systems      (vendor paths terminate short of crown jewels)
+DENY  Business-Applications       → Crown-Jewel-Systems      (promotion only via documented interfaces)
+```
+
+**Allowlist policies (least privilege — PR.AA-05):**
+
+```
+ALLOW External-Facing             → Internal-Facing          tcp/443
+ALLOW Internal-Facing             → Critical-Data-Stores     tcp/<db-port-tls>
+ALLOW Crown-Jewel-Systems         → Identity-Services        tcp/636, tcp/88
+ALLOW Privileged-Access-Paths     → Crown-Jewel-Systems      tcp/22, tcp/3389
+ALLOW Enterprise                  → Logging-and-Monitoring   tcp/443, udp/514
+```
+
+**Catch-all:**
+
+```
+LOG   Any                         → Crown-Jewel-Systems      (unmatched inbound — DE.CM-01)
+LOG   Crown-Jewel-Systems         → Any                      (unmatched outbound — DE.CM-01)
+LOG   Enterprise                  → Any                      (plaintext: tcp/80, tcp/21, tcp/23, tcp/389, udp/161)
+```
+
+### 4.2 Policy Workspace Lifecycle
+
+| Phase | Mode | Duration | Purpose |
+|---|---|---|---|
+| 1 | Simulation | 2 weeks | Validate the candidate policy |
+| 2 | Enforcement (high-confidence rules only) | 1 week | Enforce obvious deny rules |
+| 3 | Full Enforcement | Ongoing | Workload allowlist enforced; monthly exception review |
+
+### 4.3 Policy State as Profile Progress
+
+The Current-to-Target Profile delta is usually tracked in a spreadsheet
+that ages immediately. Policy state is a better source because it cannot
+drift from reality:
+
+| Policy state for a scope | Current Profile reality | Subcategory evidence |
+|---|---|---|
+| No workspace | ID.AM-03 partially met at best | ADM baseline only |
+| Simulation | Protect outcomes designed, not achieved | Policy export + simulation report |
+| Enforced, deny-by-default inbound | PR.IR-01 and PR.AA-05 demonstrable | Policy export + Denied Connections |
+| Enforced with pre-staged containment rules | RS.MI-01 / RS.MI-02 demonstrable | Containment policy + exercise record |
+
+Pre-staging containment rules in a disabled workspace is worth calling out
+to the assessor: it converts RS.MI from a written procedure into a tested
+capability with a measurable activation time.
+
+---
+
+## 5. Govern (GV) — Organisational Context, Strategy, Oversight
 
 GV is the new Function in CSF 2.0. CSW does not establish strategy
 or assign roles. It contributes by supplying the *technical evidence
@@ -245,7 +383,7 @@ generation date and management-body sign-off.
 
 ---
 
-## 4. Identify (ID) — Asset Management, Risk Assessment
+## 6. Identify (ID) — Asset Management, Risk Assessment
 
 CSF 2.0 emphasises Identify as the precondition for everything
 downstream. You can't protect what you can't see; you can't
@@ -287,7 +425,7 @@ Step 5: Schedule weekly drift report tied to change tickets (ID.RA-07)
 
 ---
 
-## 5. Protect (PR) — Safeguards
+## 7. Protect (PR) — Safeguards
 
 CSF 2.0 reorganised Protect substantially in 2024. The most CSW-
 relevant Categories are PR.IR (Infrastructure Resilience) and
@@ -354,7 +492,7 @@ Step 6: Plaintext DENY (PR.DS-02)
 
 ---
 
-## 6. Detect (DE) — Continuous Monitoring, Adverse Event Analysis
+## 8. Detect (DE) — Continuous Monitoring, Adverse Event Analysis
 
 The densest CSW alignment in CSF.
 
@@ -390,7 +528,7 @@ Step 5: Severity-based incident-declaration thresholds (DE.AE-08)
 
 ---
 
-## 7. Respond (RS) — Analysis, Mitigation, Reporting
+## 9. Respond (RS) — Analysis, Mitigation, Reporting
 
 ### RS.MA — Incident Management
 
@@ -428,7 +566,7 @@ Step 4: Wire CSW alerts into the IR ticketing system
 
 ---
 
-## 8. Recover (RC) — Recovery Plan Execution, Communications
+## 10. Recover (RC) — Recovery Plan Execution, Communications
 
 CSW is supporting in Recover. The primary controls are backups,
 communications, and recovery-plan execution.
@@ -444,9 +582,9 @@ communications, and recovery-plan execution.
 
 ---
 
-## 9. Mapping Table — CSF 2.0 Subcategory → CSW Capability
+## 11. Mapping Table — CSF 2.0 Subcategory → CSW Capability
 
-(Consolidated from sections 3–8)
+(Consolidated from sections 5–10)
 
 | Subcategory | Topic | CSW capability |
 |---|---|---|
@@ -467,7 +605,7 @@ communications, and recovery-plan execution.
 
 ---
 
-## 10. Auditor / Assessor Response Guide
+## 12. Auditor / Assessor Response Guide
 
 When a CSF assessment asks for evidence:
 
@@ -484,7 +622,7 @@ When a CSF assessment asks for evidence:
 
 ---
 
-## 11. Related Frameworks
+## 13. Related Frameworks
 
 CSF 2.0 wraps and references many control catalogues. Key
 cross-references in this repository:
@@ -514,7 +652,7 @@ cross-references in this repository:
 
 ---
 
-## 12. Disclaimer
+## 14. Disclaimer
 
 This runbook is **draft v1** describing how Cisco Secure Workload
 capabilities can support a NIST Cybersecurity Framework 2.0

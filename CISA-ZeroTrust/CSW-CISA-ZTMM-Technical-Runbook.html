@@ -312,7 +312,7 @@ td.cov-evidence { background: #808080 !important; color: #fff !important;
 </style>
 </head>
 <body>
-<div class="doc-meta">Source: <a href="CSW-CISA-ZTMM-Technical-Runbook.html">CSW-CISA-ZTMM-Technical-Runbook.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-06T03:17:42Z UTC · Repository commit: fe71f19</div>
+<div class="doc-meta">Source: <a href="CSW-CISA-ZTMM-Technical-Runbook.html">CSW-CISA-ZTMM-Technical-Runbook.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-15T18:12:43Z UTC · Repository commit: 9356c53</div>
 <header id="title-block-header">
 <h1 class="title">CISA Zero Trust Maturity Model — Technical
 Runbook</h1>
@@ -354,7 +354,26 @@ Maturity Mapping — Applications &amp; Workloads Pillar</a></li>
 Mapping — Data Pillar (Supporting)</a></li>
 <li><a href="#cisa-ztmm-pillar-coverage-summary" id="toc-cisa-ztmm-pillar-coverage-summary">5. CISA ZTMM Pillar Coverage
 Summary</a></li>
-<li><a href="#csw-deployment-phases-for-ztmm" id="toc-csw-deployment-phases-for-ztmm">6. CSW Deployment Phases for
+<li><a href="#scope-architecture-for-ztmm" id="toc-scope-architecture-for-ztmm">6. Scope Architecture for ZTMM</a>
+<ul>
+<li><a href="#suggested-scope-architecture" id="toc-suggested-scope-architecture">6.1 Suggested Scope
+Architecture</a></li>
+<li><a href="#inventory-filters" id="toc-inventory-filters">6.2
+Inventory Filters</a></li>
+<li><a href="#labeling-strategy" id="toc-labeling-strategy">6.3 Labeling
+Strategy</a></li>
+</ul></li>
+<li><a href="#policy-design-networks-workloads-enforcement" id="toc-policy-design-networks-workloads-enforcement">7. Policy Design —
+Networks &amp; Workloads Enforcement</a>
+<ul>
+<li><a href="#ztmm-aligned-policy-framework" id="toc-ztmm-aligned-policy-framework">7.1 ZTMM-Aligned Policy
+Framework</a></li>
+<li><a href="#policy-workspace-lifecycle" id="toc-policy-workspace-lifecycle">7.2 Policy Workspace
+Lifecycle</a></li>
+<li><a href="#enforcement-state-to-networks-pillar-stage" id="toc-enforcement-state-to-networks-pillar-stage">7.3 Enforcement
+State to Networks Pillar Stage</a></li>
+</ul></li>
+<li><a href="#csw-deployment-phases-for-ztmm" id="toc-csw-deployment-phases-for-ztmm">8. CSW Deployment Phases for
 ZTMM</a>
 <ul>
 <li><a href="#phase-1-establish-visibility-traditional-initial" id="toc-phase-1-establish-visibility-traditional-initial">Phase 1 —
@@ -364,9 +383,9 @@ Enforce Least Privilege (Initial → Advanced)</a></li>
 <li><a href="#phase-3-continuous-validation-advanced-optimal" id="toc-phase-3-continuous-validation-advanced-optimal">Phase 3 —
 Continuous Validation (Advanced → Optimal)</a></li>
 </ul></li>
-<li><a href="#ztmm-assessment-evidence-package" id="toc-ztmm-assessment-evidence-package">7. ZTMM Assessment Evidence
+<li><a href="#ztmm-assessment-evidence-package" id="toc-ztmm-assessment-evidence-package">9. ZTMM Assessment Evidence
 Package</a></li>
-<li><a href="#ztmm-scorecard-template" id="toc-ztmm-scorecard-template">8. ZTMM Scorecard Template</a></li>
+<li><a href="#ztmm-scorecard-template" id="toc-ztmm-scorecard-template">10. ZTMM Scorecard Template</a></li>
 <li><a href="#related-frameworks" id="toc-related-frameworks">Related
 Frameworks</a></li>
 </ul></li>
@@ -407,8 +426,9 @@ pillars?</em></li>
 risk, and visibility into your existing IdP, EDR, and CSPM tooling.</p>
 <p><strong>Where to start.</strong> Sections 2–4 for pillar-by-pillar
 capability mapping; section 5 for the coverage summary across all
-pillars; section 6 for a phased deployment plan; section 8 if your team
-uses a scorecard format.</p>
+pillars; sections 6–7 for the scope tree and the enforcement policy that
+move the Networks pillar to Advanced; section 8 for a phased deployment
+plan; section 10 if your team uses a scorecard format.</p>
 <hr />
 <!-- CSW-RUNBOOK-PRIMER:v1 -->
 <h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
@@ -793,7 +813,226 @@ controls</td>
 </tbody>
 </table>
 <hr />
-<h2 id="csw-deployment-phases-for-ztmm">6. CSW Deployment Phases for
+<h2 id="scope-architecture-for-ztmm">6. Scope Architecture for ZTMM</h2>
+<p>Maturity is claimed per pillar, so the scope tree has to make a
+pillar claim provable for a named set of workloads. Build the tree
+before any enforcement work: the Networks and Applications pillars both
+move from Initial to Advanced on the strength of <em>which</em>
+workloads sit inside a deny-by-default boundary, not on the existence of
+policy in general.</p>
+<h3 id="suggested-scope-architecture">6.1 Suggested Scope
+Architecture</h3>
+<pre><code>Root Scope
+└── Zero-Trust-Estate
+    ├── High-Value-Assets                  (HVA register — OMB M-22-09 priority)
+    │   ├── Mission-Applications
+    │   └── Authoritative-Data-Stores
+    ├── Enterprise-Applications
+    │   ├── Public-Facing
+    │   └── Internal-Facing
+    ├── Identity-Infrastructure            (IdP, directory, PKI — Identity pillar edge)
+    ├── Security-Services                  (EDR, SIEM, scanners, CSPM)
+    ├── Privileged-Access-Paths            (bastions / jump hosts)
+    └── Untrusted
+        ├── Internet-Edge
+        └── Partner-Connectivity</code></pre>
+<p>The <code>Untrusted</code> branch matters more here than in a
+compliance-boundary design: ZTMM treats the network as hostile by
+default, so the tree should name the untrusted side explicitly rather
+than leave it as the implicit remainder.</p>
+<h3 id="inventory-filters">6.2 Inventory Filters</h3>
+<pre><code>Filter: High-Value-Assets
+  - Tag: hva = true
+  - Tag: fisma_impact = high | moderate
+  - Hostname / application pattern matches the HVA register
+
+Filter: Authoritative-Data-Stores
+  - Tag: data_category = authoritative | sensitive
+  - Listening port: 1433, 1521, 3306, 5432, 27017
+
+Filter: Identity-Infrastructure
+  - Listening port: 88, 389, 636, 3268, 1812
+  - Tag: application = idp | directory | pki
+
+Filter: Partner-Connectivity
+  - Destination outside agency on-prem and cloud allow-lists
+  - Tag: managed_by = partner | contractor</code></pre>
+<h3 id="labeling-strategy">6.3 Labeling Strategy</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Label key</th>
+<th>Example values</th>
+<th>Why it matters for ZTMM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zt_pillar</code></td>
+<td>networks, applications, data, identity, devices</td>
+<td>Routes each workload’s evidence to the right pillar in the section
+10 scorecard</td>
+</tr>
+<tr>
+<td><code>zt_stage</code></td>
+<td>traditional, initial, advanced, optimal</td>
+<td>Records the stage actually claimed per workload, so the scorecard is
+defensible per-asset rather than per-agency</td>
+</tr>
+<tr>
+<td><code>hva</code></td>
+<td>true, false</td>
+<td>Sequences Advanced/Optimal work onto OMB M-22-09 high-value assets
+first</td>
+</tr>
+<tr>
+<td><code>data_category</code></td>
+<td>authoritative, sensitive, internal, public</td>
+<td>Data pillar isolation and plaintext-flow findings</td>
+</tr>
+<tr>
+<td><code>fisma_impact</code></td>
+<td>high, moderate, low</td>
+<td>Aligns enforcement stringency to the FIPS 199 categorisation</td>
+</tr>
+<tr>
+<td><code>application</code></td>
+<td><named app></td>
+<td>Connects workloads to the systems named in the ZTMM
+self-assessment</td>
+</tr>
+<tr>
+<td><code>owner</code></td>
+<td><named function></td>
+<td>Accountability</td>
+</tr>
+<tr>
+<td><code>compliance</code></td>
+<td>cisa-ztmm</td>
+<td>Filters CSW evidence to the ZTMM assessment boundary</td>
+</tr>
+</tbody>
+</table>
+<p><code>zt_stage</code> is the label that makes quarterly OMB M-22-09
+reporting cheap. Without it, every reporting cycle restates the agency’s
+maturity from memory; with it, the stage claim is a queryable property
+of the inventory.</p>
+<hr />
+<h2 id="policy-design-networks-workloads-enforcement">7. Policy Design —
+Networks &amp; Workloads Enforcement</h2>
+<h3 id="ztmm-aligned-policy-framework">7.1 ZTMM-Aligned Policy
+Framework</h3>
+<p><strong>Absolute policies:</strong></p>
+<pre><code>DENY  Any                        → High-Value-Assets           (default deny inbound)
+DENY  High-Value-Assets          → Internet                    (no direct internet egress from HVAs)
+DENY  Untrusted                  → Enterprise-Applications     (no direct untrusted-to-workload path)
+DENY  Enterprise-Applications    → Enterprise-Applications     (no implicit east-west inside the tier)</code></pre>
+<p>The fourth rule is the one that separates Initial from Advanced on
+the Networks pillar. Perimeter-shaped policy denies north-south and
+leaves east-west implicit; ZTMM Advanced expects the inverse.</p>
+<p><strong>Allowlist policies (least privilege):</strong></p>
+<pre><code>ALLOW Internet-Edge              → Public-Facing               tcp/443
+ALLOW Public-Facing              → Internal-Facing             tcp/443
+ALLOW Internal-Facing            → Authoritative-Data-Stores   tcp/&lt;db-port-tls&gt;
+ALLOW Mission-Applications       → Identity-Infrastructure     tcp/636, tcp/88
+ALLOW Privileged-Access-Paths    → High-Value-Assets           tcp/22, tcp/3389
+ALLOW Zero-Trust-Estate          → Security-Services           tcp/443</code></pre>
+<p><strong>Catch-all:</strong></p>
+<pre><code>LOG   Any                        → High-Value-Assets           (unmatched inbound)
+LOG   High-Value-Assets          → Any                         (unmatched outbound)
+LOG   Zero-Trust-Estate          → Any                         (plaintext: tcp/80, tcp/21, tcp/23, tcp/389, udp/161)</code></pre>
+<p>The plaintext catch-all is the detection input for the Networks
+pillar encryption expectation. Treat it as a finding generator first;
+convert those rows to <code>DENY</code> only once the application owners
+have a TLS path.</p>
+<h3 id="policy-workspace-lifecycle">7.2 Policy Workspace Lifecycle</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Mode</th>
+<th>Duration</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Simulation</td>
+<td>2 weeks</td>
+<td>Validate the candidate policy</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Enforcement (high-confidence rules only)</td>
+<td>1 week</td>
+<td>Enforce obvious deny rules</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Full Enforcement</td>
+<td>Ongoing</td>
+<td>Workload allowlist enforced; monthly exception review</td>
+</tr>
+</tbody>
+</table>
+<h3 id="enforcement-state-to-networks-pillar-stage">7.3 Enforcement
+State to Networks Pillar Stage</h3>
+<p>The maturity claim should follow the workspace state, not the project
+plan. Use this to keep the section 10 scorecard honest:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Workspace state</th>
+<th>Networks pillar stage</th>
+<th>Evidence to retain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADM running, no workspace</td>
+<td>Traditional</td>
+<td>ADM baseline export</td>
+</tr>
+<tr>
+<td>Workspace in Simulation</td>
+<td>Initial</td>
+<td>Policy export + simulation report</td>
+</tr>
+<tr>
+<td>Enforcement on HVA scopes, deny-by-default inbound</td>
+<td>Advanced</td>
+<td>Policy export + Denied Connections sample</td>
+</tr>
+<tr>
+<td>Enforcement estate-wide, east-west denied by default, 90-day ADM
+re-run closing the loop</td>
+<td>Optimal</td>
+<td>Re-run comparison + API audit log</td>
+</tr>
+</tbody>
+</table>
+<p>Workspace snapshots and the Denied Connections log are the two
+artifacts an assessor will ask for when the agency claims Advanced or
+better.</p>
+<hr />
+<h2 id="csw-deployment-phases-for-ztmm">8. CSW Deployment Phases for
 ZTMM</h2>
 <h3 id="phase-1-establish-visibility-traditional-initial">Phase 1 —
 Establish Visibility (Traditional → Initial)</h3>
@@ -816,7 +1055,7 @@ Month 6+:   API integration with SOAR
 Month 6+:   Automated policy tightening on critical CVEs
 Ongoing:    Maturity assessment vs ZTMM scorecard</code></pre>
 <hr />
-<h2 id="ztmm-assessment-evidence-package">7. ZTMM Assessment Evidence
+<h2 id="ztmm-assessment-evidence-package">9. ZTMM Assessment Evidence
 Package</h2>
 <table>
 <colgroup>
@@ -885,7 +1124,7 @@ Package</h2>
 </tbody>
 </table>
 <hr />
-<h2 id="ztmm-scorecard-template">8. ZTMM Scorecard Template</h2>
+<h2 id="ztmm-scorecard-template">10. ZTMM Scorecard Template</h2>
 <table>
 <colgroup>
 <col style="width: 25%" />
