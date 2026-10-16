@@ -45,6 +45,7 @@ FRAMEWORKS = [
     ("NIS2",          "NIS2 (EU 2022/2555)",                        "NIS2/CSW-NIS2-Compliance-Report",            "NIS2/CSW-NIS2-Technical-Runbook"),
     ("NERC-CIP",      "NERC CIP (Bulk Electric System)",            "NERC-CIP/CSW-NERC-CIP-Compliance-Report",    "NERC-CIP/CSW-NERC-CIP-Technical-Runbook"),
     ("TSA-Pipeline",  "TSA Pipeline Security Directive",            "TSA-Pipeline/CSW-TSA-Pipeline-Compliance-Report","TSA-Pipeline/CSW-TSA-Pipeline-Technical-Runbook"),
+    ("TSA-Rail",      "TSA Rail Cybersecurity",                     "TSA-Rail/CSW-TSA-Rail-Compliance-Report",    "TSA-Rail/CSW-TSA-Rail-Technical-Runbook"),
     ("CIS-Controls-v8","CIS Critical Security Controls v8.1",       "CIS-Controls-v8/CSW-CIS-Compliance-Report",  "CIS-Controls-v8/CSW-CIS-Technical-Runbook"),
     ("NIST-CSF-2",    "NIST Cybersecurity Framework 2.0",           "NIST-CSF-2/CSW-CSF-Compliance-Report",       "NIST-CSF-2/CSW-CSF-Technical-Runbook"),
     ("CMMC-2",        "CMMC 2.0",                                   "CMMC-2/CSW-CMMC-Compliance-Report",          "CMMC-2/CSW-CMMC-Technical-Runbook"),
