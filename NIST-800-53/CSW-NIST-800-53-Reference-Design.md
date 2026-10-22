@@ -32,8 +32,10 @@ or draft System Security Plan (SSP), your control overlay if any
 format expectations.
 
 **Where to start.** Section 2 walks the seven control families CSW
-addresses most directly; section 3 maps coverage by impact level; go
-to section 4 if you're building the evidence package now.
+addresses most directly; sections 3–4 build the scope tree and the
+AC-4 / SC-7 policy set that the control mapping depends on; section 5
+maps coverage by impact level; go to section 6 if you're building the
+evidence package now.
 
 ---
 
@@ -224,7 +226,135 @@ CSW UI → Investigate → ADM
 
 ---
 
-## 3. NIST Impact Level Guidance
+## 3. Scope Architecture and Labeling
+
+The control families in section 2 are only auditable against a named
+boundary. In an 800-53 engagement that boundary already exists on paper —
+it is the authorization boundary in the SSP — so the job here is to make
+the CSW scope tree a mirror of the SSP rather than a second, competing
+inventory. When the two diverge, the assessor treats the CSW export as
+unreliable, which is a harder finding to close than a missing control.
+
+### 3.1 Suggested Scope Architecture
+
+```
+Root Scope
+└── Authorization-Boundary                (mirrors the SSP system boundary)
+    ├── High-Impact-Systems               (FIPS 199 high)
+    │   ├── Mission-Applications
+    │   └── System-of-Record-Data-Stores
+    ├── Moderate-Impact-Systems
+    ├── Shared-Services                   (common / inherited controls)
+    │   ├── Identity-Services
+    │   ├── Logging-and-Monitoring
+    │   └── Patch-and-Config-Mgmt
+    ├── Privileged-Access-Paths           (AC-17 remote administration)
+    └── External-Systems                  (AC-20 — outside the boundary)
+```
+
+`External-Systems` is deliberately inside the tree even though it sits
+outside the authorization boundary. AC-20 requires you to evidence the
+terms of external system use, and you cannot show a flow to a system the
+scope tree refuses to name.
+
+### 3.2 Inventory Filters
+
+```
+Filter: High-Impact-Systems
+  - Tag: fips199_impact = high
+  - Tag: system_id matches the SSP system identifier
+  - Hostname / application pattern matches the SSP component inventory
+
+Filter: System-of-Record-Data-Stores
+  - Tag: data_type = pii | phi | federal-record
+  - Listening port: 1433, 1521, 3306, 5432, 27017
+
+Filter: Privileged-Access-Paths
+  - Listening port: 22, 3389, 5985, 5986
+  - Tag: application = bastion | jump-host
+
+Filter: External-Systems
+  - Destination outside the documented boundary allow-lists
+  - Tag: managed_by = external | contractor
+```
+
+### 3.3 Labeling Strategy
+
+| Label key | Example values | Why it matters for 800-53 |
+|---|---|---|
+| `system_id` | <SSP system identifier> | Reconciles the CSW inventory to the SSP component table — the CM-8 pivot |
+| `fips199_impact` | high, moderate, low | Sets enforcement stringency per section 5 and drives control selection |
+| `control_inheritance` | common, hybrid, system-specific | Shows which controls the system inherits from Shared-Services versus implements itself |
+| `data_type` | pii, phi, federal-record, internal, public | Supports SC-28 / RA-2 categorisation and plaintext-flow findings |
+| `authorization_boundary` | in, out | Makes the AC-20 external-system question a filter rather than an interview |
+| `application` | <named app> | Connects workloads to SSP-named components |
+| `owner` | <named function> | Accountability (system owner / ISSO) |
+| `compliance` | nist-800-53 | Filters CSW evidence to the accreditation boundary |
+
+`system_id` and `control_inheritance` are the two labels worth enforcing at
+onboarding. Together they let you answer the question that otherwise costs
+an assessor interview: for this workload, which controls are inherited,
+which are hybrid, and where is the evidence for each.
+
+---
+
+## 4. Policy Design — AC-4 and SC-7 Enforcement
+
+AC-4 and SC-7 are the two controls where CSW produces primary rather than
+supporting evidence, so the policy set should be written to be read by an
+assessor, not only by an operator. Each rule below is a sentence in the
+SSP's information-flow narrative.
+
+### 4.1 Control-Aligned Policy Framework
+
+**Absolute policies:**
+
+```
+DENY  Any                        → High-Impact-Systems            (default deny inbound — SC-7, AC-4)
+DENY  High-Impact-Systems        → Internet                       (no direct egress from high-impact — SC-7)
+DENY  External-Systems           → Authorization-Boundary         (no undocumented external path — AC-20)
+DENY  Moderate-Impact-Systems    → High-Impact-Systems            (no impact-level downgrade path — AC-4)
+```
+
+The fourth rule is the one assessors probe hardest. AC-4 is about flow
+*between* categorisations, so a moderate-impact workload with an
+unrestricted path into a high-impact store is a finding even when both
+systems are individually compliant.
+
+**Allowlist policies (least privilege):**
+
+```
+ALLOW Mission-Applications       → System-of-Record-Data-Stores   tcp/<db-port-tls>
+ALLOW Mission-Applications       → Identity-Services              tcp/636, tcp/88
+ALLOW Privileged-Access-Paths    → High-Impact-Systems            tcp/22, tcp/3389
+ALLOW Authorization-Boundary     → Logging-and-Monitoring         tcp/443, udp/514
+ALLOW Patch-and-Config-Mgmt      → Authorization-Boundary         tcp/443
+```
+
+**Catch-all:**
+
+```
+LOG   Any                        → High-Impact-Systems            (unmatched inbound — SI-4)
+LOG   High-Impact-Systems        → Any                            (unmatched outbound — SI-4)
+LOG   Authorization-Boundary     → Any                            (plaintext: tcp/80, tcp/21, tcp/23, tcp/389, udp/161)
+```
+
+### 4.2 Policy Workspace Lifecycle
+
+| Phase | Mode | Duration | Purpose |
+|---|---|---|---|
+| 1 | Simulation | 2 weeks | Validate the candidate policy |
+| 2 | Enforcement (high-confidence rules only) | 1 week | Enforce obvious deny rules |
+| 3 | Full Enforcement | Ongoing | Workload allowlist enforced; monthly exception review |
+
+Workspace snapshots are AC-4 and SC-7 implementation evidence; the
+simulation report is the CM-3 change-control artifact that shows the
+policy was assessed before it was enforced. Exceptions belong in the
+workspace exception register, which doubles as the POA&M input.
+
+---
+
+## 5. NIST Impact Level Guidance
 
 | Impact Level | CSW Configuration |
 |---|---|
@@ -234,7 +364,7 @@ CSW UI → Investigate → ADM
 
 ---
 
-## 4. Evidence Package
+## 6. Evidence Package
 
 | Evidence Item | CSW Source | Control Family | Frequency |
 |---|---|---|---|

@@ -312,8 +312,7 @@ td.cov-evidence { background: #808080 !important; color: #fff !important;
 </style>
 </head>
 <body>
-<div class="doc-meta">Source: <a href="CSW-CSF-Reference-Design.html">CSW-CSF-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-07T17:30:33Z UTC · Repository commit: a630820</div>
-<header id="title-block-header">
+<div class="doc-meta">Source: <a href="CSW-CSF-Reference-Design.html">CSW-CSF-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-07T17:30:33Z UTC · Repository commit: a630820</div><header id="title-block-header">
 <h1 class="title">NIST Cybersecurity Framework 2.0 — Reference
 Design</h1>
 </header>
@@ -344,15 +343,35 @@ framework</a></li>
 <li><a href="#overview" id="toc-overview">1. Overview</a></li>
 <li><a href="#profile-and-tier-calibration" id="toc-profile-and-tier-calibration">2. Profile and Tier
 Calibration</a></li>
-<li><a href="#govern-gv-organisational-context-strategy-oversight" id="toc-govern-gv-organisational-context-strategy-oversight">3. Govern
+<li><a href="#scope-architecture-and-labeling" id="toc-scope-architecture-and-labeling">3. Scope Architecture and
+Labeling</a>
+<ul>
+<li><a href="#suggested-scope-architecture" id="toc-suggested-scope-architecture">3.1 Suggested Scope
+Architecture</a></li>
+<li><a href="#inventory-filters" id="toc-inventory-filters">3.2
+Inventory Filters</a></li>
+<li><a href="#labeling-strategy" id="toc-labeling-strategy">3.3 Labeling
+Strategy</a></li>
+</ul></li>
+<li><a href="#policy-design-pr.ir-and-pr.aa-enforcement" id="toc-policy-design-pr.ir-and-pr.aa-enforcement">4. Policy Design —
+PR.IR and PR.AA Enforcement</a>
+<ul>
+<li><a href="#subcategory-aligned-policy-framework" id="toc-subcategory-aligned-policy-framework">4.1 Subcategory-Aligned
+Policy Framework</a></li>
+<li><a href="#policy-workspace-lifecycle" id="toc-policy-workspace-lifecycle">4.2 Policy Workspace
+Lifecycle</a></li>
+<li><a href="#policy-state-as-profile-progress" id="toc-policy-state-as-profile-progress">4.3 Policy State as Profile
+Progress</a></li>
+</ul></li>
+<li><a href="#govern-gv-organisational-context-strategy-oversight" id="toc-govern-gv-organisational-context-strategy-oversight">5. Govern
 (GV) — Organisational Context, Strategy, Oversight</a></li>
-<li><a href="#identify-id-asset-management-risk-assessment" id="toc-identify-id-asset-management-risk-assessment">4. Identify (ID) —
+<li><a href="#identify-id-asset-management-risk-assessment" id="toc-identify-id-asset-management-risk-assessment">6. Identify (ID) —
 Asset Management, Risk Assessment</a>
 <ul>
 <li><a href="#id.am-asset-management" id="toc-id.am-asset-management">ID.AM — Asset Management</a></li>
 <li><a href="#id.ra-risk-assessment" id="toc-id.ra-risk-assessment">ID.RA — Risk Assessment</a></li>
 </ul></li>
-<li><a href="#protect-pr-safeguards" id="toc-protect-pr-safeguards">5.
+<li><a href="#protect-pr-safeguards" id="toc-protect-pr-safeguards">7.
 Protect (PR) — Safeguards</a>
 <ul>
 <li><a href="#pr.ir-infrastructure-resilience-network-protection" id="toc-pr.ir-infrastructure-resilience-network-protection">PR.IR —
@@ -363,7 +382,7 @@ Identity Management, Authentication, Access Control</a></li>
 <li><a href="#pr.ds-data-security" id="toc-pr.ds-data-security">PR.DS —
 Data Security</a></li>
 </ul></li>
-<li><a href="#detect-de-continuous-monitoring-adverse-event-analysis" id="toc-detect-de-continuous-monitoring-adverse-event-analysis">6.
+<li><a href="#detect-de-continuous-monitoring-adverse-event-analysis" id="toc-detect-de-continuous-monitoring-adverse-event-analysis">8.
 Detect (DE) — Continuous Monitoring, Adverse Event Analysis</a>
 <ul>
 <li><a href="#de.cm-continuous-monitoring" id="toc-de.cm-continuous-monitoring">DE.CM — Continuous
@@ -371,22 +390,22 @@ Monitoring</a></li>
 <li><a href="#de.ae-adverse-event-analysis" id="toc-de.ae-adverse-event-analysis">DE.AE — Adverse Event
 Analysis</a></li>
 </ul></li>
-<li><a href="#respond-rs-analysis-mitigation-reporting" id="toc-respond-rs-analysis-mitigation-reporting">7. Respond (RS) —
+<li><a href="#respond-rs-analysis-mitigation-reporting" id="toc-respond-rs-analysis-mitigation-reporting">9. Respond (RS) —
 Analysis, Mitigation, Reporting</a>
 <ul>
 <li><a href="#rs.ma-incident-management" id="toc-rs.ma-incident-management">RS.MA — Incident Management</a></li>
 <li><a href="#rs.an-incident-analysis" id="toc-rs.an-incident-analysis">RS.AN — Incident Analysis</a></li>
 <li><a href="#rs.mi-incident-mitigation" id="toc-rs.mi-incident-mitigation">RS.MI — Incident Mitigation</a></li>
 </ul></li>
-<li><a href="#recover-rc-recovery-plan-execution-communications" id="toc-recover-rc-recovery-plan-execution-communications">8. Recover
+<li><a href="#recover-rc-recovery-plan-execution-communications" id="toc-recover-rc-recovery-plan-execution-communications">10. Recover
 (RC) — Recovery Plan Execution, Communications</a></li>
-<li><a href="#mapping-table-csf-2.0-subcategory-csw-capability" id="toc-mapping-table-csf-2.0-subcategory-csw-capability">9. Mapping
+<li><a href="#mapping-table-csf-2.0-subcategory-csw-capability" id="toc-mapping-table-csf-2.0-subcategory-csw-capability">11. Mapping
 Table — CSF 2.0 Subcategory → CSW Capability</a></li>
-<li><a href="#auditor-assessor-response-guide" id="toc-auditor-assessor-response-guide">10. Auditor / Assessor Response
+<li><a href="#auditor-assessor-response-guide" id="toc-auditor-assessor-response-guide">12. Auditor / Assessor Response
 Guide</a></li>
-<li><a href="#related-frameworks" id="toc-related-frameworks">11.
+<li><a href="#related-frameworks" id="toc-related-frameworks">13.
 Related Frameworks</a></li>
-<li><a href="#disclaimer" id="toc-disclaimer">12. Disclaimer</a></li>
+<li><a href="#disclaimer" id="toc-disclaimer">14. Disclaimer</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -450,9 +469,10 @@ Tier and prioritised Subcategories), your asset inventory source of
 truth, your incident response process, and the SIEM destination for log
 forwarding. CSW augments these; it does not author the Profile.</p>
 <p><strong>Where to start.</strong> Section 2 if you’re scoping CSW
-relative to your CSF Profile; section 3 if Govern is the new gap (most
-common post-2.0 question); sections 4–8 walk Identify through Recover
-mapped to CSW.</p>
+relative to your CSF Profile; sections 3–4 for the scope tree and the
+policy set that make the Protect outcomes demonstrable; section 5 if
+Govern is the new gap (most common post-2.0 question); sections 6–10
+walk Identify through Recover mapped to CSW.</p>
 <hr />
 <!-- CSW-RUNBOOK-PRIMER:v1 -->
 <h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
@@ -731,7 +751,224 @@ Step 3: Schedule Subcategory-aligned evidence pulls
   → Detection summary per DE.CM cadence
   → Incident dossier per RS.AN format</code></pre>
 <hr />
-<h2 id="govern-gv-organisational-context-strategy-oversight">3. Govern
+<h2 id="scope-architecture-and-labeling">3. Scope Architecture and
+Labeling</h2>
+<p>Section 2 sets the Profile labels. This section turns them into the
+scope tree that the Identify and Protect functions are assessed against.
+The tree is the direct evidence artifact for <strong>ID.AM-03</strong> —
+representations of authorized network communication and internal and
+external data flows — which is the Subcategory most organisations
+satisfy with a stale Visio diagram.</p>
+<h3 id="suggested-scope-architecture">3.1 Suggested Scope
+Architecture</h3>
+<pre><code>Root Scope
+└── Enterprise
+    ├── Crown-Jewel-Systems               (crit_band = crown-jewel)
+    │   ├── Business-Critical-Applications
+    │   └── Critical-Data-Stores
+    ├── Business-Applications
+    │   ├── External-Facing
+    │   └── Internal-Facing
+    ├── Shared-Infrastructure
+    │   ├── Identity-Services
+    │   └── Logging-and-Monitoring
+    ├── Privileged-Access-Paths
+    └── Third-Party-Connectivity</code></pre>
+<p>Mirror <code>crit_band</code> onto the top-level branches rather than
+inventing a second criticality vocabulary. The Profile in section 2 is
+what the Govern function reports against, so a scope tree that disagrees
+with it produces two different answers to the same risk question.</p>
+<h3 id="inventory-filters">3.2 Inventory Filters</h3>
+<pre><code>Filter: Crown-Jewel-Systems
+  - Tag: crit_band = crown-jewel
+  - Tag: business_function matches the Target Profile priority list
+
+Filter: Critical-Data-Stores
+  - Tag: data_class = regulated | confidential
+  - Listening port: 1433, 1521, 3306, 5432, 27017
+
+Filter: Third-Party-Connectivity
+  - Destination outside on-prem and cloud allow-lists
+  - Tag: managed_by = vendor | service-provider
+
+Filter: Profile-Gap-Candidates
+  - Tag: profile_scope = in-target
+  - No enforcing policy workspace covering the workload</code></pre>
+<p><code>Profile-Gap-Candidates</code> is the filter that makes CSF
+progress tracking mechanical: it returns exactly the workloads the
+Target Profile claims will be protected but which no enforced policy
+currently covers.</p>
+<h3 id="labeling-strategy">3.3 Labeling Strategy</h3>
+<p>The five keys from section 2 carry the Profile; the rest below make
+the Protect and Detect Subcategories queryable.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Label key</th>
+<th>Example values</th>
+<th>Why it matters for CSF 2.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>csf_tier</code></td>
+<td>partial, risk-informed, repeatable, adaptive</td>
+<td><em>(section 2)</em> Governance tier the workload’s evidence
+supports</td>
+</tr>
+<tr>
+<td><code>business_function</code></td>
+<td><function the workload supports></td>
+<td><em>(section 2)</em> Ties technical evidence to the Govern
+function’s business context</td>
+</tr>
+<tr>
+<td><code>data_class</code></td>
+<td>public, internal, confidential, regulated</td>
+<td><em>(section 2)</em> PR.DS scope membership and plaintext-flow
+findings</td>
+</tr>
+<tr>
+<td><code>crit_band</code></td>
+<td>crown-jewel, high, medium, low</td>
+<td><em>(section 2)</em> Drives scope placement and enforcement
+sequencing</td>
+</tr>
+<tr>
+<td><code>profile_scope</code></td>
+<td>in-target, not-in-target</td>
+<td><em>(section 2)</em> Separates Current Profile reality from Target
+Profile intent</td>
+</tr>
+<tr>
+<td><code>dependency_tier</code></td>
+<td>edge, app, data, shared</td>
+<td>Makes the ID.AM-03 flow representation readable per tier</td>
+</tr>
+<tr>
+<td><code>recovery_tier</code></td>
+<td>rto-critical, rto-standard</td>
+<td>RC.RP sequencing — which scopes come back first</td>
+</tr>
+<tr>
+<td><code>compliance</code></td>
+<td>nist-csf-2</td>
+<td>Filters CSW evidence to the CSF assessment boundary</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="policy-design-pr.ir-and-pr.aa-enforcement">4. Policy Design —
+PR.IR and PR.AA Enforcement</h2>
+<p>CSF 2.0 is outcome-based rather than prescriptive, so the policy set
+is not a checklist item — it is the mechanism by which several Protect
+Subcategories become demonstrable. Write it so each rule maps to a
+Subcategory an assessor can name.</p>
+<h3 id="subcategory-aligned-policy-framework">4.1 Subcategory-Aligned
+Policy Framework</h3>
+<p><strong>Absolute policies:</strong></p>
+<pre><code>DENY  Any                         → Crown-Jewel-Systems      (default deny inbound — PR.IR-01)
+DENY  Crown-Jewel-Systems         → Internet                 (no direct egress from crown jewels)
+DENY  Third-Party-Connectivity    → Crown-Jewel-Systems      (vendor paths terminate short of crown jewels)
+DENY  Business-Applications       → Crown-Jewel-Systems      (promotion only via documented interfaces)</code></pre>
+<p><strong>Allowlist policies (least privilege — PR.AA-05):</strong></p>
+<pre><code>ALLOW External-Facing             → Internal-Facing          tcp/443
+ALLOW Internal-Facing             → Critical-Data-Stores     tcp/&lt;db-port-tls&gt;
+ALLOW Crown-Jewel-Systems         → Identity-Services        tcp/636, tcp/88
+ALLOW Privileged-Access-Paths     → Crown-Jewel-Systems      tcp/22, tcp/3389
+ALLOW Enterprise                  → Logging-and-Monitoring   tcp/443, udp/514</code></pre>
+<p><strong>Catch-all:</strong></p>
+<pre><code>LOG   Any                         → Crown-Jewel-Systems      (unmatched inbound — DE.CM-01)
+LOG   Crown-Jewel-Systems         → Any                      (unmatched outbound — DE.CM-01)
+LOG   Enterprise                  → Any                      (plaintext: tcp/80, tcp/21, tcp/23, tcp/389, udp/161)</code></pre>
+<h3 id="policy-workspace-lifecycle">4.2 Policy Workspace Lifecycle</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Mode</th>
+<th>Duration</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Simulation</td>
+<td>2 weeks</td>
+<td>Validate the candidate policy</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Enforcement (high-confidence rules only)</td>
+<td>1 week</td>
+<td>Enforce obvious deny rules</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Full Enforcement</td>
+<td>Ongoing</td>
+<td>Workload allowlist enforced; monthly exception review</td>
+</tr>
+</tbody>
+</table>
+<h3 id="policy-state-as-profile-progress">4.3 Policy State as Profile
+Progress</h3>
+<p>The Current-to-Target Profile delta is usually tracked in a
+spreadsheet that ages immediately. Policy state is a better source
+because it cannot drift from reality:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Policy state for a scope</th>
+<th>Current Profile reality</th>
+<th>Subcategory evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No workspace</td>
+<td>ID.AM-03 partially met at best</td>
+<td>ADM baseline only</td>
+</tr>
+<tr>
+<td>Simulation</td>
+<td>Protect outcomes designed, not achieved</td>
+<td>Policy export + simulation report</td>
+</tr>
+<tr>
+<td>Enforced, deny-by-default inbound</td>
+<td>PR.IR-01 and PR.AA-05 demonstrable</td>
+<td>Policy export + Denied Connections</td>
+</tr>
+<tr>
+<td>Enforced with pre-staged containment rules</td>
+<td>RS.MI-01 / RS.MI-02 demonstrable</td>
+<td>Containment policy + exercise record</td>
+</tr>
+</tbody>
+</table>
+<p>Pre-staging containment rules in a disabled workspace is worth
+calling out to the assessor: it converts RS.MI from a written procedure
+into a tested capability with a measurable activation time.</p>
+<hr />
+<h2 id="govern-gv-organisational-context-strategy-oversight">5. Govern
 (GV) — Organisational Context, Strategy, Oversight</h2>
 <p>GV is the new Function in CSF 2.0. CSW does not establish strategy or
 assign roles. It contributes by supplying the <em>technical evidence
@@ -809,7 +1046,7 @@ Step 2: Schedule generation
 <p><strong>Evidence:</strong> standing quarterly evidence pack with
 auditable generation date and management-body sign-off.</p>
 <hr />
-<h2 id="identify-id-asset-management-risk-assessment">4. Identify (ID) —
+<h2 id="identify-id-asset-management-risk-assessment">6. Identify (ID) —
 Asset Management, Risk Assessment</h2>
 <p>CSF 2.0 emphasises Identify as the precondition for everything
 downstream. You can’t protect what you can’t see; you can’t prioritise
@@ -931,7 +1168,7 @@ Step 3: Schedule continuous vulnerability inventory (ID.RA-01)
 Step 4: Wire reachability + EPSS into CVE triage (ID.RA-05)
 Step 5: Schedule weekly drift report tied to change tickets (ID.RA-07)</code></pre>
 <hr />
-<h2 id="protect-pr-safeguards">5. Protect (PR) — Safeguards</h2>
+<h2 id="protect-pr-safeguards">7. Protect (PR) — Safeguards</h2>
 <p>CSF 2.0 reorganised Protect substantially in 2024. The most CSW-
 relevant Categories are PR.IR (Infrastructure Resilience) and PR.PS
 (Platform Security).</p>
@@ -1111,7 +1348,7 @@ Step 5: Behavioural prevention (PR.PS-05)
 Step 6: Plaintext DENY (PR.DS-02)
   → CSW policy: deny HTTP/FTP/Telnet/LDAP/SMTP plaintext flows</code></pre>
 <hr />
-<h2 id="detect-de-continuous-monitoring-adverse-event-analysis">6.
+<h2 id="detect-de-continuous-monitoring-adverse-event-analysis">8.
 Detect (DE) — Continuous Monitoring, Adverse Event Analysis</h2>
 <p>The densest CSW alignment in CSF.</p>
 <h3 id="de.cm-continuous-monitoring">DE.CM — Continuous Monitoring</h3>
@@ -1220,7 +1457,7 @@ Step 3: SIEM forwarding for correlation (DE.AE-03/06)
 Step 4: Threat-intel enrichment in CVE + behavioural pipeline (DE.AE-07)
 Step 5: Severity-based incident-declaration thresholds (DE.AE-08)</code></pre>
 <hr />
-<h2 id="respond-rs-analysis-mitigation-reporting">7. Respond (RS) —
+<h2 id="respond-rs-analysis-mitigation-reporting">9. Respond (RS) —
 Analysis, Mitigation, Reporting</h2>
 <h3 id="rs.ma-incident-management">RS.MA — Incident Management</h3>
 <table>
@@ -1339,7 +1576,7 @@ Step 2: Pre-build quarantine policy templates per scope
 Step 3: Train SOC analysts on CSW historical query workflow
 Step 4: Wire CSW alerts into the IR ticketing system</code></pre>
 <hr />
-<h2 id="recover-rc-recovery-plan-execution-communications">8. Recover
+<h2 id="recover-rc-recovery-plan-execution-communications">10. Recover
 (RC) — Recovery Plan Execution, Communications</h2>
 <p>CSW is supporting in Recover. The primary controls are backups,
 communications, and recovery-plan execution.</p>
@@ -1397,9 +1634,9 @@ incident-related documentation is completed</td>
 </tbody>
 </table>
 <hr />
-<h2 id="mapping-table-csf-2.0-subcategory-csw-capability">9. Mapping
+<h2 id="mapping-table-csf-2.0-subcategory-csw-capability">11. Mapping
 Table — CSF 2.0 Subcategory → CSW Capability</h2>
-<p>(Consolidated from sections 3–8)</p>
+<p>(Consolidated from sections 5–10)</p>
 <table>
 <colgroup>
 <col style="width: 33%" />
@@ -1487,7 +1724,7 @@ Table — CSF 2.0 Subcategory → CSW Capability</h2>
 </tbody>
 </table>
 <hr />
-<h2 id="auditor-assessor-response-guide">10. Auditor / Assessor Response
+<h2 id="auditor-assessor-response-guide">12. Auditor / Assessor Response
 Guide</h2>
 <p>When a CSF assessment asks for evidence:</p>
 <table>
@@ -1538,7 +1775,7 @@ tracking</td>
 </tbody>
 </table>
 <hr />
-<h2 id="related-frameworks">11. Related Frameworks</h2>
+<h2 id="related-frameworks">13. Related Frameworks</h2>
 <p>CSF 2.0 wraps and references many control catalogues. Key
 cross-references in this repository:</p>
 <ul>
@@ -1569,12 +1806,11 @@ language for CAF A–D (see <a href="../UK-NCSC-CAF/caf-mapping.html">CAF
 crosswalk</a>).</p></li>
 </ul>
 <hr />
-<h2 id="disclaimer">12. Disclaimer</h2>
+<h2 id="disclaimer">14. Disclaimer</h2>
 <p>This reference design is <strong>draft v1</strong> describing how
 Cisco Secure Workload capabilities can support a NIST Cybersecurity
 Framework 2.0 programme. It is <strong>not</strong> legal or compliance
-advice and does not constitute a finding of compliance.</p>
-<p>Specifically:</p>
+advice and does not constitute a finding of compliance.</p><p>Specifically:</p>
 <ul>
 <li>NIST publishes the authoritative CSF 2.0 text and Subcategory list
 at https://www.nist.gov/cyberframework. Always validate against the

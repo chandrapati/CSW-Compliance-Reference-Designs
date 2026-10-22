@@ -56,10 +56,11 @@ management ticketing system, and the SIEM destination for log
 forwarding. CSW augments these; it does not replace them.
 
 **Where to start.** Section 2 if you're scoping CSW relative to your
-IG; sections 3–5 if Controls 1, 2 and 4 are the priority gap;
-section 6 if Controls 7 and 13 are the audit gap; section 7 if
-Control 8 logging retention is the open item; section 9 for the
-incident-response evidence pack (Control 17).
+IG; sections 3–4 for the scope tree and the deny-by-default policy set
+everything else builds on; sections 5–7 if Controls 1, 2 and 4 are the
+priority gap; sections 8 and 11 if Controls 7 and 13 are the audit gap;
+section 9 if Control 8 logging retention is the open item; section 12
+for the incident-response evidence pack (Control 17).
 
 ---
 
@@ -224,7 +225,133 @@ Step 3: Configure cadence policies per IG tier
 
 ---
 
-## 3. Control 1 — Inventory and Control of Enterprise Assets
+## 3. Scope Architecture and Labeling
+
+Section 2 establishes *which* Safeguards are in force for your IG. This
+section turns that into a structure CSW can enforce and export against.
+The scope tree is the shared substrate for Controls 1 and 2 (you cannot
+inventory what is not in a scope), Control 12 (segmentation is expressed
+between scopes) and Control 13 (monitoring is scoped traffic filtering).
+
+### 3.1 Suggested Scope Architecture
+
+```
+Root Scope
+└── Enterprise-Assets
+    ├── Sensitive-Data-Assets             (data_sensitivity = regulated | confidential)
+    │   ├── Regulated-Data-Stores
+    │   └── Regulated-Data-Processing
+    ├── Production-Servers
+    ├── Network-Infrastructure-Mgmt       (infrastructure admin plane — Control 12)
+    ├── Security-Services                 (EDR, SIEM, scanners — Control 13)
+    ├── Admin-Workstations                (dedicated administrative plane — Safeguard 12.8)
+    └── Out-of-Scope-Corporate
+```
+
+Keeping `Admin-Workstations` as a peer branch rather than a child of
+`Production-Servers` is deliberate: Safeguard 12.8 asks for dedicated
+computing resources for administrative work, and a scope tree that nests
+the admin plane inside the thing it administers cannot evidence that.
+
+### 3.2 Inventory Filters
+
+```
+Filter: Regulated-Data-Stores
+  - Tag: data_sensitivity = regulated
+  - Listening port: 1433, 1521, 3306, 5432, 27017
+
+Filter: Unmanaged-Asset-Candidates
+  - Present in flow telemetry but absent from CSW Inventory
+  - No agent and no cloud-connector record
+
+Filter: Admin-Workstations
+  - Tag: asset_class = workstation
+  - Observed outbound to tcp/22, tcp/3389, tcp/5985 on Production-Servers
+
+Filter: Unauthorized-Software-Candidates
+  - Process observed on a workload but absent from the approved software list
+  - Tag: environment = production
+```
+
+`Unmanaged-Asset-Candidates` is the filter that does the most work for
+Control 1. Safeguard 1.1 asks for an accurate asset inventory; the hard
+part is never the assets you know about, it is detecting the ones that
+appear only as the far end of an observed flow.
+
+### 3.3 Labeling Strategy
+
+The five mandatory keys from section 2 carry the IG calibration; the
+remaining keys below make Controls 1, 2 and 12 queryable. Apply all of
+them at onboarding rather than retrofitting before an assessment.
+
+| Label key | Example values | Why it matters for CIS v8 |
+|---|---|---|
+| `cis_ig` | ig1, ig2, ig3 | *(section 2)* Sets which Safeguards are in force and the evidence cadence |
+| `asset_class` | server, workstation, container, cloud-vm, serverless | *(section 2)* Control 1 enterprise-asset classification |
+| `data_sensitivity` | public, internal, confidential, regulated | *(section 2)* Drives Safeguard 3.12 data segmentation and scope membership |
+| `business_unit` | <BU identifier> | *(section 2)* Ownership for Safeguard 1.1 inventory attestation |
+| `environment` | production, staging, dev | *(section 2)* Environment separation evidence |
+| `software_baseline` | <baseline identifier> | Control 2 — the approved software list this asset is measured against |
+| `config_baseline` | <baseline identifier> | Control 4 — the secure configuration this asset is measured against |
+| `admin_plane` | true, false | Safeguard 12.8 — marks the dedicated administrative resources |
+| `compliance` | cis-v8 | Filters CSW evidence to the CIS assessment boundary |
+
+---
+
+## 4. Policy Design — Deny-by-Default Allowlist
+
+Control 12 asks for a secure network architecture and Control 13 for
+traffic filtering between segments. Both are satisfied by the same
+artifact: a workload allowlist with a deny-by-default posture, enforced
+and exportable. Calibrate the breadth against the segmentation row of the
+section 2 IG table — IG1 expects macrosegmentation, IG2 adds
+microsegmentation for sensitive scopes, IG3 expects it everywhere.
+
+### 4.1 CIS-Aligned Policy Framework
+
+**Absolute policies:**
+
+```
+DENY  Any                          → Sensitive-Data-Assets         (default deny inbound — Safeguard 4.4)
+DENY  Sensitive-Data-Assets        → Internet                      (no direct egress from regulated data)
+DENY  Out-of-Scope-Corporate       → Sensitive-Data-Assets         (admin only via the dedicated plane)
+DENY  Production-Servers           → Admin-Workstations            (admin plane is not a destination — 12.8)
+```
+
+**Allowlist policies (least privilege):**
+
+```
+ALLOW Regulated-Data-Processing    → Regulated-Data-Stores         tcp/<db-port-tls>
+ALLOW Production-Servers           → Security-Services             tcp/443
+ALLOW Admin-Workstations           → Production-Servers            tcp/22, tcp/3389
+ALLOW Admin-Workstations           → Network-Infrastructure-Mgmt   tcp/22, tcp/443
+ALLOW Enterprise-Assets            → Security-Services             udp/514
+```
+
+**Catch-all:**
+
+```
+LOG   Any                          → Sensitive-Data-Assets         (unmatched inbound — Safeguard 13.4)
+LOG   Sensitive-Data-Assets        → Any                           (unmatched outbound)
+LOG   Enterprise-Assets            → Any                           (plaintext: tcp/80, tcp/21, tcp/23, tcp/389, udp/161)
+```
+
+### 4.2 Policy Workspace Lifecycle
+
+| Phase | Mode | Duration | Purpose |
+|---|---|---|---|
+| 1 | Simulation | 2 weeks | Validate the candidate policy |
+| 2 | Enforcement (high-confidence rules only) | 1 week | Enforce obvious deny rules |
+| 3 | Full Enforcement | Ongoing | Workload allowlist enforced; monthly exception review |
+
+Workspace snapshots are Control 12 architecture evidence and the Denied
+Connections log is Control 13 filtering evidence. The simulation report is
+what lets you show an assessor that the policy was reviewed before it was
+enforced, which is the part most programmes cannot produce.
+
+---
+
+## 5. Control 1 — Inventory and Control of Enterprise Assets
 
 **IG2 Safeguards in scope:** 1.1 (inventory), 1.2 (address
 unauthorised assets), 1.3 (utilise active discovery), 1.4 (DHCP
@@ -265,7 +392,7 @@ sub-24-hour quarantine.
 
 ---
 
-## 4. Control 2 — Inventory and Control of Software Assets
+## 6. Control 2 — Inventory and Control of Software Assets
 
 **IG2 Safeguards in scope:** 2.1 (software inventory), 2.2 (ensure
 authorised software supported), 2.3 (address unauthorised software),
@@ -307,7 +434,7 @@ unknown binary execution.
 
 ---
 
-## 5. Control 4 — Secure Configuration of Enterprise Assets and Software
+## 7. Control 4 — Secure Configuration of Enterprise Assets and Software
 
 **IG2 Safeguards in scope:** 4.1 (process for configuration), 4.2
 (secure configuration of network infra), 4.4 (default deny via
@@ -348,7 +475,7 @@ management automation tied to inventory.
 
 ---
 
-## 6. Control 7 — Continuous Vulnerability Management
+## 8. Control 7 — Continuous Vulnerability Management
 
 **IG2 Safeguards in scope:** 7.1 (process for vulnerability
 management), 7.2 (process for remediation), 7.3 (automated patch
@@ -396,7 +523,7 @@ sub-week patch SLA on critical exposed assets.
 
 ---
 
-## 7. Control 8 — Audit Log Management
+## 9. Control 8 — Audit Log Management
 
 **IG2 Safeguards in scope:** 8.1 (log management process), 8.2
 (collect audit logs), 8.5 (collect detailed audit logs), 8.7
@@ -439,7 +566,7 @@ extended retention per compliance overlay.
 
 ---
 
-## 8. Control 12 — Network Infrastructure Management
+## 10. Control 12 — Network Infrastructure Management
 
 **IG2 Safeguards in scope:** 12.1 (network infrastructure
 maintained), 12.2 (use secure protocols), 12.4 (establish &
@@ -468,7 +595,7 @@ Step 2: Detect insecure protocols in flight (12.2)
 
 ---
 
-## 9. Control 13 — Network Monitoring and Defense
+## 11. Control 13 — Network Monitoring and Defense
 
 **IG2 Safeguards in scope:** 13.1 (centralised monitoring), 13.2
 (deploy host-based intrusion detection — see also Control 10), 13.3
@@ -525,7 +652,7 @@ response.
 
 ---
 
-## 10. Control 17 — Incident Response Management
+## 12. Control 17 — Incident Response Management
 
 **IG2 Safeguards in scope:** 17.1 (designate IR personnel), 17.2
 (establish & maintain contact information), 17.3 (establish & maintain
@@ -567,7 +694,7 @@ trend per quarter; (c) post-incident review (Safeguard 17.8) inputs.
 
 ---
 
-## 11. Control 18 — Penetration Testing (Supporting)
+## 13. Control 18 — Penetration Testing (Supporting)
 
 **IG2 Safeguards in scope:** 18.1 (establish & maintain pen test
 program), 18.2 (perform periodic external pen tests), 18.3
@@ -596,7 +723,7 @@ activity reconstruction; (c) post-test gap analysis.
 
 ---
 
-## 12. Mapping Table — CIS Controls v8.1 → CSW Capability
+## 14. Mapping Table — CIS Controls v8.1 → CSW Capability
 
 | Safeguard | Title | CSW capability |
 |---|---|---|
@@ -628,12 +755,12 @@ activity reconstruction; (c) post-test gap analysis.
 | 13.7–13.10 | HIPS, NIPS, port-level, app-layer filtering | Behavioural rules + segmentation enforcement |
 | 15.1, 15.4 | Service provider mgmt (technical lens) | Vendor-egress observation + reconciliation |
 | 16.1, 16.6 | Application sec process / vuln mgmt | CVE inventory feeds SDLC + reachability for triage |
-| 17.1–17.8 | Incident response process | Six-artefact incident dossier (§10) |
+| 17.1–17.8 | Incident response process | Six-artefact incident dossier (§12) |
 | 18.1–18.5 | Penetration testing | Pre/post reachability + activity reconstruction |
 
 ---
 
-## 13. Auditor / Assessor Response Guide
+## 15. Auditor / Assessor Response Guide
 
 When a CIS Controls assessment asks for evidence:
 
@@ -645,12 +772,12 @@ When a CIS Controls assessment asks for evidence:
 | "Show Safeguard 8.10 90-day log retention" | SIEM retention policy + sample retrieval over the window |
 | "Demonstrate Safeguard 13.4 segmentation between segments" | CSW workspace export + simulation→enforcement log |
 | "Provide Safeguard 13.6 flow logs for incident X" | Per-flow export with timestamps + process attribution |
-| "Show Control 17 incident dossier" | Six-artefact bundle (§10) |
+| "Show Control 17 incident dossier" | Six-artefact bundle (§12) |
 | "Show Safeguard 18.5 internal pen test evidence" | Pre/post reachability + red-team activity reconstruction |
 
 ---
 
-## 14. Related Frameworks
+## 16. Related Frameworks
 
 CIS Controls v8.1 maps cleanly to:
 
@@ -675,7 +802,7 @@ CIS Controls v8.1 maps cleanly to:
 
 ---
 
-## 15. Disclaimer
+## 17. Disclaimer
 
 This reference design is **draft v1** describing how Cisco Secure Workload
 capabilities can support a CIS Critical Security Controls v8.1

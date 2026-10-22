@@ -45,6 +45,7 @@ FRAMEWORKS = [
     ("NIS2",          "NIS2 (EU 2022/2555)",                        "NIS2/CSW-NIS2-Compliance-Report",            "NIS2/CSW-NIS2-Reference-Design"),
     ("NERC-CIP",      "NERC CIP (Bulk Electric System)",            "NERC-CIP/CSW-NERC-CIP-Compliance-Report",    "NERC-CIP/CSW-NERC-CIP-Reference-Design"),
     ("TSA-Pipeline",  "TSA Pipeline Security Directive",            "TSA-Pipeline/CSW-TSA-Pipeline-Compliance-Report","TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design"),
+    ("TSA-Rail",      "TSA Rail Cybersecurity",                     "TSA-Rail/CSW-TSA-Rail-Compliance-Report",    "TSA-Rail/CSW-TSA-Rail-Reference-Design"),
     ("CIS-Controls-v8","CIS Critical Security Controls v8.1",       "CIS-Controls-v8/CSW-CIS-Compliance-Report",  "CIS-Controls-v8/CSW-CIS-Reference-Design"),
     ("NIST-CSF-2",    "NIST Cybersecurity Framework 2.0",           "NIST-CSF-2/CSW-CSF-Compliance-Report",       "NIST-CSF-2/CSW-CSF-Reference-Design"),
     ("CMMC-2",        "CMMC 2.0",                                   "CMMC-2/CSW-CMMC-Compliance-Report",          "CMMC-2/CSW-CMMC-Reference-Design"),
@@ -65,8 +66,7 @@ FRAMEWORKS = [
     ("NY-DFS-23-NYCRR-500", "NY DFS 23 NYCRR Part 500",              "NY-DFS-23-NYCRR-500/CSW-NYDFS-Compliance-Report", "NY-DFS-23-NYCRR-500/CSW-NYDFS-Reference-Design"),
     ("TISAX",         "TISAX / VDA ISA",                             "TISAX/CSW-TISAX-Compliance-Report",          "TISAX/CSW-TISAX-Reference-Design"),
     ("NIST-800-82",   "NIST SP 800-82",                              "NIST-800-82/CSW-NIST-800-82-Compliance-Report", "NIST-800-82/CSW-NIST-800-82-Reference-Design"),
-    ("BSI-C5",        "BSI C5",                                      "BSI-C5/CSW-BSI-C5-Compliance-Report",        "BSI-C5/CSW-BSI-C5-Reference-Design"),
-]
+    ("BSI-C5",        "BSI C5",                                      "BSI-C5/CSW-BSI-C5-Compliance-Report",        "BSI-C5/CSW-BSI-C5-Reference-Design"),]
 
 
 def build_provenance() -> str:
