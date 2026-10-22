@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>UK Cyber Essentials Plus — Reference Design</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-Cyber-Essentials-Reference-Design.html">CSW-Cyber-Essentials-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-07T17:30:38Z UTC · Repository commit: a630820</div>
+<header id="title-block-header">
+<h1 class="title">UK Cyber Essentials Plus — Reference Design</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload-uk-cyber-essentials-plus" id="toc-cisco-secure-workload-uk-cyber-essentials-plus">Cisco Secure
+Workload — UK Cyber Essentials <strong>Plus</strong></a>
+<ul>
+<li><a href="#reference-design-uk-organisations-government-supply-chain" id="toc-reference-design-uk-organisations-government-supply-chain">Reference
+Design | UK Organisations &amp; Government Supply Chain</a></li>
+<li><a href="#readers-guide" id="toc-readers-guide">Reader’s
+Guide</a></li>
+<li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</a></li>
+<li><a href="#universal-evidence-workflow" id="toc-universal-evidence-workflow">Universal evidence workflow</a>
+<ul>
+<li><a href="#phase-1-checklist-coverage" id="toc-phase-1-checklist-coverage">Phase 1 checklist
+(coverage)</a></li>
+<li><a href="#phase-2-checklist-baseline" id="toc-phase-2-checklist-baseline">Phase 2 checklist
+(baseline)</a></li>
+<li><a href="#phase-3-checklist-policy" id="toc-phase-3-checklist-policy">Phase 3 checklist (policy)</a></li>
+<li><a href="#phase-4-checklist-operate" id="toc-phase-4-checklist-operate">Phase 4 checklist (operate)</a></li>
+<li><a href="#what-csw-evidence-does-not-replace" id="toc-what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</a></li>
+</ul></li>
+<li><a href="#csw-effectiveness-for-this-framework" id="toc-csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</a></li>
+<li><a href="#overview" id="toc-overview">1. Overview</a>
+<ul>
+<li><a href="#scheme-structure-vs.-csw-five-technical-themes" id="toc-scheme-structure-vs.-csw-five-technical-themes">Scheme structure
+vs. CSW (five technical themes)</a></li>
+<li><a href="#cyber-essentials-vs.-cyber-essentials-plus-assessment-model" id="toc-cyber-essentials-vs.-cyber-essentials-plus-assessment-model">Cyber
+Essentials vs. Cyber Essentials Plus (assessment model)</a></li>
+</ul></li>
+<li><a href="#pre-deployment-checklist" id="toc-pre-deployment-checklist">2. Pre-Deployment Checklist</a></li>
+<li><a href="#phase-1-sensor-deployment-days-15" id="toc-phase-1-sensor-deployment-days-15">3. Phase 1 — Sensor
+deployment (Days 1–5)</a>
+<ul>
+<li><a href="#on-premises-workloads" id="toc-on-premises-workloads">3.1
+On-premises workloads</a></li>
+<li><a href="#cloud-workloads" id="toc-cloud-workloads">3.2 Cloud
+workloads</a></li>
+<li><a href="#sensor-validation" id="toc-sensor-validation">3.3 Sensor
+validation</a></li>
+</ul></li>
+<li><a href="#phase-2-scope-inventory-design-days-610" id="toc-phase-2-scope-inventory-design-days-610">4. Phase 2 — Scope
+&amp; inventory design (Days 6–10)</a>
+<ul>
+<li><a href="#scope-architecture-uk-enterprise-pattern" id="toc-scope-architecture-uk-enterprise-pattern">4.1 Scope architecture
+(UK enterprise pattern)</a></li>
+<li><a href="#auto-discovery-filters-examples" id="toc-auto-discovery-filters-examples">4.2 Auto-discovery filters
+(examples)</a></li>
+<li><a href="#labelling-strategy" id="toc-labelling-strategy">4.3
+Labelling strategy</a></li>
+</ul></li>
+<li><a href="#phase-3-visibility-baseline-days-1125" id="toc-phase-3-visibility-baseline-days-1125">5. Phase 3 — Visibility
+&amp; baseline (Days 11–25)</a>
+<ul>
+<li><a href="#application-dependency-mapping-adm" id="toc-application-dependency-mapping-adm">5.1 Application Dependency
+Mapping (ADM)</a></li>
+<li><a href="#baseline-and-secure-configuration-ce2" id="toc-baseline-and-secure-configuration-ce2">5.2 Baseline and secure
+configuration (CE2)</a></li>
+<li><a href="#patch-posture-visibility-ce5" id="toc-patch-posture-visibility-ce5">5.3 Patch posture visibility
+(CE5)</a></li>
+</ul></li>
+<li><a href="#phase-4-policy-design-days-2640" id="toc-phase-4-policy-design-days-2640">6. Phase 4 — Policy design
+(Days 26–40)</a>
+<ul>
+<li><a href="#policy-themes-conceptual" id="toc-policy-themes-conceptual">6.1 Policy themes
+(conceptual)</a></li>
+<li><a href="#policy-workspace-setup" id="toc-policy-workspace-setup">6.2 Policy workspace setup</a></li>
+</ul></li>
+<li><a href="#phase-5-enforcement-days-4160" id="toc-phase-5-enforcement-days-4160">7. Phase 5 — Enforcement (Days
+41–60+)</a>
+<ul>
+<li><a href="#recommended-progression" id="toc-recommended-progression">7.1 Recommended progression</a></li>
+<li><a href="#during-plus-technical-verification" id="toc-during-plus-technical-verification">7.2 During Plus technical
+verification</a></li>
+</ul></li>
+<li><a href="#phase-6-monitoring-alerting-audit-evidence" id="toc-phase-6-monitoring-alerting-audit-evidence">8. Phase 6 —
+Monitoring, alerting &amp; audit evidence</a>
+<ul>
+<li><a href="#alert-catalogue-examples" id="toc-alert-catalogue-examples">8.1 Alert catalogue
+(examples)</a></li>
+<li><a href="#evidence-for-certification-and-annual-refresh" id="toc-evidence-for-certification-and-annual-refresh">8.2 Evidence for
+certification and annual refresh</a></li>
+</ul></li>
+<li><a href="#control-by-control-mapping-requirement-capability-evidence" id="toc-control-by-control-mapping-requirement-capability-evidence">9.
+Control-by-control mapping (requirement → capability →
+evidence)</a></li>
+<li><a href="#boundaries-what-csw-does-not-cover" id="toc-boundaries-what-csw-does-not-cover">10. Boundaries — what CSW
+does <strong>not</strong> cover</a></li>
+<li><a href="#audit-preparation-evidence-export-worked-examples" id="toc-audit-preparation-evidence-export-worked-examples">11. Audit
+preparation &amp; evidence export (worked examples)</a>
+<ul>
+<li><a href="#cli-api-patterns-illustrative" id="toc-cli-api-patterns-illustrative">11.1 CLI / API patterns
+(illustrative)</a></li>
+<li><a href="#siem-forwarding-optional" id="toc-siem-forwarding-optional">11.2 SIEM forwarding
+(optional)</a></li>
+</ul></li>
+<li><a href="#related-frameworks" id="toc-related-frameworks">Related
+frameworks</a>
+<ul>
+<li><a href="#appendix-a-conceptual-policy-fragment-yaml-style" id="toc-appendix-a-conceptual-policy-fragment-yaml-style">Appendix A —
+Conceptual policy fragment (YAML-style)</a></li>
+<li><a href="#appendix-b-evidence-pack-checklist-cyber-essentials-plus-window" id="toc-appendix-b-evidence-pack-checklist-cyber-essentials-plus-window">Appendix
+B — Evidence pack checklist (Cyber Essentials Plus window)</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload-uk-cyber-essentials-plus">Cisco Secure
+Workload — UK Cyber Essentials <strong>Plus</strong></h1>
+<h2 id="reference-design-uk-organisations-government-supply-chain">Reference
+Design | UK Organisations &amp; Government Supply Chain</h2>
+<p><strong>Version:</strong> 1.0<br />
+<strong>Scheme reference:</strong> NCSC Cyber Essentials (requirements
+for IT infrastructure — align artefacts to your certification body’s
+current scheme document)<br />
+<strong>Use Case:</strong> Fresh install, hybrid environment (on-prem +
+cloud)<br />
+<strong>Certification track:</strong> <strong>Cyber Essentials
+Plus</strong> (includes <strong>hands-on technical verification</strong>
+by an assessor — not self-assessment alone)</p>
+<hr />
+<h2 id="readers-guide">Reader’s Guide</h2>
+<p><strong>Who this is for.</strong> UK organisations pursuing or
+maintaining <strong>Cyber Essentials Plus</strong>, especially those
+bidding for <strong>UK government contracts</strong> where the scheme is
+mandated or strongly expected. Security and infrastructure teams
+preparing for <strong>external assessment</strong>, internal IT
+preparing <strong>evidence packs</strong>, and programme managers who
+need a <strong>technical narrative</strong> that goes beyond the
+scheme’s minimum paperwork.</p>
+<p><strong>Questions this reference design helps you
+answer:</strong></p>
+<ul>
+<li><em>For the <strong>Firewalls</strong> control, can I show
+<strong>deny-by-default</strong> enforcement and <strong>documented
+boundaries</strong> between internal zones—not only perimeter
+appliances?</em> (CE1)</li>
+<li><em>For <strong>Secure configuration</strong>, can I prove what
+software is installed, detect <strong>configuration drift</strong>, and
+spot <strong>unnecessary services</strong> still listening?</em>
+(CE2)</li>
+<li><em>For <strong>User access control</strong>, can I tie
+<strong>east-west reachability</strong> to <strong>least
+privilege</strong> and surface <strong>privileged process
+activity</strong> on sensitive servers?</em> (CE3)</li>
+<li><em>For <strong>Malware protection</strong>, can I complement AV/EDR
+with <strong>unseen-process detection</strong>, <strong>forensic
+rules</strong>, and <strong>lateral-movement containment</strong>?</em>
+(CE4)</li>
+<li><em>For <strong>Patch / security update management</strong>, can I
+prioritise <strong>unpatched CVEs</strong> with <strong>EPSS and
+reachability</strong>, and maintain a <strong>live software
+inventory</strong>?</em> (CE5)</li>
+<li><em>For <strong>Plus</strong>, what <strong>technical
+artefacts</strong> support the assessor’s <strong>on-site / remote
+verification</strong> and <strong>vulnerability scans</strong>—without
+replacing the certification body’s test plan?</em></li>
+</ul>
+<p><strong>What you’ll need.</strong> Scope of <strong>in-scope
+devices</strong> per your certification body, change windows for sensor
+install, a CMDB or cloud asset inventory for reconciliation, patch
+ticketing, and (for Plus) coordination with your <strong>Cyber
+Essentials Plus assessor</strong> on test windows.</p>
+<p><strong>Where to start.</strong> Sections 1–2 to align scope; 3–4 for
+sensor and inventory; 5–6 for baseline visibility; 7–8 for policy design
+and enforcement; section 9 for <strong>audit / evidence</strong> ahead
+of assessment; section 10 for <strong>boundaries</strong> so you do not
+over-claim against the scheme.</p>
+<hr />
+<!-- CSW-RUNBOOK-PRIMER:v1 -->
+<h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</h2>
+<p>Cisco Secure Workload (CSW) is a <strong>workload protection
+platform</strong>. A lightweight <strong>agent</strong> on each
+server/VM/container observes processes and network flows; <strong>cloud
+connectors</strong> add AWS/Azure/GCP inventory where agents are not
+deployed.</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW term</th>
+<th>Meaning</th>
+<th>Why compliance teams care</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Logical boundary (CDE, PHI zone, CUI enclave)</td>
+<td>Defines the systems you must prove are isolated</td>
+</tr>
+<tr>
+<td><strong>Label / filter</strong></td>
+<td>Tag or query assigning workloads to scopes</td>
+<td>Automates scope membership — reduces drift</td>
+</tr>
+<tr>
+<td><strong>ADM</strong></td>
+<td>Application Dependency Mapping from observed traffic</td>
+<td><strong>Live</strong> network/data-flow diagram for assessors</td>
+</tr>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>Policy container for one scope or application</td>
+<td>Where allow/deny rules are authored</td>
+</tr>
+<tr>
+<td><strong>Monitor → Simulation → Enforce</strong></td>
+<td>Safe rollout sequence</td>
+<td>Simulation = change-board evidence before blocking traffic</td>
+</tr>
+<tr>
+<td><strong>Denied Connections</strong></td>
+<td>Log of flows blocked by policy</td>
+<td>Primary proof that enforcement <strong>operates</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Console areas:</strong> Investigate (inventory, flows, vulns)
+· Defend/Segmentation (policy) · Manage (agents) · Platform (connectors)
+· Administration (audit log)</p>
+<p><strong>Read next:</strong> <a href="../docs/compliance-evidence-playbook.html">Compliance evidence
+playbook</a> (full step-by-step) · <a href="../docs/about-csw.html">About
+CSW</a> (platform intro)</p>
+<hr />
+<h2 id="universal-evidence-workflow">Universal evidence workflow</h2>
+<p>Execute these phases for <strong>this framework’s</strong> compliance
+boundary. Map exports to control IDs in the <strong>Reporting &amp;
+Evidence</strong> section below.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Key CSW actions</th>
+<th>Typical duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Coverage</strong></td>
+<td>Every in-scope workload in CSW</td>
+<td>Install agents/connectors; apply compliance labels; create
+scope</td>
+<td>Days 1–10</td>
+</tr>
+<tr>
+<td><strong>2 — Baseline</strong></td>
+<td>Machine-generated flow map</td>
+<td>Run ADM ≥2 weeks; export clusters; app-owner signoff</td>
+<td>Days 11–28</td>
+</tr>
+<tr>
+<td><strong>3 — Policy</strong></td>
+<td>Designed isolation before enforce</td>
+<td>Build workspace; Simulation mode; fix false positives</td>
+<td>Days 29–45</td>
+</tr>
+<tr>
+<td><strong>4 — Operate</strong></td>
+<td>Continuous proof between audits</td>
+<td>Enforce; quarterly export pack; ADM refresh every 90 days</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-checklist-coverage">Phase 1 checklist (coverage)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>In-scope host list reconciled to CSW
+Inventory (100% or documented exceptions)</label></li>
+<li><label><input type="checkbox"></input>Labels applied:
+<code>compliance:&lt;framework&gt;</code>,
+<code>data:&lt;classification&gt;</code>,
+<code>env:&lt;tier&gt;</code></label></li>
+<li><label><input type="checkbox"></input>CSW scope created matching
+compliance boundary</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> inventory
+CSV + agent status screenshot</label></li>
+</ul>
+<h3 id="phase-2-checklist-baseline">Phase 2 checklist (baseline)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>ADM running on compliance scope for
+full business cycle (≥2 weeks)</label></li>
+<li><label><input type="checkbox"></input>Unexpected flows documented (shadow
+IT, vendor egress, scope creep)</label></li>
+<li><label><input type="checkbox"></input>App owners signed
+cluster-to-application mapping</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> ADM diagram
++ flow samples with process context</label></li>
+</ul>
+<h3 id="phase-3-checklist-policy">Phase 3 checklist (policy)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Default-deny posture defined for
+sensitive scope</label></li>
+<li><label><input type="checkbox"></input>ADM-imported rules refined;
+Simulation run ≥1 week</label></li>
+<li><label><input type="checkbox"></input>Change tickets for false-positive
+fixes; exception register updated</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> policy
+export + simulation report</label></li>
+</ul>
+<h3 id="phase-4-checklist-operate">Phase 4 checklist (operate)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Enforcement enabled on pilot scope;
+negative test recorded in Denied Connections</label></li>
+<li><label><input type="checkbox"></input>Quarterly pack: inventory, policy,
+denies, vulns, audit log (see playbook)</label></li>
+<li><label><input type="checkbox"></input>SIEM integration verified (sample
+events)</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> enforcement
+screenshot + quarterly binder</label></li>
+</ul>
+<h3 id="what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</h3>
+<p>Physical access, HR/training records, encryption key management,
+signed BAAs/vendor contracts, formal pen tests, and assessor attestation
+still require separate programmes. CSW addresses the
+<strong>workload-resident</strong> slice: segmentation, flows, process
+context, vuln reachability, and change drift.</p>
+<hr />
+<h2 id="csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</h2>
+<ul>
+<li>CE1 workload-level firewall enforcement proof</li>
+<li>CE2 secure configuration baseline from agent inventory</li>
+<li>CE5 patch management evidence scoped to workloads</li>
+</ul>
+<p><strong>Compared to manual programmes:</strong> static diagrams and
+annual firewall samples age immediately; CSW ties evidence to
+<strong>live workload behaviour</strong> and produces queryable exports
+on demand — supporting “operating effectively” language in PCI v4.0, SOC
+2 CC7, and HIPAA risk analysis.</p>
+<hr />
+<h2 id="overview">1. Overview</h2>
+<p><strong>Cyber Essentials</strong> is a <strong>UK
+government–endorsed</strong> baseline certification. It does not replace
+ISO 27001, NIS2, or deep red-teaming—but it is often
+<strong>contractually required</strong> for public-sector supply chain
+work. <strong>Cyber Essentials Plus</strong> adds <strong>independent
+technical verification</strong> (including <strong>penetration-style
+testing</strong> and hands-on checks by an assessor) on top of the
+<strong>Cyber Essentials</strong> self-assessment questionnaire. CSW is
+<strong>not</strong> a certification body; it <strong>produces technical
+evidence and controls</strong> that often <strong>exceed</strong> the
+scheme minimum, demonstrating <strong>security maturity</strong> to
+auditors, customers, and internal risk committees.</p>
+<h3 id="scheme-structure-vs.-csw-five-technical-themes">Scheme structure
+vs. CSW (five technical themes)</h3>
+<p>The NCSC scheme organises requirements into <strong>five technical
+control areas</strong>. This reference design labels them
+<strong>CE1–CE5</strong> for cross-reference to implementation plans.
+Your assessor’s materials may order or word them slightly
+differently—map row-for-row to their checklist.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Cyber Essentials theme</th>
+<th>CSW role</th>
+<th>Evidence focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CE1 — Firewalls &amp; Internet gateways</strong></td>
+<td><strong>Direct (workload firewall)</strong> — host-based
+<strong>microsegmentation</strong> enforces
+<strong>deny-by-default</strong> between zones; complements perimeter
+firewalls</td>
+<td>Allow/deny rule exports, simulation vs enforcement reports, boundary
+diagrams backed by <strong>observed</strong> flows</td>
+</tr>
+<tr>
+<td><strong>CE2 — Secure configuration</strong></td>
+<td><strong>Direct (visibility + drift)</strong> — <strong>software
+inventory</strong> (packages/versions); <strong>baseline /
+drift</strong> detection; <strong>process &amp; listener</strong>
+visibility for unnecessary services</td>
+<td>Inventory exports, drift alerts, listener reports</td>
+</tr>
+<tr>
+<td><strong>CE3 — User access control</strong></td>
+<td><strong>Supporting → strong with identity integration</strong> —
+<strong>identity-aware segmentation</strong> restricts which
+users/processes can reach which workloads; <strong>process
+context</strong> surfaces <strong>privileged</strong> use</td>
+<td>Policy tied to identity labels; ADM with user context where
+available</td>
+</tr>
+<tr>
+<td><strong>CE4 — Malware protection</strong></td>
+<td><strong>Complementary</strong> — CSW does <strong>not</strong>
+replace <strong>anti-malware</strong>; <strong>process
+monitoring</strong> detects <strong>anomalous / unseen</strong>
+binaries; <strong>forensic rules</strong> flag suspicious patterns;
+<strong>microsegmentation</strong> limits <strong>lateral
+movement</strong></td>
+<td>Process anomaly alerts, forensic timeline exports, containment
+evidence</td>
+</tr>
+<tr>
+<td><strong>CE5 — Security update management</strong></td>
+<td><strong>Direct (prioritisation + inventory)</strong> — <strong>CVE
+awareness</strong> and <strong>EPSS</strong>; <strong>software
+inventory</strong> tracks patch levels; <strong>reachability
+analysis</strong> prioritises exposed unpatched workloads</td>
+<td>Vulnerability + reachability reports, risk-ranked backlogs</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cyber-essentials-vs.-cyber-essentials-plus-assessment-model">Cyber
+Essentials vs. Cyber Essentials Plus (assessment model)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Cyber Essentials (basic)</th>
+<th>Cyber Essentials Plus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Assessment style</td>
+<td><strong>Self-assessment questionnaire</strong> + declaration</td>
+<td><strong>Hands-on technical verification</strong> by accredited
+assessor</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td>Organiser attests controls</td>
+<td><strong>Internal/external technical checks</strong>, malware
+delivery tests, etc. (per assessor plan)</td>
+</tr>
+<tr>
+<td>CSW’s role</td>
+<td>Evidence preparation for answers</td>
+<td><strong>Live enforcement and telemetry</strong> during assessor
+activity; <strong>pre/post</strong> flow and policy exports</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="pre-deployment-checklist">2. Pre-Deployment Checklist</h2>
+<p>Before deploying CSW sensors on <strong>in-scope</strong>
+systems:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>CSW cluster (SaaS or on-prem) is
+provisioned and reachable from workloads (<strong>HTTPS 443</strong>
+outbound typical)</label></li>
+<li><label><input type="checkbox"></input><strong>In-scope asset list</strong>
+agreed with certification body (servers, laptops, firewalls—per scheme
+version)</label></li>
+<li><label><input type="checkbox"></input>Linux/Windows sensor compatibility
+verified for all <strong>Plus candidate</strong> workloads</label></li>
+<li><label><input type="checkbox"></input>Cloud accounts connected
+(<strong>AWS, Azure, GCP</strong>) via CSW cloud connectors where
+applicable</label></li>
+<li><label><input type="checkbox"></input>Stakeholders: IT operations,
+security, <strong>assessment lead</strong>, change
+management</label></li>
+<li><label><input type="checkbox"></input><strong>Monitoring-only</strong>
+phase approved before enforcement (recommended)</label></li>
+<li><label><input type="checkbox"></input>Baseline change-freeze or tagging
+convention agreed
+(e.g. <code>compliance:cyber-essentials-plus</code>)</label></li>
+</ul>
+<hr />
+<h2 id="phase-1-sensor-deployment-days-15">3. Phase 1 — Sensor
+deployment (Days 1–5)</h2>
+<h3 id="on-premises-workloads">3.1 On-premises workloads</h3>
+<p><strong>Install software sensors:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux (RHEL/CentOS/Rocky/Alma)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> rpm <span class="at">-ivh</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.rpm</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Debian / Ubuntu</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dpkg <span class="at">-i</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.deb</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify agent service (name may vary slightly by package); example:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl status tet-sensor</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl status csw-agent</span></code></pre></div>
+<p><strong>Windows:</strong> install the MSI supplied for your CSW
+release; confirm the service is <strong>Running</strong> and reporting
+to the correct cluster URL.</p>
+<p><strong>Initial posture (recommended):</strong></p>
+<ul>
+<li>Enforcement: <strong>Monitoring only</strong> until baselines
+exist</li>
+<li>Enable <strong>process hash</strong>, <strong>network flow</strong>,
+and <strong>vulnerability</strong> telemetry where licensed</li>
+<li>Apply tags: <code>env:production</code>,
+<code>compliance:cyber-essentials-plus</code>,
+<code>ce-scope:in</code></li>
+</ul>
+<h3 id="cloud-workloads">3.2 Cloud workloads</h3>
+<p><strong>Option A — Sensor on every in-scope VM:</strong> same as
+on-prem.</p>
+<p><strong>Option B — Cloud connectors (agentless breadth):</strong></p>
+<pre><code>CSW UI → Platform → External Orchestrators
+  → Add AWS / Azure / GCP connector
+  → Least-privilege IAM / service principal
+  → Enable flow-related ingestion per connector documentation</code></pre>
+<h3 id="sensor-validation">3.3 Sensor validation</h3>
+<pre><code>CSW UI → Manage → Agents
+  → Status: Active for all in-scope hosts
+  → Version alignment across cluster
+  → Confirm telemetry indicators (flows / inventory updating)</code></pre>
+<hr />
+<h2 id="phase-2-scope-inventory-design-days-610">4. Phase 2 — Scope
+&amp; inventory design (Days 6–10)</h2>
+<h3 id="scope-architecture-uk-enterprise-pattern">4.1 Scope architecture
+(UK enterprise pattern)</h3>
+<p>Design scopes around <strong>trust zones</strong> and <strong>data
+sensitivity</strong>—mirroring how you describe <strong>firewall
+zones</strong> to an assessor:</p>
+<pre><code>Root
+└── UK-Org
+    ├── CE-In-Scope-Production
+    │   ├── App-Servers
+    │   ├── DB-Servers
+    │   └── Admin-Jump-Hosts
+    ├── Corporate-Standard
+    ├── Development (often out of CE scope—confirm with assessor)
+    └── Partner-Connectivity</code></pre>
+<h3 id="auto-discovery-filters-examples">4.2 Auto-discovery filters
+(examples)</h3>
+<pre><code>Filter: DB-Listeners
+  - Process: mysqld, postgres, sqlservr, oracle
+  - Ports: 3306, 5432, 1433, 1521
+
+Filter: High-Risk-Services
+  - Ports: 22, 3389, 445, 135, 5985</code></pre>
+<h3 id="labelling-strategy">4.3 Labelling strategy</h3>
+<table>
+<thead>
+<tr>
+<th>Label key</th>
+<th>Example</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ce-scope</code></td>
+<td>in, out</td>
+<td>In-scope for certification boundary</td>
+</tr>
+<tr>
+<td><code>env</code></td>
+<td>production, dev</td>
+<td>Separates test systems</td>
+</tr>
+<tr>
+<td><code>tier</code></td>
+<td>web, app, data</td>
+<td>Segmentation policy grouping</td>
+</tr>
+<tr>
+<td><code>owner</code></td>
+<td>team name</td>
+<td>Accountability</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-3-visibility-baseline-days-1125">5. Phase 3 — Visibility
+&amp; baseline (Days 11–25)</h2>
+<h3 id="application-dependency-mapping-adm">5.1 Application Dependency
+Mapping (ADM)</h3>
+<p>ADM builds the <strong>observed network map</strong> assessors expect
+you to understand—useful for <strong>CE1</strong> (boundaries) and
+<strong>CE5</strong> (what is reachable from where).</p>
+<pre><code>CSW UI → Investigate → Application Dependency Mapping
+  → New workspace: &quot;UK-CE-Plus-ADM&quot;
+  → Scope: CE-In-Scope-Production
+  → Window: 2–4 weeks (include payroll / month-end if applicable)
+  → Enable process context (and user context if sensors support)</code></pre>
+<h3 id="baseline-and-secure-configuration-ce2">5.2 Baseline and secure
+configuration (CE2)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Activity</th>
+<th>CSW capability</th>
+<th>Assessor-relevant output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Software inventory</td>
+<td>Installed packages / versions</td>
+<td>Export per workload</td>
+</tr>
+<tr>
+<td>Drift from gold image</td>
+<td>Baseline deviation detection</td>
+<td>Drift incidents with timestamps</td>
+</tr>
+<tr>
+<td>Unnecessary services</td>
+<td>Listening processes</td>
+<td>Listener report by scope</td>
+</tr>
+</tbody>
+</table>
+<p>Document <strong>who approves</strong> baseline changes in your
+change tool—CSW surfaces <em>what</em> changed; <strong>policy</strong>
+records <em>who authorised</em> it.</p>
+<h3 id="patch-posture-visibility-ce5">5.3 Patch posture visibility
+(CE5)</h3>
+<pre><code>CSW UI → Investigate → Vulnerabilities (or Vulnerability Report — per release)
+  → Scope: CE-In-Scope-Production
+  → Sort by CVSS / exploit intel / EPSS where available
+  → Add reachability context (exposed to untrusted networks?)</code></pre>
+<hr />
+<h2 id="phase-4-policy-design-days-2640">6. Phase 4 — Policy design
+(Days 26–40)</h2>
+<p>Translate <strong>Cyber Essentials</strong> intent into <strong>CSW
+segmentation</strong> workspaces. <strong>Perimeter firewalls</strong>
+remain in scope for CE1; CSW proves <strong>workload-level</strong>
+enforcement <strong>inside</strong> the boundary.</p>
+<h3 id="policy-themes-conceptual">6.1 Policy themes (conceptual)</h3>
+<p><strong>Deny-by-default matrix (CE1 / lateral
+containment):</strong></p>
+<pre><code>DENY: Any → DB-Tier (default deny inbound)
+DENY: App-Tier → Internet (except approved proxy / patch endpoints)
+DENY: Corporate-Standard → CE-In-Scope-Production (except jump host paths)</code></pre>
+<p><strong>Allowlists (least privilege — CE3 alignment):</strong></p>
+<pre><code>ALLOW: App-Servers → DB-Servers (tcp/1433 or tcp/5432 — prefer TLS/native encryption per app)
+ALLOW: Admin-Jump-Hosts → App-Servers (tcp/22, tcp/3389)
+ALLOW: CE-In-Scope-Production → Approved-Patch-Mirrors (tcp/443)</code></pre>
+<p><strong>Plaintext and risky protocol detection (pairs with CE2/CE4
+narratives):</strong></p>
+<pre><code>ALERT or DENY: sensitive scopes using cleartext where TLS is mandated
+  (e.g. HTTP to admin interfaces, legacy SMB patterns — tune to your standard)</code></pre>
+<h3 id="policy-workspace-setup">6.2 Policy workspace setup</h3>
+<pre><code>CSW UI → Defend → Segmentation
+  → New workspace: &quot;UK-CE-Plus-Enforcement&quot;
+  → Scope: CE-In-Scope-Production
+  → Import ADM-suggested policies → reconcile with intended architecture
+  → Phase: Simulation → Enforcement (staged)</code></pre>
+<hr />
+<h2 id="phase-5-enforcement-days-4160">7. Phase 5 — Enforcement (Days
+41–60+)</h2>
+<h3 id="recommended-progression">7.1 Recommended progression</h3>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Mode</th>
+<th>Duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Simulation</td>
+<td>2–3 weeks</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Enforce <strong>obvious</strong> deny rules</td>
+<td>1 week</td>
+</tr>
+<tr>
+<td>C</td>
+<td>Full enforcement</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="during-plus-technical-verification">7.2 During Plus technical
+verification</h3>
+<ul>
+<li>Maintain a <strong>read-only</strong> export of <strong>active
+policies</strong> dated the assessment window</li>
+<li>Capture <strong>assessor IP ranges</strong> only if your assessor
+instructs you to allow test traffic—<strong>do not</strong> weaken
+production security without written agreement</li>
+<li>Run <strong>flow search</strong> filtered to <strong>test
+interval</strong> to narrate any blocked or allowed tester activity</li>
+</ul>
+<hr />
+<h2 id="phase-6-monitoring-alerting-audit-evidence">8. Phase 6 —
+Monitoring, alerting &amp; audit evidence</h2>
+<h3 id="alert-catalogue-examples">8.1 Alert catalogue (examples)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Alert</th>
+<th>CSW signal</th>
+<th>CE mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New listener on sensitive tier</td>
+<td>Listener delta</td>
+<td>CE2</td>
+</tr>
+<tr>
+<td>Deny hit on production policy</td>
+<td>Enforcement log</td>
+<td>CE1 / CE3</td>
+</tr>
+<tr>
+<td>Unseen process hash</td>
+<td>Process anomaly</td>
+<td>CE4</td>
+</tr>
+<tr>
+<td>Critical CVE on internet-exposed workload</td>
+<td>Vuln + reachability</td>
+<td>CE5</td>
+</tr>
+<tr>
+<td>East-west path to DB from new source</td>
+<td>Flow novelty</td>
+<td>CE1 / CE3</td>
+</tr>
+</tbody>
+</table>
+<h3 id="evidence-for-certification-and-annual-refresh">8.2 Evidence for
+certification and annual refresh</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Evidence item</th>
+<th>CSW source</th>
+<th>Typical CE mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Segmentation / firewall rule set</td>
+<td>Policy workspace export</td>
+<td>CE1</td>
+</tr>
+<tr>
+<td>Inventory of software &amp; versions</td>
+<td>Inventory export</td>
+<td>CE2 / CE5</td>
+</tr>
+<tr>
+<td>Baseline drift report</td>
+<td>Drift / configuration modules</td>
+<td>CE2</td>
+</tr>
+<tr>
+<td>Vulnerability backlog with prioritisation</td>
+<td>Vuln report + EPSS / exposure</td>
+<td>CE5</td>
+</tr>
+<tr>
+<td>Flow logs with process attribution</td>
+<td>Flow search export</td>
+<td>CE1–CE5 (investigations)</td>
+</tr>
+<tr>
+<td>Incident reconstruction bundle</td>
+<td>Process + flow timeline</td>
+<td>CE4 / IR</td>
+</tr>
+</tbody>
+</table>
+<p>Retain evidence per your <strong>legal / records</strong> policy;
+Cyber Essentials does not specify log retention as HIPAA does—align to
+<strong>NCSC / internal</strong> standards.</p>
+<hr />
+<h2 id="control-by-control-mapping-requirement-capability-evidence">9.
+Control-by-control mapping (requirement → capability → evidence)</h2>
+<p>Use this table as the <strong>crosswalk</strong> for your
+<strong>evidence register</strong>. Wording of official requirements
+must track your assessor’s <strong>current</strong> scheme document.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>UK CE theme</th>
+<th>Representative scheme intent (summary)</th>
+<th>CSW capability</th>
+<th>Evidence produced</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CE1 Firewalls</strong></td>
+<td>Boundary protection; <strong>default deny</strong>; controlled
+inbound/outbound</td>
+<td>Host-based <strong>microsegmentation</strong>; zone-to-zone
+<strong>deny-by-default</strong>; ADM-backed rules</td>
+<td>Policy export; simulation vs enforcement report; ADM diagram;
+deny-hit statistics</td>
+</tr>
+<tr>
+<td><strong>CE2 Secure configuration</strong></td>
+<td>Harden systems; remove/disable unnecessary software &amp;
+services</td>
+<td><strong>Software inventory</strong>; <strong>baseline
+drift</strong>; <strong>process/listener</strong> visibility</td>
+<td>Inventory CSV; drift incidents; listener reports</td>
+</tr>
+<tr>
+<td><strong>CE3 User access control</strong></td>
+<td>Least privilege accounts; controlled admin access</td>
+<td><strong>Identity-aware</strong> policies (where integrated);
+constrained <strong>east-west</strong> paths; <strong>privileged
+process</strong> visibility</td>
+<td>Identity-scoped rules; ADM with user context; process reports for
+admin tools</td>
+</tr>
+<tr>
+<td><strong>CE4 Malware protection</strong></td>
+<td>Anti-malware / appropriate alternative controls</td>
+<td><strong>Complement AV</strong>: unseen binary detection;
+<strong>forensic detection</strong> rules; <strong>segmentation</strong>
+limiting spread</td>
+<td>Alert history; process tree exports; blocked lateral paths</td>
+</tr>
+<tr>
+<td><strong>CE5 Security updates</strong></td>
+<td>Patch <strong>high/critical</strong> issues in defined
+timeframes</td>
+<td><strong>CVE</strong> inventory; <strong>EPSS</strong>
+prioritisation; <strong>reachability</strong> scoring; correlation to
+inventory</td>
+<td>Risk-ranked CVE report; “exposed unpatched” dashboard export</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="boundaries-what-csw-does-not-cover">10. Boundaries — what CSW
+does <strong>not</strong> cover</h2>
+<ul>
+<li><strong>Certification decision</strong> — only your
+<strong>accredited Cyber Essentials/Cyber Essentials Plus</strong>
+assessor certifies compliance.</li>
+<li><strong>Questionnaire completion</strong> — administrative
+attestation remains your responsibility.</li>
+<li><strong>Perimeter appliance configuration</strong> — CSW does not
+replace <strong>corporate firewalls</strong>, WAFs, or router ACLs; it
+<strong>complements</strong> them with <strong>host
+enforcement</strong>.</li>
+<li><strong>Anti-malware product</strong> — CSW is <strong>not</strong>
+a replacement for <strong>supported AV/EDR</strong> required by CE4; it
+adds <strong>behavioural</strong> and <strong>network
+containment</strong> evidence.</li>
+<li><strong>MFA, IAM, and account lifecycle</strong> — CE3 requires
+<strong>organisational</strong> IAM processes; CSW enforces
+<strong>network</strong> reachability consistent with those
+decisions.</li>
+<li><strong>Patch deployment</strong> — CSW <strong>identifies</strong>
+and <strong>prioritises</strong>; <strong>WSUS</strong>,
+<strong>SCCM</strong>, <strong>patch orchestration</strong> tools
+perform installation.</li>
+<li><strong>Physical security and supplier contracts</strong> — outside
+product scope.</li>
+</ul>
+<hr />
+<h2 id="audit-preparation-evidence-export-worked-examples">11. Audit
+preparation &amp; evidence export (worked examples)</h2>
+<h3 id="cli-api-patterns-illustrative">11.1 CLI / API patterns
+(illustrative)</h3>
+<p>Many teams export via UI; automate where possible:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: periodic inventory pull via your CSW automation (replace with official API/CLI for your version)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># curl -s -H &quot;Authorization: Bearer ${CSW_API_TOKEN}&quot; \</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   &quot;${CSW_API_BASE}/v1/inventory/workloads?scope=CE-In-Scope-Production&quot; \</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   -o &quot;evidence/inventory-$(date +%F).json&quot;</span></span></code></pre></div>
+<p>Store exports in an <strong>immutable</strong> evidence bucket (WORM
+/ object lock) if your GRC team requires it.</p>
+<h3 id="siem-forwarding-optional">11.2 SIEM forwarding (optional)</h3>
+<p>Forward <strong>flow / enforcement / alert</strong> metadata to
+Splunk / Sentinel / Chronicle to correlate with
+<strong>firewall</strong> and <strong>EDR</strong> logs for
+<strong>Plus</strong> interviews.</p>
+<hr />
+<h2 id="related-frameworks">Related frameworks</h2>
+<ul>
+<li><a href="../NIS2/CSW-NIS2-Reference-Design.html">NIS2 (EU
+2022/2555)</a> — for UK organisations with EU entities; different legal
+base, overlapping technical measures.</li>
+<li><a href="../NIST-800-53/CSW-NIST-800-53-Reference-Design.html">NIST SP
+800-53</a> — deeper control catalogue if Cyber Essentials is a
+<strong>stepping stone</strong> to FedRAMP-style rigour.</li>
+<li><a href="../CIS-Controls-v8/CSW-CIS-Reference-Design.html">CIS
+Controls v8</a> — operational mapping sibling for <strong>inventory,
+vuln, segmentation</strong>.</li>
+</ul>
+<hr />
+<h3 id="appendix-a-conceptual-policy-fragment-yaml-style">Appendix A —
+Conceptual policy fragment (YAML-style)</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">workspace</span><span class="kw">:</span><span class="at"> UK-CE-Plus-Enforcement</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scope</span><span class="kw">:</span><span class="at"> CE-In-Scope-Production</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mode</span><span class="kw">:</span><span class="at"> simulation</span><span class="co">   # promote to enforcement after sign-off</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rules</span><span class="kw">:</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> CE1-default-deny-to-db</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">action</span><span class="kw">:</span><span class="at"> deny</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">source_scope</span><span class="kw">:</span><span class="at"> any</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">destination_scope</span><span class="kw">:</span><span class="at"> DB-Servers</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">services</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">tcp/</span><span class="dv">1433</span><span class="kw">,</span><span class="at"> tcp/</span><span class="dv">3306</span><span class="kw">,</span><span class="at"> tcp/</span><span class="dv">5432</span><span class="kw">]</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">notes</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Allow only explicit app tiers via companion allow rules.&quot;</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> CE5-allow-patch-egress</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">action</span><span class="kw">:</span><span class="at"> allow</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">source_scope</span><span class="kw">:</span><span class="at"> CE-In-Scope-Production</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">destination_fqdn_list</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">wsus.corp.example</span><span class="kw">,</span><span class="at"> patches.vendor.example</span><span class="kw">]</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">services</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">tcp/</span><span class="dv">443</span><span class="kw">]</span></span></code></pre></div>
+<h3 id="appendix-b-evidence-pack-checklist-cyber-essentials-plus-window">Appendix
+B — Evidence pack checklist (Cyber Essentials Plus window)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Artefact</th>
+<th>Suggested frequency</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Active segmentation policy export</td>
+<td>Assessment week</td>
+<td>Security engineering</td>
+</tr>
+<tr>
+<td>ADM workspace snapshot</td>
+<td>Quarterly</td>
+<td>Security architecture</td>
+</tr>
+<tr>
+<td>Vulnerability report (in-scope)</td>
+<td>Monthly minimum</td>
+<td>Vuln management</td>
+</tr>
+<tr>
+<td>Drift / baseline exceptions</td>
+<td>Per change ticket</td>
+<td>IT operations</td>
+</tr>
+<tr>
+<td>Incident example (redacted) using flow export</td>
+<td>If available</td>
+<td>IR lead</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Prepared for Cisco customer engagements. Map control text to your
+assessor’s current NCSC scheme document; scheme versions
+evolve.</em></p>
+</body>
+</html>

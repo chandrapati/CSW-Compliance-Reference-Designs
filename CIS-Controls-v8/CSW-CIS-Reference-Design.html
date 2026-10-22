@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>CIS Critical Security Controls v8.1 — Reference Design</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-CIS-Reference-Design.html">CSW-CIS-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-07T17:30:32Z UTC · Repository commit: a630820</div><header id="title-block-header">
+<h1 class="title">CIS Critical Security Controls v8.1 — Reference
+Design</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload-cis-critical-security-controls-v8.1" id="toc-cisco-secure-workload-cis-critical-security-controls-v8.1">Cisco
+Secure Workload — CIS Critical Security Controls v8.1</a>
+<ul>
+<li><a href="#reference-design-implementation-group-2-lead-with-ig1-ig3-deltas" id="toc-reference-design-implementation-group-2-lead-with-ig1-ig3-deltas">Reference
+Design | Implementation Group 2 Lead, with IG1 / IG3 Deltas</a></li>
+<li><a href="#readers-guide" id="toc-readers-guide">Reader’s
+Guide</a></li>
+<li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</a></li>
+<li><a href="#universal-evidence-workflow" id="toc-universal-evidence-workflow">Universal evidence workflow</a>
+<ul>
+<li><a href="#phase-1-checklist-coverage" id="toc-phase-1-checklist-coverage">Phase 1 checklist
+(coverage)</a></li>
+<li><a href="#phase-2-checklist-baseline" id="toc-phase-2-checklist-baseline">Phase 2 checklist
+(baseline)</a></li>
+<li><a href="#phase-3-checklist-policy" id="toc-phase-3-checklist-policy">Phase 3 checklist (policy)</a></li>
+<li><a href="#phase-4-checklist-operate" id="toc-phase-4-checklist-operate">Phase 4 checklist (operate)</a></li>
+<li><a href="#what-csw-evidence-does-not-replace" id="toc-what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</a></li>
+</ul></li>
+<li><a href="#csw-effectiveness-for-this-framework" id="toc-csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</a></li>
+<li><a href="#overview" id="toc-overview">1. Overview</a></li>
+<li><a href="#implementation-group-calibration" id="toc-implementation-group-calibration">2. Implementation Group
+Calibration</a></li>
+<li><a href="#scope-architecture-and-labeling" id="toc-scope-architecture-and-labeling">3. Scope Architecture and
+Labeling</a>
+<ul>
+<li><a href="#suggested-scope-architecture" id="toc-suggested-scope-architecture">3.1 Suggested Scope
+Architecture</a></li>
+<li><a href="#inventory-filters" id="toc-inventory-filters">3.2
+Inventory Filters</a></li>
+<li><a href="#labeling-strategy" id="toc-labeling-strategy">3.3 Labeling
+Strategy</a></li>
+</ul></li>
+<li><a href="#policy-design-deny-by-default-allowlist" id="toc-policy-design-deny-by-default-allowlist">4. Policy Design —
+Deny-by-Default Allowlist</a>
+<ul>
+<li><a href="#cis-aligned-policy-framework" id="toc-cis-aligned-policy-framework">4.1 CIS-Aligned Policy
+Framework</a></li>
+<li><a href="#policy-workspace-lifecycle" id="toc-policy-workspace-lifecycle">4.2 Policy Workspace
+Lifecycle</a></li>
+</ul></li>
+<li><a href="#control-1-inventory-and-control-of-enterprise-assets" id="toc-control-1-inventory-and-control-of-enterprise-assets">5. Control
+1 — Inventory and Control of Enterprise Assets</a></li>
+<li><a href="#control-2-inventory-and-control-of-software-assets" id="toc-control-2-inventory-and-control-of-software-assets">6. Control 2
+— Inventory and Control of Software Assets</a></li>
+<li><a href="#control-4-secure-configuration-of-enterprise-assets-and-software" id="toc-control-4-secure-configuration-of-enterprise-assets-and-software">7.
+Control 4 — Secure Configuration of Enterprise Assets and
+Software</a></li>
+<li><a href="#control-7-continuous-vulnerability-management" id="toc-control-7-continuous-vulnerability-management">8. Control 7 —
+Continuous Vulnerability Management</a></li>
+<li><a href="#control-8-audit-log-management" id="toc-control-8-audit-log-management">9. Control 8 — Audit Log
+Management</a></li>
+<li><a href="#control-12-network-infrastructure-management" id="toc-control-12-network-infrastructure-management">10. Control 12 —
+Network Infrastructure Management</a></li>
+<li><a href="#control-13-network-monitoring-and-defense" id="toc-control-13-network-monitoring-and-defense">11. Control 13 —
+Network Monitoring and Defense</a></li>
+<li><a href="#control-17-incident-response-management" id="toc-control-17-incident-response-management">12. Control 17 —
+Incident Response Management</a></li>
+<li><a href="#control-18-penetration-testing-supporting" id="toc-control-18-penetration-testing-supporting">13. Control 18 —
+Penetration Testing (Supporting)</a></li>
+<li><a href="#mapping-table-cis-controls-v8.1-csw-capability" id="toc-mapping-table-cis-controls-v8.1-csw-capability">14. Mapping
+Table — CIS Controls v8.1 → CSW Capability</a></li>
+<li><a href="#auditor-assessor-response-guide" id="toc-auditor-assessor-response-guide">15. Auditor / Assessor Response
+Guide</a></li>
+<li><a href="#related-frameworks" id="toc-related-frameworks">16.
+Related Frameworks</a></li>
+<li><a href="#disclaimer" id="toc-disclaimer">17. Disclaimer</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload-cis-critical-security-controls-v8.1">Cisco
+Secure Workload — CIS Critical Security Controls v8.1</h1>
+<h2 id="reference-design-implementation-group-2-lead-with-ig1-ig3-deltas">Reference
+Design | Implementation Group 2 Lead, with IG1 / IG3 Deltas</h2>
+<p><strong>Version:</strong> 1.0 (draft — pending SME review) |
+<strong>Standard:</strong> CIS Critical Security Controls v8.1 |
+<strong>Audience:</strong> Security teams adopting or maintaining CIS
+Controls posture, particularly those targeting Implementation Group 2
+(IG2) | <strong>Environment:</strong> Hybrid (on-prem + cloud +
+containers)</p>
+<hr />
+<h2 id="readers-guide">Reader’s Guide</h2>
+<p><strong>Who this is for.</strong> Organisations using the CIS
+Critical Security Controls (currently v8.1) as their primary cyber
+programme reference, or as an objective scorecard alongside another
+framework (HIPAA, SOC 2, PCI, NIST CSF, NIST 800-53). The default depth
+in this reference design is written for <strong>Implementation Group 2
+(IG2)</strong> because that’s the band most enterprise programmes
+operate in. IG1 and IG3 deltas are called out where the work materially
+changes.</p>
+<p><strong>Why CIS Controls and not just NIST 800-53?</strong> The CIS
+Controls are an <strong>operationally ordered, prioritised</strong>
+subset of what the broader NIST catalogue describes. Where 800-53 lists
+1,000+ controls covering every conceivable scenario, CIS Controls
+compress the universe to 18 Controls and ~153 Safeguards, rank-ordered
+by what defends against actual attacks first. Many programmes use CIS as
+the “what to do this year” view and 800-53 as the “what to satisfy in
+the contract” view.</p>
+<p><strong>Questions this reference design helps you
+answer:</strong></p>
+<ul>
+<li><em>Control 1 (Inventory of Enterprise Assets) and Control 2
+(Inventory of Software Assets): can I produce a current inventory of
+CSW-covered workloads and the software running on them, refreshed
+continuously and reconciled with the enterprise source of
+truth?</em></li>
+<li><em>Control 4 (Secure Configuration): can I detect drift from
+baseline configuration on CSW-covered workloads, attribute the change to
+a request ticket, and produce evidence per quarter?</em></li>
+<li><em>Control 7 (Continuous Vulnerability Management): for every CVE
+that drops, can I show which workloads are exposed, how reachable they
+are from current attacker positions, and how that backlog has
+trended?</em></li>
+<li><em>Control 8 (Audit Log Management): am I retaining audit-quality
+logs at the workload level for the period the Safeguards specify, with
+process attribution that supports incident reconstruction?</em></li>
+<li><em>Control 12 (Network Infrastructure Management) and Control 13
+(Network Monitoring and Defense): can I prove segmentation between trust
+zones is enforced at the workload, not just configured at the edge, and
+that east-west traffic between workloads is observed and
+alertable?</em></li>
+<li><em>Control 17 (Incident Response Management): when an event is
+declared, can I assemble a forensic dossier (workloads, processes,
+flows, packages, baselines) within minutes rather than days?</em></li>
+</ul>
+<p><strong>What you’ll need.</strong> Your current self-assessed CIS
+Implementation Group rating (IG1 / IG2 / IG3), your existing inventory
+source of truth (CMDB, cloud-asset inventory, or both), your patch and
+change management ticketing system, and the SIEM destination for log
+forwarding. CSW augments these; it does not replace them.</p>
+<p><strong>Where to start.</strong> Section 2 if you’re scoping CSW
+relative to your IG; sections 3–4 for the scope tree and the
+deny-by-default policy set everything else builds on; sections 5–7 if
+Controls 1, 2 and 4 are the priority gap; sections 8 and 11 if Controls
+7 and 13 are the audit gap; section 9 if Control 8 logging retention is
+the open item; section 12 for the incident-response evidence pack
+(Control 17).</p>
+<hr />
+<!-- CSW-RUNBOOK-PRIMER:v1 -->
+<h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</h2>
+<p>Cisco Secure Workload (CSW) is a <strong>workload protection
+platform</strong>. A lightweight <strong>agent</strong> on each
+server/VM/container observes processes and network flows; <strong>cloud
+connectors</strong> add AWS/Azure/GCP inventory where agents are not
+deployed.</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW term</th>
+<th>Meaning</th>
+<th>Why compliance teams care</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Logical boundary (CDE, PHI zone, CUI enclave)</td>
+<td>Defines the systems you must prove are isolated</td>
+</tr>
+<tr>
+<td><strong>Label / filter</strong></td>
+<td>Tag or query assigning workloads to scopes</td>
+<td>Automates scope membership — reduces drift</td>
+</tr>
+<tr>
+<td><strong>ADM</strong></td>
+<td>Application Dependency Mapping from observed traffic</td>
+<td><strong>Live</strong> network/data-flow diagram for assessors</td>
+</tr>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>Policy container for one scope or application</td>
+<td>Where allow/deny rules are authored</td>
+</tr>
+<tr>
+<td><strong>Monitor → Simulation → Enforce</strong></td>
+<td>Safe rollout sequence</td>
+<td>Simulation = change-board evidence before blocking traffic</td>
+</tr>
+<tr>
+<td><strong>Denied Connections</strong></td>
+<td>Log of flows blocked by policy</td>
+<td>Primary proof that enforcement <strong>operates</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Console areas:</strong> Investigate (inventory, flows, vulns)
+· Defend/Segmentation (policy) · Manage (agents) · Platform (connectors)
+· Administration (audit log)</p>
+<p><strong>Read next:</strong> <a href="../docs/compliance-evidence-playbook.html">Compliance evidence
+playbook</a> (full step-by-step) · <a href="../docs/about-csw.html">About
+CSW</a> (platform intro)</p>
+<hr />
+<h2 id="universal-evidence-workflow">Universal evidence workflow</h2>
+<p>Execute these phases for <strong>this framework’s</strong> compliance
+boundary. Map exports to control IDs in the <strong>Reporting &amp;
+Evidence</strong> section below.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Key CSW actions</th>
+<th>Typical duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Coverage</strong></td>
+<td>Every in-scope workload in CSW</td>
+<td>Install agents/connectors; apply compliance labels; create
+scope</td>
+<td>Days 1–10</td>
+</tr>
+<tr>
+<td><strong>2 — Baseline</strong></td>
+<td>Machine-generated flow map</td>
+<td>Run ADM ≥2 weeks; export clusters; app-owner signoff</td>
+<td>Days 11–28</td>
+</tr>
+<tr>
+<td><strong>3 — Policy</strong></td>
+<td>Designed isolation before enforce</td>
+<td>Build workspace; Simulation mode; fix false positives</td>
+<td>Days 29–45</td>
+</tr>
+<tr>
+<td><strong>4 — Operate</strong></td>
+<td>Continuous proof between audits</td>
+<td>Enforce; quarterly export pack; ADM refresh every 90 days</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-checklist-coverage">Phase 1 checklist (coverage)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>In-scope host list reconciled to CSW
+Inventory (100% or documented exceptions)</label></li>
+<li><label><input type="checkbox"></input>Labels applied:
+<code>compliance:&lt;framework&gt;</code>,
+<code>data:&lt;classification&gt;</code>,
+<code>env:&lt;tier&gt;</code></label></li>
+<li><label><input type="checkbox"></input>CSW scope created matching
+compliance boundary</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> inventory
+CSV + agent status screenshot</label></li>
+</ul>
+<h3 id="phase-2-checklist-baseline">Phase 2 checklist (baseline)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>ADM running on compliance scope for
+full business cycle (≥2 weeks)</label></li>
+<li><label><input type="checkbox"></input>Unexpected flows documented (shadow
+IT, vendor egress, scope creep)</label></li>
+<li><label><input type="checkbox"></input>App owners signed
+cluster-to-application mapping</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> ADM diagram
++ flow samples with process context</label></li>
+</ul>
+<h3 id="phase-3-checklist-policy">Phase 3 checklist (policy)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Default-deny posture defined for
+sensitive scope</label></li>
+<li><label><input type="checkbox"></input>ADM-imported rules refined;
+Simulation run ≥1 week</label></li>
+<li><label><input type="checkbox"></input>Change tickets for false-positive
+fixes; exception register updated</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> policy
+export + simulation report</label></li>
+</ul>
+<h3 id="phase-4-checklist-operate">Phase 4 checklist (operate)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Enforcement enabled on pilot scope;
+negative test recorded in Denied Connections</label></li>
+<li><label><input type="checkbox"></input>Quarterly pack: inventory, policy,
+denies, vulns, audit log (see playbook)</label></li>
+<li><label><input type="checkbox"></input>SIEM integration verified (sample
+events)</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> enforcement
+screenshot + quarterly binder</label></li>
+</ul>
+<h3 id="what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</h3>
+<p>Physical access, HR/training records, encryption key management,
+signed BAAs/vendor contracts, formal pen tests, and assessor attestation
+still require separate programmes. CSW addresses the
+<strong>workload-resident</strong> slice: segmentation, flows, process
+context, vuln reachability, and change drift.</p>
+<hr />
+<h2 id="csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</h2>
+<ul>
+<li>Direct evidence on Controls 1, 2, 4, 7, 8, 13</li>
+<li>IG2 lead with IG1/IG3 deltas documented in reference design</li>
+<li>Asset/software inventory + secure config from agent telemetry</li>
+</ul>
+<p><strong>Compared to manual programmes:</strong> static diagrams and
+annual firewall samples age immediately; CSW ties evidence to
+<strong>live workload behaviour</strong> and produces queryable exports
+on demand — supporting “operating effectively” language in PCI v4.0, SOC
+2 CC7, and HIPAA risk analysis.</p>
+<hr />
+<h2 id="overview">1. Overview</h2>
+<p>CIS Critical Security Controls v8.1 organises 18 Controls and ~153
+Safeguards by Implementation Group:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>IG</th>
+<th>Typical org profile</th>
+<th>Safeguards</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IG1</td>
+<td>Small org, basic staff, limited resources, commodity hardware</td>
+<td>56 Safeguards</td>
+</tr>
+<tr>
+<td>IG2</td>
+<td>Mid-to-large org, dedicated security function, mixed
+sensitivity</td>
+<td>130 Safeguards (cumulative with IG1)</td>
+</tr>
+<tr>
+<td>IG3</td>
+<td>Large org, mature security, sensitive data, advanced threats</td>
+<td>153 Safeguards (cumulative with IG2)</td>
+</tr>
+</tbody>
+</table>
+<p>A given Safeguard ID (e.g. <code>1.1</code>) is the same across IGs;
+what changes is whether it’s in scope and the rigour expected. This
+reference design leads with IG2 expectations and notes IG1/IG3 deltas
+where the work materially changes.</p>
+<p><strong>Where CSW fits across the 18 Controls:</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Control</th>
+<th>Title</th>
+<th>CSW relevance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Inventory and Control of Enterprise Assets</td>
+<td><strong>Direct</strong> — workload inventory, hardware/cloud asset
+attribution</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Inventory and Control of Software Assets</td>
+<td><strong>Direct</strong> — installed software inventory per
+workload</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Data Protection</td>
+<td>Supporting (egress observation; primary control is DLP)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Secure Configuration of Enterprise Assets and Software</td>
+<td><strong>Direct</strong> — baseline + drift</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Account Management</td>
+<td>Out of scope (identity/PAM tooling)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Access Control Management</td>
+<td>Supporting (workload-side enforcement; identity is upstream)</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Continuous Vulnerability Management</td>
+<td><strong>Direct</strong> — continuous CVE inventory + reachability
+context</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Audit Log Management</td>
+<td><strong>Direct</strong> — workload-level flow + process telemetry to
+SIEM</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Email and Web Browser Protections</td>
+<td>Out of scope (email/web stack)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Malware Defenses</td>
+<td>Supporting (behavioural rules layer with endpoint AV)</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Data Recovery</td>
+<td>Out of scope (backup product)</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Network Infrastructure Management</td>
+<td>Supporting (workload-side; perimeter is upstream)</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Network Monitoring and Defense</td>
+<td><strong>Direct</strong> — east-west visibility, anomaly detection,
+deny-by-default</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Security Awareness and Skills Training</td>
+<td>Out of scope (HR/training)</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Service Provider Management</td>
+<td>Supporting (technical egress lens; contractual is upstream)</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Application Software Security</td>
+<td>Supporting (CVE inventory feeds the SDLC)</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Incident Response Management</td>
+<td><strong>Direct (evidence)</strong> — forensic reconstruction
+bundle</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Penetration Testing</td>
+<td>Supporting (reachability validation; pre/post test reports)</td>
+</tr>
+</tbody>
+</table>
+<p>CSW directly addresses six Controls (1, 2, 4, 7, 8, 13), supports six
+more (3, 6, 10, 12, 15, 16, 17 evidence side, 18), and is explicitly out
+of scope on five (5, 9, 11, 14, plus AT/MP/PE/PS-style items inside
+other controls).</p>
+<hr />
+<h2 id="implementation-group-calibration">2. Implementation Group
+Calibration</h2>
+<p>Before deploying, calibrate CSW scope to your IG target. The same
+sensors get installed; what differs is the breadth of the policy
+workspace and the cadence of evidence pulls.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>IG1 baseline</th>
+<th>IG2 baseline (default)</th>
+<th>IG3 add</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sensor coverage</td>
+<td>All servers + admin workstations</td>
+<td>All workloads incl. containers + cloud workloads</td>
+<td>All workloads incl. ephemeral / serverless via cloud connectors</td>
+</tr>
+<tr>
+<td>Inventory refresh (Control 1.1)</td>
+<td>Monthly</td>
+<td>Weekly</td>
+<td>Continuous (real-time alert on net-new)</td>
+</tr>
+<tr>
+<td>Software inventory (Control 2.1)</td>
+<td>Monthly</td>
+<td>Bi-weekly</td>
+<td>Continuous + signed allow-list (2.6)</td>
+</tr>
+<tr>
+<td>Config baseline (Control 4.1)</td>
+<td>Documented</td>
+<td>Documented + automated drift detection</td>
+<td>Drift attribution to change ticket</td>
+</tr>
+<tr>
+<td>Vulnerability scan cadence (Control 7.5)</td>
+<td>Monthly</td>
+<td>Weekly</td>
+<td>Continuous, with reachability context</td>
+</tr>
+<tr>
+<td>Log retention (Control 8.10)</td>
+<td>90 days</td>
+<td>90 days + central SIEM</td>
+<td>Per regulatory obligation; common is 1 year+</td>
+</tr>
+<tr>
+<td>Segmentation (Control 12.4)</td>
+<td>Macrosegmentation</td>
+<td>Macro + microsegmentation for sensitive scopes</td>
+<td>Microsegmentation everywhere; deny-by-default default</td>
+</tr>
+<tr>
+<td>Network monitoring (Control 13.1)</td>
+<td>Border / SIEM</td>
+<td>Border + east-west sampling</td>
+<td>East-west everywhere with behavioural detection</td>
+</tr>
+</tbody>
+</table>
+<p><strong>CSW Implementation:</strong> apply IG-aligned labels at
+workload onboarding:</p>
+<pre><code>Step 1: Apply CIS context labels
+  CSW UI → Inventory → Bulk Label
+  Mandatory labels:
+    cis_ig:           ig1 | ig2 | ig3
+    asset_class:      server | workstation | container | cloud-vm | serverless
+    data_sensitivity: public | internal | confidential | regulated
+    business_unit:    [BU identifier]
+    environment:      production | staging | dev
+
+Step 2: Build CSW Scopes per (cis_ig, environment, data_sensitivity)
+  CSW UI → Organize → Scopes → New
+  → IG2 scopes inherit IG1 expectations and add IG2 Safeguards
+
+Step 3: Configure cadence policies per IG tier
+  → CSW reports (Inventory, Software, Vulnerability) scheduled to
+    the cadence row above for the relevant IG</code></pre>
+<hr />
+<h2 id="scope-architecture-and-labeling">3. Scope Architecture and
+Labeling</h2>
+<p>Section 2 establishes <em>which</em> Safeguards are in force for your
+IG. This section turns that into a structure CSW can enforce and export
+against. The scope tree is the shared substrate for Controls 1 and 2
+(you cannot inventory what is not in a scope), Control 12 (segmentation
+is expressed between scopes) and Control 13 (monitoring is scoped
+traffic filtering).</p>
+<h3 id="suggested-scope-architecture">3.1 Suggested Scope
+Architecture</h3>
+<pre><code>Root Scope
+└── Enterprise-Assets
+    ├── Sensitive-Data-Assets             (data_sensitivity = regulated | confidential)
+    │   ├── Regulated-Data-Stores
+    │   └── Regulated-Data-Processing
+    ├── Production-Servers
+    ├── Network-Infrastructure-Mgmt       (infrastructure admin plane — Control 12)
+    ├── Security-Services                 (EDR, SIEM, scanners — Control 13)
+    ├── Admin-Workstations                (dedicated administrative plane — Safeguard 12.8)
+    └── Out-of-Scope-Corporate</code></pre>
+<p>Keeping <code>Admin-Workstations</code> as a peer branch rather than
+a child of <code>Production-Servers</code> is deliberate: Safeguard 12.8
+asks for dedicated computing resources for administrative work, and a
+scope tree that nests the admin plane inside the thing it administers
+cannot evidence that.</p>
+<h3 id="inventory-filters">3.2 Inventory Filters</h3>
+<pre><code>Filter: Regulated-Data-Stores
+  - Tag: data_sensitivity = regulated
+  - Listening port: 1433, 1521, 3306, 5432, 27017
+
+Filter: Unmanaged-Asset-Candidates
+  - Present in flow telemetry but absent from CSW Inventory
+  - No agent and no cloud-connector record
+
+Filter: Admin-Workstations
+  - Tag: asset_class = workstation
+  - Observed outbound to tcp/22, tcp/3389, tcp/5985 on Production-Servers
+
+Filter: Unauthorized-Software-Candidates
+  - Process observed on a workload but absent from the approved software list
+  - Tag: environment = production</code></pre>
+<p><code>Unmanaged-Asset-Candidates</code> is the filter that does the
+most work for Control 1. Safeguard 1.1 asks for an accurate asset
+inventory; the hard part is never the assets you know about, it is
+detecting the ones that appear only as the far end of an observed
+flow.</p>
+<h3 id="labeling-strategy">3.3 Labeling Strategy</h3>
+<p>The five mandatory keys from section 2 carry the IG calibration; the
+remaining keys below make Controls 1, 2 and 12 queryable. Apply all of
+them at onboarding rather than retrofitting before an assessment.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Label key</th>
+<th>Example values</th>
+<th>Why it matters for CIS v8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cis_ig</code></td>
+<td>ig1, ig2, ig3</td>
+<td><em>(section 2)</em> Sets which Safeguards are in force and the
+evidence cadence</td>
+</tr>
+<tr>
+<td><code>asset_class</code></td>
+<td>server, workstation, container, cloud-vm, serverless</td>
+<td><em>(section 2)</em> Control 1 enterprise-asset classification</td>
+</tr>
+<tr>
+<td><code>data_sensitivity</code></td>
+<td>public, internal, confidential, regulated</td>
+<td><em>(section 2)</em> Drives Safeguard 3.12 data segmentation and
+scope membership</td>
+</tr>
+<tr>
+<td><code>business_unit</code></td>
+<td><BU identifier></td>
+<td><em>(section 2)</em> Ownership for Safeguard 1.1 inventory
+attestation</td>
+</tr>
+<tr>
+<td><code>environment</code></td>
+<td>production, staging, dev</td>
+<td><em>(section 2)</em> Environment separation evidence</td>
+</tr>
+<tr>
+<td><code>software_baseline</code></td>
+<td><baseline identifier></td>
+<td>Control 2 — the approved software list this asset is measured
+against</td>
+</tr>
+<tr>
+<td><code>config_baseline</code></td>
+<td><baseline identifier></td>
+<td>Control 4 — the secure configuration this asset is measured
+against</td>
+</tr>
+<tr>
+<td><code>admin_plane</code></td>
+<td>true, false</td>
+<td>Safeguard 12.8 — marks the dedicated administrative resources</td>
+</tr>
+<tr>
+<td><code>compliance</code></td>
+<td>cis-v8</td>
+<td>Filters CSW evidence to the CIS assessment boundary</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="policy-design-deny-by-default-allowlist">4. Policy Design —
+Deny-by-Default Allowlist</h2>
+<p>Control 12 asks for a secure network architecture and Control 13 for
+traffic filtering between segments. Both are satisfied by the same
+artifact: a workload allowlist with a deny-by-default posture, enforced
+and exportable. Calibrate the breadth against the segmentation row of
+the section 2 IG table — IG1 expects macrosegmentation, IG2 adds
+microsegmentation for sensitive scopes, IG3 expects it everywhere.</p>
+<h3 id="cis-aligned-policy-framework">4.1 CIS-Aligned Policy
+Framework</h3>
+<p><strong>Absolute policies:</strong></p>
+<pre><code>DENY  Any                          → Sensitive-Data-Assets         (default deny inbound — Safeguard 4.4)
+DENY  Sensitive-Data-Assets        → Internet                      (no direct egress from regulated data)
+DENY  Out-of-Scope-Corporate       → Sensitive-Data-Assets         (admin only via the dedicated plane)
+DENY  Production-Servers           → Admin-Workstations            (admin plane is not a destination — 12.8)</code></pre>
+<p><strong>Allowlist policies (least privilege):</strong></p>
+<pre><code>ALLOW Regulated-Data-Processing    → Regulated-Data-Stores         tcp/&lt;db-port-tls&gt;
+ALLOW Production-Servers           → Security-Services             tcp/443
+ALLOW Admin-Workstations           → Production-Servers            tcp/22, tcp/3389
+ALLOW Admin-Workstations           → Network-Infrastructure-Mgmt   tcp/22, tcp/443
+ALLOW Enterprise-Assets            → Security-Services             udp/514</code></pre>
+<p><strong>Catch-all:</strong></p>
+<pre><code>LOG   Any                          → Sensitive-Data-Assets         (unmatched inbound — Safeguard 13.4)
+LOG   Sensitive-Data-Assets        → Any                           (unmatched outbound)
+LOG   Enterprise-Assets            → Any                           (plaintext: tcp/80, tcp/21, tcp/23, tcp/389, udp/161)</code></pre>
+<h3 id="policy-workspace-lifecycle">4.2 Policy Workspace Lifecycle</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Mode</th>
+<th>Duration</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Simulation</td>
+<td>2 weeks</td>
+<td>Validate the candidate policy</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Enforcement (high-confidence rules only)</td>
+<td>1 week</td>
+<td>Enforce obvious deny rules</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Full Enforcement</td>
+<td>Ongoing</td>
+<td>Workload allowlist enforced; monthly exception review</td>
+</tr>
+</tbody>
+</table>
+<p>Workspace snapshots are Control 12 architecture evidence and the
+Denied Connections log is Control 13 filtering evidence. The simulation
+report is what lets you show an assessor that the policy was reviewed
+before it was enforced, which is the part most programmes cannot
+produce.</p>
+<hr />
+<h2 id="control-1-inventory-and-control-of-enterprise-assets">5. Control
+1 — Inventory and Control of Enterprise Assets</h2>
+<p><strong>IG2 Safeguards in scope:</strong> 1.1 (inventory), 1.2
+(address unauthorised assets), 1.3 (utilise active discovery), 1.4 (DHCP
+logging — not CSW), 1.5 (passive discovery).</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Achieve sensor coverage (Safeguard 1.1)
+  → Linux:   yum/dnf/apt + systemctl enable csw-agent
+  → Windows: MSI install + service verification
+  → Containers: DaemonSet sensor for K8s; per-node sensor for ECS/AKS/GKE
+  → Cloud:   External Orchestrators (AWS/Azure/GCP) for asset metadata
+
+Step 2: Configure cloud connectors for agentless inventory
+  CSW UI → Platform → External Orchestrators
+  → AWS account / Azure subscription / GCP project
+  → CSW polls API for instance inventory regardless of agent state
+  → Captures Safeguard 1.5 passive discovery for ephemeral workloads
+
+Step 3: Reconcile against your authoritative source (CMDB)
+  → Schedule weekly export from CSW inventory API
+  → Diff against CMDB; investigate any delta
+  → IG3: real-time alert on net-new workload not in CMDB
+
+Step 4: Quarantine unauthorised workloads (Safeguard 1.2)
+  → Pre-built CSW policy: deny-all except management plane
+  → Apply to any workload tagged unauthorised=true
+  → IG2 expectation: investigate and quarantine within 1 week;
+    IG3 expectation: within 24 hours</code></pre>
+<p><strong>Evidence:</strong> (a) inventory snapshot per IG cadence; (b)
+reconciliation diff log against CMDB; (c) unauthorised-asset quarantine
+log.</p>
+<p><strong>IG1 delta:</strong> monthly inventory snapshot + manual diff
+is acceptable. <strong>IG3 delta:</strong> continuous inventory with
+real-time net-new alerting and sub-24-hour quarantine.</p>
+<hr />
+<h2 id="control-2-inventory-and-control-of-software-assets">6. Control 2
+— Inventory and Control of Software Assets</h2>
+<p><strong>IG2 Safeguards in scope:</strong> 2.1 (software inventory),
+2.2 (ensure authorised software supported), 2.3 (address unauthorised
+software), 2.5 (allow-list), 2.6 (allow-list libraries).</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Continuous software inventory (Safeguard 2.1)
+  CSW UI → Investigate → Inventory → Workload → Software &amp; Packages
+  → Auto-captured: package name, version, install date, source
+  → Per-workload export available via API; aggregated by scope
+
+Step 2: Detect unsupported software (Safeguard 2.2)
+  → Cross-reference inventory against your supported-software list
+  → Flag workloads running software past vendor support EOL
+  → Route to platform team for upgrade or risk acceptance
+
+Step 3: Detect unauthorised software (Safeguard 2.3)
+  → Define allow-list per asset_class (server, workstation, container)
+  → CSW alert: software outside the allow-list observed
+  → IG2 expectation: investigate within 1 week
+  → IG3 expectation: prevent execution via behavioural policy + alert
+
+Step 4: Allow-list enforcement (Safeguards 2.5, 2.6)
+  → IG2: allow-list documented; CSW alerts on deviation
+  → IG3: allow-list enforced via behavioural policy (block on
+    unknown binary execution); CSW process telemetry feeds the
+    enforcement decision</code></pre>
+<p><strong>Evidence:</strong> (a) per-workload software inventory dated
+to cadence; (b) unsupported-software register; (c) unauthorised-software
+alert log with disposition.</p>
+<p><strong>IG1 delta:</strong> monthly inventory; manual review of
+unauthorised software is sufficient. <strong>IG3 delta:</strong>
+allow-list enforcement (block, not just alert) on unknown binary
+execution.</p>
+<hr />
+<h2 id="control-4-secure-configuration-of-enterprise-assets-and-software">7.
+Control 4 — Secure Configuration of Enterprise Assets and Software</h2>
+<p><strong>IG2 Safeguards in scope:</strong> 4.1 (process for
+configuration), 4.2 (secure configuration of network infra), 4.4
+(default deny via firewall — see Control 13), 4.5 (automatically manage
+default accounts — IG3), 4.6 (secure configuration of software).</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Capture configuration baseline per workload (Safeguard 4.1)
+  → CSW continuously inventories: OS + kernel, package list, listening
+    ports, running processes, key file presence
+  → Snapshot daily to CSW data tap; this is the IG2 baseline of record
+
+Step 2: Drift detection (Safeguard 4.1)
+  → Daily diff between today&#39;s snapshot and yesterday&#39;s
+  → Per-workload report: what changed in packages, ports, processes
+  → IG2 expectation: review weekly; investigate unexplained drift
+  → IG3 expectation: drift attribution to a change ticket within 24h
+
+Step 3: Hardening enforcement via CSW segmentation policy (4.4, 4.6)
+  → Default deny inbound to every workload except documented services
+  → Plaintext-protocol DENY (HTTP, FTP, Telnet, LDAP plaintext)
+  → Limit outbound to documented destinations per asset_class
+
+Step 4: Tie drift to change-management (Safeguard 4.1)
+  → Correlate CSW-observed change timestamp against change-ticket
+    timestamp
+  → Orphan changes (CSW-detected, ticket-absent) = unauthorised
+    change candidates; route to incident process</code></pre>
+<p><strong>Evidence:</strong> (a) baseline export per workload; (b)
+daily drift log with disposition; (c) segmentation policy export per
+scope.</p>
+<p><strong>IG1 delta:</strong> documented baseline; manual quarterly
+review. <strong>IG3 delta:</strong> automated drift attribution;
+default-account management automation tied to inventory.</p>
+<hr />
+<h2 id="control-7-continuous-vulnerability-management">8. Control 7 —
+Continuous Vulnerability Management</h2>
+<p><strong>IG2 Safeguards in scope:</strong> 7.1 (process for
+vulnerability management), 7.2 (process for remediation), 7.3 (automated
+patch mgmt of OS), 7.4 (automated patch mgmt of apps), 7.5 (perform
+automated vulnerability scans of internal assets), 7.6 (perform
+automated vulnerability scans of externally-exposed assets), 7.7
+(remediate detected vulnerabilities).</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Continuous CVE inventory at workload level (Safeguard 7.5)
+  CSW UI → Investigate → Vulnerability Report
+  → Per-workload CVE list with CVSS, EPSS, exploit availability
+  → Updated continuously as the CSW CVE database refreshes
+  → IG2 cadence: weekly export to remediation queue
+  → IG3 cadence: continuous, real-time prioritisation
+
+Step 2: Reachability-aware prioritisation (Safeguard 7.7)
+  → CSW maps each CVE to the workload&#39;s actual ingress/egress
+    paths in the conversation graph
+  → Vulnerable port + actually reachable from internet = top priority
+  → Vulnerable port + no observed flow + no reachable path = lower
+    priority (validate compensating control before deferral)
+
+Step 3: Track patch SLA per asset_class and CVSS band
+  → Critical (9+) on internet-reachable: patch within 48 hours
+  → High (7-8.9) on internal: patch within 30 days
+  → Medium (4-6.9): patch within 60 days
+  → Trend report monthly to security leadership
+
+Step 4: Compensating controls when patching is delayed
+  → Restrict source set for the vulnerable port via CSW policy
+  → Add behavioural detection for known exploit patterns
+  → Document the compensating control in workspace notes
+  → This is the audit trail for &quot;remediation&quot; when patch is deferred</code></pre>
+<p><strong>Evidence:</strong> (a) per-workload CVE list dated to IG
+cadence; (b) patch SLA compliance trend; (c) compensating-control
+register for deferred patches.</p>
+<p><strong>IG1 delta:</strong> monthly scan; manual prioritisation
+acceptable. <strong>IG3 delta:</strong> continuous scanning, automated
+reachability scoring, sub-week patch SLA on critical exposed assets.</p>
+<hr />
+<h2 id="control-8-audit-log-management">9. Control 8 — Audit Log
+Management</h2>
+<p><strong>IG2 Safeguards in scope:</strong> 8.1 (log management
+process), 8.2 (collect audit logs), 8.5 (collect detailed audit logs),
+8.7 (retain audit logs), 8.10 (retain audit logs for 90 days minimum),
+8.11 (conduct audit log reviews).</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Configure SIEM forwarding (Safeguard 8.2)
+  CSW UI → Manage → Data Tap → SIEM
+  → Splunk HEC, QRadar, Sentinel, Cisco XDR, syslog
+  → Forward: workload flow records, process events, policy violations,
+    behavioural detections, vulnerability events
+
+Step 2: Confirm IG2-grade logging detail (Safeguard 8.5)
+  → Per-flow: source, destination, port, byte counts, timestamps,
+    process attribution, scope context
+  → Per-process: command line, parent-child, file accesses, network
+    activity
+  → Per-event: detection rule fired, severity, evidence
+
+Step 3: Retention (Safeguards 8.7, 8.10)
+  → IG2 minimum: 90 days at the SIEM
+  → For regulated data: extend per applicable framework (HIPAA: 6 yr;
+    PCI: 1 yr active + 1 yr archive; etc.)
+
+Step 4: Audit log reviews (Safeguard 8.11)
+  → IG2: weekly review of CSW alert summary; quarterly trend review
+  → IG3: SOC reviews real-time; CSW alerts feed playbook automation</code></pre>
+<p><strong>Evidence:</strong> (a) SIEM forwarding configuration
+screenshot; (b) log retention policy and compliance evidence; (c) sample
+log review minutes per cadence.</p>
+<p><strong>IG1 delta:</strong> logs to local file with weekly review;
+SIEM forwarding optional. <strong>IG3 delta:</strong> real-time SOC
+review with playbook automation; extended retention per compliance
+overlay.</p>
+<hr />
+<h2 id="control-12-network-infrastructure-management">10. Control 12 —
+Network Infrastructure Management</h2>
+<p><strong>IG2 Safeguards in scope:</strong> 12.1 (network
+infrastructure maintained), 12.2 (use secure protocols), 12.4 (establish
+&amp; maintain architecture diagrams), 12.5 (centralise network
+AAA).</p>
+<p>CSW does not configure routers or switches. It contributes by making
+the <strong>workload-side</strong> enforcement layer visible and
+documented, which feeds Safeguards 12.4 (architecture diagrams) and 12.2
+(secure protocols).</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Generate the workload-side architecture diagram (12.4)
+  CSW UI → Investigate → Application Dependency Mapping → Workspace
+  → ADM clusters become the as-observed application architecture
+  → Export the dependency graph; pair with your network team&#39;s
+    diagram for a complete view
+
+Step 2: Detect insecure protocols in flight (12.2)
+  → CSW reports: any plaintext flow (HTTP, FTP, Telnet, LDAP, SMTP)
+  → Alert on insecure flows from sensitive scopes
+  → Block via segmentation policy as remediation</code></pre>
+<p><strong>Evidence:</strong> (a) ADM dependency export; (b)
+plaintext-flow alert log.</p>
+<hr />
+<h2 id="control-13-network-monitoring-and-defense">11. Control 13 —
+Network Monitoring and Defense</h2>
+<p><strong>IG2 Safeguards in scope:</strong> 13.1 (centralised
+monitoring), 13.2 (deploy host-based intrusion detection — see also
+Control 10), 13.3 (network intrusion detection), 13.4 (perform traffic
+filtering between network segments), 13.5 (manage access control for
+remote assets), 13.6 (collect network traffic flow logs), 13.7 (deploy
+host-based intrusion prevention — IG3), 13.8 (deploy network intrusion
+prevention — IG3), 13.9 (deploy port-level access control — IG3), 13.10
+(perform application-layer filtering — IG3).</p>
+<p>This is the densest CSW alignment in the entire CIS Controls. CSW
+runs at the workload, observes every flow, applies behavioural
+analytics, enforces segmentation, and forwards to the SIEM.</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Centralised monitoring (Safeguard 13.1, 13.6)
+  → CSW collects every flow on every CSW-managed workload
+  → Forwarded to SIEM continuously; retained at CSW for the data
+    retention window (typically 30 days; configurable)
+
+Step 2: East-west traffic filtering (Safeguard 13.4)
+  → Build segmentation policy per scope; deny-by-default
+  → Run in Simulation 30+ days; resolve legitimate-but-blocked flows
+  → Promote to Enforce; quarterly diff report
+
+Step 3: Behavioural detection (Safeguards 13.2, 13.3)
+  → Out-of-the-box rules: privilege escalation, persistence, lateral
+    movement, suspicious child processes
+  → Custom rules: encode org-specific abuse patterns
+  → IG3: tie to playbook automation for sub-15-minute MTTR
+
+Step 4: Anomaly detection (Safeguards 13.3, 13.8)
+  → Conversation graph: flag new edges in workload-to-workload
+    communication
+  → Port/protocol distribution anomalies per workload
+
+Step 5: Remote-asset access control (Safeguard 13.5)
+  → Identify remote-management paths in CSW (VPN concentrators,
+    bastion hosts, admin VPN ranges)
+  → Limit allow rules for management protocols (22, 3389, WinRM) to
+    those source sets only</code></pre>
+<p><strong>Evidence:</strong> (a) segmentation policy export with
+simulation→ enforcement log; (b) detection rule catalogue; (c) anomaly
+alert log; (d) flow telemetry retention configuration.</p>
+<p><strong>IG1 delta:</strong> flow logs at the border; simple deny
+rules; weekly review of suspicious activity. <strong>IG3 delta:</strong>
+Safeguards 13.7–13.10 layered (HIPS, NIPS, port-level access, app-layer
+filtering); CSW behavioural rules feed automated response.</p>
+<hr />
+<h2 id="control-17-incident-response-management">12. Control 17 —
+Incident Response Management</h2>
+<p><strong>IG2 Safeguards in scope:</strong> 17.1 (designate IR
+personnel), 17.2 (establish &amp; maintain contact information), 17.3
+(establish &amp; maintain IR process), 17.4 (test IR process), 17.5
+(assign roles), 17.6 (define mechanisms for reporting), 17.8 (track
+post-incident review).</p>
+<p>CSW is not the IR playbook owner. CSW supplies the <strong>evidence
+substrate</strong> that lets each step of the IR process produce
+defensible artefacts.</p>
+<p><strong>CSW Implementation — Six-Artefact IR Bundle:</strong></p>
+<pre><code>For each declared incident on a CSW-managed workload:
+
+  (a) Affected workload set
+      → Inventory query: hostnames, IPs, OS, scope labels, owner
+
+  (b) Time-anchored flow record
+      → CSW historical conversations: source, destination, port, byte
+        counts, timestamps, process attribution
+
+  (c) Process activity record
+      → Every process spawned on affected workloads in the window
+
+  (d) Software footprint at time of incident
+      → Package list, CVE exposure at that moment (not &quot;today&quot;)
+
+  (e) Containment evidence
+      → Quarantine policy applied; flow drop count after policy;
+        time-to-quarantine
+
+  (f) Post-incident control proof
+      → Diff between pre-incident segmentation and remediated state</code></pre>
+<p><strong>Evidence:</strong> (a) incident dossier per declared event;
+(b) MTTD/MTTR trend per quarter; (c) post-incident review (Safeguard
+17.8) inputs.</p>
+<hr />
+<h2 id="control-18-penetration-testing-supporting">13. Control 18 —
+Penetration Testing (Supporting)</h2>
+<p><strong>IG2 Safeguards in scope:</strong> 18.1 (establish &amp;
+maintain pen test program), 18.2 (perform periodic external pen tests),
+18.3 (remediate pen test findings), 18.5 (perform periodic internal pen
+tests).</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Pre-test reachability baseline (Safeguard 18.5)
+  → CSW &quot;what-if&quot; reachability query for the test scope
+  → Output: who can reach what, on which port, with which identity
+  → Hand to the red team as the engagement scoping document
+
+Step 2: During test
+  → Defenders may observe in &quot;purple&quot; mode
+  → CSW alerts can be observed but not acted on without abort
+
+Step 3: Post-test reachability comparison
+  → Re-run reachability query; diff vs. pre-test
+  → Document: which segmentation rules held, which were bypassed,
+    which detections fired vs. missed (Safeguard 18.3 input)</code></pre>
+<p><strong>Evidence:</strong> (a) pre-test reachability report; (b)
+red-team activity reconstruction; (c) post-test gap analysis.</p>
+<hr />
+<h2 id="mapping-table-cis-controls-v8.1-csw-capability">14. Mapping
+Table — CIS Controls v8.1 → CSW Capability</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Safeguard</th>
+<th>Title</th>
+<th>CSW capability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.1</td>
+<td>Inventory of enterprise assets</td>
+<td>Continuous workload inventory + cloud asset metadata</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>Address unauthorised assets</td>
+<td>Quarantine policy applied to net-new workloads</td>
+</tr>
+<tr>
+<td>1.3</td>
+<td>Active discovery</td>
+<td>Sensor coverage + cloud connectors</td>
+</tr>
+<tr>
+<td>1.5</td>
+<td>Passive discovery</td>
+<td>Cloud orchestrator polling for ephemeral assets</td>
+</tr>
+<tr>
+<td>2.1</td>
+<td>Software inventory</td>
+<td>Per-workload package + version inventory</td>
+</tr>
+<tr>
+<td>2.2</td>
+<td>Authorised software supported</td>
+<td>Cross-reference against vendor-support list</td>
+</tr>
+<tr>
+<td>2.3</td>
+<td>Address unauthorised software</td>
+<td>Alert + (IG3) behavioural-policy block</td>
+</tr>
+<tr>
+<td>2.5–2.6</td>
+<td>Allow-listed software / libraries</td>
+<td>Allow-list catalogue + behavioural enforcement</td>
+</tr>
+<tr>
+<td>4.1</td>
+<td>Secure configuration process</td>
+<td>Daily baseline + drift report tied to change ticket</td>
+</tr>
+<tr>
+<td>4.2</td>
+<td>Network infra config</td>
+<td>Workload-side complement to network-team config</td>
+</tr>
+<tr>
+<td>4.4</td>
+<td>Default-deny on FW</td>
+<td>CSW segmentation enforcement at the workload</td>
+</tr>
+<tr>
+<td>4.6</td>
+<td>Secure software config</td>
+<td>Per-workload listening-port + service inventory</td>
+</tr>
+<tr>
+<td>6.1–6.5</td>
+<td>Access control management</td>
+<td>Workload-side enforcement; identity is upstream</td>
+</tr>
+<tr>
+<td>7.1–7.7</td>
+<td>Continuous vulnerability mgmt</td>
+<td>Continuous CVE inventory + reachability prioritisation</td>
+</tr>
+<tr>
+<td>8.2</td>
+<td>Collect audit logs</td>
+<td>SIEM forwarding configuration</td>
+</tr>
+<tr>
+<td>8.5</td>
+<td>Detailed audit logs</td>
+<td>Per-flow + per-process + per-event detail</td>
+</tr>
+<tr>
+<td>8.7, 8.10</td>
+<td>Retain audit logs</td>
+<td>SIEM retention policy + CSW window</td>
+</tr>
+<tr>
+<td>8.11</td>
+<td>Audit log reviews</td>
+<td>Quarterly review of CSW alert summary</td>
+</tr>
+<tr>
+<td>10.1–10.7</td>
+<td>Malware defenses</td>
+<td>Behavioural rules layered with endpoint AV</td>
+</tr>
+<tr>
+<td>12.2</td>
+<td>Secure protocols</td>
+<td>Plaintext-flow detection + DENY enforcement</td>
+</tr>
+<tr>
+<td>12.4</td>
+<td>Architecture diagrams</td>
+<td>ADM dependency export</td>
+</tr>
+<tr>
+<td>13.1, 13.6</td>
+<td>Centralised monitoring + flow logs</td>
+<td>CSW flow telemetry + SIEM forwarding</td>
+</tr>
+<tr>
+<td>13.2, 13.3</td>
+<td>Host + network IDS</td>
+<td>Behavioural rules + anomaly detection</td>
+</tr>
+<tr>
+<td>13.4</td>
+<td>Traffic filtering between segments</td>
+<td>CSW segmentation policy enforcement</td>
+</tr>
+<tr>
+<td>13.5</td>
+<td>Remote-asset access control</td>
+<td>Restrict mgmt protocol allow rules to bastion sources</td>
+</tr>
+<tr>
+<td>13.7–13.10</td>
+<td>HIPS, NIPS, port-level, app-layer filtering</td>
+<td>Behavioural rules + segmentation enforcement</td>
+</tr>
+<tr>
+<td>15.1, 15.4</td>
+<td>Service provider mgmt (technical lens)</td>
+<td>Vendor-egress observation + reconciliation</td>
+</tr>
+<tr>
+<td>16.1, 16.6</td>
+<td>Application sec process / vuln mgmt</td>
+<td>CVE inventory feeds SDLC + reachability for triage</td>
+</tr>
+<tr>
+<td>17.1–17.8</td>
+<td>Incident response process</td>
+<td>Six-artefact incident dossier (§12)</td>
+</tr>
+<tr>
+<td>18.1–18.5</td>
+<td>Penetration testing</td>
+<td>Pre/post reachability + activity reconstruction</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="auditor-assessor-response-guide">15. Auditor / Assessor Response
+Guide</h2>
+<p>When a CIS Controls assessment asks for evidence:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Assessor asks</th>
+<th>You provide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Show me your IG2 IT asset inventory dated last month”</td>
+<td>CSW inventory snapshot CSV per scope</td>
+</tr>
+<tr>
+<td>“Demonstrate Safeguard 4.1 configuration management”</td>
+<td>Daily baseline + drift report with change-ticket attribution</td>
+</tr>
+<tr>
+<td>“Provide Safeguard 7.5 vulnerability scan evidence”</td>
+<td>Weekly CVE export per workload, dated within the period</td>
+</tr>
+<tr>
+<td>“Show Safeguard 8.10 90-day log retention”</td>
+<td>SIEM retention policy + sample retrieval over the window</td>
+</tr>
+<tr>
+<td>“Demonstrate Safeguard 13.4 segmentation between segments”</td>
+<td>CSW workspace export + simulation→enforcement log</td>
+</tr>
+<tr>
+<td>“Provide Safeguard 13.6 flow logs for incident X”</td>
+<td>Per-flow export with timestamps + process attribution</td>
+</tr>
+<tr>
+<td>“Show Control 17 incident dossier”</td>
+<td>Six-artefact bundle (§12)</td>
+</tr>
+<tr>
+<td>“Show Safeguard 18.5 internal pen test evidence”</td>
+<td>Pre/post reachability + red-team activity reconstruction</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-frameworks">16. Related Frameworks</h2>
+<p>CIS Controls v8.1 maps cleanly to:</p>
+<ul>
+<li><p><strong>NIST SP 800-53 Rev 5</strong> — CIS publishes an official
+800-53 mapping; many CIS Safeguards correspond to specific 800-53
+controls. See <a href="../NIST-800-53/CSW-NIST-800-53-Reference-Design.html">800-53
+reference design</a>.</p></li>
+<li><p><strong>NIST CSF 2.0</strong> — CIS Safeguards are commonly cited
+as Informative References under CSF subcategories. See <a href="../NIST-CSF-2/CSW-CSF-Reference-Design.html">CSF reference
+design</a>.</p></li>
+<li><p><strong>CMMC 2.0 (Level 2)</strong> — both inherit heavily from
+NIST 800-171 / 800-53. See <a href="../CMMC-2/CSW-CMMC-Reference-Design.html">CMMC reference
+design</a>.</p></li>
+<li><p><strong>PCI DSS v4.0</strong> — many Reqs (1, 2, 7, 10, 11) align
+directly with CIS Controls 4, 6, 8, 13. See <a href="../PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.html">PCI reference
+design</a>.</p></li>
+<li><p><strong>ISO/IEC 27001:2022</strong> — Annex A controls have
+substantial overlap with CIS Safeguards. See <a href="../ISO-27001-2022/CSW-ISO27001-Reference-Design.html">ISO 27001
+reference design</a>.</p></li>
+<li><p><strong>UK NCSC CAF v3.2</strong> — Controls 1, 2, 4, 7, and 13
+are the reuse path for CAF A3, B4, B5, and C1 (see <a href="../UK-NCSC-CAF/caf-mapping.html">CAF crosswalk</a>).</p></li>
+</ul>
+<hr />
+<h2 id="disclaimer">17. Disclaimer</h2>
+<p>This reference design is <strong>draft v1</strong> describing how
+Cisco Secure Workload capabilities can support a CIS Critical Security
+Controls v8.1 programme. It is <strong>not</strong> legal or compliance
+advice and does not constitute a finding of compliance.</p><p>Specifically:</p>
+<ul>
+<li>CIS publishes the authoritative Safeguard text and IG mapping at
+https://www.cisecurity.org/. Always validate against the <strong>current
+effective version</strong> of the Controls.</li>
+<li>Mapping a Safeguard to a CSW capability does not by itself satisfy
+the Safeguard. Safeguards expect documented process, evidence cadence,
+and management review — CSW supplies the technical layer that those
+process requirements depend on.</li>
+<li>CSW does not address Controls 5, 9, 11, 14 in any meaningful way;
+reference your identity, email/web, backup, and training stacks for
+those.</li>
+</ul>
+<p>This document should receive subject-matter-expert review for both
+CIS Controls accuracy and current Cisco product capability before being
+relied upon in a formal compliance engagement.</p>
+</body>
+</html>

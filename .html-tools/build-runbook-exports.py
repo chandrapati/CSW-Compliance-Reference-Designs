@@ -16,14 +16,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# Shared docs (in addition to all *-Technical-Runbook.md)
+# Shared docs (in addition to all *-Reference-Design.md)
 EXTRA_MD = [
     ROOT / "docs/compliance-evidence-playbook.md",
 ]
 
 
 def md_sources() -> list[Path]:
-    sources = sorted(ROOT.glob("**/*-Technical-Runbook.md"))
+    sources = sorted(ROOT.glob("**/*-Reference-Design.md"))
     sources.extend(p for p in EXTRA_MD if p.exists())
     return sources
 

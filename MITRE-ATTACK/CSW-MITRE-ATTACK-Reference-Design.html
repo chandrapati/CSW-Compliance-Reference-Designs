@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>MITRE ATT&amp;CK (Enterprise) — Reference Design</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-MITRE-ATTACK-Reference-Design.html">CSW-MITRE-ATTACK-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-07T17:30:34Z UTC · Repository commit: a630820</div>
+<header id="title-block-header">
+<h1 class="title">MITRE ATT&amp;CK (Enterprise) — Reference Design</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload-mitre-attck-enterprise-mapping" id="toc-cisco-secure-workload-mitre-attck-enterprise-mapping">Cisco
+Secure Workload — MITRE ATT&amp;CK (Enterprise) Mapping</a>
+<ul>
+<li><a href="#reference-design-threat-detection-containment-evidence" id="toc-reference-design-threat-detection-containment-evidence">Reference
+Design | Threat Detection &amp; Containment Evidence</a></li>
+<li><a href="#readers-guide" id="toc-readers-guide">Reader’s
+Guide</a></li>
+<li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</a></li>
+<li><a href="#universal-evidence-workflow" id="toc-universal-evidence-workflow">Universal evidence workflow</a>
+<ul>
+<li><a href="#phase-1-checklist-coverage" id="toc-phase-1-checklist-coverage">Phase 1 checklist
+(coverage)</a></li>
+<li><a href="#phase-2-checklist-baseline" id="toc-phase-2-checklist-baseline">Phase 2 checklist
+(baseline)</a></li>
+<li><a href="#phase-3-checklist-policy" id="toc-phase-3-checklist-policy">Phase 3 checklist (policy)</a></li>
+<li><a href="#phase-4-checklist-operate" id="toc-phase-4-checklist-operate">Phase 4 checklist (operate)</a></li>
+<li><a href="#what-csw-evidence-does-not-replace" id="toc-what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</a></li>
+</ul></li>
+<li><a href="#csw-effectiveness-for-this-framework" id="toc-csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</a></li>
+<li><a href="#overview" id="toc-overview">1. Overview</a>
+<ul>
+<li><a href="#attck-tactics-and-csw-capability-summary" id="toc-attck-tactics-and-csw-capability-summary">ATT&amp;CK Tactics and
+CSW Capability Summary</a></li>
+</ul></li>
+<li><a href="#pre-deployment-checklist" id="toc-pre-deployment-checklist">2. Pre-Deployment Checklist</a></li>
+<li><a href="#phase-1-sensor-deployment-days-15" id="toc-phase-1-sensor-deployment-days-15">3. Phase 1 — Sensor
+Deployment (Days 1–5)</a>
+<ul>
+<li><a href="#on-premises-workloads" id="toc-on-premises-workloads">3.1
+On-Premises Workloads</a></li>
+<li><a href="#cloud-workloads" id="toc-cloud-workloads">3.2 Cloud
+Workloads</a></li>
+<li><a href="#initial-posture" id="toc-initial-posture">3.3 Initial
+Posture</a></li>
+</ul></li>
+<li><a href="#phase-2-scope-design-days-610" id="toc-phase-2-scope-design-days-610">4. Phase 2 — Scope Design (Days
+6–10)</a>
+<ul>
+<li><a href="#recommended-scope-hierarchy-for-attck-use-cases" id="toc-recommended-scope-hierarchy-for-attck-use-cases">4.1 Recommended
+Scope Hierarchy for ATT&amp;CK Use Cases</a></li>
+<li><a href="#inventory-filters-for-first-defenders" id="toc-inventory-filters-for-first-defenders">4.2 Inventory Filters for
+“First Defenders”</a></li>
+<li><a href="#labeling-strategy" id="toc-labeling-strategy">4.3 Labeling
+Strategy</a></li>
+</ul></li>
+<li><a href="#phase-3-visibility-baseline-days-1121" id="toc-phase-3-visibility-baseline-days-1121">5. Phase 3 — Visibility
+&amp; Baseline (Days 11–21)</a>
+<ul>
+<li><a href="#application-dependency-mapping-adm" id="toc-application-dependency-mapping-adm">5.1 Application Dependency
+Mapping (ADM)</a></li>
+<li><a href="#baseline-review-questions-tactic-oriented" id="toc-baseline-review-questions-tactic-oriented">5.2 Baseline Review
+Questions (Tactic-Oriented)</a></li>
+<li><a href="#export-baseline-snapshot" id="toc-export-baseline-snapshot">5.3 Export Baseline Snapshot</a></li>
+</ul></li>
+<li><a href="#phase-4-policy-design-days-2235" id="toc-phase-4-policy-design-days-2235">6. Phase 4 — Policy Design
+(Days 22–35)</a>
+<ul>
+<li><a href="#illustrative-segmentation-policy-snippets" id="toc-illustrative-segmentation-policy-snippets">6.1 Illustrative
+Segmentation Policy Snippets</a></li>
+<li><a href="#jump-host-and-break-glass" id="toc-jump-host-and-break-glass">6.2 Jump-Host and
+Break-Glass</a></li>
+<li><a href="#simulation-before-enforcement" id="toc-simulation-before-enforcement">6.3 Simulation Before
+Enforcement</a></li>
+</ul></li>
+<li><a href="#phase-5-enforcement-detection-operations" id="toc-phase-5-enforcement-detection-operations">7. Phase 5 —
+Enforcement &amp; Detection Operations</a>
+<ul>
+<li><a href="#mapping-defense-modes-to-attck-outcomes" id="toc-mapping-defense-modes-to-attck-outcomes">7.1 Mapping Defense
+Modes to ATT&amp;CK Outcomes</a></li>
+<li><a href="#alert-forwarding-siem-xdr" id="toc-alert-forwarding-siem-xdr">7.2 Alert Forwarding (SIEM /
+XDR)</a></li>
+<li><a href="#purple-team-feedback-loop" id="toc-purple-team-feedback-loop">7.3 Purple-Team Feedback
+Loop</a></li>
+<li><a href="#attck-aligned-alerts-examples" id="toc-attck-aligned-alerts-examples">7.4 ATT&amp;CK-Aligned Alerts
+(Examples)</a></li>
+</ul></li>
+<li><a href="#phase-6-audit-assessment-evidence" id="toc-phase-6-audit-assessment-evidence">8. Phase 6 — Audit &amp;
+Assessment Evidence</a></li>
+<li><a href="#control-mapping-attck-csw-evidence" id="toc-control-mapping-attck-csw-evidence">9. Control Mapping:
+ATT&amp;CK → CSW → Evidence</a>
+<ul>
+<li><a href="#tactic-level-mapping" id="toc-tactic-level-mapping">9.1
+Tactic-Level Mapping</a></li>
+<li><a href="#technique-level-alignment-selected" id="toc-technique-level-alignment-selected">9.2 Technique-Level
+Alignment (Selected)</a></li>
+</ul></li>
+<li><a href="#boundaries-what-csw-does-not-cover" id="toc-boundaries-what-csw-does-not-cover">10. Boundaries — What CSW
+Does <strong>Not</strong> Cover</a></li>
+<li><a href="#audit-preparation-evidence-export" id="toc-audit-preparation-evidence-export">11. Audit Preparation &amp;
+Evidence Export</a>
+<ul>
+<li><a href="#standard-operating-procedure-flow-centric-incident" id="toc-standard-operating-procedure-flow-centric-incident">11.1
+Standard Operating Procedure (Flow-Centric Incident)</a></li>
+<li><a href="#retention-guidance" id="toc-retention-guidance">11.2
+Retention Guidance</a></li>
+<li><a href="#companion-products" id="toc-companion-products">11.3
+Companion Products</a></li>
+</ul></li>
+<li><a href="#common-pitfalls" id="toc-common-pitfalls">12. Common
+Pitfalls</a></li>
+<li><a href="#appendix-a-sample-detection-engineering-checklist" id="toc-appendix-a-sample-detection-engineering-checklist">Appendix A —
+Sample Detection Engineering Checklist</a></li>
+<li><a href="#appendix-b-related-frameworks" id="toc-appendix-b-related-frameworks">Appendix B — Related
+Frameworks</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload-mitre-attck-enterprise-mapping">Cisco
+Secure Workload — MITRE ATT&amp;CK (Enterprise) Mapping</h1>
+<h2 id="reference-design-threat-detection-containment-evidence">Reference
+Design | Threat Detection &amp; Containment Evidence</h2>
+<p><strong>Version:</strong> 1.0<br />
+<strong>Use Case:</strong> Fresh Install, Hybrid Environment (On-Prem +
+Cloud)<br />
+<strong>ATT&amp;CK Reference:</strong> MITRE ATT&amp;CK for Enterprise
+(matrices, tactics, techniques)</p>
+<hr />
+<h2 id="readers-guide">Reader’s Guide</h2>
+<p><strong>Who this is for.</strong> Security operations, detection
+engineering, and purple teams building coverage narratives against the
+MITRE ATT&amp;CK Enterprise matrix; architects proving workload-tier
+detection and containment for assessments, tabletop exercises, or
+customer security reviews.</p>
+<p><strong>Questions this reference design helps you
+answer:</strong></p>
+<ul>
+<li><em>For each top-level tactic (Initial Access through Impact), what
+does CSW observe or enforce at the workload and flow layer, and what
+evidence can I export?</em></li>
+<li><em>Which techniques have a defensible mapping to CSW telemetry
+(flows, processes, inventory) versus those that require endpoint-heavy
+or identity-centric tooling?</em></li>
+<li><em>How do I baseline “normal” east-west and north-south behavior so
+tactic-aligned anomalies (new ports, scanning, beacons, staging) are
+actionable?</em></li>
+<li><em>What do I pair with CSW so coverage gaps against ATT&amp;CK do
+not leave blind spots?</em> (Cisco XDR, EDR, email security,
+SIEM/SOAR)</li>
+</ul>
+<p><strong>What you’ll need.</strong> A current workload inventory,
+ATT&amp;CK Navigator or internal coverage spreadsheet (optional), scope
+for crown-jewel applications, and integration targets for alerts (SIEM,
+ticketing, Cisco XDR).</p>
+<p><strong>Where to start.</strong> Sections 1–2 for executive coverage
+narrative; 3–7 to deploy and baseline; 8–9 for tactic and technique
+mapping tables; 10–12 for boundaries, evidence exports, and
+pitfalls.</p>
+<hr />
+<!-- CSW-RUNBOOK-PRIMER:v1 -->
+<h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</h2>
+<p>Cisco Secure Workload (CSW) is a <strong>workload protection
+platform</strong>. A lightweight <strong>agent</strong> on each
+server/VM/container observes processes and network flows; <strong>cloud
+connectors</strong> add AWS/Azure/GCP inventory where agents are not
+deployed.</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW term</th>
+<th>Meaning</th>
+<th>Why compliance teams care</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Logical boundary (CDE, PHI zone, CUI enclave)</td>
+<td>Defines the systems you must prove are isolated</td>
+</tr>
+<tr>
+<td><strong>Label / filter</strong></td>
+<td>Tag or query assigning workloads to scopes</td>
+<td>Automates scope membership — reduces drift</td>
+</tr>
+<tr>
+<td><strong>ADM</strong></td>
+<td>Application Dependency Mapping from observed traffic</td>
+<td><strong>Live</strong> network/data-flow diagram for assessors</td>
+</tr>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>Policy container for one scope or application</td>
+<td>Where allow/deny rules are authored</td>
+</tr>
+<tr>
+<td><strong>Monitor → Simulation → Enforce</strong></td>
+<td>Safe rollout sequence</td>
+<td>Simulation = change-board evidence before blocking traffic</td>
+</tr>
+<tr>
+<td><strong>Denied Connections</strong></td>
+<td>Log of flows blocked by policy</td>
+<td>Primary proof that enforcement <strong>operates</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Console areas:</strong> Investigate (inventory, flows, vulns)
+· Defend/Segmentation (policy) · Manage (agents) · Platform (connectors)
+· Administration (audit log)</p>
+<p><strong>Read next:</strong> <a href="../docs/compliance-evidence-playbook.html">Compliance evidence
+playbook</a> (full step-by-step) · <a href="../docs/about-csw.html">About
+CSW</a> (platform intro)</p>
+<hr />
+<h2 id="universal-evidence-workflow">Universal evidence workflow</h2>
+<p>Execute these phases for <strong>this framework’s</strong> compliance
+boundary. Map exports to control IDs in the <strong>Reporting &amp;
+Evidence</strong> section below.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Key CSW actions</th>
+<th>Typical duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Coverage</strong></td>
+<td>Every in-scope workload in CSW</td>
+<td>Install agents/connectors; apply compliance labels; create
+scope</td>
+<td>Days 1–10</td>
+</tr>
+<tr>
+<td><strong>2 — Baseline</strong></td>
+<td>Machine-generated flow map</td>
+<td>Run ADM ≥2 weeks; export clusters; app-owner signoff</td>
+<td>Days 11–28</td>
+</tr>
+<tr>
+<td><strong>3 — Policy</strong></td>
+<td>Designed isolation before enforce</td>
+<td>Build workspace; Simulation mode; fix false positives</td>
+<td>Days 29–45</td>
+</tr>
+<tr>
+<td><strong>4 — Operate</strong></td>
+<td>Continuous proof between audits</td>
+<td>Enforce; quarterly export pack; ADM refresh every 90 days</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-checklist-coverage">Phase 1 checklist (coverage)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>In-scope host list reconciled to CSW
+Inventory (100% or documented exceptions)</label></li>
+<li><label><input type="checkbox"></input>Labels applied:
+<code>compliance:&lt;framework&gt;</code>,
+<code>data:&lt;classification&gt;</code>,
+<code>env:&lt;tier&gt;</code></label></li>
+<li><label><input type="checkbox"></input>CSW scope created matching
+compliance boundary</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> inventory
+CSV + agent status screenshot</label></li>
+</ul>
+<h3 id="phase-2-checklist-baseline">Phase 2 checklist (baseline)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>ADM running on compliance scope for
+full business cycle (≥2 weeks)</label></li>
+<li><label><input type="checkbox"></input>Unexpected flows documented (shadow
+IT, vendor egress, scope creep)</label></li>
+<li><label><input type="checkbox"></input>App owners signed
+cluster-to-application mapping</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> ADM diagram
++ flow samples with process context</label></li>
+</ul>
+<h3 id="phase-3-checklist-policy">Phase 3 checklist (policy)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Default-deny posture defined for
+sensitive scope</label></li>
+<li><label><input type="checkbox"></input>ADM-imported rules refined;
+Simulation run ≥1 week</label></li>
+<li><label><input type="checkbox"></input>Change tickets for false-positive
+fixes; exception register updated</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> policy
+export + simulation report</label></li>
+</ul>
+<h3 id="phase-4-checklist-operate">Phase 4 checklist (operate)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Enforcement enabled on pilot scope;
+negative test recorded in Denied Connections</label></li>
+<li><label><input type="checkbox"></input>Quarterly pack: inventory, policy,
+denies, vulns, audit log (see playbook)</label></li>
+<li><label><input type="checkbox"></input>SIEM integration verified (sample
+events)</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> enforcement
+screenshot + quarterly binder</label></li>
+</ul>
+<h3 id="what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</h3>
+<p>Physical access, HR/training records, encryption key management,
+signed BAAs/vendor contracts, formal pen tests, and assessor attestation
+still require separate programmes. CSW addresses the
+<strong>workload-resident</strong> slice: segmentation, flows, process
+context, vuln reachability, and change drift.</p>
+<hr />
+<h2 id="csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</h2>
+<ul>
+<li>Technique-level forensic alignment (TA0001–TA0011)</li>
+<li>Lateral movement visibility (TA0008) at east-west workload tier</li>
+<li>SOC integration guidance for detection/prevention mapping</li>
+</ul>
+<p><strong>Compared to manual programmes:</strong> static diagrams and
+annual firewall samples age immediately; CSW ties evidence to
+<strong>live workload behaviour</strong> and produces queryable exports
+on demand — supporting “operating effectively” language in PCI v4.0, SOC
+2 CC7, and HIPAA risk analysis.</p>
+<hr />
+<h2 id="overview">1. Overview</h2>
+<p>MITRE ATT&amp;CK is a knowledge base of adversary tactics and
+techniques, not a compliance checklist. This reference design shows how
+<strong>Cisco Secure Workload (CSW)</strong> contributes
+<strong>detection signals</strong>, <strong>prevention where
+microsegmentation is enforced</strong>, and <strong>evidence
+artifacts</strong> aligned to Enterprise tactics. CSW excels at
+<strong>workload-native visibility</strong>: process context, connection
+graphs, and policy actions on allowed/denied traffic.</p>
+<p><strong>Important distinction:</strong> CSW is <strong>not</strong> a
+full EDR/XDR replacement. It provides strong
+<strong>network-behavior</strong> and <strong>workload-process</strong>
+telemetry layered with <strong>segmentation</strong>. For comprehensive
+ATT&amp;CK coverage, pair CSW with <strong>Cisco XDR</strong> (or
+another XDR), <strong>managed EDR</strong>, identity threat detection,
+email security, and a <strong>SIEM</strong> for correlation and
+retention policies that match your program.</p>
+<h3 id="attck-tactics-and-csw-capability-summary">ATT&amp;CK Tactics and
+CSW Capability Summary</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Tactic ID</th>
+<th>Tactic</th>
+<th>Primary CSW Capabilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TA0001</td>
+<td>Initial Access</td>
+<td>Flow anomaly detection; new inbound connections to
+<strong>previously unseen ports</strong> on protected workloads; policy
+blocks on unapproved ingress paths</td>
+</tr>
+<tr>
+<td>TA0002</td>
+<td>Execution</td>
+<td>Forensics / process monitoring: <strong>unseen commands</strong>,
+script interpreters spawning unexpected children, <strong>DLL
+side-loading</strong> patterns (process + image path context)</td>
+</tr>
+<tr>
+<td>TA0003</td>
+<td>Persistence</td>
+<td>New listening services; <strong>package/process change</strong>
+detection; new or modified system services aligned to inventory
+drift</td>
+</tr>
+<tr>
+<td>TA0004</td>
+<td>Privilege Escalation</td>
+<td>Process <strong>privilege context</strong> monitoring where sensors
+provide it; anomalous escalation tooling spawning from low-trust
+parents</td>
+</tr>
+<tr>
+<td>TA0005</td>
+<td>Defense Evasion</td>
+<td><strong>Baseline drift</strong>: new outbound paths; rare processes;
+unexpected tunnel or proxy behavior visible at flow + process layer</td>
+</tr>
+<tr>
+<td>TA0006</td>
+<td>Credential Access</td>
+<td>Detection of <strong>credential-harvesting tool patterns</strong>
+(process name, hash, lineage); suspicious access to security account
+manager paths (sensor-dependent)</td>
+</tr>
+<tr>
+<td>TA0007</td>
+<td>Discovery</td>
+<td><strong>Network scanning</strong> behavior inferred from flow
+fan-out, failed connections, and sweep patterns on internal
+segments</td>
+</tr>
+<tr>
+<td>TA0008</td>
+<td>Lateral Movement</td>
+<td><strong>Microsegmentation</strong> blocks; east-west <strong>flow
+telemetry</strong>; explicit allowlists for admin protocols (RDP, SSH,
+SMB, WinRM)</td>
+</tr>
+<tr>
+<td>TA0009</td>
+<td>Collection</td>
+<td><strong>Egress monitoring</strong> for staging (bulk internal copy,
+new internal sinks, unusual cross-zone flows)</td>
+</tr>
+<tr>
+<td>TA0010</td>
+<td>Exfiltration</td>
+<td><strong>Egress flow anomalies</strong>; unusual external
+destinations; volume/duration outliers</td>
+</tr>
+<tr>
+<td>TA0011</td>
+<td>Command and Control</td>
+<td><strong>C2 beaconing</strong> candidates from periodic flow patterns
+(interval, jitter-aware review in SIEM), new external long-lived
+sessions</td>
+</tr>
+<tr>
+<td>TA0040</td>
+<td>Impact</td>
+<td>Process anomalies associated with
+<strong>encryption/ransomware-style</strong> behavior (mass file-touch
+patterns visible indirectly via process + egress); containment via
+policy</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="pre-deployment-checklist">2. Pre-Deployment Checklist</h2>
+<p>Before deploying CSW sensors for ATT&amp;CK-aligned use cases,
+confirm:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>CSW cluster (SaaS or on-premises) is
+provisioned and accessible</label></li>
+<li><label><input type="checkbox"></input>Outbound connectivity from workloads
+to the cluster (typically TCP 443)</label></li>
+<li><label><input type="checkbox"></input>Linux/Windows sensor compatibility
+verified for <strong>crown-jewel</strong> and <strong>Tier-0</strong>
+adjacent systems first</label></li>
+<li><label><input type="checkbox"></input>Cloud connectors configured (AWS,
+Azure, GCP) where agentless flow visibility is required</label></li>
+<li><label><input type="checkbox"></input><strong>SIEM or XDR</strong>
+destination for alerts identified (normalize tactic tags in event
+forwarding)</label></li>
+<li><label><input type="checkbox"></input>Stakeholders aligned: SOC Lead,
+Detection Engineering, Infrastructure Owner</label></li>
+<li><label><input type="checkbox"></input>Change window approved: start in
+<strong>monitoring-only</strong> enforcement on production</label></li>
+</ul>
+<hr />
+<h2 id="phase-1-sensor-deployment-days-15">3. Phase 1 — Sensor
+Deployment (Days 1–5)</h2>
+<h3 id="on-premises-workloads">3.1 On-Premises Workloads</h3>
+<p><strong>Install software sensors:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux (RHEL/CentOS)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> rpm <span class="at">-ivh</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.rpm</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux (Ubuntu/Debian)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dpkg <span class="at">-i</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.deb</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify service</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> status csw-agent</span></code></pre></div>
+<p><strong>Windows:</strong> deploy via your standard package pipeline
+(MSI); confirm the agent reports <strong>Active</strong> in the CSW
+console.</p>
+<h3 id="cloud-workloads">3.2 Cloud Workloads</h3>
+<p><strong>VM-based:</strong> same sensor installs as on-premises.</p>
+<p><strong>Agentless visibility (connectors):</strong></p>
+<pre><code>CSW UI → Platform → External Orchestrators
+  → Add AWS / Azure / GCP connector
+  → Grant least-privilege IAM/SPN for inventory + flow ingestion (e.g., VPC Flow Logs)</code></pre>
+<h3 id="initial-posture">3.3 Initial Posture</h3>
+<ul>
+<li>Enforcement: <strong>Monitoring only</strong> until baselines
+exist.</li>
+<li>Enable <strong>process hash</strong>, <strong>flow</strong>, and
+<strong>vulnerability/reachability</strong> features supported in your
+SKU.</li>
+<li>Tags: apply <code>criticality:crown-jewel</code>,
+<code>mitre:protected</code>, <code>env:production</code>
+consistently.</li>
+</ul>
+<p><strong>Validation:</strong></p>
+<pre><code>CSW UI → Manage → Agents
+  → Status: Active for all in-scope hosts
+  → Confirm flow and process tiles populated for sample workloads</code></pre>
+<hr />
+<h2 id="phase-2-scope-design-days-610">4. Phase 2 — Scope Design (Days
+6–10)</h2>
+<h3 id="recommended-scope-hierarchy-for-attck-use-cases">4.1 Recommended
+Scope Hierarchy for ATT&amp;CK Use Cases</h3>
+<p>Organize scopes to match <strong>lateral movement choke
+points</strong> and <strong>high-value data stores</strong>.</p>
+<pre><code>Root: Enterprise-ATTCK
+├── Tier0-Identity-Adjacent      # AD, PKI, MFA brokers (if instrumented)
+├── Crown-Jewel-Apps            # ERP, data warehouse, pipeline controllers
+├── Server-Farm-General
+├── Jump-Host-Enclave
+├── DevTest-Isolated
+└── Internet-Facing-Entry       # ingress inspection + strict outbound</code></pre>
+<h3 id="inventory-filters-for-first-defenders">4.2 Inventory Filters for
+“First Defenders”</h3>
+<pre><code>Filter: Internet-Facing-Listeners
+  - Scope: Internet-Facing-Entry + cloud public subnets
+  - Listening ports: any (review against change tickets)
+
+Filter: Sensitive-Data-Stores
+  - Process: mysqld, postgres, oracle, mongo*, sqlservr, etc.
+  - Tags: data-classification = restricted / secret</code></pre>
+<h3 id="labeling-strategy">4.3 Labeling Strategy</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Label</th>
+<th>Example</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>criticality</code></td>
+<td>crown-jewel, standard</td>
+<td>Prioritize detections and baselines</td>
+</tr>
+<tr>
+<td><code>attack-surface</code></td>
+<td>internet-facing, internal-only</td>
+<td>Ingress anomaly policies</td>
+</tr>
+<tr>
+<td><code>data-class</code></td>
+<td>restricted, public</td>
+<td>Exfiltration monitoring scope</td>
+</tr>
+<tr>
+<td><code>owner-team</code></td>
+<td>app-owners, platform</td>
+<td>Incident routing</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-3-visibility-baseline-days-1121">5. Phase 3 — Visibility
+&amp; Baseline (Days 11–21)</h2>
+<h3 id="application-dependency-mapping-adm">5.1 Application Dependency
+Mapping (ADM)</h3>
+<p>ADM establishes <strong>normal</strong> conversations—required to
+separate benign admin traffic from lateral movement.</p>
+<pre><code>CSW UI → Investigate → Application Dependency Mapping
+  → New Workspace: &quot;ATTACK-Baseline-&lt;YYYY-Qx&gt;&quot;
+  → Scope: Crown-Jewel-Apps + Tier0-Identity-Adjacent (expand as needed)
+  → Window: minimum 2–4 weeks (cover patch Tuesday and month-end jobs)
+  → Enable process context on sensors that support it</code></pre>
+<h3 id="baseline-review-questions-tactic-oriented">5.2 Baseline Review
+Questions (Tactic-Oriented)</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Review focus</th>
+<th>ATT&amp;CK relevance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>First-time inbound ports on internet-facing tiers</td>
+<td>TA0001</td>
+</tr>
+<tr>
+<td>Rare outbound destinations from Tier-0 adjacent subnets</td>
+<td>TA0011, TA0010</td>
+</tr>
+<tr>
+<td>East-west fan-out (many internal targets in short window)</td>
+<td>TA0007, TA0008</td>
+</tr>
+<tr>
+<td>Long-lived low-and-slow sessions to new external IPs</td>
+<td>TA0011</td>
+</tr>
+<tr>
+<td>New services or listeners without change correlation</td>
+<td>TA0003</td>
+</tr>
+</tbody>
+</table>
+<h3 id="export-baseline-snapshot">5.3 Export Baseline Snapshot</h3>
+<p>Periodically export ADM graph or policy-import baseline for
+<strong>drift comparison</strong> during purple-team or assessor
+walkthroughs.</p>
+<hr />
+<h2 id="phase-4-policy-design-days-2235">6. Phase 4 — Policy Design
+(Days 22–35)</h2>
+<p>Design policies that <strong>reduce blast radius</strong> (tactics
+TA0008, TA0010, TA0011) while <strong>logging</strong> novel paths for
+detection (TA0001, TA0007).</p>
+<h3 id="illustrative-segmentation-policy-snippets">6.1 Illustrative
+Segmentation Policy Snippets</h3>
+<p><strong>Default posture for crown-jewel tier (conceptual — adapt to
+your workspace syntax):</strong></p>
+<pre><code># Deny lateral paths not observed in ADM (after simulation)
+DENY: Server-Farm-General → Crown-Jewel-Apps (default)
+ALLOW: Jump-Host-Enclave → Crown-Jewel-Apps (tcp/22, tcp/3389, tcp/443 as approved)
+ALLOW: Crown-Jewel-Apps → Approved-Patch-Mirrors (tcp/443)
+
+# Contain internet-facing tier: no direct egress except proxies
+DENY: Internet-Facing-Entry → Internet (except via Egress-Proxy scope)
+
+# Log everything unmatched for SOC review
+LOG: Any → Any (unmatched)</code></pre>
+<p><strong>Operational note:</strong> translate the above into your CSW
+<strong>Defend → Segmentation</strong> workspace rules; run
+<strong>Simulation</strong> until change tickets align with observed
+noise.</p>
+<h3 id="jump-host-and-break-glass">6.2 Jump-Host and Break-Glass</h3>
+<ul>
+<li>Model <strong>explicit</strong> allowed admin paths (TA0008 overlap
+with legitimate ops).</li>
+<li>Use a separate <strong>alert-only</strong> workspace for emergency
+access nets if required; document in reference designs.</li>
+</ul>
+<h3 id="simulation-before-enforcement">6.3 Simulation Before
+Enforcement</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Mode</th>
+<th>Goal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Simulation</td>
+<td>Tune alerts; validate ADM completeness</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Selective enforcement</td>
+<td>Block highest-risk sprawl (open east-west)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Full enforcement (scoped)</td>
+<td>Containment for defined tiers</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-5-enforcement-detection-operations">7. Phase 5 —
+Enforcement &amp; Detection Operations</h2>
+<h3 id="mapping-defense-modes-to-attck-outcomes">7.1 Mapping Defense
+Modes to ATT&amp;CK Outcomes</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW mode</th>
+<th>ATT&amp;CK outcomes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Segmentation <strong>enforcement</strong></td>
+<td>Blocks lateral movement (TA0008), some C2/exfil paths (TA0011,
+TA0010) when destinations are disallowed</td>
+</tr>
+<tr>
+<td>Segmentation <strong>monitor + alert</strong></td>
+<td>Detects initial access surprises (TA0001), scanning (TA0007),
+staging (TA0009)</td>
+</tr>
+<tr>
+<td>Process / flow <strong>analytics</strong></td>
+<td>Supports execution, persistence, credential, and impact stories
+(TA0002–TA0006, TA0040)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="alert-forwarding-siem-xdr">7.2 Alert Forwarding (SIEM /
+XDR)</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: document webhook/API integration from CSW to your SIEM</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (Exact CLI varies by release — capture in your Confluence reference design)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># curl -X POST &quot;$SIEM_HEC_URL/services/collector/event&quot; \</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   -H &quot;Authorization: Splunk $HEC_TOKEN&quot; \</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   -d &#39;{&quot;event&quot;: &quot;&lt;CSW alert JSON&gt;&quot;}&#39;</span></span></code></pre></div>
+<p>Tag forwarded events with <strong>ATT&amp;CK
+tactic/technique</strong> IDs your SOC standardizes (e.g.,
+<code>mitre_attack_tactic: lateral-movement</code>).</p>
+<h3 id="purple-team-feedback-loop">7.3 Purple-Team Feedback Loop</h3>
+<ul>
+<li>After each exercise, attach <strong>CSW exports</strong> (flows,
+process timelines, policy hits) to the technique row in Navigator or
+your coverage sheet.</li>
+</ul>
+<h3 id="attck-aligned-alerts-examples">7.4 ATT&amp;CK-Aligned Alerts
+(Examples)</h3>
+<p>Configure or derive alerts so SOC triage can tag <strong>tactic
+ID</strong> consistently. Exact rule names depend on your CSW release
+and entitlements; map these examples to your deployed behaviors.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Alert theme</th>
+<th>ATT&amp;CK tactics</th>
+<th>Typical CSW signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>First-seen inbound port on internet-facing tier</td>
+<td>TA0001</td>
+<td>New listener + new external source talking to production scope</td>
+</tr>
+<tr>
+<td>Rare process or unseen command line on protected host</td>
+<td>TA0002</td>
+<td>Process forensics deviation from ADM baseline</td>
+</tr>
+<tr>
+<td>New Windows service binary or unexpected <code>systemd</code>
+unit</td>
+<td>TA0003</td>
+<td>Service / listener creation with new hash</td>
+</tr>
+<tr>
+<td>Child of high-integrity parent spawning tooling from user-writable
+path</td>
+<td>TA0004</td>
+<td>Privilege / lineage anomaly (validate with EDR)</td>
+</tr>
+<tr>
+<td>Sudden binary or egress path not in last-90-day ADM</td>
+<td>TA0005</td>
+<td>Drift: flow + process combined</td>
+</tr>
+<tr>
+<td>Known credential-dump tool name or suspicious parent→child</td>
+<td>TA0006</td>
+<td>Process catalog + lineage</td>
+</tr>
+<tr>
+<td>Internal connect fan-out / failed connect storm</td>
+<td>TA0007</td>
+<td>Aggregated flow metrics (finalize thresholds in SIEM)</td>
+</tr>
+<tr>
+<td>East-west admin protocol from non-jump scope</td>
+<td>TA0008</td>
+<td>RDP/SMB/SSH/WinRM to sensitive tier without allow rule</td>
+</tr>
+<tr>
+<td>Large cross-zone fan-in to staging host</td>
+<td>TA0009</td>
+<td>Volume or novelty of internal flows</td>
+</tr>
+<tr>
+<td>First connection to rare external AS or geo for scope</td>
+<td>TA0010</td>
+<td>Egress novelty + duration</td>
+</tr>
+<tr>
+<td>Low-volume periodic HTTPS/DNS to young domain</td>
+<td>TA0011</td>
+<td>Flow timing features (confirm in SIEM)</td>
+</tr>
+<tr>
+<td>Many encrypted file extensions touched + mass SMB</td>
+<td>TA0040</td>
+<td>Process + lateral burst (correlate with EDR file events)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-6-audit-assessment-evidence">8. Phase 6 — Audit &amp;
+Assessment Evidence</h2>
+<p>Maintain artifacts that demonstrate <strong>what was
+monitored</strong>, <strong>what was blocked</strong>, and <strong>how
+detections were tuned</strong> over time.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Evidence</th>
+<th>CSW source</th>
+<th>Typical consumer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope &amp; inventory export</td>
+<td>Manage → Inventory / Scopes</td>
+<td>Risk team, assessors</td>
+</tr>
+<tr>
+<td>ADM baseline vs current</td>
+<td>Investigate → ADM</td>
+<td>Change / architecture review</td>
+</tr>
+<tr>
+<td>Policy workspace export</td>
+<td>Defend → Segmentation</td>
+<td>Segmentation attestation</td>
+</tr>
+<tr>
+<td>Alert history with flow context</td>
+<td>Alerts + Flow Search</td>
+<td>SOC metrics, breach investigation</td>
+</tr>
+<tr>
+<td>Simulation → enforcement approval</td>
+<td>Change tickets + policy version</td>
+<td>Governance</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="control-mapping-attck-csw-evidence">9. Control Mapping:
+ATT&amp;CK → CSW → Evidence</h2>
+<h3 id="tactic-level-mapping">9.1 Tactic-Level Mapping</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>ATT&amp;CK tactic</th>
+<th>Representative techniques (examples)</th>
+<th>CSW capability</th>
+<th>Evidence produced</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TA0001 Initial Access</td>
+<td>T1190, T1133, T1566*</td>
+<td>Inbound <strong>flow anomaly</strong> (new service port, rare
+source); policy deny logs</td>
+<td>Flow exports; policy hit timeline; ADM delta</td>
+</tr>
+<tr>
+<td>TA0002 Execution</td>
+<td>T1059, T1204, T1047</td>
+<td><strong>Process monitoring</strong>: unseen CLI, scripting engines
+with rare parents</td>
+<td>Process tree exports; hash lineage</td>
+</tr>
+<tr>
+<td>TA0003 Persistence</td>
+<td>T1543, T1547, T1574</td>
+<td><strong>New services/listeners</strong>; package drift; side-loading
+indicators</td>
+<td>Inventory diff; listener reports</td>
+</tr>
+<tr>
+<td>TA0004 Privilege Escalation</td>
+<td>T1068, T1055</td>
+<td><strong>Privilege context</strong> + anomalous child processes</td>
+<td>Process + user context export</td>
+</tr>
+<tr>
+<td>TA0005 Defense Evasion</td>
+<td>T1027, T1562, T1070</td>
+<td><strong>Baseline drift</strong>; new egress; rare binaries</td>
+<td>Drift report; flow compare</td>
+</tr>
+<tr>
+<td>TA0006 Credential Access</td>
+<td>T1003, T1558, T1110**</td>
+<td><strong>Credential-tool</strong> process patterns; suspicious
+SAM/LSASS adjacency (platform-dependent)</td>
+<td>Process alerts; flow to DC</td>
+</tr>
+<tr>
+<td>TA0007 Discovery</td>
+<td>T1046, T1018, T1087**</td>
+<td><strong>Scanning behavior</strong> (failed connect fan-out);
+internal sweep patterns</td>
+<td>Internal flow aggregation</td>
+</tr>
+<tr>
+<td>TA0008 Lateral Movement</td>
+<td>T1021, T1550</td>
+<td><strong>Microsegmentation</strong>; east-west allowlist; denied
+RDP/SMB/SSH/WinRM</td>
+<td>Deny logs; allowed-path attest</td>
+</tr>
+<tr>
+<td>TA0009 Collection</td>
+<td>T1005, T1119</td>
+<td><strong>Egress/internal bulk</strong> staging patterns</td>
+<td>Cross-scope flow report</td>
+</tr>
+<tr>
+<td>TA0010 Exfiltration</td>
+<td>T1048, T1020</td>
+<td><strong>Egress anomaly</strong>; novel external destinations</td>
+<td>External flow timelines</td>
+</tr>
+<tr>
+<td>TA0011 Command and Control</td>
+<td>T1071, T1095, T1573</td>
+<td><strong>Beaconing candidates</strong> (best finalized in SIEM);
+long-lived odd sessions</td>
+<td>Flow time series export</td>
+</tr>
+<tr>
+<td>TA0040 Impact</td>
+<td>T1486, T1490</td>
+<td><strong>Process anomaly</strong>; encryption-tool patterns; mass
+connectivity change</td>
+<td>Process + policy containment proof</td>
+</tr>
+</tbody>
+</table>
+<p>*Phishing (T1566) is primarily <strong>email/identity</strong>
+telemetry—CSW supports <strong>post-landing</strong> workload evidence
+only.<br />
+**Techniques with heavy <strong>identity</strong> or <strong>directory
+query</strong> detail require <strong>IdP, AD, EDR, and authentication
+logs</strong>; CSW contributes supporting network and process
+context.</p>
+<h3 id="technique-level-alignment-selected">9.2 Technique-Level
+Alignment (Selected)</h3>
+<p>Use this table as a <strong>starter mapping</strong>—extend with your
+forensic rule catalog and SIEM correlations.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Technique ID</th>
+<th>Name</th>
+<th>CSW alignment</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1190</td>
+<td>Exploit Public-Facing Application</td>
+<td>Strong (flows to new internal victims from ingress tier)</td>
+<td>Pair with WAF/IPS for exploit payload detail</td>
+</tr>
+<tr>
+<td>T1059.001</td>
+<td>PowerShell</td>
+<td>Medium–strong</td>
+<td>Unseen command lines; parent/child anomalies</td>
+</tr>
+<tr>
+<td>T1059.003</td>
+<td>Windows Command Shell</td>
+<td>Medium–strong</td>
+<td>Rare cmd.exe children, encoded patterns (finalize in SIEM)</td>
+</tr>
+<tr>
+<td>T1574.002</td>
+<td>DLL Side-Loading</td>
+<td>Medium</td>
+<td>Image load path + process context where available</td>
+</tr>
+<tr>
+<td>T1543.003</td>
+<td>Windows Service</td>
+<td>Medium</td>
+<td>New service binary paths; new listeners</td>
+</tr>
+<tr>
+<td>T1003.001</td>
+<td>LSASS Memory</td>
+<td>Medium (process-centric)</td>
+<td>Confirm with EDR/kernel telemetry</td>
+</tr>
+<tr>
+<td>T1046</td>
+<td>Network Service Scanning</td>
+<td>Strong (flow fan-out)</td>
+<td>Tune thresholds per subnet</td>
+</tr>
+<tr>
+<td>T1021.001</td>
+<td>Remote Desktop Protocol</td>
+<td>Strong (east-west)</td>
+<td>Default deny + allowlisted jump paths</td>
+</tr>
+<tr>
+<td>T1021.002</td>
+<td>SMB/Windows Admin Shares</td>
+<td>Strong</td>
+<td>Same as above</td>
+</tr>
+<tr>
+<td>T1021.004</td>
+<td>SSH</td>
+<td>Strong</td>
+<td>Pair with SSH certificate/auth logs</td>
+</tr>
+<tr>
+<td>T1048</td>
+<td>Exfiltration Over Alternative Protocol</td>
+<td>Medium–strong</td>
+<td>Unusual outbound proto/port combos</td>
+</tr>
+<tr>
+<td>T1071.001</td>
+<td>Web Protocols</td>
+<td>Medium</td>
+<td>Beaconing analysis in SIEM</td>
+</tr>
+<tr>
+<td>T1486</td>
+<td>Data Encrypted for Impact</td>
+<td>Medium</td>
+<td>Process + mass egress suppression; not full file-level
+integrity</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="boundaries-what-csw-does-not-cover">10. Boundaries — What CSW
+Does <strong>Not</strong> Cover</h2>
+<ul>
+<li><strong>Full ATT&amp;CK matrix coverage:</strong> Many techniques
+are <strong>identity</strong>, <strong>email</strong>,
+<strong>human</strong>, or <strong>kernel</strong> events outside
+workload network/process telemetry.</li>
+<li><strong>EDR-class containment:</strong> CSW does not replace EDR
+isolation APIs for all endpoint scenarios; use <strong>Cisco
+XDR</strong> or EDR for host quarantine where required.</li>
+<li><strong>Log tamper analysis on endpoints:</strong> AU-centric
+questions may still require OS-level audit subsystems.</li>
+<li><strong>Cloud control plane attacks</strong> (e.g., IAM abuse
+without VM traffic): complement with <strong>CSPM/CWPP</strong> and
+cloud audit logs.</li>
+<li><strong>Attribution and intent:</strong> CSW provides
+<strong>technical behaviors</strong>; threat intelligence and hunting
+hypotheses live in SIEM/SOAR workflows.</li>
+</ul>
+<hr />
+<h2 id="audit-preparation-evidence-export">11. Audit Preparation &amp;
+Evidence Export</h2>
+<h3 id="standard-operating-procedure-flow-centric-incident">11.1
+Standard Operating Procedure (Flow-Centric Incident)</h3>
+<pre class="text"><code>1. CSW UI → Alerts → open event → note workload, time, policy action
+2. Investigate → Flow Search → pivot source/destination + port + window
+3. Investigate → Process Search → capture parent chain and hashes
+4. Export: CSV/JSON per your retention standard; attach tactic/technique tags
+5. Archive: store with ticket ID; map to purple-team or RCA document</code></pre>
+<h3 id="retention-guidance">11.2 Retention Guidance</h3>
+<p>Align CSW retention with <strong>SIEM/ISO/internal policy</strong>.
+Federal-style programs often target <strong>multi-year</strong> cold
+storage for select events—implement via
+<strong>forward-and-store</strong>, not console-only retention.</p>
+<h3 id="companion-products">11.3 Companion Products</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Gap area</th>
+<th>Recommended companion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cross-domain correlation, case management</td>
+<td>Cisco XDR</td>
+</tr>
+<tr>
+<td>Deep endpoint telemetry</td>
+<td>EDR (Cisco or third party)</td>
+</tr>
+<tr>
+<td>Long-term search &amp; compliance queries</td>
+<td>SIEM (Splunk, Microsoft Sentinel, etc.)</td>
+</tr>
+<tr>
+<td>Email and web initial access</td>
+<td>Secure Email/Web Gateway</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="common-pitfalls">12. Common Pitfalls</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pitfall</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Declaring “full ATT&amp;CK coverage” from CSW alone</td>
+<td>Publish a <strong>pairing matrix</strong>: which tactics are
+CSW-primary vs SIEM/EDR-primary.</td>
+</tr>
+<tr>
+<td>Baseline window too short (misses month-end jobs)</td>
+<td>Run ADM ≥ 30 days; include patch and financial close cycles.</td>
+</tr>
+<tr>
+<td>Beaconing detected only in CSW console</td>
+<td>Export <strong>flow time series</strong> to SIEM for periodicity /
+jitter analytics.</td>
+</tr>
+<tr>
+<td>Over-blocking lateral admin paths</td>
+<td>Model <strong>jump hosts</strong> explicitly; simulate before
+enforcement.</td>
+</tr>
+<tr>
+<td>Ignoring agentless-only cloud segments</td>
+<td>Combine <strong>connectors + sensors</strong> so east-west is not
+partially blind.</td>
+</tr>
+<tr>
+<td>Credential-access alerts without EDR confirmation</td>
+<td>Treat CSW as <strong>corroboration</strong> for T1003-class
+techniques pending kernel telemetry.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="appendix-a-sample-detection-engineering-checklist">Appendix A —
+Sample Detection Engineering Checklist</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Every <strong>crown-jewel</strong>
+scope has a current ADM baseline ≤ 90 days old<br />
+</label></li>
+<li><label><input type="checkbox"></input><strong>Internet-facing</strong>
+tier has ingress anomaly alerts with ticket routing<br />
+</label></li>
+<li><label><input type="checkbox"></input><strong>East-west deny</strong>
+rules have documented business exceptions<br />
+</label></li>
+<li><label><input type="checkbox"></input><strong>SIEM</strong> parses CSW
+alert JSON; fields include workload ID, 5-tuple, process<br />
+</label></li>
+<li><label><input type="checkbox"></input>Quarterly review maps closed
+incidents to <strong>ATT&amp;CK technique</strong> IDs</label></li>
+</ul>
+<hr />
+<h2 id="appendix-b-related-frameworks">Appendix B — Related
+Frameworks</h2>
+<ul>
+<li><p><a href="../NIST-800-53/CSW-NIST-800-53-Reference-Design.html">NIST
+SP 800-53 Rev 5</a> — control families that overlap SI-4, AU, IR.<br />
+</p></li>
+<li><p><a href="../NIST-800-207/CSW-NIST-800-207-Reference-Design.html">NIST SP
+800-207</a> — ZTA segmentation rationale.<br />
+</p></li>
+<li><p><a href="../FedRAMP/CSW-FedRAMP-Reference-Design.html">FedRAMP</a>
+— federal continuous monitoring overlays.</p></li>
+<li><p><a href="../UK-NCSC-CAF/caf-mapping.html">UK NCSC CAF v3.2</a> —
+technique coverage is the reuse path for CAF C2.</p></li>
+</ul>
+<hr />
+<p><em>Document prepared for Cisco accounts mapping workload telemetry
+to MITRE ATT&amp;CK. Replace organization-specific names and parameters
+before customer delivery.</em></p>
+</body>
+</html>

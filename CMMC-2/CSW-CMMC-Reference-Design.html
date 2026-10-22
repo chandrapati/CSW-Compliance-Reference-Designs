@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>CMMC 2.0 — Reference Design</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-CMMC-Reference-Design.html">CSW-CMMC-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-07T17:30:33Z UTC · Repository commit: a630820</div>
+<header id="title-block-header">
+<h1 class="title">CMMC 2.0 — Reference Design</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload-cmmc-2.0-cybersecurity-maturity-model-certification" id="toc-cisco-secure-workload-cmmc-2.0-cybersecurity-maturity-model-certification">Cisco
+Secure Workload — CMMC 2.0 (Cybersecurity Maturity Model
+Certification)</a>
+<ul>
+<li><a href="#reference-design-level-2-lead-with-level-1-level-3-deltas" id="toc-reference-design-level-2-lead-with-level-1-level-3-deltas">Reference
+Design | Level 2 Lead, with Level 1 / Level 3 Deltas</a></li>
+<li><a href="#readers-guide" id="toc-readers-guide">Reader’s
+Guide</a></li>
+<li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</a></li>
+<li><a href="#universal-evidence-workflow" id="toc-universal-evidence-workflow">Universal evidence workflow</a>
+<ul>
+<li><a href="#phase-1-checklist-coverage" id="toc-phase-1-checklist-coverage">Phase 1 checklist
+(coverage)</a></li>
+<li><a href="#phase-2-checklist-baseline" id="toc-phase-2-checklist-baseline">Phase 2 checklist
+(baseline)</a></li>
+<li><a href="#phase-3-checklist-policy" id="toc-phase-3-checklist-policy">Phase 3 checklist (policy)</a></li>
+<li><a href="#phase-4-checklist-operate" id="toc-phase-4-checklist-operate">Phase 4 checklist (operate)</a></li>
+<li><a href="#what-csw-evidence-does-not-replace" id="toc-what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</a></li>
+</ul></li>
+<li><a href="#csw-effectiveness-for-this-framework" id="toc-csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</a></li>
+<li><a href="#overview" id="toc-overview">1. Overview</a></li>
+<li><a href="#cui-scope-identification-and-boundary-labelling" id="toc-cui-scope-identification-and-boundary-labelling">2. CUI Scope
+Identification and Boundary Labelling</a></li>
+<li><a href="#ac-access-control" id="toc-ac-access-control">3. AC —
+Access Control</a>
+<ul>
+<li><a href="#ac.l1-3.1.1-ac.l2-3.1.1-limit-system-access" id="toc-ac.l1-3.1.1-ac.l2-3.1.1-limit-system-access">3.1 AC.L1-3.1.1 /
+AC.L2-3.1.1 — Limit System Access</a></li>
+<li><a href="#ac.l2-3.1.3-control-information-flow" id="toc-ac.l2-3.1.3-control-information-flow">3.2 AC.L2-3.1.3 — Control
+Information Flow</a></li>
+<li><a href="#ac.l2-3.1.20-verify-and-control-connections-to-external-systems" id="toc-ac.l2-3.1.20-verify-and-control-connections-to-external-systems">3.3
+AC.L2-3.1.20 — Verify and Control Connections to External
+Systems</a></li>
+<li><a href="#ac.l2-3.1.22-control-cui-on-publicly-accessible-systems" id="toc-ac.l2-3.1.22-control-cui-on-publicly-accessible-systems">3.4
+AC.L2-3.1.22 — Control CUI on Publicly-Accessible Systems</a></li>
+</ul></li>
+<li><a href="#au-audit-and-accountability" id="toc-au-audit-and-accountability">4. AU — Audit and
+Accountability</a>
+<ul>
+<li><a href="#au.l2-3.3.1-create-audit-records" id="toc-au.l2-3.3.1-create-audit-records">4.1 AU.L2-3.3.1 — Create Audit
+Records</a></li>
+<li><a href="#au.l2-3.3.2-ensure-action-traceability" id="toc-au.l2-3.3.2-ensure-action-traceability">4.2 AU.L2-3.3.2 — Ensure
+Action Traceability</a></li>
+<li><a href="#au.l2-3.3.4-3.3.5-3.3.8-alert-failures-correlate-protect-logs" id="toc-au.l2-3.3.4-3.3.5-3.3.8-alert-failures-correlate-protect-logs">4.3
+AU.L2-3.3.4, 3.3.5, 3.3.8 — Alert Failures, Correlate, Protect
+Logs</a></li>
+<li><a href="#au.l2-3.3.9-limit-management-of-audit-logging-functionality" id="toc-au.l2-3.3.9-limit-management-of-audit-logging-functionality">4.4
+AU.L2-3.3.9 — Limit Management of Audit Logging Functionality</a></li>
+</ul></li>
+<li><a href="#cm-configuration-management" id="toc-cm-configuration-management">5. CM — Configuration
+Management</a>
+<ul>
+<li><a href="#cm.l2-3.4.1-establish-configuration-baselines" id="toc-cm.l2-3.4.1-establish-configuration-baselines">5.1 CM.L2-3.4.1 —
+Establish Configuration Baselines</a></li>
+<li><a href="#cm.l2-3.4.2-establish-security-configuration-settings" id="toc-cm.l2-3.4.2-establish-security-configuration-settings">5.2
+CM.L2-3.4.2 — Establish Security Configuration Settings</a></li>
+<li><a href="#cm.l2-3.4.3-3.4.4-track-and-approve-changes" id="toc-cm.l2-3.4.3-3.4.4-track-and-approve-changes">5.3 CM.L2-3.4.3 /
+3.4.4 — Track and Approve Changes</a></li>
+<li><a href="#cm.l2-3.4.6-employ-principle-of-least-functionality" id="toc-cm.l2-3.4.6-employ-principle-of-least-functionality">5.4
+CM.L2-3.4.6 — Employ Principle of Least Functionality</a></li>
+<li><a href="#cm.l2-3.4.7-restrict-use-of-nonessential-programsfunctions" id="toc-cm.l2-3.4.7-restrict-use-of-nonessential-programsfunctions">5.5
+CM.L2-3.4.7 — Restrict Use of Nonessential Programs/Functions</a></li>
+</ul></li>
+<li><a href="#ra-risk-assessment" id="toc-ra-risk-assessment">6. RA —
+Risk Assessment</a>
+<ul>
+<li><a href="#ra.l2-3.11.1-conduct-risk-assessments" id="toc-ra.l2-3.11.1-conduct-risk-assessments">6.1 RA.L2-3.11.1 —
+Conduct Risk Assessments</a></li>
+<li><a href="#ra.l2-3.11.2-scan-for-vulnerabilities" id="toc-ra.l2-3.11.2-scan-for-vulnerabilities">6.2 RA.L2-3.11.2 — Scan
+for Vulnerabilities</a></li>
+<li><a href="#ra.l2-3.11.3-remediate-vulnerabilities" id="toc-ra.l2-3.11.3-remediate-vulnerabilities">6.3 RA.L2-3.11.3 —
+Remediate Vulnerabilities</a></li>
+</ul></li>
+<li><a href="#sc-system-and-communications-protection" id="toc-sc-system-and-communications-protection">7. SC — System and
+Communications Protection</a>
+<ul>
+<li><a href="#sc.l2-3.13.1-monitor-control-and-protect-communications-at-system-boundaries" id="toc-sc.l2-3.13.1-monitor-control-and-protect-communications-at-system-boundaries">7.1
+SC.L2-3.13.1 — Monitor, Control, and Protect Communications at System
+Boundaries</a></li>
+<li><a href="#sc.l2-3.13.2-employ-architectural-designs" id="toc-sc.l2-3.13.2-employ-architectural-designs">7.2 SC.L2-3.13.2 —
+Employ Architectural Designs</a></li>
+<li><a href="#sc.l2-3.13.5-implement-subnetworks-for-publicly-accessible-components" id="toc-sc.l2-3.13.5-implement-subnetworks-for-publicly-accessible-components">7.3
+SC.L2-3.13.5 — Implement Subnetworks for Publicly-Accessible
+Components</a></li>
+<li><a href="#sc.l2-3.13.6-deny-by-default-permit-by-exception" id="toc-sc.l2-3.13.6-deny-by-default-permit-by-exception">7.4
+SC.L2-3.13.6 — Deny by Default; Permit by Exception</a></li>
+<li><a href="#sc.l2-3.13.7-prevent-split-tunneling-on-remote-devices" id="toc-sc.l2-3.13.7-prevent-split-tunneling-on-remote-devices">7.5
+SC.L2-3.13.7 — Prevent Split Tunneling on Remote Devices</a></li>
+<li><a href="#sc.l2-3.13.16-protect-cui-confidentiality-at-rest" id="toc-sc.l2-3.13.16-protect-cui-confidentiality-at-rest">7.6
+SC.L2-3.13.16 — Protect CUI Confidentiality at Rest</a></li>
+</ul></li>
+<li><a href="#si-system-and-information-integrity" id="toc-si-system-and-information-integrity">8. SI — System and
+Information Integrity</a>
+<ul>
+<li><a href="#si.l2-3.14.1-identify-report-and-correct-system-flaws" id="toc-si.l2-3.14.1-identify-report-and-correct-system-flaws">8.1
+SI.L2-3.14.1 — Identify, Report, and Correct System Flaws</a></li>
+<li><a href="#si.l2-3.14.2-provide-protection-from-malicious-code" id="toc-si.l2-3.14.2-provide-protection-from-malicious-code">8.2
+SI.L2-3.14.2 — Provide Protection from Malicious Code</a></li>
+<li><a href="#si.l2-3.14.3-monitor-system-security-alerts-and-advisories" id="toc-si.l2-3.14.3-monitor-system-security-alerts-and-advisories">8.3
+SI.L2-3.14.3 — Monitor System Security Alerts and Advisories</a></li>
+<li><a href="#si.l2-3.14.6-monitor-communications" id="toc-si.l2-3.14.6-monitor-communications">8.4 SI.L2-3.14.6 — Monitor
+Communications</a></li>
+<li><a href="#si.l2-3.14.7-identify-unauthorised-use" id="toc-si.l2-3.14.7-identify-unauthorised-use">8.5 SI.L2-3.14.7 —
+Identify Unauthorised Use</a></li>
+</ul></li>
+<li><a href="#ir-incident-response-evidence-side" id="toc-ir-incident-response-evidence-side">9. IR — Incident Response
+(Evidence Side)</a>
+<ul>
+<li><a href="#ir.l2-3.6.1-3.6.2-3.6.3-ir-process" id="toc-ir.l2-3.6.1-3.6.2-3.6.3-ir-process">9.1 IR.L2-3.6.1 / 3.6.2 /
+3.6.3 — IR Process</a></li>
+</ul></li>
+<li><a href="#mapping-table-cmmc-l2-nist-800-171-family-csw-capability" id="toc-mapping-table-cmmc-l2-nist-800-171-family-csw-capability">10.
+Mapping Table — CMMC L2 (NIST 800-171) Family → CSW Capability</a></li>
+<li><a href="#level-1-fci-delta" id="toc-level-1-fci-delta">11. Level 1
+(FCI) Delta</a></li>
+<li><a href="#level-3-delta" id="toc-level-3-delta">12. Level 3
+Delta</a></li>
+<li><a href="#c3pao-assessor-response-guide" id="toc-c3pao-assessor-response-guide">13. C3PAO Assessor Response
+Guide</a></li>
+<li><a href="#related-frameworks" id="toc-related-frameworks">14.
+Related Frameworks</a></li>
+<li><a href="#disclaimer" id="toc-disclaimer">15. Disclaimer</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload-cmmc-2.0-cybersecurity-maturity-model-certification">Cisco
+Secure Workload — CMMC 2.0 (Cybersecurity Maturity Model
+Certification)</h1>
+<h2 id="reference-design-level-2-lead-with-level-1-level-3-deltas">Reference
+Design | Level 2 Lead, with Level 1 / Level 3 Deltas</h2>
+<p><strong>Version:</strong> 1.0 (draft — pending SME review) |
+<strong>Standard:</strong> CMMC 2.0 (final rule effective December 16,
+2024) | <strong>Audience:</strong> DoD contractors and subcontractors
+handling Federal Contract Information (FCI) or Controlled Unclassified
+Information (CUI) | <strong>Environment:</strong> Hybrid (on-prem +
+cloud) supporting the CUI/FCI scope</p>
+<hr />
+<h2 id="readers-guide">Reader’s Guide</h2>
+<p><strong>Who this is for.</strong> Defense Industrial Base (DIB)
+organisations that hold or are seeking DoD contracts subject to DFARS
+252.204-7012 (safeguarding CUI), or to the broader DFARS 252.204-7021
+CMMC clause once it appears in your contracts. The default depth in this
+reference design is written for <strong>CMMC Level 2</strong> because
+that’s where the bulk of the technical work — and the bulk of CSW
+alignment — lives. Level 1 and Level 3 deltas are called out where the
+work materially changes.</p>
+<p><strong>Why CMMC and not just NIST 800-171 or 800-53?</strong> CMMC
+2.0 doesn’t invent new controls. It is the DoD’s <em>certification</em>
+mechanism that your organisation has implemented the controls already
+required under DFARS 252.204-7012:</p>
+<ul>
+<li><strong>Level 1 (Foundational, 15 safeguards)</strong> — implements
+the 15 basic safeguarding requirements from FAR 52.204-21. Self-attested
+annually. Required for any contract handling FCI.</li>
+<li><strong>Level 2 (Advanced, 110 controls)</strong> — implements
+<strong>all 110 controls of NIST SP 800-171 Rev 2</strong>.
+Self-assessed (for some contracts) or third-party-assessed via a C3PAO
+every 3 years. Required for any contract handling CUI.</li>
+<li><strong>Level 3 (Expert, ~134 controls)</strong> — Level 2 plus a
+selected subset of NIST SP 800-172 enhanced security requirements.
+Government-led assessment. Required for the highest-criticality
+contracts.</li>
+</ul>
+<p><strong>Questions this reference design helps you
+answer:</strong></p>
+<ul>
+<li><em>AC.L2-3.1.1 / 3.1.2 (Limit access; restrict to authorised
+functions): can I produce evidence that workload-level access is
+enforced and that segmentation between FCI/CUI scope and out-of-scope
+estate is real?</em></li>
+<li><em>AU.L2-3.3.1 / 3.3.2 (Audit records; CUI access traceability):
+can I produce per-user, per-process, per-flow audit records for every
+action involving a CUI-bearing workload, retained for the
+contract-required period?</em></li>
+<li><em>CM.L2-3.4.1 / 3.4.2 / 3.4.6 (Baseline configurations; security
+configuration; least functionality): can I show the baseline
+configuration of every CUI-scope workload, detect drift from it, and
+demonstrate that only necessary functions/ports/services are
+running?</em></li>
+<li><em>RA.L2-3.11.2 / 3.11.3 (Vulnerability scanning; remediate
+vulnerabilities): can I produce continuous CVE inventory per CUI-scope
+workload, with remediation tracking on an SLA the C3PAO will
+accept?</em></li>
+<li><em>SC.L2-3.13.1 / 3.13.5 / 3.13.6 (Boundary protection; deny by
+default; allow by exception): can I demonstrate workload-level
+deny-by-default with a documented allow-list, and show that the CUI
+scope has a defined and enforced boundary?</em></li>
+<li><em>SI.L2-3.14.1 / 3.14.6 / 3.14.7 (Identify/correct flaws; monitor
+for attacks; identify unauthorised use): can I show monitoring evidence
+at the workload level for the CUI scope, with detection rules sufficient
+to support the C3PAO assessment?</em></li>
+</ul>
+<p><strong>What you’ll need.</strong> Your current <strong>CUI scope
+diagram</strong> (the authoritative answer to “where does CUI live and
+through what systems does it flow?”), your current System Security Plan
+(SSP) and Plan of Action &amp; Milestones (POA&amp;M), your most recent
+NIST SP 800-171 self-assessment score, and your target CMMC level. CSW
+augments the SSP and POA&amp;M; it does not author them.</p>
+<p><strong>Where to start.</strong> Section 2 if you’re scoping CSW
+relative to the CUI boundary; sections 3–4 if AC and AU are the audit
+gap; section 5 if CM (configuration management) is the open item;
+section 6 for RA (vulnerability assessments); section 7 for SC (boundary
+protection); section 8 for SI (system &amp; information integrity).</p>
+<p><strong>Important.</strong> CMMC 2.0 assessment is performed by a
+Certified Third- Party Assessor Organisation (C3PAO) for Level 2
+certified-assessed scope. Nothing in this reference design substitutes
+for the SSP, POA&amp;M, or the C3PAO engagement. CSW can support
+evidence for many technical practices the C3PAO evaluates, subject to
+CUI scope, implementation, and assessor judgment.</p>
+<hr />
+<!-- CSW-RUNBOOK-PRIMER:v1 -->
+<h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</h2>
+<p>Cisco Secure Workload (CSW) is a <strong>workload protection
+platform</strong>. A lightweight <strong>agent</strong> on each
+server/VM/container observes processes and network flows; <strong>cloud
+connectors</strong> add AWS/Azure/GCP inventory where agents are not
+deployed.</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW term</th>
+<th>Meaning</th>
+<th>Why compliance teams care</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Logical boundary (CDE, PHI zone, CUI enclave)</td>
+<td>Defines the systems you must prove are isolated</td>
+</tr>
+<tr>
+<td><strong>Label / filter</strong></td>
+<td>Tag or query assigning workloads to scopes</td>
+<td>Automates scope membership — reduces drift</td>
+</tr>
+<tr>
+<td><strong>ADM</strong></td>
+<td>Application Dependency Mapping from observed traffic</td>
+<td><strong>Live</strong> network/data-flow diagram for assessors</td>
+</tr>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>Policy container for one scope or application</td>
+<td>Where allow/deny rules are authored</td>
+</tr>
+<tr>
+<td><strong>Monitor → Simulation → Enforce</strong></td>
+<td>Safe rollout sequence</td>
+<td>Simulation = change-board evidence before blocking traffic</td>
+</tr>
+<tr>
+<td><strong>Denied Connections</strong></td>
+<td>Log of flows blocked by policy</td>
+<td>Primary proof that enforcement <strong>operates</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Console areas:</strong> Investigate (inventory, flows, vulns)
+· Defend/Segmentation (policy) · Manage (agents) · Platform (connectors)
+· Administration (audit log)</p>
+<p><strong>Read next:</strong> <a href="../docs/compliance-evidence-playbook.html">Compliance evidence
+playbook</a> (full step-by-step) · <a href="../docs/about-csw.html">About
+CSW</a> (platform intro)</p>
+<hr />
+<h2 id="universal-evidence-workflow">Universal evidence workflow</h2>
+<p>Execute these phases for <strong>this framework’s</strong> compliance
+boundary. Map exports to control IDs in the <strong>Reporting &amp;
+Evidence</strong> section below.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Key CSW actions</th>
+<th>Typical duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Coverage</strong></td>
+<td>Every in-scope workload in CSW</td>
+<td>Install agents/connectors; apply compliance labels; create
+scope</td>
+<td>Days 1–10</td>
+</tr>
+<tr>
+<td><strong>2 — Baseline</strong></td>
+<td>Machine-generated flow map</td>
+<td>Run ADM ≥2 weeks; export clusters; app-owner signoff</td>
+<td>Days 11–28</td>
+</tr>
+<tr>
+<td><strong>3 — Policy</strong></td>
+<td>Designed isolation before enforce</td>
+<td>Build workspace; Simulation mode; fix false positives</td>
+<td>Days 29–45</td>
+</tr>
+<tr>
+<td><strong>4 — Operate</strong></td>
+<td>Continuous proof between audits</td>
+<td>Enforce; quarterly export pack; ADM refresh every 90 days</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-checklist-coverage">Phase 1 checklist (coverage)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>In-scope host list reconciled to CSW
+Inventory (100% or documented exceptions)</label></li>
+<li><label><input type="checkbox"></input>Labels applied:
+<code>compliance:&lt;framework&gt;</code>,
+<code>data:&lt;classification&gt;</code>,
+<code>env:&lt;tier&gt;</code></label></li>
+<li><label><input type="checkbox"></input>CSW scope created matching
+compliance boundary</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> inventory
+CSV + agent status screenshot</label></li>
+</ul>
+<h3 id="phase-2-checklist-baseline">Phase 2 checklist (baseline)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>ADM running on compliance scope for
+full business cycle (≥2 weeks)</label></li>
+<li><label><input type="checkbox"></input>Unexpected flows documented (shadow
+IT, vendor egress, scope creep)</label></li>
+<li><label><input type="checkbox"></input>App owners signed
+cluster-to-application mapping</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> ADM diagram
++ flow samples with process context</label></li>
+</ul>
+<h3 id="phase-3-checklist-policy">Phase 3 checklist (policy)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Default-deny posture defined for
+sensitive scope</label></li>
+<li><label><input type="checkbox"></input>ADM-imported rules refined;
+Simulation run ≥1 week</label></li>
+<li><label><input type="checkbox"></input>Change tickets for false-positive
+fixes; exception register updated</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> policy
+export + simulation report</label></li>
+</ul>
+<h3 id="phase-4-checklist-operate">Phase 4 checklist (operate)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Enforcement enabled on pilot scope;
+negative test recorded in Denied Connections</label></li>
+<li><label><input type="checkbox"></input>Quarterly pack: inventory, policy,
+denies, vulns, audit log (see playbook)</label></li>
+<li><label><input type="checkbox"></input>SIEM integration verified (sample
+events)</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> enforcement
+screenshot + quarterly binder</label></li>
+</ul>
+<h3 id="what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</h3>
+<p>Physical access, HR/training records, encryption key management,
+signed BAAs/vendor contracts, formal pen tests, and assessor attestation
+still require separate programmes. CSW addresses the
+<strong>workload-resident</strong> slice: segmentation, flows, process
+context, vuln reachability, and change drift.</p>
+<hr />
+<h2 id="csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</h2>
+<ul>
+<li>Level 2 (800-171) AC/AU/CM/RA/SC/SI family evidence</li>
+<li>CUI enclave labelling and scope export for SSP inputs</li>
+<li>Prepares POA&amp;M items with workload-level gap visibility</li>
+</ul>
+<p><strong>Compared to manual programmes:</strong> static diagrams and
+annual firewall samples age immediately; CSW ties evidence to
+<strong>live workload behaviour</strong> and produces queryable exports
+on demand — supporting “operating effectively” language in PCI v4.0, SOC
+2 CC7, and HIPAA risk analysis.</p>
+<hr />
+<h2 id="overview">1. Overview</h2>
+<p>CMMC 2.0 final rule (DFARS 252.204-7021 / 32 CFR Part 170) was
+published October 15, 2024 and became effective December 16, 2024. DoD
+contracts will phase in CMMC requirements over the subsequent three
+years.</p>
+<p><strong>The three CMMC 2.0 levels:</strong></p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Level</th>
+<th>Name</th>
+<th>Controls</th>
+<th>Assessment</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Foundational</td>
+<td>15 (FAR 52.204-21)</td>
+<td>Annual self-attestation</td>
+<td>Contract handles FCI</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Advanced</td>
+<td>110 (NIST SP 800-171 Rev 2)</td>
+<td>Self-assessment or C3PAO every 3 years (per contract)</td>
+<td>Contract handles CUI</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Expert</td>
+<td>Level 2 + selected NIST SP 800-172 enhancements</td>
+<td>Government-led</td>
+<td>Highest-criticality contracts</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Where CSW fits across the 14 NIST 800-171 control families
+(which are CMMC Level 2):</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Family</th>
+<th>Title</th>
+<th>CSW relevance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AC</td>
+<td>Access Control</td>
+<td><strong>Direct</strong> (workload-level enforcement)</td>
+</tr>
+<tr>
+<td>AT</td>
+<td>Awareness &amp; Training</td>
+<td>Out of scope (HR/training)</td>
+</tr>
+<tr>
+<td>AU</td>
+<td>Audit &amp; Accountability</td>
+<td><strong>Direct</strong> (per-flow + per-process telemetry)</td>
+</tr>
+<tr>
+<td>CA</td>
+<td>Security Assessment</td>
+<td>Supporting (continuous monitoring evidence)</td>
+</tr>
+<tr>
+<td>CM</td>
+<td>Configuration Management</td>
+<td><strong>Direct</strong> (baseline + drift)</td>
+</tr>
+<tr>
+<td>IA</td>
+<td>Identification &amp; Authentication</td>
+<td>Supporting (identity is upstream)</td>
+</tr>
+<tr>
+<td>IR</td>
+<td>Incident Response</td>
+<td><strong>Direct (evidence)</strong> (forensic reconstruction)</td>
+</tr>
+<tr>
+<td>MA</td>
+<td>Maintenance</td>
+<td>Supporting</td>
+</tr>
+<tr>
+<td>MP</td>
+<td>Media Protection</td>
+<td>Out of scope</td>
+</tr>
+<tr>
+<td>PE</td>
+<td>Physical Protection</td>
+<td>Out of scope</td>
+</tr>
+<tr>
+<td>PS</td>
+<td>Personnel Security</td>
+<td>Out of scope</td>
+</tr>
+<tr>
+<td>RA</td>
+<td>Risk Assessment</td>
+<td><strong>Direct</strong> (continuous CVE + reachability)</td>
+</tr>
+<tr>
+<td>SC</td>
+<td>System &amp; Communications Protection</td>
+<td><strong>Direct</strong> (boundary protection, segmentation)</td>
+</tr>
+<tr>
+<td>SI</td>
+<td>System &amp; Information Integrity</td>
+<td><strong>Direct</strong> (monitoring, detection, integrity)</td>
+</tr>
+</tbody>
+</table>
+<p>CSW is direct on six families (AC, AU, CM, RA, SC, SI), supporting on
+four (CA, IA, IR evidence, MA), and out of scope on four (AT, MP, PE,
+PS).</p>
+<hr />
+<h2 id="cui-scope-identification-and-boundary-labelling">2. CUI Scope
+Identification and Boundary Labelling</h2>
+<p>The <strong>CUI scope</strong> is the most consequential decision in
+a CMMC assessment. Anything in scope must implement all 110 Level 2
+controls; anything out of scope is exempt. The wider the scope, the
+larger the certification effort.</p>
+<p>CSW does not define the CUI boundary — that is a data-classification
+exercise driven by your contracts and your data flows. CSW <em>does</em>
+host the labels that make the boundary enforceable and auditable.</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Get the CUI scope determination from your CUI-handling owner
+  → Per workload:
+      cui_scope:        in-scope | security-protection-asset (SPA) |
+                        contractor-risk-managed | out-of-scope
+      cui_role:         processes | stores | transmits
+      cmmc_level:       l1 | l2 | l3
+      contract_id:      [reference to contracting vehicle]
+      enclave:          [logical CUI enclave name]
+
+Step 2: Apply labels to every CSW-managed workload
+  CSW UI → Inventory → Bulk Label
+  → Mandatory for any workload supporting in-scope contracts
+
+Step 3: Build CSW Scopes per CUI enclave
+  CSW UI → Organize → Scopes → New
+  → Recommended hierarchy:
+        Root
+        └── DIB-Estate
+            ├── CUI-Enclaves
+            │   ├── Enclave-A (cui_scope=in-scope)
+            │   ├── Enclave-B (cui_scope=in-scope)
+            │   └── Enclave-N
+            ├── Security-Protection-Assets (SPA)
+            │   ├── Identity-PKI
+            │   ├── SIEM-and-Monitoring
+            │   ├── Vulnerability-Mgmt
+            │   └── Backup-and-Recovery
+            └── Out-of-Scope (default-deny target)
+
+Step 4: Validate scope membership against the SSP
+  → Cross-check CSW count vs. SSP-documented system list
+  → Reconcile any delta with the CUI-handling owner before sign-off</code></pre>
+<p><strong>Evidence:</strong> Per-enclave membership snapshot (CSV) with
+workload identity, OS, owner, CUI role, contract reference, and
+last-seen timestamp. This becomes the CSW companion to your SSP system
+inventory.</p>
+<p><strong>Level 1 delta:</strong> Level 1 only handles FCI; the scope
+is broader but the controls are simpler. Apply
+<code>cmmc_level: l1</code> and use the same scope structure.</p>
+<p><strong>Level 3 delta:</strong> Level 3 inherits all Level 2 scope;
+add <code>cmmc_level: l3</code> to the most-sensitive enclaves. The
+additional NIST 800-172 enhancements typically tighten existing controls
+rather than add new control families.</p>
+<hr />
+<h2 id="ac-access-control">3. AC — Access Control</h2>
+<h3 id="ac.l1-3.1.1-ac.l2-3.1.1-limit-system-access">3.1 AC.L1-3.1.1 /
+AC.L2-3.1.1 — Limit System Access</h3>
+<p>Limit system access to authorised users, processes, and devices
+acting on behalf of authorised users.</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Workload-level deny-by-default at the CUI enclave boundary
+  CSW UI → Defend → Segmentation → New Workspace
+  Name: cmmc-{enclave-name}
+  Scope: cui_scope=in-scope AND enclave=[name]
+
+Step 2: Build allow-list per documented system function
+  → Use ADM to compute as-observed clusters
+  → Reject &quot;noise&quot; clusters; rename to system-function names
+  → Each cluster becomes a documented allow rule
+
+Step 3: Run in Simulation 30+ days; resolve gaps with system owner
+Step 4: Promote to Enforce; gate by change-management approval</code></pre>
+<h3 id="ac.l2-3.1.3-control-information-flow">3.2 AC.L2-3.1.3 — Control
+Information Flow</h3>
+<p>Control the flow of CUI in accordance with approved
+authorisations.</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Enumerate observed CUI-enclave egress
+  CSW UI → Investigate → Flow Search
+  Filter: source_scope=cui-enclaves AND destination ∉ enclave
+
+Step 2: Reconcile against the SSP&#39;s documented information flows
+  → Observed-but-undocumented = candidate exception or violation
+  → Documented-but-not-observed = candidate for SSP cleanup
+
+Step 3: Enforce flow boundary via CSW policy
+  → ALLOW only documented inter-enclave flows
+  → DENY everything else with audit logging</code></pre>
+<h3 id="ac.l2-3.1.20-verify-and-control-connections-to-external-systems">3.3
+AC.L2-3.1.20 — Verify and Control Connections to External Systems</h3>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Enumerate all egress from cui_scope=in-scope workloads
+Step 2: For each external destination, verify it is documented in
+        the SSP&#39;s external-systems register
+Step 3: Egress allowlist per enclave; alert on net-new external
+        destinations</code></pre>
+<h3 id="ac.l2-3.1.22-control-cui-on-publicly-accessible-systems">3.4
+AC.L2-3.1.22 — Control CUI on Publicly-Accessible Systems</h3>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Identify any cui_scope=in-scope workload that is also
+        internet-reachable
+        → CSW reachability query
+Step 2: For each, validate that the architecture is intentional
+        and that the workload has supporting boundary-protection
+        evidence for SC.L2-3.13.5
+Step 3: Continuous monitoring for net-new internet-reachable
+        CUI workloads</code></pre>
+<p><strong>Evidence (AC family):</strong> (a) per-enclave segmentation
+policy export with simulation→enforcement log; (b) information-flow
+reconciliation against SSP; (c) external-systems register reconciled
+against observed egress; (d) internet-exposure inventory.</p>
+<hr />
+<h2 id="au-audit-and-accountability">4. AU — Audit and
+Accountability</h2>
+<h3 id="au.l2-3.3.1-create-audit-records">4.1 AU.L2-3.3.1 — Create Audit
+Records</h3>
+<p>Create and retain system audit logs and records to the extent needed
+to enable monitoring, analysis, investigation, and reporting of unlawful
+or unauthorised system activity.</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Configure SIEM forwarding for every cui_scope=in-scope
+        workload
+  CSW UI → Manage → Data Tap → SIEM
+  → Splunk HEC, QRadar, Sentinel, Cisco XDR, syslog
+  → Forward: per-flow records, process events, policy violations,
+    behavioural detections, vulnerability events
+
+Step 2: Confirm CMMC-grade audit detail
+  → Per-flow: source, destination, port, byte counts, timestamps,
+    process attribution, scope context
+  → Per-process: command line, parent-child, file accesses,
+    network activity
+  → Per-event: detection rule fired, severity, evidence</code></pre>
+<h3 id="au.l2-3.3.2-ensure-action-traceability">4.2 AU.L2-3.3.2 — Ensure
+Action Traceability</h3>
+<p>Ensure that the actions of individual system users can be uniquely
+traced to those users.</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Process telemetry includes user attribution where the OS
+        sensor supports it
+Step 2: Pair CSW process events with identity-system events at the
+        SIEM (CSW + AD/IdP correlation)
+Step 3: For shared-credential investigations, CSW process timeline
+        narrows the window for identity correlation</code></pre>
+<h3 id="au.l2-3.3.4-3.3.5-3.3.8-alert-failures-correlate-protect-logs">4.3
+AU.L2-3.3.4, 3.3.5, 3.3.8 — Alert Failures, Correlate, Protect Logs</h3>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: CSW data-tap monitor: alert on forwarder failure
+Step 2: SIEM correlation rules combining CSW + identity + endpoint
+        telemetry
+Step 3: SIEM-side immutable log storage (CSW does not store the
+        long-term archive; the SIEM does)</code></pre>
+<h3 id="au.l2-3.3.9-limit-management-of-audit-logging-functionality">4.4
+AU.L2-3.3.9 — Limit Management of Audit Logging Functionality</h3>
+<p><strong>CSW Implementation:</strong> CSW administrative access is
+RBAC-controlled; configure separate roles for audit-log management
+vs. policy management; document in the SSP.</p>
+<p><strong>Evidence (AU family):</strong> (a) SIEM forwarding
+configuration; (b) sample audit record showing per-flow + per-process
+detail; (c) audit retention configuration; (d) CSW RBAC export for
+audit-management roles.</p>
+<hr />
+<h2 id="cm-configuration-management">5. CM — Configuration
+Management</h2>
+<h3 id="cm.l2-3.4.1-establish-configuration-baselines">5.1 CM.L2-3.4.1 —
+Establish Configuration Baselines</h3>
+<p>Establish and maintain baseline configurations and inventories of
+organisational systems.</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Capture baseline per cui_scope=in-scope workload
+  CSW UI → Investigate → Inventory → Workload → Software &amp; Packages
+  → Auto-captured: OS, kernel, package list, version, install date,
+    listening ports, running processes
+  → Snapshot daily to CSW data tap; this is the CMMC L2 baseline
+
+Step 2: Schedule baseline export per enclave; route to SSP appendix</code></pre>
+<h3 id="cm.l2-3.4.2-establish-security-configuration-settings">5.2
+CM.L2-3.4.2 — Establish Security Configuration Settings</h3>
+<p><strong>CSW Implementation:</strong> CSW does not configure host
+hardening; that’s upstream (CIS Benchmarks, STIGs, vendor hardening
+guides). CSW <em>verifies</em> that the resulting state matches
+expectations through the baseline + drift report.</p>
+<h3 id="cm.l2-3.4.3-3.4.4-track-and-approve-changes">5.3 CM.L2-3.4.3 /
+3.4.4 — Track and Approve Changes</h3>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Daily diff between today&#39;s baseline and yesterday&#39;s
+Step 2: For each diff: package change, port change, process change
+Step 3: Correlate change timestamp against change-ticket system
+        → Authorised change = log + close
+        → Orphan change (no ticket) = unauthorised-change candidate
+        → Route to incident process</code></pre>
+<h3 id="cm.l2-3.4.6-employ-principle-of-least-functionality">5.4
+CM.L2-3.4.6 — Employ Principle of Least Functionality</h3>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Per-workload listening-port + service inventory
+Step 2: Cross-reference against the documented baseline
+  → Ports running but not in baseline = candidate for closure
+  → Ports with no observed flow in 90 days = candidate for closure
+Step 3: Generate quarterly &quot;least functionality&quot; review report</code></pre>
+<h3 id="cm.l2-3.4.7-restrict-use-of-nonessential-programsfunctions">5.5
+CM.L2-3.4.7 — Restrict Use of Nonessential Programs/Functions</h3>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Software inventory + allow-list deviation alert
+Step 2: For Level 3: behavioural prevention of unauthorised
+        executable launches</code></pre>
+<p><strong>Evidence (CM family):</strong> (a) baseline export per
+workload; (b) daily drift log with disposition; (c) quarterly
+least-functionality review; (d) allow-list deviation log.</p>
+<hr />
+<h2 id="ra-risk-assessment">6. RA — Risk Assessment</h2>
+<h3 id="ra.l2-3.11.1-conduct-risk-assessments">6.1 RA.L2-3.11.1 —
+Conduct Risk Assessments</h3>
+<p>CSW does not conduct the formal risk assessment. CSW supplies
+inputs.</p>
+<h3 id="ra.l2-3.11.2-scan-for-vulnerabilities">6.2 RA.L2-3.11.2 — Scan
+for Vulnerabilities</h3>
+<p>Scan for vulnerabilities in the system and applications periodically
+and when new vulnerabilities affecting the system are identified.</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Continuous CVE inventory at workload level
+  CSW UI → Investigate → Vulnerability Report
+  → Per-workload CVE list with CVSS, exploit availability, EPSS
+
+Step 2: Filter by cui_scope=in-scope → priority remediation queue
+
+Step 3: Schedule weekly export to CMMC evidence store
+
+Step 4: Tie remediation progress to POA&amp;M entries</code></pre>
+<h3 id="ra.l2-3.11.3-remediate-vulnerabilities">6.3 RA.L2-3.11.3 —
+Remediate Vulnerabilities</h3>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Patch SLA per CVSS band (org-defined)
+  → Common: Critical 30 days, High 60 days, Medium 90 days for
+    CMMC Level 2; tighter for Level 3
+
+Step 2: For deferred patches, document compensating controls
+        in CSW workspace notes; reference in POA&amp;M
+
+Step 3: Trend report monthly; route to security leadership</code></pre>
+<p><strong>Evidence (RA family):</strong> (a) per-CUI-workload CVE list
+dated to cadence; (b) patch SLA compliance trend; (c)
+compensating-control register; (d) POA&amp;M items linked to CSW vuln
+IDs.</p>
+<hr />
+<h2 id="sc-system-and-communications-protection">7. SC — System and
+Communications Protection</h2>
+<p>This is the densest CSW alignment in CMMC L2.</p>
+<h3 id="sc.l2-3.13.1-monitor-control-and-protect-communications-at-system-boundaries">7.1
+SC.L2-3.13.1 — Monitor, Control, and Protect Communications at System
+Boundaries</h3>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Define the CUI enclave boundary in CSW
+  → Workspace per enclave; default deny across the boundary
+
+Step 2: Allow-list documented inter-enclave flows
+Step 3: Continuous monitoring + alerting on attempted boundary
+        crossings outside the allow-list</code></pre>
+<h3 id="sc.l2-3.13.2-employ-architectural-designs">7.2 SC.L2-3.13.2 —
+Employ Architectural Designs</h3>
+<p><strong>CSW Implementation:</strong> CSW supplies the
+<strong>as-observed</strong> architecture that complements the
+<strong>as-designed</strong> architecture in your SSP network diagrams.
+Reconcile them; resolve any delta.</p>
+<h3 id="sc.l2-3.13.5-implement-subnetworks-for-publicly-accessible-components">7.3
+SC.L2-3.13.5 — Implement Subnetworks for Publicly-Accessible
+Components</h3>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Identify publicly-accessible components in CUI scope
+        (typically a small set: web frontends, partner APIs)
+Step 2: Verify CSW policy puts them in their own scope
+Step 3: Verify CSW policy denies all flow from those components
+        into the deeper CUI enclave except documented paths</code></pre>
+<h3 id="sc.l2-3.13.6-deny-by-default-permit-by-exception">7.4
+SC.L2-3.13.6 — Deny by Default; Permit by Exception</h3>
+<p><strong>CSW Implementation:</strong> This is what CSW segmentation
+<strong>is</strong>. The default-deny, allow-by-exception posture is
+enforced at the workload identity layer; every allow rule traces back to
+a documented business need.</p>
+<h3 id="sc.l2-3.13.7-prevent-split-tunneling-on-remote-devices">7.5
+SC.L2-3.13.7 — Prevent Split Tunneling on Remote Devices</h3>
+<p><strong>CSW Implementation:</strong> CSW reports observed flows from
+remote/ VPN sources; alert on flows that suggest split-tunnel behaviour
+(simultaneous internal + external destination from the same endpoint).
+Primary control is VPN configuration; CSW is the detective check.</p>
+<h3 id="sc.l2-3.13.16-protect-cui-confidentiality-at-rest">7.6
+SC.L2-3.13.16 — Protect CUI Confidentiality at Rest</h3>
+<p><strong>CSW Implementation:</strong> Out of scope — encryption at
+rest is upstream. CSW <em>does</em> alert if a CUI workload exposes
+services not intended for its role (e.g. listening on port 80 when it
+should only serve port 443).</p>
+<p><strong>Evidence (SC family):</strong> (a) per-enclave segmentation
+policy export; (b) as-observed architecture diagram (ADM export); (c)
+public-component scope documentation; (d) split-tunnel alert log.</p>
+<hr />
+<h2 id="si-system-and-information-integrity">8. SI — System and
+Information Integrity</h2>
+<h3 id="si.l2-3.14.1-identify-report-and-correct-system-flaws">8.1
+SI.L2-3.14.1 — Identify, Report, and Correct System Flaws</h3>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Continuous CVE inventory feeds the flaw-identification step
+        (see RA.L2-3.11.2)
+
+Step 2: Daily configuration baseline + drift catches integrity
+        deviations beyond CVEs
+
+Step 3: SIEM forwarding routes detections to the SOC for response</code></pre>
+<h3 id="si.l2-3.14.2-provide-protection-from-malicious-code">8.2
+SI.L2-3.14.2 — Provide Protection from Malicious Code</h3>
+<p>CSW is layered with endpoint AV. CSW behavioural rules catch
+post-exploitation patterns (privilege escalation, lateral movement,
+unusual outbound) that endpoint AV may miss.</p>
+<h3 id="si.l2-3.14.3-monitor-system-security-alerts-and-advisories">8.3
+SI.L2-3.14.3 — Monitor System Security Alerts and Advisories</h3>
+<p><strong>CSW Implementation:</strong> CSW threat intel feeds enrich
+CVE prioritisation; alert routing connects threat intel into the SOC
+workflow.</p>
+<h3 id="si.l2-3.14.6-monitor-communications">8.4 SI.L2-3.14.6 — Monitor
+Communications</h3>
+<p>Monitor organisational systems including inbound and outbound
+communications traffic, to detect attacks and indicators of potential
+attacks.</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Per-workload flow telemetry forwarded to SIEM
+Step 2: Behavioural rule catalogue running against telemetry
+Step 3: Conversation-graph anomaly detection (new edges, port
+        distribution shifts) alerts on indicator-class events</code></pre>
+<h3 id="si.l2-3.14.7-identify-unauthorised-use">8.5 SI.L2-3.14.7 —
+Identify Unauthorised Use</h3>
+<p><strong>CSW Implementation:</strong> Process + flow telemetry shows
+what’s running; identity-aware policy shows who’s authorised.
+Combination catches unauthorised use patterns at the workload tier.</p>
+<p><strong>Evidence (SI family):</strong> (a) detection rule catalogue;
+(b) sample alerts with full forensic context; (c) anomaly alert log; (d)
+threat-intel enrichment configuration.</p>
+<hr />
+<h2 id="ir-incident-response-evidence-side">9. IR — Incident Response
+(Evidence Side)</h2>
+<h3 id="ir.l2-3.6.1-3.6.2-3.6.3-ir-process">9.1 IR.L2-3.6.1 / 3.6.2 /
+3.6.3 — IR Process</h3>
+<p>CSW does not author the IR plan. CSW supplies the forensic substrate
+for IR steps.</p>
+<p><strong>CSW Implementation — Six-Artefact Bundle:</strong></p>
+<pre><code>For each incident on a CUI-scope workload:
+
+  (a) Affected workload set (CUI scope, contract reference)
+  (b) Time-anchored flow record (process attribution)
+  (c) Process activity record
+  (d) Software footprint at time of incident (CVE exposure)
+  (e) Containment evidence (quarantine policy, time-to-quarantine)
+  (f) Configuration baseline diff (pre vs post)</code></pre>
+<p><strong>Evidence (IR family):</strong> (a) standard incident dossier
+template; (b) MTTD/MTTR metrics by enclave; (c) sample dossier per
+quarter.</p>
+<hr />
+<h2 id="mapping-table-cmmc-l2-nist-800-171-family-csw-capability">10.
+Mapping Table — CMMC L2 (NIST 800-171) Family → CSW Capability</h2>
+<p>(Consolidated from sections 3–9; only CSW-relevant practices
+shown)</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Practice</th>
+<th>Topic</th>
+<th>CSW capability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AC.L1/L2-3.1.1</td>
+<td>Limit system access</td>
+<td>Workload-level deny-by-default segmentation</td>
+</tr>
+<tr>
+<td>AC.L2-3.1.3</td>
+<td>Control CUI flow</td>
+<td>Inter-enclave flow allow-list + reconciliation</td>
+</tr>
+<tr>
+<td>AC.L2-3.1.20</td>
+<td>Verify external connections</td>
+<td>Egress allowlist + alert on net-new</td>
+</tr>
+<tr>
+<td>AC.L2-3.1.22</td>
+<td>CUI on publicly-accessible systems</td>
+<td>Internet-reachability query + scope review</td>
+</tr>
+<tr>
+<td>AU.L2-3.3.1</td>
+<td>Audit records</td>
+<td>Per-flow + per-process telemetry to SIEM</td>
+</tr>
+<tr>
+<td>AU.L2-3.3.2</td>
+<td>Action traceability</td>
+<td>Process attribution + identity correlation at SIEM</td>
+</tr>
+<tr>
+<td>AU.L2-3.3.4/5/8</td>
+<td>Alert / correlate / protect logs</td>
+<td>Forwarder health alert + SIEM correlation</td>
+</tr>
+<tr>
+<td>AU.L2-3.3.9</td>
+<td>Limit audit-log mgmt</td>
+<td>CSW RBAC for audit-mgmt roles</td>
+</tr>
+<tr>
+<td>CM.L2-3.4.1</td>
+<td>Baseline configurations</td>
+<td>Daily snapshot per workload</td>
+</tr>
+<tr>
+<td>CM.L2-3.4.3/4</td>
+<td>Track and approve changes</td>
+<td>Daily diff + change-ticket attribution</td>
+</tr>
+<tr>
+<td>CM.L2-3.4.6</td>
+<td>Least functionality</td>
+<td>Listening-port + service inventory + 90-day-no-flow review</td>
+</tr>
+<tr>
+<td>CM.L2-3.4.7</td>
+<td>Restrict nonessential programs</td>
+<td>Software allow-list + (L3) behavioural block</td>
+</tr>
+<tr>
+<td>RA.L2-3.11.2</td>
+<td>Vulnerability scanning</td>
+<td>Continuous CVE inventory per workload</td>
+</tr>
+<tr>
+<td>RA.L2-3.11.3</td>
+<td>Remediate vulnerabilities</td>
+<td>Patch SLA tracking + compensating-control register + POA&amp;M
+linkage</td>
+</tr>
+<tr>
+<td>SC.L2-3.13.1</td>
+<td>Boundary protection</td>
+<td>Per-enclave segmentation enforcement</td>
+</tr>
+<tr>
+<td>SC.L2-3.13.2</td>
+<td>Architectural designs</td>
+<td>ADM-derived as-observed architecture</td>
+</tr>
+<tr>
+<td>SC.L2-3.13.5</td>
+<td>Subnetworks for public components</td>
+<td>Public-component scope isolation</td>
+</tr>
+<tr>
+<td>SC.L2-3.13.6</td>
+<td>Deny by default</td>
+<td>Workload-level deny-by-default (native)</td>
+</tr>
+<tr>
+<td>SC.L2-3.13.7</td>
+<td>Prevent split tunneling</td>
+<td>Detective alert on split-tunnel patterns</td>
+</tr>
+<tr>
+<td>SI.L2-3.14.1</td>
+<td>Identify and correct flaws</td>
+<td>CVE inventory + drift + SIEM routing</td>
+</tr>
+<tr>
+<td>SI.L2-3.14.2</td>
+<td>Malicious code protection</td>
+<td>Behavioural rules layered with endpoint AV</td>
+</tr>
+<tr>
+<td>SI.L2-3.14.3</td>
+<td>Monitor security advisories</td>
+<td>Threat-intel feeds enrich CVE prioritisation</td>
+</tr>
+<tr>
+<td>SI.L2-3.14.6</td>
+<td>Monitor communications</td>
+<td>Flow telemetry + behavioural rules + anomaly detection</td>
+</tr>
+<tr>
+<td>SI.L2-3.14.7</td>
+<td>Identify unauthorised use</td>
+<td>Process telemetry + identity-aware policy</td>
+</tr>
+<tr>
+<td>IR.L2-3.6.x</td>
+<td>Incident response</td>
+<td>Six-artefact dossier per CUI-scope incident</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="level-1-fci-delta">11. Level 1 (FCI) Delta</h2>
+<p>Level 1 implements 15 basic safeguarding requirements from FAR
+52.204-21 (which are themselves derived from a small subset of NIST
+800-171). Level 1 is annual self-attestation; no C3PAO.</p>
+<p>CSW’s Level 1 contribution:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>FAR 52.204-21 (b)(1) clause</th>
+<th>CSW capability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(i) Limit system access to authorised users</td>
+<td>Workload-level segmentation</td>
+</tr>
+<tr>
+<td>(ii) Limit access to types of transactions / functions</td>
+<td>Allow-list per documented function</td>
+</tr>
+<tr>
+<td>(iii) Verify and control external connections</td>
+<td>Egress allowlist</td>
+</tr>
+<tr>
+<td>(iv) Control information posted on publicly-accessible systems</td>
+<td>Internet-reachability inventory</td>
+</tr>
+<tr>
+<td>(v) Identify users / processes / devices</td>
+<td>Sensor + cloud connector inventory</td>
+</tr>
+<tr>
+<td>(vi) Authenticate users</td>
+<td>(Out of scope — identity upstream)</td>
+</tr>
+<tr>
+<td>(vii) Sanitise / destroy media</td>
+<td>(Out of scope)</td>
+</tr>
+<tr>
+<td>(viii) Limit physical access</td>
+<td>(Out of scope)</td>
+</tr>
+<tr>
+<td>(ix) Escort visitors / monitor</td>
+<td>(Out of scope)</td>
+</tr>
+<tr>
+<td>(x) Audit physical access</td>
+<td>(Out of scope)</td>
+</tr>
+<tr>
+<td>(xi) Maintain audit logs</td>
+<td>SIEM forwarding</td>
+</tr>
+<tr>
+<td>(xii) Identify / report / correct flaws timely</td>
+<td>CVE inventory + remediation tracking</td>
+</tr>
+<tr>
+<td>(xiii) Provide protection from malicious code</td>
+<td>Behavioural rules</td>
+</tr>
+<tr>
+<td>(xiv) Update malicious code mechanisms</td>
+<td>(Endpoint AV upstream; CSW threat intel feeds CVE)</td>
+</tr>
+<tr>
+<td>(xv) Periodic system / real-time scans</td>
+<td>Continuous CVE + flow telemetry</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="level-3-delta">12. Level 3 Delta</h2>
+<p>Level 3 inherits Level 2 plus selected NIST 800-172 enhanced security
+requirements addressing Advanced Persistent Threats. The additions
+tighten existing practices rather than add new families.</p>
+<p>CSW’s Level 3 contribution highlights:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Practice area</th>
+<th>Level 3 enhancement</th>
+<th>CSW capability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.4.2e</td>
+<td>Employ automated mechanisms to detect misconfigurations</td>
+<td>Daily drift report with automated escalation</td>
+</tr>
+<tr>
+<td>3.11.1e</td>
+<td>Threat-aware risk assessments</td>
+<td>Threat-intel-enriched CVE prioritisation</td>
+</tr>
+<tr>
+<td>3.13.4e</td>
+<td>Employ physical / logical isolation</td>
+<td>Tighter per-enclave segmentation; identity-aware allow rules</td>
+</tr>
+<tr>
+<td>3.14.1e</td>
+<td>Verify integrity of security-critical software</td>
+<td>Software inventory diff + behavioural integrity checks</td>
+</tr>
+<tr>
+<td>3.14.6e</td>
+<td>Use threat hunting and indicators</td>
+<td>Behavioural rules + conversation-graph anomalies + threat-intel
+hunting queries</td>
+</tr>
+<tr>
+<td>3.14.7e</td>
+<td>Establish + maintain threat-modelling</td>
+<td>ADM dependency graph as input to threat-modelling</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="c3pao-assessor-response-guide">13. C3PAO Assessor Response
+Guide</h2>
+<p>When a C3PAO asks for evidence at Level 2 assessment:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Assessor asks</th>
+<th>You provide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Show your CUI scope and the systems supporting it”</td>
+<td>Per-enclave inventory CSV with <code>cui_scope</code>,
+<code>cui_role</code>, <code>contract_id</code> labels</td>
+</tr>
+<tr>
+<td>“Demonstrate AC.L2-3.1.1 access enforcement”</td>
+<td>Per-enclave segmentation workspace export + simulation→enforcement
+log</td>
+</tr>
+<tr>
+<td>“Provide AC.L2-3.1.3 information flow control”</td>
+<td>Inter-enclave flow allow-list + reconciliation against SSP</td>
+</tr>
+<tr>
+<td>“Show AU.L2-3.3.1/3.3.2 audit records and traceability”</td>
+<td>SIEM forwarding configuration + sample audit record with process +
+identity attribution</td>
+</tr>
+<tr>
+<td>“Demonstrate CM.L2-3.4.1 baseline configurations”</td>
+<td>Daily baseline export per workload + diff log</td>
+</tr>
+<tr>
+<td>“Provide RA.L2-3.11.2 vulnerability scan evidence”</td>
+<td>Per-CUI-workload CVE list dated to scan cadence</td>
+</tr>
+<tr>
+<td>“Show RA.L2-3.11.3 remediation tracking”</td>
+<td>POA&amp;M items linked to CSW vuln IDs + patch SLA compliance
+trend</td>
+</tr>
+<tr>
+<td>“Demonstrate SC.L2-3.13.6 deny-by-default”</td>
+<td>Per-enclave segmentation policy export with deny-default +
+documented exceptions</td>
+</tr>
+<tr>
+<td>“Provide SI.L2-3.14.6 monitoring evidence”</td>
+<td>Behavioural rule catalogue + sample alerts with forensic
+context</td>
+</tr>
+<tr>
+<td>“Reconstruct the timeline for incident X”</td>
+<td>Six-artefact incident dossier (§9)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-frameworks">14. Related Frameworks</h2>
+<p>CMMC 2.0 inherits heavily from NIST and from the CSF / CIS layered
+view:</p>
+<ul>
+<li><strong>NIST SP 800-171 Rev 2</strong> — CMMC Level 2 IS NIST
+800-171. Read this reference design for L2 work.</li>
+<li><strong>NIST SP 800-172</strong> — CMMC Level 3 enhanced controls
+source. CSW capabilities for L3 are noted in §12 above.</li>
+<li><strong>NIST SP 800-53 Rev 5</strong> — superset of 800-171. The
+800-53 reference design covers CMMC L2 with broader context. See <a href="../NIST-800-53/CSW-NIST-800-53-Reference-Design.html">800-53
+reference design</a>.</li>
+<li><strong>NIST SP 800-207 (Zero Trust Architecture)</strong> — an
+architectural pattern that can support many SC/AC control objectives at
+depth. See <a href="../NIST-800-207/CSW-NIST-800-207-Reference-Design.html">800-207
+reference design</a>.</li>
+<li><strong>NIST CSF 2.0</strong> — the outcomes wrapper that cites
+800-171 as Informative References under PR/DE/RS Subcategories. See <a href="../NIST-CSF-2/CSW-CSF-Reference-Design.html">CSF reference
+design</a>.</li>
+<li><strong>CIS Controls v8.1</strong> — many CIS Safeguards align
+directly with 800-171 practices. See <a href="../CIS-Controls-v8/CSW-CIS-Reference-Design.html">CIS reference
+design</a>.</li>
+<li><strong>DFARS 252.204-7012</strong> — the contractual basis for
+CMMC; the technical content sits in NIST 800-171 which this reference
+design addresses.</li>
+</ul>
+<hr />
+<h2 id="disclaimer">15. Disclaimer</h2>
+<p>This reference design is <strong>draft v1</strong> describing how
+Cisco Secure Workload capabilities can support a CMMC 2.0 programme at
+Level 2 (with Level 1 and Level 3 deltas). It is <strong>not</strong>
+legal or compliance advice and does not constitute a finding of
+compliance.</p>
+<p>Specifically:</p>
+<ul>
+<li>The DoD publishes the authoritative CMMC 2.0 text at
+https://dodcio.defense.gov/CMMC/. The DCMA Defense Industrial Base
+Cybersecurity Assessment Center (DIBCAC) and the Cyber AB publish
+authoritative assessment guidance. Always validate against the
+<strong>current effective rule</strong> (DFARS 252.204-7021 / 32 CFR
+Part 170) and against any DoD class deviations.</li>
+<li>CMMC Level 2 assessment is performed by a Certified Third-Party
+Assessor Organisation (C3PAO) or, for limited contracts, by
+self-assessment. Nothing in this reference design substitutes for the
+SSP, POA&amp;M, or the C3PAO engagement.</li>
+<li>Mapping a CSW capability to a 800-171 practice does not by itself
+satisfy the practice. The C3PAO will look for a documented process,
+evidence cadence, and management review behind the technical
+implementation. CSW supplies the technical evidence; the SSP and
+POA&amp;M document the process around it.</li>
+<li>CSW does not address AT, MP, PE, or PS families. Reference your HR,
+media-handling, physical-protection, and personnel-security programmes
+for those.</li>
+</ul>
+<p>This document should receive subject-matter-expert review for both
+CMMC 2.0 currency (the rule and assessment guidance evolve) and current
+Cisco product capability before being relied upon in a formal compliance
+engagement.</p>
+</body>
+</html>

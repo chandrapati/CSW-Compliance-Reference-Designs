@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>FIPS 140 — Reference Design</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-FIPS-Reference-Design.html">CSW-FIPS-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-07T17:30:30Z UTC · Repository commit: a630820</div>
+<header id="title-block-header">
+<h1 class="title">FIPS 140 — Reference Design</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload-fips-140-23-compliance-framework" id="toc-cisco-secure-workload-fips-140-23-compliance-framework">Cisco
+Secure Workload — FIPS 140-2/3 Compliance Framework</a>
+<ul>
+<li><a href="#reference-design-federal-regulated-accounts" id="toc-reference-design-federal-regulated-accounts">Reference Design |
+Federal &amp; Regulated Accounts</a></li>
+<li><a href="#readers-guide" id="toc-readers-guide">Reader’s
+Guide</a></li>
+<li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</a></li>
+<li><a href="#universal-evidence-workflow" id="toc-universal-evidence-workflow">Universal evidence workflow</a>
+<ul>
+<li><a href="#phase-1-checklist-coverage" id="toc-phase-1-checklist-coverage">Phase 1 checklist
+(coverage)</a></li>
+<li><a href="#phase-2-checklist-baseline" id="toc-phase-2-checklist-baseline">Phase 2 checklist
+(baseline)</a></li>
+<li><a href="#phase-3-checklist-policy" id="toc-phase-3-checklist-policy">Phase 3 checklist (policy)</a></li>
+<li><a href="#phase-4-checklist-operate" id="toc-phase-4-checklist-operate">Phase 4 checklist (operate)</a></li>
+<li><a href="#what-csw-evidence-does-not-replace" id="toc-what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</a></li>
+</ul></li>
+<li><a href="#csw-effectiveness-for-this-framework" id="toc-csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</a></li>
+<li><a href="#overview-csw-role" id="toc-overview-csw-role">1. Overview
+&amp; CSW Role</a></li>
+<li><a href="#fips-relevant-csw-capabilities" id="toc-fips-relevant-csw-capabilities">2. FIPS-Relevant CSW
+Capabilities</a>
+<ul>
+<li><a href="#non-fips-protocol-detection" id="toc-non-fips-protocol-detection">2.1 Non-FIPS Protocol
+Detection</a></li>
+<li><a href="#enforcement-of-fips-compliant-paths" id="toc-enforcement-of-fips-compliant-paths">2.2 Enforcement of
+FIPS-Compliant Paths</a></li>
+<li><a href="#cryptographic-service-access-auditing" id="toc-cryptographic-service-access-auditing">2.3 Cryptographic Service
+Access Auditing</a></li>
+</ul></li>
+<li><a href="#fips-boundary-documentation" id="toc-fips-boundary-documentation">3. FIPS Boundary Documentation</a>
+<ul>
+<li><a href="#crypto-service-scope" id="toc-crypto-service-scope">3.1
+Crypto Service Scope</a></li>
+<li><a href="#algorithm-identification-via-process-telemetry" id="toc-algorithm-identification-via-process-telemetry">3.2 Algorithm
+Identification via Process Telemetry</a></li>
+</ul></li>
+<li><a href="#fips-140-3-transition-support" id="toc-fips-140-3-transition-support">4. FIPS 140-3 Transition
+Support</a></li>
+<li><a href="#evidence-package-for-fips-compliance" id="toc-evidence-package-for-fips-compliance">5. Evidence Package for
+FIPS Compliance</a></li>
+<li><a href="#what-csw-does-not-cover" id="toc-what-csw-does-not-cover">6. What CSW Does NOT Cover</a></li>
+<li><a href="#related-frameworks" id="toc-related-frameworks">Related
+Frameworks</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload-fips-140-23-compliance-framework">Cisco
+Secure Workload — FIPS 140-2/3 Compliance Framework</h1>
+<h2 id="reference-design-federal-regulated-accounts">Reference Design |
+Federal &amp; Regulated Accounts</h2>
+<p><strong>Version:</strong> 1.0 | <strong>Standard:</strong> FIPS 140-2
+/ FIPS 140-3 (CSW-Relevant Scope)</p>
+<hr />
+<h2 id="readers-guide">Reader’s Guide</h2>
+<p><strong>Who this is for.</strong> US federal agencies and federal
+contractors required to use FIPS-validated cryptographic modules,
+regulated industries with FIPS obligations (DoD supply chain,
+healthcare, some financial), and FIPS lab consultants advising them.</p>
+<blockquote>
+<p><strong>Read this first:</strong> CSW is <strong>not itself a
+FIPS-validated cryptographic module</strong>. It does not encrypt your
+data. CSW’s role in a FIPS program is <em>enforcement and detection</em>
+— proving that your applications use only validated crypto and surfacing
+it when they don’t. Read section 1 carefully before going further.</p>
+</blockquote>
+<p><strong>Questions this reference design helps you
+answer:</strong></p>
+<ul>
+<li><em>Where in my environment is non-FIPS cryptography still in active
+use today? (TLS 1.0/1.1, SSHv1, MD5-HMAC, RC4, custom
+protocols.)</em></li>
+<li><em>Can I detect at runtime when a service silently falls back to a
+non-validated algorithm — before an auditor or pen tester finds
+it?</em></li>
+<li><em>For my crypto boundary documentation, what process-level
+evidence supports the claim that “only the validated module is
+performing cryptographic operations”?</em></li>
+<li><em>During the FIPS 140-2 → 140-3 transition window, which workloads
+are still relying on now-deprecated 140-2 modules and represent
+procurement or audit exposure?</em></li>
+<li><em>What does CSW explicitly <strong>not</strong> cover, so I know
+what other controls I still need?</em> (See section 6.)</li>
+</ul>
+<p><strong>What you’ll need.</strong> A list of systems with FIPS
+obligations (typically derived from contract or regulatory scope), your
+current cryptographic inventory (or willingness to discover one), and
+your crypto boundary documentation.</p>
+<p><strong>Where to start.</strong> Section 1 to set realistic
+expectations; sections 2–3 for what CSW actually does; section 4 if
+you’re inside the 140-2→140-3 transition; sections 5–6 for evidence and
+explicit non-coverage.</p>
+<hr />
+<!-- CSW-RUNBOOK-PRIMER:v1 -->
+<h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</h2>
+<p>Cisco Secure Workload (CSW) is a <strong>workload protection
+platform</strong>. A lightweight <strong>agent</strong> on each
+server/VM/container observes processes and network flows; <strong>cloud
+connectors</strong> add AWS/Azure/GCP inventory where agents are not
+deployed.</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW term</th>
+<th>Meaning</th>
+<th>Why compliance teams care</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Logical boundary (CDE, PHI zone, CUI enclave)</td>
+<td>Defines the systems you must prove are isolated</td>
+</tr>
+<tr>
+<td><strong>Label / filter</strong></td>
+<td>Tag or query assigning workloads to scopes</td>
+<td>Automates scope membership — reduces drift</td>
+</tr>
+<tr>
+<td><strong>ADM</strong></td>
+<td>Application Dependency Mapping from observed traffic</td>
+<td><strong>Live</strong> network/data-flow diagram for assessors</td>
+</tr>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>Policy container for one scope or application</td>
+<td>Where allow/deny rules are authored</td>
+</tr>
+<tr>
+<td><strong>Monitor → Simulation → Enforce</strong></td>
+<td>Safe rollout sequence</td>
+<td>Simulation = change-board evidence before blocking traffic</td>
+</tr>
+<tr>
+<td><strong>Denied Connections</strong></td>
+<td>Log of flows blocked by policy</td>
+<td>Primary proof that enforcement <strong>operates</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Console areas:</strong> Investigate (inventory, flows, vulns)
+· Defend/Segmentation (policy) · Manage (agents) · Platform (connectors)
+· Administration (audit log)</p>
+<p><strong>Read next:</strong> <a href="../docs/compliance-evidence-playbook.html">Compliance evidence
+playbook</a> (full step-by-step) · <a href="../docs/about-csw.html">About
+CSW</a> (platform intro)</p>
+<hr />
+<h2 id="universal-evidence-workflow">Universal evidence workflow</h2>
+<p>Execute these phases for <strong>this framework’s</strong> compliance
+boundary. Map exports to control IDs in the <strong>Reporting &amp;
+Evidence</strong> section below.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Key CSW actions</th>
+<th>Typical duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Coverage</strong></td>
+<td>Every in-scope workload in CSW</td>
+<td>Install agents/connectors; apply compliance labels; create
+scope</td>
+<td>Days 1–10</td>
+</tr>
+<tr>
+<td><strong>2 — Baseline</strong></td>
+<td>Machine-generated flow map</td>
+<td>Run ADM ≥2 weeks; export clusters; app-owner signoff</td>
+<td>Days 11–28</td>
+</tr>
+<tr>
+<td><strong>3 — Policy</strong></td>
+<td>Designed isolation before enforce</td>
+<td>Build workspace; Simulation mode; fix false positives</td>
+<td>Days 29–45</td>
+</tr>
+<tr>
+<td><strong>4 — Operate</strong></td>
+<td>Continuous proof between audits</td>
+<td>Enforce; quarterly export pack; ADM refresh every 90 days</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-checklist-coverage">Phase 1 checklist (coverage)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>In-scope host list reconciled to CSW
+Inventory (100% or documented exceptions)</label></li>
+<li><label><input type="checkbox"></input>Labels applied:
+<code>compliance:&lt;framework&gt;</code>,
+<code>data:&lt;classification&gt;</code>,
+<code>env:&lt;tier&gt;</code></label></li>
+<li><label><input type="checkbox"></input>CSW scope created matching
+compliance boundary</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> inventory
+CSV + agent status screenshot</label></li>
+</ul>
+<h3 id="phase-2-checklist-baseline">Phase 2 checklist (baseline)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>ADM running on compliance scope for
+full business cycle (≥2 weeks)</label></li>
+<li><label><input type="checkbox"></input>Unexpected flows documented (shadow
+IT, vendor egress, scope creep)</label></li>
+<li><label><input type="checkbox"></input>App owners signed
+cluster-to-application mapping</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> ADM diagram
++ flow samples with process context</label></li>
+</ul>
+<h3 id="phase-3-checklist-policy">Phase 3 checklist (policy)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Default-deny posture defined for
+sensitive scope</label></li>
+<li><label><input type="checkbox"></input>ADM-imported rules refined;
+Simulation run ≥1 week</label></li>
+<li><label><input type="checkbox"></input>Change tickets for false-positive
+fixes; exception register updated</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> policy
+export + simulation report</label></li>
+</ul>
+<h3 id="phase-4-checklist-operate">Phase 4 checklist (operate)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Enforcement enabled on pilot scope;
+negative test recorded in Denied Connections</label></li>
+<li><label><input type="checkbox"></input>Quarterly pack: inventory, policy,
+denies, vulns, audit log (see playbook)</label></li>
+<li><label><input type="checkbox"></input>SIEM integration verified (sample
+events)</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> enforcement
+screenshot + quarterly binder</label></li>
+</ul>
+<h3 id="what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</h3>
+<p>Physical access, HR/training records, encryption key management,
+signed BAAs/vendor contracts, formal pen tests, and assessor attestation
+still require separate programmes. CSW addresses the
+<strong>workload-resident</strong> slice: segmentation, flows, process
+context, vuln reachability, and change drift.</p>
+<hr />
+<h2 id="csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</h2>
+<ul>
+<li>Plaintext-protocol DENY policies with violation logs</li>
+<li>Programme-level crypto hygiene visibility (modules out of
+scope)</li>
+<li>140-2→140-3 transition tracking on workload connections</li>
+</ul>
+<p><strong>Compared to manual programmes:</strong> static diagrams and
+annual firewall samples age immediately; CSW ties evidence to
+<strong>live workload behaviour</strong> and produces queryable exports
+on demand — supporting “operating effectively” language in PCI v4.0, SOC
+2 CC7, and HIPAA risk analysis.</p>
+<hr />
+<h2 id="overview-csw-role">1. Overview &amp; CSW Role</h2>
+<p>FIPS 140-2/3 is a US federal standard for cryptographic module
+validation. <strong>CSW is not itself a cryptographic module</strong> —
+it does not encrypt data at rest or in transit. However, CSW plays a
+critical <strong>enforcement and detection</strong> role in FIPS
+compliance programs by:</p>
+<ol type="1">
+<li><strong>Detecting non-FIPS-compliant cryptographic
+protocols</strong> in workload communications</li>
+<li><strong>Enforcing FIPS-compliant communication paths</strong> via
+micro-segmentation policy</li>
+<li><strong>Auditing all cryptographic service access</strong> through
+flow and process telemetry</li>
+<li><strong>Identifying workloads using non-approved algorithms</strong>
+through port/protocol analysis</li>
+</ol>
+<hr />
+<h2 id="fips-relevant-csw-capabilities">2. FIPS-Relevant CSW
+Capabilities</h2>
+<h3 id="non-fips-protocol-detection">2.1 Non-FIPS Protocol
+Detection</h3>
+<p>CSW ADM and flow telemetry identify the following non-FIPS-compliant
+communications:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Protocol / Service</th>
+<th>Non-FIPS Indicator</th>
+<th>CSW Detection Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TLS 1.0 / 1.1</td>
+<td>Non-approved TLS version</td>
+<td>Port 443 flow + process context analysis</td>
+</tr>
+<tr>
+<td>SSLv2 / SSLv3</td>
+<td>Deprecated, non-FIPS</td>
+<td>Flow telemetry protocol identification</td>
+</tr>
+<tr>
+<td>MD5-based connections</td>
+<td>Non-approved hash</td>
+<td>Process + connection pattern analysis</td>
+</tr>
+<tr>
+<td>Plain HTTP (port 80)</td>
+<td>No encryption</td>
+<td>Flow telemetry protocol filter</td>
+</tr>
+<tr>
+<td>Plain FTP (port 21)</td>
+<td>No encryption</td>
+<td>Flow telemetry port filter</td>
+</tr>
+<tr>
+<td>Telnet (port 23)</td>
+<td>No encryption</td>
+<td>Flow telemetry port filter</td>
+</tr>
+<tr>
+<td>LDAP plain (port 389)</td>
+<td>Non-encrypted directory</td>
+<td>Flow telemetry port filter</td>
+</tr>
+<tr>
+<td>SNMPv1/v2 (port 161)</td>
+<td>Non-encrypted management</td>
+<td>Flow telemetry port filter</td>
+</tr>
+</tbody>
+</table>
+<h3 id="enforcement-of-fips-compliant-paths">2.2 Enforcement of
+FIPS-Compliant Paths</h3>
+<p>CSW policy can <strong>block non-compliant protocols</strong> and
+<strong>enforce approved alternatives</strong>:</p>
+<pre><code>CSW Policy: FIPS-Protocol-Enforcement
+  DENY: Any → Any (port 80)     # Block plain HTTP
+  DENY: Any → Any (port 21)     # Block plain FTP
+  DENY: Any → Any (port 23)     # Block Telnet
+  DENY: Any → Any (port 389)    # Block plain LDAP
+  DENY: Any → Any (port 161)    # Block SNMPv1/v2
+
+  ALLOW: Any → Any (port 443)   # HTTPS (enforce TLS 1.2+ at app level)
+  ALLOW: Any → Any (port 22)    # SSH (FIPS-compliant cipher suites)
+  ALLOW: Any → Any (port 636)   # LDAPS
+  ALLOW: Any → Any (port 162)   # SNMPv3
+  ALLOW: Any → Any (port 990)   # FTPS</code></pre>
+<h3 id="cryptographic-service-access-auditing">2.3 Cryptographic Service
+Access Auditing</h3>
+<p>For workloads using FIPS-validated HSMs or crypto libraries:</p>
+<pre><code>CSW UI → Investigate → Flow Search
+  → Destination: HSM IP / crypto service endpoint
+  → Process context: identifies which app is accessing crypto service
+  → Log: full access audit for FIPS boundary documentation</code></pre>
+<hr />
+<h2 id="fips-boundary-documentation">3. FIPS Boundary Documentation</h2>
+<p>FIPS 140-2/3 requires precise definition of the cryptographic module
+boundary. CSW supports this through:</p>
+<h3 id="crypto-service-scope">3.1 Crypto Service Scope</h3>
+<p>Define a CSW scope for FIPS-validated cryptographic
+infrastructure:</p>
+<pre><code>Root Scope
+└── FIPS-Boundary
+    ├── HSM-Cluster (validated hardware)
+    ├── Crypto-Services (validated software libraries)
+    └── Key-Management (KMS endpoints)</code></pre>
+<p><strong>Policy for FIPS-Boundary scope:</strong> - Default DENY all
+inbound - ALLOW only explicitly approved workloads to access HSM/KMS -
+LOG all connections to FIPS-Boundary scope (full audit trail) - ALERT on
+any unapproved access attempt</p>
+<h3 id="algorithm-identification-via-process-telemetry">3.2 Algorithm
+Identification via Process Telemetry</h3>
+<p>CSW process monitoring identifies workloads using non-FIPS-approved
+crypto libraries:</p>
+<pre><code>CSW UI → Investigate → Process Search
+  → Filter: process name contains &quot;openssl&quot;, &quot;libssl&quot;, &quot;nss&quot;
+  → Review: version number indicates FIPS-validated status
+  → Flag: workloads using pre-FIPS OpenSSL versions</code></pre>
+<hr />
+<h2 id="fips-140-3-transition-support">4. FIPS 140-3 Transition
+Support</h2>
+<p>FIPS 140-3 (based on ISO/IEC 19790:2012) replaces 140-2. CSW supports
+the transition by:</p>
+<ul>
+<li><strong>Inventorying</strong> all workloads accessing cryptographic
+services (ADM map)</li>
+<li><strong>Flagging</strong> workloads still using FIPS 140-2-only
+validated modules</li>
+<li><strong>Tracking</strong> rollout of FIPS 140-3 validated
+replacements via ADM comparison</li>
+<li><strong>Enforcing</strong> updated protocol requirements as crypto
+standards evolve</li>
+</ul>
+<hr />
+<h2 id="evidence-package-for-fips-compliance">5. Evidence Package for
+FIPS Compliance</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Evidence Item</th>
+<th>CSW Source</th>
+<th>FIPS Relevance</th>
+<th>Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Non-FIPS protocol flow report</td>
+<td>Investigate → Flow Search (port filter)</td>
+<td>Module boundary</td>
+<td>Weekly</td>
+</tr>
+<tr>
+<td>FIPS-Boundary access log</td>
+<td>Investigate → Flow Search (scope filter)</td>
+<td>Access control</td>
+<td>Continuous</td>
+</tr>
+<tr>
+<td>Crypto service process audit</td>
+<td>Investigate → Process Search</td>
+<td>Module usage</td>
+<td>Monthly</td>
+</tr>
+<tr>
+<td>Policy enforcement log (FIPS policy)</td>
+<td>Defend → Policy Analysis</td>
+<td>Protocol enforcement</td>
+<td>Monthly</td>
+</tr>
+<tr>
+<td>HSM/KMS access audit</td>
+<td>Flow Search → FIPS-Boundary scope</td>
+<td>Key management</td>
+<td>Continuous</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="what-csw-does-not-cover">6. What CSW Does NOT Cover</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>FIPS Requirement</th>
+<th>Outside CSW Scope</th>
+<th>Recommended Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cryptographic module validation</td>
+<td>CSW is not a crypto module</td>
+<td>Use FIPS 140-3 validated libraries (OpenSSL FIPS, BouncyCastle)</td>
+</tr>
+<tr>
+<td>Algorithm implementation testing</td>
+<td>Hardware/software crypto validation</td>
+<td>NIST CMVP testing laboratory</td>
+</tr>
+<tr>
+<td>Key generation &amp; storage</td>
+<td>Key lifecycle management</td>
+<td>FIPS-validated HSM (Thales, Entrust)</td>
+</tr>
+<tr>
+<td>Self-tests at module boundary</td>
+<td>Module-level testing</td>
+<td>Crypto library self-test procedures</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-frameworks">Related Frameworks</h2>
+<ul>
+<li><p><a href="../NIST-800-53/CSW-NIST-800-53-Reference-Design.html">NIST
+SP 800-53 Rev 5</a> — SC-13 and the broader cryptographic-control family
+that requires FIPS-validated modules.</p></li>
+<li><p><a href="../NIST-800-207/CSW-NIST-800-207-Reference-Design.html">NIST SP
+800-207</a> — Tenet 4 (encryption regardless of network location) sits
+on the same crypto foundation.</p></li>
+<li><p><a href="../ISO-27001-2022/CSW-ISO27001-Reference-Design.html">ISO/IEC
+27001:2022</a> — Annex A.8.24 cryptographic controls map to
+FIPS-validated module use.</p></li>
+<li><p><a href="../UK-NCSC-CAF/caf-mapping.html">UK NCSC CAF v3.2</a> —
+plaintext-protocol deny is the reuse path for CAF B3.</p></li>
+</ul>
+<hr />
+<p><em>Replace [Customer Name] and bracketed fields before customer
+delivery.</em></p>
+</body>
+</html>

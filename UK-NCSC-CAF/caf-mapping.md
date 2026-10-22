@@ -9,7 +9,7 @@ and your assessor's expectations.
 
 > **Companion assets.** This file is the 14-principle crosswalk only. For
 > engineering steps, see the
-> [Technical Runbook](./CSW-UK-NCSC-CAF-Technical-Runbook.md). For the
+> [Reference Design](./CSW-UK-NCSC-CAF-Reference-Design.md). For the
 > customer-facing narrative, see the
 > [Compliance Report](./CSW-UK-NCSC-CAF-Compliance-Report.md). For maturity
 > scoring, see the [IGP Maturity Scorer](./caf-igp-maturity-scorer.md). For
@@ -32,7 +32,7 @@ For each principle below, this document identifies:
 1. **Applicability** — Direct evidence (material to one contributing
    outcome; here, B5.b only), Supporting evidence (CSW supplements other
    controls), or Out of scope. Direct evidence does not mean Achieved.
-2. **Primary existing runbook** inside this repository that already contains
+2. **Primary existing reference design** inside this repository that already contains
    the relevant engineering detail and control-ID mapping.
 3. **Specific CSW evidence** that an assessor can inspect.
 4. **Pairings needed** — other controls / tools that must sit alongside CSW
@@ -59,7 +59,7 @@ IEC 62443) rather than duplicate it.
 | **B5** | Resilient Networks & Systems | Direct evidence for B5.b segregation only | [NIST 800-53 SC-7/AC-4](../NIST-800-53/), [NIST CSF PR.IR](../NIST-CSF-2/), [CIS Control 13](../CIS-Controls-v8/), [ISO A.8.20–A.8.22](../ISO-27001-2022/), [IEC 62443 zones and conduits](../IEC-62443/), [NIST 800-82](../NIST-800-82/) |
 | **B6** | Staff Awareness & Training | Out of scope | — |
 | **C1** | Security Monitoring | Supporting evidence | [NIST CSF DE.CM / DE.AE](../NIST-CSF-2/), [CIS Control 13](../CIS-Controls-v8/), [NIST 800-53 AU, SI-4](../NIST-800-53/) |
-| **C2** | Proactive Security Event Discovery | Supporting evidence | [MITRE ATT&CK runbook](../MITRE-ATTACK/), [NIST CSF DE.AE](../NIST-CSF-2/), [NIST 800-53 SI-4, RA-5](../NIST-800-53/) |
+| **C2** | Proactive Security Event Discovery | Supporting evidence | [MITRE ATT&CK reference design](../MITRE-ATTACK/), [NIST CSF DE.AE](../NIST-CSF-2/), [NIST 800-53 SI-4, RA-5](../NIST-800-53/) |
 | **D1** | Response and Recovery Planning | Supporting evidence | [NIST CSF RS / RC](../NIST-CSF-2/), [NIST 800-53 IR family](../NIST-800-53/), [DORA Art. 19](../DORA/) |
 | **D2** | Lessons Learned | Supporting evidence | [NIST CSF ID.IM](../NIST-CSF-2/), [NIST 800-53 IR family](../NIST-800-53/) |
 
@@ -87,7 +87,7 @@ Out of scope means do not cite CSW for that principle.
   count, and the change between snapshots) can be attached to a board or
   CISO pack. That is telemetry. It is not the governance structure, roles,
   or resourcing that A1 requires.
-- **Primary runbook to cite:** [NIST CSF GV.OV / GV.SC](../NIST-CSF-2/) for
+- **Primary reference design to cite:** [NIST CSF GV.OV / GV.SC](../NIST-CSF-2/) for
   outcomes-based governance language; [COBIT 2019 APO13](../COBIT-2019/)
   for managed-security governance structure.
 - **Pairings needed:** Documented security roles & resourcing (HR/finance),
@@ -104,7 +104,7 @@ Out of scope means do not cite CSW for that principle.
   which workloads can reach an affected service, and the change between
   snapshots. These are inputs to a risk process. They are not the risk
   assessment.
-- **Primary runbooks:** [NIS2 Art. 21(2)(a)](../NIS2/) risk-analysis mapping;
+- **Primary reference designs:** [NIS2 Art. 21(2)(a)](../NIS2/) risk-analysis mapping;
   [NIST CSF ID.RA](../NIST-CSF-2/); [NIST 800-53 RA family](../NIST-800-53/).
 - **Pairings needed:** Threat intelligence feeds, risk register, risk-tolerance
   decisions, business-impact analysis.
@@ -119,7 +119,7 @@ Out of scope means do not cite CSW for that principle.
 - **CSW evidence:** Real-time sensor census (hostname, OS, agent version,
   interfaces, scope membership); installed-package inventory per workload;
   cluster snapshot JSON retained as point-in-time attestation.
-- **Primary runbooks:** [CIS Controls 1 & 2](../CIS-Controls-v8/);
+- **Primary reference designs:** [CIS Controls 1 & 2](../CIS-Controls-v8/);
   [NIST CSF ID.AM](../NIST-CSF-2/); [NIST 800-53 CM-8](../NIST-800-53/).
 - **Pairings needed:** CMDB authoritative source (ServiceNow via
   [CSW ServiceNow Integration](https://github.com/chandrapati/csw-servicenow-integration));
@@ -138,7 +138,7 @@ Out of scope means do not cite CSW for that principle.
   filtered by vendor); vendor-tagged egress reconciliation using scope-based
   flow analysis (what *actually* talks to vendor endpoints vs what the
   contract allows).
-- **Primary runbooks:** [NIS2 Art. 21(2)(d)](../NIS2/);
+- **Primary reference designs:** [NIS2 Art. 21(2)(d)](../NIS2/);
   [ISO 27001 A.5.19–A.5.22](../ISO-27001-2022/);
   [DORA Art. 28](../DORA/) ICT third-party risk;
   [NIST CSF GV.SC](../NIST-CSF-2/).
@@ -158,7 +158,7 @@ Out of scope means do not cite CSW for that principle.
   continuous enforcement at the host firewall (nftables on Linux, WFP on
   Windows); every flow decision is a de-facto policy test; ADM version
   history as change log.
-- **Primary runbooks:** [NIST 800-53 PL family](../NIST-800-53/);
+- **Primary reference designs:** [NIST 800-53 PL family](../NIST-800-53/);
   [NIST CSF PR.PS](../NIST-CSF-2/); [ISO 27001 A.5](../ISO-27001-2022/).
 - **Pairings needed:** Policy governance body, change-approval process,
   exception-management workflow.
@@ -187,10 +187,10 @@ Out of scope means do not cite CSW for that principle.
 - **CSW evidence:** East-west flow visibility across every workload-to-workload
   pair; segmentation policy preventing unauthorised data paths; insecure-cipher
   agent count (TLS hygiene signal); plaintext-protocol deny policies (see
-  [FIPS 140 runbook](../FIPS-140/)).
+  [FIPS 140 reference design](../FIPS-140/)).
 - **CSW does not do:** Data classification, data-at-rest encryption, key
   management (KMS/HSM), DLP content inspection.
-- **Primary runbooks:** [NIST CSF PR.DS](../NIST-CSF-2/);
+- **Primary reference designs:** [NIST CSF PR.DS](../NIST-CSF-2/);
   [NIST 800-53 SC family](../NIST-800-53/);
   [NIS2 Art. 21(2)(h)](../NIS2/); [FIPS 140](../FIPS-140/).
 - **Pairings needed:** DLP, KMS/HSM, data classification tool, database
@@ -207,7 +207,7 @@ Out of scope means do not cite CSW for that principle.
 - **CSW evidence:** Per-workload CVE and package inventory, and which
   workloads can reach an affected service. CSW does not patch systems,
   remove default credentials, or stop unauthorised code from running.
-- **Primary runbooks:** [CIS Controls 4, 7, 8](../CIS-Controls-v8/);
+- **Primary reference designs:** [CIS Controls 4, 7, 8](../CIS-Controls-v8/);
   [NIST CSF PR.PS](../NIST-CSF-2/);
   [AU Essential Eight E2/E6](../AU-Essential-Eight/) for patch cadence.
 - **Pairings needed:** Patch management platform (SCCM/BigFix/Red Hat
@@ -234,7 +234,7 @@ Out of scope means do not cite CSW for that principle.
   - Where an IT/OT boundary exists, CSW covers the IT tier only. Pair with
     an OT visibility product for the device tier. IEC 62443 is a useful
     sister mapping; CAF v3.2 does not cite it.
-- **Primary runbooks:** [NIST 800-53 SC-7 / AC-4](../NIST-800-53/);
+- **Primary reference designs:** [NIST 800-53 SC-7 / AC-4](../NIST-800-53/);
   [NIST CSF PR.IR](../NIST-CSF-2/); [CIS Control 13](../CIS-Controls-v8/);
   [ISO 27001 A.8.20–A.8.22](../ISO-27001-2022/);
   [IEC 62443 zones and conduits](../IEC-62443/); [NIST 800-82](../NIST-800-82/).
@@ -266,7 +266,7 @@ Out of scope means do not cite CSW for that principle.
   retention, access control, and a common time source for the master logs)
   stays with the logging platform. Authentication monitoring stays with the
   identity platform.
-- **Primary runbooks:** [NIST CSF DE.CM, DE.AE](../NIST-CSF-2/);
+- **Primary reference designs:** [NIST CSF DE.CM, DE.AE](../NIST-CSF-2/);
   [CIS Control 13](../CIS-Controls-v8/);
   [NIST 800-53 AU, SI-4](../NIST-800-53/);
   [NIS2 Art. 21(2)(b)](../NIS2/).
@@ -283,8 +283,8 @@ Out of scope means do not cite CSW for that principle.
 - **CSW evidence:** Observed communication (which systems do and do not
   talk) and forensic events a detection team can review. CSW is not the
   hunt programme and is not a vulnerability scanner. See the
-  [MITRE ATT&CK runbook](../MITRE-ATTACK/) when mapping events to techniques.
-- **Primary runbooks:** [MITRE ATT&CK runbook](../MITRE-ATTACK/);
+  [MITRE ATT&CK reference design](../MITRE-ATTACK/) when mapping events to techniques.
+- **Primary reference designs:** [MITRE ATT&CK reference design](../MITRE-ATTACK/);
   [NIST CSF DE.AE](../NIST-CSF-2/);
   [NIST 800-53 SI-4, RA-5](../NIST-800-53/).
 - **Pairings needed:** External threat-intel feeds, EDR / XDR for host-level
@@ -305,11 +305,11 @@ Out of scope means do not cite CSW for that principle.
   the restore.
 - **CSW does not do:** Backup, restore, immutable storage, DR orchestration,
   BCP site switchover.
-- **Primary runbooks:** [NIST CSF RS / RC pillars](../NIST-CSF-2/);
+- **Primary reference designs:** [NIST CSF RS / RC pillars](../NIST-CSF-2/);
   [NIST 800-53 IR, CP families](../NIST-800-53/);
   [NIS2 Art. 21(2)(b)](../NIS2/); [DORA Art. 19](../DORA/).
 - **Pairings needed:** Backup/DR platform (Veeam/Rubrik/Cohesity);
-  IR orchestration (SOAR); runbook library; tabletop exercise cadence.
+  IR orchestration (SOAR); reference design library; tabletop exercise cadence.
 
 #### D2 Lessons Learned
 
@@ -319,7 +319,7 @@ Out of scope means do not cite CSW for that principle.
 - **Applicability:** Supporting evidence
 - **CSW evidence:** The difference between snapshots can show what changed
   around an incident. The lessons-learned process itself sits outside CSW.
-- **Primary runbooks:** [NIST CSF ID.IM](../NIST-CSF-2/);
+- **Primary reference designs:** [NIST CSF ID.IM](../NIST-CSF-2/);
   [NIST 800-53 IR family](../NIST-800-53/). PM-14 is testing, training and
   monitoring, not lessons learned, so it is not the D2 mapping.
 - **Pairings needed:** Formal lessons-learned / post-incident-review process;
@@ -345,7 +345,7 @@ Honest about scope so assessors don't form false expectations:
 
 ## Related documents in this folder
 
-- **[CSW-UK-NCSC-CAF-Technical-Runbook.md](./CSW-UK-NCSC-CAF-Technical-Runbook.md)** —
+- **[CSW-UK-NCSC-CAF-Reference-Design.md](./CSW-UK-NCSC-CAF-Reference-Design.md)** —
   engineering view: scope design, labels, policy authoring per principle,
   evidence collection steps.
 - **[CSW-UK-NCSC-CAF-Compliance-Report.md](./CSW-UK-NCSC-CAF-Compliance-Report.md)** —

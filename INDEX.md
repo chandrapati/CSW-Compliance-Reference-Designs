@@ -2,17 +2,17 @@
 
 A lookup index across all thirty-five frameworks in this repository.
 Use it to jump from a specific control / requirement / article to the
-runbook section that explains how Cisco Secure Workload (CSW)
+reference design section that explains how Cisco Secure Workload (CSW)
 supports evidence for it.
 
-> **Linking convention.** Most links point to the runbook root rather
+> **Linking convention.** Most links point to the reference design root rather
 > than a specific anchor — section anchors aren't stable across
 > renderers. Once on the page, your browser's *Find* (Ctrl/Cmd+F) on
 > the control ID is the fastest way to land in the right paragraph.
 
 > **Why no entries for some controls?** A blank cell or omission means
 > the control is intentionally outside CSW's scope (e.g., physical
-> access, training, cryptographic primitives). The relevant runbook
+> access, training, cryptographic primitives). The relevant reference design
 > calls these out explicitly.
 
 ---
@@ -21,33 +21,31 @@ supports evidence for it.
 
 | If you're asking… | Start here |
 |---|---|
-| "How do I prove my segmentation actually works?" | [PCI Req 1](./PCI-DSS-v4/CSW-PCI-DSS-Technical-Runbook.md), [HIPAA §164.312(a)(1)](./HIPAA/CSW-HIPAA-Technical-Runbook.md), [NIST AC-4](./NIST-800-53/CSW-NIST-800-53-Technical-Runbook.md), [DORA Art. 9](./DORA/CSW-DORA-Technical-Runbook.md), [NERC CIP-005 R1](./NERC-CIP/CSW-NERC-CIP-Technical-Runbook.md), [TSA SD Section III.A](./TSA-Pipeline/CSW-TSA-Pipeline-Technical-Runbook.md), [TSA Rail III.B](./TSA-Rail/CSW-TSA-Rail-Technical-Runbook.md), [IEC 62443 SR 5.1–5.4](./IEC-62443/CSW-IEC62443-Technical-Runbook.md), [GDPR Art. 25 / Art. 32](./GDPR/CSW-GDPR-Technical-Runbook.md), [FedRAMP AC-4 / SC-7](./FedRAMP/CSW-FedRAMP-Technical-Runbook.md), [SWIFT CSCF 1.1](./SWIFT-CSCF/CSW-SWIFT-CSCF-Technical-Runbook.md), [HITRUST 01.m](./HITRUST-CSF/CSW-HITRUST-Technical-Runbook.md), [CIS Safeguard 13.4](./CIS-Controls-v8/CSW-CIS-Technical-Runbook.md), [CSF PR.IR-01](./NIST-CSF-2/CSW-CSF-Technical-Runbook.md), [CMMC SC.L2-3.13.1 / 3.13.6](./CMMC-2/CSW-CMMC-Technical-Runbook.md), [NIST 800-171 03.01.03 / 03.13.06](./NIST-800-171/CSW-NIST-800-171-Technical-Runbook.md), [HIPAA NPRM §164.312(a)(2)(vi)](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Technical-Runbook.md), [UK CE1](./UK-Cyber-Essentials/CSW-Cyber-Essentials-Technical-Runbook.md), [AU E5](./AU-Essential-Eight/CSW-Essential-Eight-Technical-Runbook.md), [CSA IVS-09](./CSA-CCM/CSW-CSA-CCM-Technical-Runbook.md) |
-| "How do I demonstrate continuous monitoring?" | [NIST CA-7 / SI-4](./NIST-800-53/CSW-NIST-800-53-Technical-Runbook.md), [PCI Req 11](./PCI-DSS-v4/CSW-PCI-DSS-Technical-Runbook.md), [SOC 2 CC7.2](./SOC2/CSW-SOC2-Technical-Runbook.md), [NIS2 Art. 21(2)(b)](./NIS2/CSW-NIS2-Technical-Runbook.md), [NERC CIP-007 R4](./NERC-CIP/CSW-NERC-CIP-Technical-Runbook.md), [TSA SD Section III.C](./TSA-Pipeline/CSW-TSA-Pipeline-Technical-Runbook.md), [TSA Rail III.D](./TSA-Rail/CSW-TSA-Rail-Technical-Runbook.md), [FedRAMP CA-7 / SI-4](./FedRAMP/CSW-FedRAMP-Technical-Runbook.md), [IEC 62443 SR 6](./IEC-62443/CSW-IEC62443-Technical-Runbook.md), [SWIFT CSCF 6.4](./SWIFT-CSCF/CSW-SWIFT-CSCF-Technical-Runbook.md), [HITRUST 09.ab](./HITRUST-CSF/CSW-HITRUST-Technical-Runbook.md), [CIS Safeguards 13.1 / 13.6](./CIS-Controls-v8/CSW-CIS-Technical-Runbook.md), [CSF DE.CM-01 / DE.CM-09](./NIST-CSF-2/CSW-CSF-Technical-Runbook.md), [CMMC SI.L2-3.14.6](./CMMC-2/CSW-CMMC-Technical-Runbook.md), [COBIT MEA01 / MEA02](./COBIT-2019/CSW-COBIT-Technical-Runbook.md), [CSA LOG](./CSA-CCM/CSW-CSA-CCM-Technical-Runbook.md) |
-| "How do I produce an incident-reporting evidence pack?" | [DORA Art. 19](./DORA/CSW-DORA-Technical-Runbook.md), [NIS2 Art. 23](./NIS2/CSW-NIS2-Technical-Runbook.md), [HIPAA §164.308(a)(6)](./HIPAA/CSW-HIPAA-Technical-Runbook.md), [GDPR Art. 33–34](./GDPR/CSW-GDPR-Technical-Runbook.md), [NERC CIP-008](./NERC-CIP/CSW-NERC-CIP-Technical-Runbook.md), [TSA CIRP / 24-hour CISA](./TSA-Pipeline/CSW-TSA-Pipeline-Technical-Runbook.md), [SWIFT CSCF 7.1](./SWIFT-CSCF/CSW-SWIFT-CSCF-Technical-Runbook.md), [HITRUST 11.a / 11.c](./HITRUST-CSF/CSW-HITRUST-Technical-Runbook.md), [CIS Control 17](./CIS-Controls-v8/CSW-CIS-Technical-Runbook.md), [CSF RS.AN-03 / RS.AN-07](./NIST-CSF-2/CSW-CSF-Technical-Runbook.md), [CMMC IR.L2-3.6.x](./CMMC-2/CSW-CMMC-Technical-Runbook.md), [HIPAA NPRM §164.308(a)(6)](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Technical-Runbook.md) |
-| "How do I show my supply chain / third-party exposure?" | [DORA Art. 28](./DORA/CSW-DORA-Technical-Runbook.md), [NIS2 Art. 21(2)(d)](./NIS2/CSW-NIS2-Technical-Runbook.md), [GDPR Art. 28](./GDPR/CSW-GDPR-Technical-Runbook.md), [ISO A.5.19–A.5.22](./ISO-27001-2022/CSW-ISO27001-Technical-Runbook.md), [NERC CIP-013](./NERC-CIP/CSW-NERC-CIP-Technical-Runbook.md), [CIS Control 15](./CIS-Controls-v8/CSW-CIS-Technical-Runbook.md), [CSF GV.SC-04 / GV.SC-07](./NIST-CSF-2/CSW-CSF-Technical-Runbook.md) |
-| "Where does CSW fit in a Zero Trust architecture?" | [NIST 800-207 Tenets](./NIST-800-207/CSW-NIST-800-207-Technical-Runbook.md), [NIST 800-207A PDP/PEP/PA/PIP](./NIST-800-207A/CSW-NIST-800-207A-Technical-Runbook.md), [CISA ZTMM](./CISA-ZeroTrust/CSW-CISA-ZTMM-Technical-Runbook.md), [FedRAMP AC-4 / SC-7 (workload tier)](./FedRAMP/CSW-FedRAMP-Technical-Runbook.md), [CSF PR.IR / PR.AA](./NIST-CSF-2/CSW-CSF-Technical-Runbook.md) |
-| "How do I evidence vulnerability management?" | [PCI Req 6, 11.3](./PCI-DSS-v4/CSW-PCI-DSS-Technical-Runbook.md), [NIST RA-5](./NIST-800-53/CSW-NIST-800-53-Technical-Runbook.md), [ISO A.8.8](./ISO-27001-2022/CSW-ISO27001-Technical-Runbook.md), [NIS2 Art. 21(2)(e)](./NIS2/CSW-NIS2-Technical-Runbook.md), [NERC CIP-010 R3](./NERC-CIP/CSW-NERC-CIP-Technical-Runbook.md), [TSA SD Section III.D](./TSA-Pipeline/CSW-TSA-Pipeline-Technical-Runbook.md), [TSA Rail III.E (CISA KEV)](./TSA-Rail/CSW-TSA-Rail-Technical-Runbook.md), [FedRAMP RA-5](./FedRAMP/CSW-FedRAMP-Technical-Runbook.md), [HITRUST 10.m](./HITRUST-CSF/CSW-HITRUST-Technical-Runbook.md), [IEC 62443 SR 3](./IEC-62443/CSW-IEC62443-Technical-Runbook.md), [CIS Control 7](./CIS-Controls-v8/CSW-CIS-Technical-Runbook.md), [CSF ID.RA-01 / ID.RA-05](./NIST-CSF-2/CSW-CSF-Technical-Runbook.md), [CMMC RA.L2-3.11.2 / 3.11.3](./CMMC-2/CSW-CMMC-Technical-Runbook.md), [AU E2 / E6](./AU-Essential-Eight/CSW-Essential-Eight-Technical-Runbook.md), [UK CE5](./UK-Cyber-Essentials/CSW-Cyber-Essentials-Technical-Runbook.md), [CSA TVM](./CSA-CCM/CSW-CSA-CCM-Technical-Runbook.md), [HIPAA NPRM §164.308(a)(2)](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Technical-Runbook.md) |
-| "How do I evidence IT/OT segmentation on the IT side?" | [NERC CIP-005 R1 (IT-side ESP enclave)](./NERC-CIP/CSW-NERC-CIP-Technical-Runbook.md), [TSA SD Section III.A](./TSA-Pipeline/CSW-TSA-Pipeline-Technical-Runbook.md), [TSA Rail III.B zones](./TSA-Rail/CSW-TSA-Rail-Technical-Runbook.md), [IEC 62443 SR 5 (zones & conduits)](./IEC-62443/CSW-IEC62443-Technical-Runbook.md), [NIST AC-4 / SC-7](./NIST-800-53/CSW-NIST-800-53-Technical-Runbook.md) |
-| "An inspector asked for east-west / north-south traffic. What do I hand over?" | [TSA Rail IV.C.2.e.iii–iv](./TSA-Rail/CSW-TSA-Rail-Technical-Runbook.md) — the directive names both terms and defines them |
-| "How do I map workload telemetry to MITRE ATT&CK?" | [TA0001–TA0011, TA0040](./MITRE-ATTACK/CSW-MITRE-ATTACK-Technical-Runbook.md) |
-| "How do I evidence a SWIFT secure zone at the workload layer?" | [SWIFT CSCF 1.1 / 1.4 / 2.1](./SWIFT-CSCF/CSW-SWIFT-CSCF-Technical-Runbook.md) |
-| "How do I evidence asset and software inventory?" | [CIS Controls 1 + 2](./CIS-Controls-v8/CSW-CIS-Technical-Runbook.md), [NIST CM-8](./NIST-800-53/CSW-NIST-800-53-Technical-Runbook.md), [CSF ID.AM-01 / ID.AM-02](./NIST-CSF-2/CSW-CSF-Technical-Runbook.md), [CMMC CM.L2-3.4.1 / 3.4.6](./CMMC-2/CSW-CMMC-Technical-Runbook.md), [HIPAA NPRM §164.308(a)(1)(ii)(A)](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Technical-Runbook.md), [NIST 800-171 03.04.x](./NIST-800-171/CSW-NIST-800-171-Technical-Runbook.md) |
-| "How do I evidence governance to my management body?" | [DORA Art. 5](./DORA/CSW-DORA-Technical-Runbook.md), [NIS2 Art. 20](./NIS2/CSW-NIS2-Technical-Runbook.md), [CSF GV.OV-01/02/03](./NIST-CSF-2/CSW-CSF-Technical-Runbook.md), [SOC 2 CC4.1](./SOC2/CSW-SOC2-Technical-Runbook.md), [COBIT EDM03 / MEA01 / MEA02](./COBIT-2019/CSW-COBIT-Technical-Runbook.md) |
-| "What does CSW look like for a CMMC L2 (CUI) scope?" | [CMMC AC.L2-3.1.1 / 3.1.3](./CMMC-2/CSW-CMMC-Technical-Runbook.md), [CMMC SC.L2-3.13.1 / 3.13.6](./CMMC-2/CSW-CMMC-Technical-Runbook.md), [NIST 800-53 AC-4](./NIST-800-53/CSW-NIST-800-53-Technical-Runbook.md), [NIST 800-171 Rev. 3](./NIST-800-171/CSW-NIST-800-171-Technical-Runbook.md) |
-| "How do I evidence CCM / STAR segmentation and cloud data flows?" | [CSA IVS / IAM / DSP / TVM](./CSA-CCM/CSW-CSA-CCM-Technical-Runbook.md) |
-| "How do I discuss Singapore MAS TRM technology risk with CSW?" | [MAS TRM critical systems, outsourcing, monitoring, vulnerability, incident evidence](./MAS-TRM/CSW-MAS-TRM-Technical-Runbook.md) |
-| "How do I map APRA CPS 234 critical information assets?" | [APRA CPS 234 critical information asset segmentation, control testing, service-provider visibility](./APRA-CPS-234/CSW-APRA-CPS234-Technical-Runbook.md) |
-| "How do I support NY DFS 23 NYCRR Part 500 evidence?" | [NY DFS Part 500 covered systems, NPI applications, monitoring, vulnerability, incident support](./NY-DFS-23-NYCRR-500/CSW-NYDFS-Technical-Runbook.md) |
-| "How do I position CSW for TISAX / automotive supplier assessments?" | [TISAX / VDA ISA prototype, engineering, customer-confidential workload segmentation](./TISAX/CSW-TISAX-Technical-Runbook.md) |
-| "How do I evidence OT-adjacent IT segmentation under NIST 800-82?" | [NIST SP 800-82 OT-facing IT systems, jump hosts, historians, vendor access](./NIST-800-82/CSW-NIST-800-82-Technical-Runbook.md) |
-| "How do I support BSI C5 cloud assurance?" | [BSI C5 cloud service scope, tenant/shared-service boundaries, cloud communication security](./BSI-C5/CSW-BSI-C5-Technical-Runbook.md) |
-| "How do I evidence UK NCSC CAF for NIS OES or GovAssure?" | [CAF A1–D2 crosswalk](./UK-NCSC-CAF/caf-mapping.md), [Technical runbook](./UK-NCSC-CAF/CSW-UK-NCSC-CAF-Technical-Runbook.md), [IGP scorer](./UK-NCSC-CAF/caf-igp-maturity-scorer.md), [Evidence pack](./UK-NCSC-CAF/caf-evidence-pack-template.md) |
-
+| "How do I prove my segmentation actually works?" | [PCI Req 1](./PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.md), [HIPAA §164.312(a)(1)](./HIPAA/CSW-HIPAA-Reference-Design.md), [NIST AC-4](./NIST-800-53/CSW-NIST-800-53-Reference-Design.md), [DORA Art. 9](./DORA/CSW-DORA-Reference-Design.md), [NERC CIP-005 R1](./NERC-CIP/CSW-NERC-CIP-Reference-Design.md), [TSA SD Section III.A](./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.md), [TSA Rail III.B](./TSA-Rail/CSW-TSA-Rail-Reference-Design.md), [IEC 62443 SR 5.1–5.4](./IEC-62443/CSW-IEC62443-Reference-Design.md), [GDPR Art. 25 / Art. 32](./GDPR/CSW-GDPR-Reference-Design.md), [FedRAMP AC-4 / SC-7](./FedRAMP/CSW-FedRAMP-Reference-Design.md), [SWIFT CSCF 1.1](./SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design.md), [HITRUST 01.m](./HITRUST-CSF/CSW-HITRUST-Reference-Design.md), [CIS Safeguard 13.4](./CIS-Controls-v8/CSW-CIS-Reference-Design.md), [CSF PR.IR-01](./NIST-CSF-2/CSW-CSF-Reference-Design.md), [CMMC SC.L2-3.13.1 / 3.13.6](./CMMC-2/CSW-CMMC-Reference-Design.md), [NIST 800-171 03.01.03 / 03.13.06](./NIST-800-171/CSW-NIST-800-171-Reference-Design.md), [HIPAA NPRM §164.312(a)(2)(vi)](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.md), [UK CE1](./UK-Cyber-Essentials/CSW-Cyber-Essentials-Reference-Design.md), [AU E5](./AU-Essential-Eight/CSW-Essential-Eight-Reference-Design.md), [CSA IVS-09](./CSA-CCM/CSW-CSA-CCM-Reference-Design.md) |
+| "How do I demonstrate continuous monitoring?" | [NIST CA-7 / SI-4](./NIST-800-53/CSW-NIST-800-53-Reference-Design.md), [PCI Req 11](./PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.md), [SOC 2 CC7.2](./SOC2/CSW-SOC2-Reference-Design.md), [NIS2 Art. 21(2)(b)](./NIS2/CSW-NIS2-Reference-Design.md), [NERC CIP-007 R4](./NERC-CIP/CSW-NERC-CIP-Reference-Design.md), [TSA SD Section III.C](./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.md), [TSA Rail III.D](./TSA-Rail/CSW-TSA-Rail-Reference-Design.md), [FedRAMP CA-7 / SI-4](./FedRAMP/CSW-FedRAMP-Reference-Design.md), [IEC 62443 SR 6](./IEC-62443/CSW-IEC62443-Reference-Design.md), [SWIFT CSCF 6.4](./SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design.md), [HITRUST 09.ab](./HITRUST-CSF/CSW-HITRUST-Reference-Design.md), [CIS Safeguards 13.1 / 13.6](./CIS-Controls-v8/CSW-CIS-Reference-Design.md), [CSF DE.CM-01 / DE.CM-09](./NIST-CSF-2/CSW-CSF-Reference-Design.md), [CMMC SI.L2-3.14.6](./CMMC-2/CSW-CMMC-Reference-Design.md), [COBIT MEA01 / MEA02](./COBIT-2019/CSW-COBIT-Reference-Design.md), [CSA LOG](./CSA-CCM/CSW-CSA-CCM-Reference-Design.md) |
+| "How do I produce an incident-reporting evidence pack?" | [DORA Art. 19](./DORA/CSW-DORA-Reference-Design.md), [NIS2 Art. 23](./NIS2/CSW-NIS2-Reference-Design.md), [HIPAA §164.308(a)(6)](./HIPAA/CSW-HIPAA-Reference-Design.md), [GDPR Art. 33–34](./GDPR/CSW-GDPR-Reference-Design.md), [NERC CIP-008](./NERC-CIP/CSW-NERC-CIP-Reference-Design.md), [TSA CIRP / 24-hour CISA](./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.md), [SWIFT CSCF 7.1](./SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design.md), [HITRUST 11.a / 11.c](./HITRUST-CSF/CSW-HITRUST-Reference-Design.md), [CIS Control 17](./CIS-Controls-v8/CSW-CIS-Reference-Design.md), [CSF RS.AN-03 / RS.AN-07](./NIST-CSF-2/CSW-CSF-Reference-Design.md), [CMMC IR.L2-3.6.x](./CMMC-2/CSW-CMMC-Reference-Design.md), [HIPAA NPRM §164.308(a)(6)](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.md) |
+| "How do I show my supply chain / third-party exposure?" | [DORA Art. 28](./DORA/CSW-DORA-Reference-Design.md), [NIS2 Art. 21(2)(d)](./NIS2/CSW-NIS2-Reference-Design.md), [GDPR Art. 28](./GDPR/CSW-GDPR-Reference-Design.md), [ISO A.5.19–A.5.22](./ISO-27001-2022/CSW-ISO27001-Reference-Design.md), [NERC CIP-013](./NERC-CIP/CSW-NERC-CIP-Reference-Design.md), [CIS Control 15](./CIS-Controls-v8/CSW-CIS-Reference-Design.md), [CSF GV.SC-04 / GV.SC-07](./NIST-CSF-2/CSW-CSF-Reference-Design.md) |
+| "Where does CSW fit in a Zero Trust architecture?" | [NIST 800-207 Tenets](./NIST-800-207/CSW-NIST-800-207-Reference-Design.md), [NIST 800-207A PDP/PEP/PA/PIP](./NIST-800-207A/CSW-NIST-800-207A-Reference-Design.md), [CISA ZTMM](./CISA-ZeroTrust/CSW-CISA-ZTMM-Reference-Design.md), [FedRAMP AC-4 / SC-7 (workload tier)](./FedRAMP/CSW-FedRAMP-Reference-Design.md), [CSF PR.IR / PR.AA](./NIST-CSF-2/CSW-CSF-Reference-Design.md) |
+| "How do I evidence vulnerability management?" | [PCI Req 6, 11.3](./PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.md), [NIST RA-5](./NIST-800-53/CSW-NIST-800-53-Reference-Design.md), [ISO A.8.8](./ISO-27001-2022/CSW-ISO27001-Reference-Design.md), [NIS2 Art. 21(2)(e)](./NIS2/CSW-NIS2-Reference-Design.md), [NERC CIP-010 R3](./NERC-CIP/CSW-NERC-CIP-Reference-Design.md), [TSA SD Section III.D](./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.md), [FedRAMP RA-5](./FedRAMP/CSW-FedRAMP-Reference-Design.md), [HITRUST 10.m](./HITRUST-CSF/CSW-HITRUST-Reference-Design.md), [IEC 62443 SR 3](./IEC-62443/CSW-IEC62443-Reference-Design.md), [CIS Control 7](./CIS-Controls-v8/CSW-CIS-Reference-Design.md), [CSF ID.RA-01 / ID.RA-05](./NIST-CSF-2/CSW-CSF-Reference-Design.md), [CMMC RA.L2-3.11.2 / 3.11.3](./CMMC-2/CSW-CMMC-Reference-Design.md), [AU E2 / E6](./AU-Essential-Eight/CSW-Essential-Eight-Reference-Design.md), [UK CE5](./UK-Cyber-Essentials/CSW-Cyber-Essentials-Reference-Design.md), [CSA TVM](./CSA-CCM/CSW-CSA-CCM-Reference-Design.md), [HIPAA NPRM §164.308(a)(2)](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.md) |
+| "How do I evidence IT/OT segmentation on the IT side?" | [NERC CIP-005 R1 (IT-side ESP enclave)](./NERC-CIP/CSW-NERC-CIP-Reference-Design.md), [TSA SD Section III.A](./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.md), [TSA Rail III.B](./TSA-Rail/CSW-TSA-Rail-Reference-Design.md), [IEC 62443 SR 5 (zones & conduits)](./IEC-62443/CSW-IEC62443-Reference-Design.md), [NIST AC-4 / SC-7](./NIST-800-53/CSW-NIST-800-53-Reference-Design.md) |
+| "How do I map workload telemetry to MITRE ATT&CK?" | [TA0001–TA0011, TA0040](./MITRE-ATTACK/CSW-MITRE-ATTACK-Reference-Design.md) |
+| "How do I evidence a SWIFT secure zone at the workload layer?" | [SWIFT CSCF 1.1 / 1.4 / 2.1](./SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design.md) |
+| "How do I evidence asset and software inventory?" | [CIS Controls 1 + 2](./CIS-Controls-v8/CSW-CIS-Reference-Design.md), [NIST CM-8](./NIST-800-53/CSW-NIST-800-53-Reference-Design.md), [CSF ID.AM-01 / ID.AM-02](./NIST-CSF-2/CSW-CSF-Reference-Design.md), [CMMC CM.L2-3.4.1 / 3.4.6](./CMMC-2/CSW-CMMC-Reference-Design.md), [HIPAA NPRM §164.308(a)(1)(ii)(A)](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.md), [NIST 800-171 03.04.x](./NIST-800-171/CSW-NIST-800-171-Reference-Design.md) |
+| "How do I evidence governance to my management body?" | [DORA Art. 5](./DORA/CSW-DORA-Reference-Design.md), [NIS2 Art. 20](./NIS2/CSW-NIS2-Reference-Design.md), [CSF GV.OV-01/02/03](./NIST-CSF-2/CSW-CSF-Reference-Design.md), [SOC 2 CC4.1](./SOC2/CSW-SOC2-Reference-Design.md), [COBIT EDM03 / MEA01 / MEA02](./COBIT-2019/CSW-COBIT-Reference-Design.md) |
+| "What does CSW look like for a CMMC L2 (CUI) scope?" | [CMMC AC.L2-3.1.1 / 3.1.3](./CMMC-2/CSW-CMMC-Reference-Design.md), [CMMC SC.L2-3.13.1 / 3.13.6](./CMMC-2/CSW-CMMC-Reference-Design.md), [NIST 800-53 AC-4](./NIST-800-53/CSW-NIST-800-53-Reference-Design.md), [NIST 800-171 Rev. 3](./NIST-800-171/CSW-NIST-800-171-Reference-Design.md) |
+| "How do I evidence CCM / STAR segmentation and cloud data flows?" | [CSA IVS / IAM / DSP / TVM](./CSA-CCM/CSW-CSA-CCM-Reference-Design.md) |
+| "How do I discuss Singapore MAS TRM technology risk with CSW?" | [MAS TRM critical systems, outsourcing, monitoring, vulnerability, incident evidence](./MAS-TRM/CSW-MAS-TRM-Reference-Design.md) |
+| "How do I map APRA CPS 234 critical information assets?" | [APRA CPS 234 critical information asset segmentation, control testing, service-provider visibility](./APRA-CPS-234/CSW-APRA-CPS234-Reference-Design.md) |
+| "How do I support NY DFS 23 NYCRR Part 500 evidence?" | [NY DFS Part 500 covered systems, NPI applications, monitoring, vulnerability, incident support](./NY-DFS-23-NYCRR-500/CSW-NYDFS-Reference-Design.md) |
+| "How do I position CSW for TISAX / automotive supplier assessments?" | [TISAX / VDA ISA prototype, engineering, customer-confidential workload segmentation](./TISAX/CSW-TISAX-Reference-Design.md) |
+| "How do I evidence OT-adjacent IT segmentation under NIST 800-82?" | [NIST SP 800-82 OT-facing IT systems, jump hosts, historians, vendor access](./NIST-800-82/CSW-NIST-800-82-Reference-Design.md) |
+| "How do I support BSI C5 cloud assurance?" | [BSI C5 cloud service scope, tenant/shared-service boundaries, cloud communication security](./BSI-C5/CSW-BSI-C5-Reference-Design.md) |
+| "How do I evidence UK NCSC CAF for NIS OES or GovAssure?" | [CAF A1–D2 crosswalk](./UK-NCSC-CAF/caf-mapping.md), [Reference design](./UK-NCSC-CAF/CSW-UK-NCSC-CAF-Reference-Design.md), [IGP scorer](./UK-NCSC-CAF/caf-igp-maturity-scorer.md), [Evidence pack](./UK-NCSC-CAF/caf-evidence-pack-template.md) |
 ---
 
 ## HIPAA Security Rule
 
-Source: [`HIPAA/CSW-HIPAA-Technical-Runbook.md`](./HIPAA/CSW-HIPAA-Technical-Runbook.md)
+Source: [`HIPAA/CSW-HIPAA-Reference-Design.md`](./HIPAA/CSW-HIPAA-Reference-Design.md)
 
 | Citation | Topic | CSW can support evidence for |
 |---|---|---|
@@ -67,7 +65,7 @@ Source: [`HIPAA/CSW-HIPAA-Technical-Runbook.md`](./HIPAA/CSW-HIPAA-Technical-Run
 
 ## SOC 2 — Trust Services Criteria
 
-Source: [`SOC2/CSW-SOC2-Technical-Runbook.md`](./SOC2/CSW-SOC2-Technical-Runbook.md)
+Source: [`SOC2/CSW-SOC2-Reference-Design.md`](./SOC2/CSW-SOC2-Reference-Design.md)
 
 | Criterion | Topic | CSW can support evidence for |
 |---|---|---|
@@ -85,7 +83,7 @@ Source: [`SOC2/CSW-SOC2-Technical-Runbook.md`](./SOC2/CSW-SOC2-Technical-Runbook
 
 ## PCI DSS v4.0
 
-Source: [`PCI-DSS-v4/CSW-PCI-DSS-Technical-Runbook.md`](./PCI-DSS-v4/CSW-PCI-DSS-Technical-Runbook.md)
+Source: [`PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.md`](./PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.md)
 
 | Requirement | Topic | CSW can support evidence for |
 |---|---|---|
@@ -106,7 +104,7 @@ Source: [`PCI-DSS-v4/CSW-PCI-DSS-Technical-Runbook.md`](./PCI-DSS-v4/CSW-PCI-DSS
 
 ## NIST SP 800-53 Rev 5
 
-Source: [`NIST-800-53/CSW-NIST-800-53-Technical-Runbook.md`](./NIST-800-53/CSW-NIST-800-53-Technical-Runbook.md)
+Source: [`NIST-800-53/CSW-NIST-800-53-Reference-Design.md`](./NIST-800-53/CSW-NIST-800-53-Reference-Design.md)
 
 | Control | Topic | CSW can support evidence for |
 |---|---|---|
@@ -132,7 +130,7 @@ Source: [`NIST-800-53/CSW-NIST-800-53-Technical-Runbook.md`](./NIST-800-53/CSW-N
 
 ## ISO/IEC 27001:2022 — Annex A
 
-Source: [`ISO-27001-2022/CSW-ISO27001-Technical-Runbook.md`](./ISO-27001-2022/CSW-ISO27001-Technical-Runbook.md)
+Source: [`ISO-27001-2022/CSW-ISO27001-Reference-Design.md`](./ISO-27001-2022/CSW-ISO27001-Reference-Design.md)
 
 | Annex A | Topic | CSW can support evidence for |
 |---|---|---|
@@ -154,7 +152,7 @@ Source: [`ISO-27001-2022/CSW-ISO27001-Technical-Runbook.md`](./ISO-27001-2022/CS
 
 ## CISA Zero Trust Maturity Model v2.0
 
-Source: [`CISA-ZeroTrust/CSW-CISA-ZTMM-Technical-Runbook.md`](./CISA-ZeroTrust/CSW-CISA-ZTMM-Technical-Runbook.md)
+Source: [`CISA-ZeroTrust/CSW-CISA-ZTMM-Reference-Design.md`](./CISA-ZeroTrust/CSW-CISA-ZTMM-Reference-Design.md)
 
 | Pillar | Example maturity path (varies by deployment) | CSW can support evidence for |
 |---|---|---|
@@ -173,9 +171,9 @@ pillars describe outcomes, not a guarantee of maturity tier.
 
 ## FIPS 140 (140-2 / 140-3)
 
-Source: [`FIPS-140/CSW-FIPS-Technical-Runbook.md`](./FIPS-140/CSW-FIPS-Technical-Runbook.md)
+Source: [`FIPS-140/CSW-FIPS-Reference-Design.md`](./FIPS-140/CSW-FIPS-Reference-Design.md)
 
-CSW is **not a FIPS-validated cryptographic module**. The runbook
+CSW is **not a FIPS-validated cryptographic module**. The reference design
 describes how CSW can support elements of an organisation's posture
 toward FIPS — for instance by restricting obvious plaintext transports
 and aligning workload inventory evidence with cryptographic usage
@@ -196,7 +194,7 @@ custody disciplines outside CSW.
 
 ## NIST SP 800-207 — Zero Trust Architecture (Seven Tenets)
 
-Source: [`NIST-800-207/CSW-NIST-800-207-Technical-Runbook.md`](./NIST-800-207/CSW-NIST-800-207-Technical-Runbook.md)
+Source: [`NIST-800-207/CSW-NIST-800-207-Reference-Design.md`](./NIST-800-207/CSW-NIST-800-207-Reference-Design.md)
 
 | Tenet | CSW can support evidence for |
 |---|---|
@@ -212,7 +210,7 @@ Source: [`NIST-800-207/CSW-NIST-800-207-Technical-Runbook.md`](./NIST-800-207/CS
 
 ## NIST SP 800-207A — Zero Trust Logical Components (PDP/PEP/PA/PIP)
 
-Source: [`NIST-800-207A/CSW-NIST-800-207A-Technical-Runbook.md`](./NIST-800-207A/CSW-NIST-800-207A-Technical-Runbook.md)
+Source: [`NIST-800-207A/CSW-NIST-800-207A-Reference-Design.md`](./NIST-800-207A/CSW-NIST-800-207A-Reference-Design.md)
 
 | Component | CSW role |
 |---|---|
@@ -231,7 +229,7 @@ Source: [`NIST-800-207A/CSW-NIST-800-207A-Technical-Runbook.md`](./NIST-800-207A
 > when you report**. Confirm against those instruments (and competent
 > authority instructions) rather than relying on this index alone.
 
-Source: [`DORA/CSW-DORA-Technical-Runbook.md`](./DORA/CSW-DORA-Technical-Runbook.md)
+Source: [`DORA/CSW-DORA-Reference-Design.md`](./DORA/CSW-DORA-Reference-Design.md)
 
 | Article | Topic | CSW can support evidence for |
 |---|---|---|
@@ -246,7 +244,7 @@ Source: [`DORA/CSW-DORA-Technical-Runbook.md`](./DORA/CSW-DORA-Technical-Runbook
 | Art. 13 | Learning and evolving | Quarterly metrics pack |
 | Art. 17 | Incident management process | Forensic timeline reconstruction |
 | Art. 18 | Classification of incidents | IBF labels + flow context inform classification |
-| Art. 19 | Incident reporting (timing per RTS / supervisory guidance) | Artefact-heavy dossier templates in runbook — separate from statutory filing clocks |
+| Art. 19 | Incident reporting (timing per RTS / supervisory guidance) | Artefact-heavy dossier templates in reference design — separate from statutory filing clocks |
 | Art. 24 | Testing programme | Vulnerability + scenario test evidence |
 | Art. 25(1) | Baseline tests | CVE dashboard + reachability queries |
 | Art. 26 | TLPT (every 3 years for significant entities) | Red-team activity reconstruction |
@@ -263,7 +261,7 @@ Source: [`DORA/CSW-DORA-Technical-Runbook.md`](./DORA/CSW-DORA-Technical-Runbook
 > **your Member State’s transposing statute** — confirm operative wording with
 > local counsel / competent authority / CSIRT.
 
-Source: [`NIS2/CSW-NIS2-Technical-Runbook.md`](./NIS2/CSW-NIS2-Technical-Runbook.md)
+Source: [`NIS2/CSW-NIS2-Reference-Design.md`](./NIS2/CSW-NIS2-Reference-Design.md)
 
 | Provision | Topic | CSW can support evidence for |
 |---|---|---|
@@ -295,7 +293,7 @@ Source: [`NIS2/CSW-NIS2-Technical-Runbook.md`](./NIS2/CSW-NIS2-Technical-Runbook
 > your OT-aware monitoring stack (Cisco Cyber Vision, Claroty, Nozomi,
 > Dragos) for end-to-end coverage. Draft v1 — apply SME judgment.
 
-Source: [`NERC-CIP/CSW-NERC-CIP-Technical-Runbook.md`](./NERC-CIP/CSW-NERC-CIP-Technical-Runbook.md)
+Source: [`NERC-CIP/CSW-NERC-CIP-Reference-Design.md`](./NERC-CIP/CSW-NERC-CIP-Reference-Design.md)
 
 | Standard / Requirement | Topic | CSW can support evidence for (IT-side) |
 |---|---|---|
@@ -329,7 +327,7 @@ Source: [`NERC-CIP/CSW-NERC-CIP-Technical-Runbook.md`](./NERC-CIP/CSW-NERC-CIP-T
 > computers / PLCs / IEDs / HMIs. Pair with your IT/OT firewall and
 > your OT-aware sensors. Draft v1 — apply SME judgment.
 
-Source: [`TSA-Pipeline/CSW-TSA-Pipeline-Technical-Runbook.md`](./TSA-Pipeline/CSW-TSA-Pipeline-Technical-Runbook.md)
+Source: [`TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.md`](./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.md)
 
 | SD provision | Topic | CSW can support evidence for (IT-side) |
 |---|---|---|
@@ -359,7 +357,7 @@ Source: [`TSA-Pipeline/CSW-TSA-Pipeline-Technical-Runbook.md`](./TSA-Pipeline/CS
 > seven; out of scope on Controls 5 (account mgmt), 9 (email/web),
 > 11 (data recovery), 14 (training).
 
-Source: [`CIS-Controls-v8/CSW-CIS-Technical-Runbook.md`](./CIS-Controls-v8/CSW-CIS-Technical-Runbook.md)
+Source: [`CIS-Controls-v8/CSW-CIS-Reference-Design.md`](./CIS-Controls-v8/CSW-CIS-Reference-Design.md)
 
 | Safeguard | Topic | CSW can support evidence for |
 |---|---|---|
@@ -397,7 +395,7 @@ Source: [`CIS-Controls-v8/CSW-CIS-Technical-Runbook.md`](./CIS-Controls-v8/CSW-C
 > environmental, backup/recovery execution, and training/HR
 > Subcategories.
 
-Source: [`NIST-CSF-2/CSW-CSF-Technical-Runbook.md`](./NIST-CSF-2/CSW-CSF-Technical-Runbook.md)
+Source: [`NIST-CSF-2/CSW-CSF-Reference-Design.md`](./NIST-CSF-2/CSW-CSF-Reference-Design.md)
 
 | Subcategory | Topic | CSW can support evidence for |
 |---|---|---|
@@ -435,12 +433,12 @@ Source: [`NIST-CSF-2/CSW-CSF-Technical-Runbook.md`](./NIST-CSF-2/CSW-CSF-Technic
 > **Scope.** Default depth is **Level 2** (110 controls = NIST SP
 > 800-171 Rev 2). Level 1 (FAR 52.204-21, 15 safeguards) and Level
 > 3 (Level 2 + selected NIST 800-172 enhancements) are called out
-> in the runbook. CSW is direct on AC, AU, CM, RA, SC, SI families;
+> in the reference design. CSW is direct on AC, AU, CM, RA, SC, SI families;
 > supporting on CA, IA, IR (evidence), MA; out of scope on AT, MP,
 > PE, PS. **CMMC L2 assessment is performed by a C3PAO** — nothing
 > here substitutes for the SSP, POA&M, or the C3PAO engagement.
 
-Source: [`CMMC-2/CSW-CMMC-Technical-Runbook.md`](./CMMC-2/CSW-CMMC-Technical-Runbook.md)
+Source: [`CMMC-2/CSW-CMMC-Reference-Design.md`](./CMMC-2/CSW-CMMC-Reference-Design.md)
 
 | Practice | Topic | CSW can support evidence for |
 |---|---|---|
@@ -481,7 +479,7 @@ Source: [`CMMC-2/CSW-CMMC-Technical-Runbook.md`](./CMMC-2/CSW-CMMC-Technical-Run
 > **not** replace OT visibility for Level 0–2 devices — pair with **Cisco
 > Cyber Vision**, **Claroty**, or equivalent for device-layer evidence.
 
-Source: [`IEC-62443/CSW-IEC62443-Technical-Runbook.md`](./IEC-62443/CSW-IEC62443-Technical-Runbook.md)
+Source: [`IEC-62443/CSW-IEC62443-Reference-Design.md`](./IEC-62443/CSW-IEC62443-Reference-Design.md)
 
 | Requirement | Topic | CSW can support evidence for (IT-side / IACS-adjacent) |
 |---|---|---|
@@ -505,7 +503,7 @@ Source: [`IEC-62443/CSW-IEC62443-Technical-Runbook.md`](./IEC-62443/CSW-IEC62443
 > counsel. This section indexes **technical security-of-processing** and
 > **flow-corroboration** artefacts only.
 
-Source: [`GDPR/CSW-GDPR-Technical-Runbook.md`](./GDPR/CSW-GDPR-Technical-Runbook.md)
+Source: [`GDPR/CSW-GDPR-Reference-Design.md`](./GDPR/CSW-GDPR-Reference-Design.md)
 
 | Provision | Topic | CSW can support evidence for |
 |---|---|---|
@@ -527,7 +525,7 @@ Source: [`GDPR/CSW-GDPR-Technical-Runbook.md`](./GDPR/CSW-GDPR-Technical-Runbook
 > **SIEM**, **XDR/EDR**, and identity tooling for end-to-end ATT&CK
 > narratives.
 
-Source: [`MITRE-ATTACK/CSW-MITRE-ATTACK-Technical-Runbook.md`](./MITRE-ATTACK/CSW-MITRE-ATTACK-Technical-Runbook.md)
+Source: [`MITRE-ATTACK/CSW-MITRE-ATTACK-Reference-Design.md`](./MITRE-ATTACK/CSW-MITRE-ATTACK-Reference-Design.md)
 
 | Tactic | Representative techniques (examples) | CSW can support evidence for |
 |---|---|---|
@@ -569,9 +567,9 @@ Source: [`MITRE-ATTACK/CSW-MITRE-ATTACK-Technical-Runbook.md`](./MITRE-ATTACK/CS
 > **Note.** CSW as a **product** is not itself FedRAMP-authorized — this
 > mapping describes **customer-deployed** CSW evidence **inside your**
 > authorization boundary. Cross-reference the [800-53](./NIST-800-53/)
-> runbook for control-family depth.
+> reference design for control-family depth.
 
-Source: [`FedRAMP/CSW-FedRAMP-Technical-Runbook.md`](./FedRAMP/CSW-FedRAMP-Technical-Runbook.md)
+Source: [`FedRAMP/CSW-FedRAMP-Reference-Design.md`](./FedRAMP/CSW-FedRAMP-Reference-Design.md)
 
 | Control | Topic | CSW can support evidence for |
 |---|---|---|
@@ -595,7 +593,7 @@ Source: [`FedRAMP/CSW-FedRAMP-Technical-Runbook.md`](./FedRAMP/CSW-FedRAMP-Techn
 > official CSCF v2024 applicability row — treat hints below as navigation
 > aid only.
 
-Source: [`SWIFT-CSCF/CSW-SWIFT-CSCF-Technical-Runbook.md`](./SWIFT-CSCF/CSW-SWIFT-CSCF-Technical-Runbook.md)
+Source: [`SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design.md`](./SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design.md)
 
 | CSCF Ref | Title (short) | CSW can support evidence for |
 |---|---|---|
@@ -618,7 +616,7 @@ Source: [`SWIFT-CSCF/CSW-SWIFT-CSCF-Technical-Runbook.md`](./SWIFT-CSCF/CSW-SWIF
 > **PRS** text in **MyCSF** for your assessment. **e1 / i1 / r2** depth varies
 > by programme and assessor interpretation.
 
-Source: [`HITRUST-CSF/CSW-HITRUST-Technical-Runbook.md`](./HITRUST-CSF/CSW-HITRUST-Technical-Runbook.md)
+Source: [`HITRUST-CSF/CSW-HITRUST-Reference-Design.md`](./HITRUST-CSF/CSW-HITRUST-Reference-Design.md)
 
 | HITRUST Ref | Statement theme (short) | CSW can support evidence for |
 |---|---|---|
@@ -637,7 +635,7 @@ Source: [`HITRUST-CSF/CSW-HITRUST-Technical-Runbook.md`](./HITRUST-CSF/CSW-HITRU
 
 ## NIST SP 800-171 Rev. 3
 
-Source: [`NIST-800-171/CSW-NIST-800-171-Technical-Runbook.md`](./NIST-800-171/CSW-NIST-800-171-Technical-Runbook.md)
+Source: [`NIST-800-171/CSW-NIST-800-171-Reference-Design.md`](./NIST-800-171/CSW-NIST-800-171-Reference-Design.md)
 
 | Requirement | Topic | CSW can support evidence for |
 |---|---|---|
@@ -660,7 +658,7 @@ Source: [`NIST-800-171/CSW-NIST-800-171-Technical-Runbook.md`](./NIST-800-171/CS
 
 ## CSA Cloud Controls Matrix v4.0
 
-Source: [`CSA-CCM/CSW-CSA-CCM-Technical-Runbook.md`](./CSA-CCM/CSW-CSA-CCM-Technical-Runbook.md)
+Source: [`CSA-CCM/CSW-CSA-CCM-Reference-Design.md`](./CSA-CCM/CSW-CSA-CCM-Reference-Design.md)
 
 | Domain / objective | Topic | CSW can support evidence for |
 |---|---|---|
@@ -679,7 +677,7 @@ Source: [`CSA-CCM/CSW-CSA-CCM-Technical-Runbook.md`](./CSA-CCM/CSW-CSA-CCM-Techn
 
 ## COBIT 2019
 
-Source: [`COBIT-2019/CSW-COBIT-Technical-Runbook.md`](./COBIT-2019/CSW-COBIT-Technical-Runbook.md)
+Source: [`COBIT-2019/CSW-COBIT-Reference-Design.md`](./COBIT-2019/CSW-COBIT-Reference-Design.md)
 
 | Objective / focus area | Topic | CSW can support evidence for |
 |---|---|---|
@@ -699,7 +697,7 @@ Source: [`COBIT-2019/CSW-COBIT-Technical-Runbook.md`](./COBIT-2019/CSW-COBIT-Tec
 
 ## Australian Essential Eight (ACSC EEMM)
 
-Source: [`AU-Essential-Eight/CSW-Essential-Eight-Technical-Runbook.md`](./AU-Essential-Eight/CSW-Essential-Eight-Technical-Runbook.md)
+Source: [`AU-Essential-Eight/CSW-Essential-Eight-Reference-Design.md`](./AU-Essential-Eight/CSW-Essential-Eight-Reference-Design.md)
 
 | Strategy | Topic | CSW can support evidence for |
 |---|---|---|
@@ -716,7 +714,7 @@ Source: [`AU-Essential-Eight/CSW-Essential-Eight-Technical-Runbook.md`](./AU-Ess
 
 ## UK Cyber Essentials Plus
 
-Source: [`UK-Cyber-Essentials/CSW-Cyber-Essentials-Technical-Runbook.md`](./UK-Cyber-Essentials/CSW-Cyber-Essentials-Technical-Runbook.md)
+Source: [`UK-Cyber-Essentials/CSW-Cyber-Essentials-Reference-Design.md`](./UK-Cyber-Essentials/CSW-Cyber-Essentials-Reference-Design.md)
 
 | Theme | Topic | CSW can support evidence for |
 |---|---|---|
@@ -736,7 +734,7 @@ Source: [`UK-Cyber-Essentials/CSW-Cyber-Essentials-Technical-Runbook.md`](./UK-C
 > source for a subset of Indicators of Good Practice; it does not satisfy a
 > principle by itself.
 
-Source: [`UK-NCSC-CAF/caf-mapping.md`](./UK-NCSC-CAF/caf-mapping.md) · [Technical runbook](./UK-NCSC-CAF/CSW-UK-NCSC-CAF-Technical-Runbook.md) · [Compliance report](./UK-NCSC-CAF/CSW-UK-NCSC-CAF-Compliance-Report.md) · [IGP scorer](./UK-NCSC-CAF/caf-igp-maturity-scorer.md) · [Evidence pack](./UK-NCSC-CAF/caf-evidence-pack-template.md)
+Source: [`UK-NCSC-CAF/caf-mapping.md`](./UK-NCSC-CAF/caf-mapping.md) · [Reference design](./UK-NCSC-CAF/CSW-UK-NCSC-CAF-Reference-Design.md) · [Compliance report](./UK-NCSC-CAF/CSW-UK-NCSC-CAF-Compliance-Report.md) · [IGP scorer](./UK-NCSC-CAF/caf-igp-maturity-scorer.md) · [Evidence pack](./UK-NCSC-CAF/caf-evidence-pack-template.md)
 
 | Principle | Topic | CSW can support evidence for |
 |---|---|---|
@@ -761,7 +759,7 @@ Source: [`UK-NCSC-CAF/caf-mapping.md`](./UK-NCSC-CAF/caf-mapping.md) · [Technic
 
 > **Proposed rule.** This section indexes **discussed NPRM provisions** — confirm **final** regulatory text and effective dates with counsel before formal reliance. Parallel compliance with the **current** Security Rule applies until amendments are in force.
 
-Source: [`HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Technical-Runbook.md`](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Technical-Runbook.md)
+Source: [`HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.md`](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.md)
 
 | Provision | Topic | CSW can support evidence for |
 |---|---|---|
@@ -779,7 +777,7 @@ Source: [`HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Technical-Runbook.md`](./HIPAA-2025-NPR
 
 ## MAS Technology Risk Management Guidelines
 
-Source: [`MAS-TRM/CSW-MAS-TRM-Technical-Runbook.md`](./MAS-TRM/CSW-MAS-TRM-Technical-Runbook.md)
+Source: [`MAS-TRM/CSW-MAS-TRM-Reference-Design.md`](./MAS-TRM/CSW-MAS-TRM-Reference-Design.md)
 
 | Topic | CSW can support evidence for |
 |---|---|
@@ -794,7 +792,7 @@ Source: [`MAS-TRM/CSW-MAS-TRM-Technical-Runbook.md`](./MAS-TRM/CSW-MAS-TRM-Techn
 
 ## APRA CPS 234
 
-Source: [`APRA-CPS-234/CSW-APRA-CPS234-Technical-Runbook.md`](./APRA-CPS-234/CSW-APRA-CPS234-Technical-Runbook.md)
+Source: [`APRA-CPS-234/CSW-APRA-CPS234-Reference-Design.md`](./APRA-CPS-234/CSW-APRA-CPS234-Reference-Design.md)
 
 | Topic | CSW can support evidence for |
 |---|---|
@@ -808,7 +806,7 @@ Source: [`APRA-CPS-234/CSW-APRA-CPS234-Technical-Runbook.md`](./APRA-CPS-234/CSW
 
 ## NY DFS 23 NYCRR Part 500
 
-Source: [`NY-DFS-23-NYCRR-500/CSW-NYDFS-Technical-Runbook.md`](./NY-DFS-23-NYCRR-500/CSW-NYDFS-Technical-Runbook.md)
+Source: [`NY-DFS-23-NYCRR-500/CSW-NYDFS-Reference-Design.md`](./NY-DFS-23-NYCRR-500/CSW-NYDFS-Reference-Design.md)
 
 | Part 500 topic | CSW can support evidence for |
 |---|---|
@@ -824,7 +822,7 @@ Source: [`NY-DFS-23-NYCRR-500/CSW-NYDFS-Technical-Runbook.md`](./NY-DFS-23-NYCRR
 
 ## TISAX / VDA ISA
 
-Source: [`TISAX/CSW-TISAX-Technical-Runbook.md`](./TISAX/CSW-TISAX-Technical-Runbook.md)
+Source: [`TISAX/CSW-TISAX-Reference-Design.md`](./TISAX/CSW-TISAX-Reference-Design.md)
 
 | Assessment topic | CSW can support evidence for |
 |---|---|
@@ -839,7 +837,7 @@ Source: [`TISAX/CSW-TISAX-Technical-Runbook.md`](./TISAX/CSW-TISAX-Technical-Run
 
 ## NIST SP 800-82
 
-Source: [`NIST-800-82/CSW-NIST-800-82-Technical-Runbook.md`](./NIST-800-82/CSW-NIST-800-82-Technical-Runbook.md)
+Source: [`NIST-800-82/CSW-NIST-800-82-Reference-Design.md`](./NIST-800-82/CSW-NIST-800-82-Reference-Design.md)
 
 | 800-82 topic | CSW can support evidence for |
 |---|---|
@@ -854,7 +852,7 @@ Source: [`NIST-800-82/CSW-NIST-800-82-Technical-Runbook.md`](./NIST-800-82/CSW-N
 
 ## BSI C5
 
-Source: [`BSI-C5/CSW-BSI-C5-Technical-Runbook.md`](./BSI-C5/CSW-BSI-C5-Technical-Runbook.md)
+Source: [`BSI-C5/CSW-BSI-C5-Reference-Design.md`](./BSI-C5/CSW-BSI-C5-Reference-Design.md)
 
 | C5 topic | CSW can support evidence for |
 |---|---|
@@ -898,7 +896,7 @@ assemble material artefacts aligned with that expectation — it does **not**
 by itself constitute compliance with that control or satisfy supervisory filing
 obligations.
 
-Consult each framework runbook plus the disclaimer in [`README.md`](./README.md)
+Consult each framework reference design plus the disclaimer in [`README.md`](./README.md)
 for supervisory reporting expectations, product coverage considerations,
 and out-of-scope notes.
 

@@ -97,7 +97,7 @@ FRAMEWORKS = [
             ("Incident sample", "Workload-level timeline for one representative incident", "Flow + process search", "Per incident; one representative sample per audit cycle"),
         ],
         "boundaries": "CSW does not replace MAS-level governance, board / senior-management accountability, the technology risk management framework, BCP/DR, IAM/PAM, cryptography programme decisions, outsourcing due diligence, or regulatory notification decisions.",
-        "runbook_filename": "CSW-MAS-TRM-Technical-Runbook.md",
+        "runbook_filename": "CSW-MAS-TRM-Reference-Design.md",
     },
     {
         "folder": "APRA-CPS-234",
@@ -137,7 +137,7 @@ FRAMEWORKS = [
             ("Incident management sample", "One representative incident timeline", "Flow + process search", "Per incident; one representative sample per audit cycle"),
         ],
         "boundaries": "CSW does not replace board accountability for information security (Para. 13-14), the policy framework (Para. 16-19), related-party assurance, IAM/PAM lifecycle, cryptography programme decisions, BCP/DR test outcomes, or the APRA notification decision (Para. 36-37).",
-        "runbook_filename": "CSW-APRA-CPS234-Technical-Runbook.md",
+        "runbook_filename": "CSW-APRA-CPS234-Reference-Design.md",
     },
     {
         "folder": "NY-DFS-23-NYCRR-500",
@@ -186,7 +186,7 @@ FRAMEWORKS = [
             ("Incident timeline sample", "One representative incident", "Flow + process search", "Per incident; one representative sample per audit cycle"),
         ],
         "boundaries": "CSW does not replace the CISO function, written policies, MFA / IAM enforcement, encryption programmes, the risk assessment itself, the 72-hour notification decision under Section 500.17(a), or the senior officer / board-of-directors annual notice of compliance under Section 500.17(b).",
-        "runbook_filename": "CSW-NYDFS-Technical-Runbook.md",
+        "runbook_filename": "CSW-NYDFS-Reference-Design.md",
     },
     {
         "folder": "TISAX",
@@ -237,7 +237,7 @@ FRAMEWORKS = [
             ("Incident sample", "One representative incident timeline", "Flow + process search", "Per incident; one representative sample per surveillance cycle"),
         ],
         "boundaries": "CSW does not replace organisational policy, training, supplier assurance contracts, physical security and prototype physical handling, identity lifecycle, cryptography assurance, or the TISAX assessment itself.",
-        "runbook_filename": "CSW-TISAX-Technical-Runbook.md",
+        "runbook_filename": "CSW-TISAX-Reference-Design.md",
     },
     {
         "folder": "NIST-800-82",
@@ -279,7 +279,7 @@ FRAMEWORKS = [
             ("Incident sample (IT side)", "One representative IT-side incident timeline", "Flow + process search", "Per incident; one representative sample per audit cycle"),
         ],
         "boundaries": "CSW does not enforce policy on OT devices, parse OT protocols (Modbus, DNP3, S7, OPC UA, etc.), manage OT change windows, replace an OT-native product (Cyber Vision, Claroty, Nozomi), or replace the OT cybersecurity programme.",
-        "runbook_filename": "CSW-NIST-800-82-Technical-Runbook.md",
+        "runbook_filename": "CSW-NIST-800-82-Reference-Design.md",
     },
     {
         "folder": "BSI-C5",
@@ -328,7 +328,7 @@ FRAMEWORKS = [
             ("Incident sample (per tenant)", "Workload-level timeline including tenant identification", "Flow + process search", "Per incident; one representative sample per audit cycle"),
         ],
         "boundaries": "CSW does not replace BSI C5 attestation, CSP organisational and physical controls, supplier contractual arrangements, identity lifecycle, key management / cryptography enforcement, backup/DR, portability and interoperability assurance, or shared-responsibility model decisions.",
-        "runbook_filename": "CSW-BSI-C5-Technical-Runbook.md",
+        "runbook_filename": "CSW-BSI-C5-Reference-Design.md",
     },
     {
         "folder": "IEC-62443",
@@ -370,7 +370,7 @@ FRAMEWORKS = [
             ("Incident sample", "One representative IT-side incident timeline", "Flow + process search", "Per incident; one representative sample per audit cycle"),
         ],
         "boundaries": "CSW does not certify against IEC 62443, parse OT protocols, enforce SR controls on OT components, manage OT change windows, or replace an OT-native product (Cyber Vision, Claroty, Nozomi, Dragos) for OT device discovery and protocol inspection.",
-        "runbook_filename": "CSW-IEC-62443-Technical-Runbook.md",
+        "runbook_filename": "CSW-IEC-62443-Reference-Design.md",
     },
     {
         "folder": "GDPR",
@@ -413,7 +413,7 @@ FRAMEWORKS = [
             ("Breach timeline sample", "Workload-level timeline for one representative incident", "Flow + process search", "Per breach; supports the 72-hour Article 33 timeline"),
         ],
         "boundaries": "CSW does not determine lawful basis or consent, conduct Data Protection Impact Assessments, fulfil data-subject rights requests, manage international transfer mechanisms, replace the DPO function, or make the Article 33 / 34 notification decisions.",
-        "runbook_filename": "CSW-GDPR-Technical-Runbook.md",
+        "runbook_filename": "CSW-GDPR-Reference-Design.md",
     },
     {
         "folder": "MITRE-ATTACK",
@@ -455,7 +455,7 @@ FRAMEWORKS = [
             ("Detection content (joint with SOC)", "ATT&CK-mapped detection rules using CSW telemetry", "SOC integration (CSW telemetry exported to SIEM)", "Continuous; rule sets reviewed monthly"),
         ],
         "boundaries": "ATT&CK is not a compliance standard. CSW does not replace EDR, SIEM, identity telemetry, malware analysis, endpoint response, threat intelligence, or the full detection engineering function. CSW is one telemetry source among many for an ATT&CK-aligned SOC.",
-        "runbook_filename": "CSW-MITRE-ATTACK-Technical-Runbook.md",
+        "runbook_filename": "CSW-MITRE-ATTACK-Reference-Design.md",
     },
     {
         "folder": "FedRAMP",
@@ -497,7 +497,7 @@ FRAMEWORKS = [
             ("Incident sample", "One representative incident timeline for IR drills or actual incidents", "Flow + process search", "Per incident"),
         ],
         "boundaries": "CSW does not replace FedRAMP authorisation, SSP ownership, 3PAO assessment, CSP platform controls, identity layer (IAM / MFA), encryption (FIPS-validated modules), audit-log retention infrastructure, or agency ATO decisions.",
-        "runbook_filename": "CSW-FedRAMP-Technical-Runbook.md",
+        "runbook_filename": "CSW-FedRAMP-Reference-Design.md",
     },
     {
         "folder": "SWIFT-CSCF",
@@ -540,7 +540,7 @@ FRAMEWORKS = [
             ("Incident sample", "Workload-level timeline for one representative incident", "Flow + process search", "Per incident"),
         ],
         "boundaries": "CSW does not replace the SWIFT CSP attestation, the messaging interface itself, SWIFT-specific application controls (logging, message integrity, operator authentication), physical security of the SWIFT environment, or the operator credential lifecycle.",
-        "runbook_filename": "CSW-SWIFT-CSCF-Technical-Runbook.md",
+        "runbook_filename": "CSW-SWIFT-CSCF-Reference-Design.md",
     },
     {
         "folder": "HITRUST-CSF",
@@ -582,7 +582,7 @@ FRAMEWORKS = [
             ("Incident timeline sample", "One representative incident", "Flow + process search", "Per incident"),
         ],
         "boundaries": "CSW does not replace HITRUST authoritative-source policy, training, governance, the HITRUST assessor's scoring, identity lifecycle, encryption, physical and environmental controls, or HITRUST certification submission.",
-        "runbook_filename": "CSW-HITRUST-Technical-Runbook.md",
+        "runbook_filename": "CSW-HITRUST-Reference-Design.md",
     },
     {
         "folder": "NIST-800-171",
@@ -625,7 +625,7 @@ FRAMEWORKS = [
             ("Incident sample", "One representative incident timeline", "Flow + process search", "Per incident"),
         ],
         "boundaries": "CSW does not replace CUI marking, federal contract requirements (DFARS 252.204-7012, FAR 52.204-21, etc.), System Security Plan ownership, POA&M ownership, identity governance, media protection, encryption (FIPS-validated modules), personnel security, or CMMC assessment.",
-        "runbook_filename": "CSW-NIST-800-171-Technical-Runbook.md",
+        "runbook_filename": "CSW-NIST-800-171-Reference-Design.md",
     },
     {
         "folder": "CSA-CCM",
@@ -668,7 +668,7 @@ FRAMEWORKS = [
             ("Forensic sample", "Workload-level timeline for one representative incident", "Flow + process search", "Per incident"),
         ],
         "boundaries": "CSW does not replace CSA STAR submission / attestation, CSP organisational and physical controls, identity lifecycle (IAM), key management (KMS), backup and DR, portability and interoperability, or shared-responsibility model decisions.",
-        "runbook_filename": "CSW-CSA-CCM-Technical-Runbook.md",
+        "runbook_filename": "CSW-CSA-CCM-Reference-Design.md",
     },
     {
         "folder": "COBIT-2019",
@@ -711,7 +711,7 @@ FRAMEWORKS = [
             ("Management review pack", "Aggregated quarterly evidence bundle", "Inventory + workspace + policy violation + vulnerability extracts", "Quarterly"),
         ],
         "boundaries": "CSW does not replace COBIT governance design, design-factor analysis, goals cascade, process ownership, risk appetite decisions, enterprise metrics ownership, audit judgement, or GRC workflow.",
-        "runbook_filename": "CSW-COBIT-2019-Technical-Runbook.md",
+        "runbook_filename": "CSW-COBIT-2019-Reference-Design.md",
     },
     {
         "folder": "AU-Essential-Eight",
@@ -748,7 +748,7 @@ FRAMEWORKS = [
             ("Application control input", "Observed process telemetry on critical workloads", "Process inventory and anomaly report", "Quarterly"),
         ],
         "boundaries": "CSW does not enforce application control on endpoints, harden user applications, configure Office macro settings, enforce MFA, perform backups, or replace ACSC maturity-level assessment ownership.",
-        "runbook_filename": "CSW-Essential-Eight-Technical-Runbook.md",
+        "runbook_filename": "CSW-Essential-Eight-Reference-Design.md",
     },
     {
         "folder": "UK-Cyber-Essentials",
@@ -784,7 +784,7 @@ FRAMEWORKS = [
             ("Verification sample pack", "Per-workload posture for assessor-selected sample", "Per-workload inventory, policy, and vulnerability extracts", "Per certification cycle"),
         ],
         "boundaries": "CSW does not replace the Cyber Essentials questionnaire submission, endpoint malware protection, user access control / identity governance, unsupported-software governance, the assessor's CE+ verification testing, or the IASME certification body decision.",
-        "runbook_filename": "CSW-Cyber-Essentials-Technical-Runbook.md",
+        "runbook_filename": "CSW-Cyber-Essentials-Reference-Design.md",
     },
     {
         "folder": "HIPAA-2025-NPRM",
@@ -826,7 +826,7 @@ FRAMEWORKS = [
             ("Annual technical assessment pack", "Aggregated annual evidence bundle", "Inventory + workspace + ADM + vulnerability + incident-sample extracts", "Annually"),
         ],
         "boundaries": "This mapping reflects a PROPOSED rule and must be revalidated against the final rule. CSW does not replace legal analysis, HIPAA policies, the risk analysis itself, BAA management, identity / authentication, encryption enforcement, breach-notification decisions, or OCR enforcement engagement.",
-        "runbook_filename": "CSW-HIPAA-NPRM-Technical-Runbook.md",
+        "runbook_filename": "CSW-HIPAA-NPRM-Reference-Design.md",
     },
 ]
 

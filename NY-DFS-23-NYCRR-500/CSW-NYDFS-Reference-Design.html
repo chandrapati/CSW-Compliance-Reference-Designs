@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>NY DFS 23 NYCRR Part 500 — Reference Design</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-NYDFS-Reference-Design.html">CSW-NYDFS-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-07T17:30:39Z UTC · Repository commit: a630820</div>
+<header id="title-block-header">
+<h1 class="title">NY DFS 23 NYCRR Part 500 — Reference Design</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload-ny-dfs-23-nycrr-part-500" id="toc-cisco-secure-workload-ny-dfs-23-nycrr-part-500">Cisco Secure
+Workload — NY DFS 23 NYCRR Part 500</a>
+<ul>
+<li><a href="#reference-design-covered-entities-banks-insurers-financial-services-licensees" id="toc-reference-design-covered-entities-banks-insurers-financial-services-licensees">Reference
+Design | Covered Entities (Banks, Insurers, Financial-Services
+Licensees)</a></li>
+<li><a href="#readers-guide" id="toc-readers-guide">Reader’s
+Guide</a></li>
+<li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</a></li>
+<li><a href="#universal-evidence-workflow" id="toc-universal-evidence-workflow">Universal evidence workflow</a>
+<ul>
+<li><a href="#phase-1-checklist-coverage" id="toc-phase-1-checklist-coverage">Phase 1 checklist
+(coverage)</a></li>
+<li><a href="#phase-2-checklist-baseline" id="toc-phase-2-checklist-baseline">Phase 2 checklist
+(baseline)</a></li>
+<li><a href="#phase-3-checklist-policy" id="toc-phase-3-checklist-policy">Phase 3 checklist (policy)</a></li>
+<li><a href="#phase-4-checklist-operate" id="toc-phase-4-checklist-operate">Phase 4 checklist (operate)</a></li>
+<li><a href="#what-csw-evidence-does-not-replace" id="toc-what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</a></li>
+</ul></li>
+<li><a href="#csw-effectiveness-for-this-framework" id="toc-csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</a></li>
+<li><a href="#overview" id="toc-overview">1. Overview</a>
+<ul>
+<li><a href="#part-500-section-map-and-csw-relevance" id="toc-part-500-section-map-and-csw-relevance">Part 500 Section Map and
+CSW Relevance</a></li>
+</ul></li>
+<li><a href="#pre-deployment-checklist" id="toc-pre-deployment-checklist">2. Pre-Deployment Checklist</a></li>
+<li><a href="#phase-1-sensor-connector-deployment-days-15" id="toc-phase-1-sensor-connector-deployment-days-15">3. Phase 1 — Sensor
+&amp; Connector Deployment (Days 1–5)</a></li>
+<li><a href="#phase-2-scope-asset-management-days-610-supports-500.13" id="toc-phase-2-scope-asset-management-days-610-supports-500.13">4.
+Phase 2 — Scope &amp; Asset Management (Days 6–10) — supports
+§500.13</a>
+<ul>
+<li><a href="#suggested-scope-architecture" id="toc-suggested-scope-architecture">4.1 Suggested Scope
+Architecture</a></li>
+<li><a href="#inventory-filters" id="toc-inventory-filters">4.2
+Inventory Filters</a></li>
+<li><a href="#labeling-strategy" id="toc-labeling-strategy">4.3 Labeling
+Strategy</a></li>
+</ul></li>
+<li><a href="#phase-3-application-dependency-mapping-days-1121" id="toc-phase-3-application-dependency-mapping-days-1121">5. Phase 3 —
+Application Dependency Mapping (Days 11–21)</a></li>
+<li><a href="#phase-4-policy-development-days-2235-supports-500.7" id="toc-phase-4-policy-development-days-2235-supports-500.7">6. Phase 4
+— Policy Development (Days 22–35) — supports §500.7</a>
+<ul>
+<li><a href="#part-500-aligned-policy-framework" id="toc-part-500-aligned-policy-framework">6.1 Part-500-Aligned Policy
+Framework</a></li>
+<li><a href="#policy-workspace-lifecycle" id="toc-policy-workspace-lifecycle">6.2 Policy Workspace
+Lifecycle</a></li>
+</ul></li>
+<li><a href="#phase-5-section-mapping-with-csw-evidence" id="toc-phase-5-section-mapping-with-csw-evidence">7. Phase 5 — Section
+Mapping with CSW Evidence</a></li>
+<li><a href="#phase-6-vulnerability-risk-management-500.5-500.9" id="toc-phase-6-vulnerability-risk-management-500.5-500.9">8. Phase 6 —
+Vulnerability &amp; Risk Management (§500.5 / §500.9)</a></li>
+<li><a href="#phase-7-monitoring-alerting-500.14" id="toc-phase-7-monitoring-alerting-500.14">9. Phase 7 — Monitoring
+&amp; Alerting (§500.14)</a>
+<ul>
+<li><a href="#forensic-telemetry-500.16" id="toc-forensic-telemetry-500.16">9.2 Forensic Telemetry
+(§500.16)</a></li>
+</ul></li>
+<li><a href="#reporting-evidence-collection" id="toc-reporting-evidence-collection">10. Reporting &amp; Evidence
+Collection</a>
+<ul>
+<li><a href="#evidence-per-audit-500.17b-cycle-quarterly-recommended-annually-required" id="toc-evidence-per-audit-500.17b-cycle-quarterly-recommended-annually-required">10.1
+Evidence per Audit / §500.17(b) Cycle (quarterly recommended; annually
+required)</a></li>
+<li><a href="#ongoing-compliance-posture" id="toc-ongoing-compliance-posture">10.2 Ongoing Compliance
+Posture</a></li>
+</ul></li>
+<li><a href="#common-pitfalls" id="toc-common-pitfalls">11. Common
+Pitfalls</a></li>
+<li><a href="#related-frameworks-in-this-repository" id="toc-related-frameworks-in-this-repository">Related Frameworks in
+This Repository</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload-ny-dfs-23-nycrr-part-500">Cisco Secure
+Workload — NY DFS 23 NYCRR Part 500</h1>
+<h2 id="reference-design-covered-entities-banks-insurers-financial-services-licensees">Reference
+Design | Covered Entities (Banks, Insurers, Financial-Services
+Licensees)</h2>
+<p><strong>Version:</strong> 1.0<br />
+<strong>Framework:</strong> New York State Department of Financial
+Services — Cybersecurity Requirements for Financial Services Companies
+(23 NYCRR Part 500), as amended (Second Amendment effective 1 November
+2023)<br />
+<strong>Use Case:</strong> Covered workload visibility, nonpublic
+information (NPI) segmentation, access privilege evidence, monitoring,
+vulnerability management, audit trail, and incident response support</p>
+<blockquote>
+<p><strong>Framework version note.</strong> This reference design
+references 23 NYCRR Part 500 as amended on 1 November 2023 (the “Second
+Amendment”). Several requirements have phased transition dates through
+2024–2025 (e.g. 500.7 access privileges; 500.13 asset management; 500.14
+monitoring; 500.15 encryption; 500.17 notice provisions). Confirm the
+applicable effective date for each requirement against the DFS published
+rule.</p>
+<p><strong>CSW UI navigation note.</strong> Cisco does not yet publish
+Part 500-specific CSW UI navigation; framework-specific paths are on the
+product roadmap. This reference design describes CSW
+<em>capabilities</em> and the <em>evidence artifacts</em> they
+produce.</p>
+</blockquote>
+<hr />
+<h2 id="readers-guide">Reader’s Guide</h2>
+<p><strong>Who this is for.</strong> Covered entities under 23 NYCRR
+Part 500 (banks, mortgage bankers/brokers, insurance companies, licensed
+lenders, money transmitters, virtual currency businesses, etc.); the
+CISO designated under §500.4; risk, audit, and compliance leaders
+preparing for the annual notice of compliance (§500.17(b)) and the
+senior officer / board-of-directors certification or
+acknowledgement.</p>
+<p><strong>Questions this reference design helps you
+answer:</strong></p>
+<ul>
+<li><em>Can I show the cybersecurity program (§500.2) operating across
+covered workloads and NPI-bearing applications, with evidence beyond a
+point-in-time sample?</em></li>
+<li><em>Can I show access privileges (§500.7) are restricted to least
+privilege at the workload-to-workload layer, not just at the identity
+layer?</em></li>
+<li><em>Can I produce a workload-level audit trail (§500.6) sufficient
+to detect and respond to a Cybersecurity Event?</em></li>
+<li><em>Can I evidence asset management (§500.13) for in-scope
+information systems?</em></li>
+<li><em>If a Cybersecurity Event occurs, can I rebuild the
+affected-systems timeline needed for §500.17(a) 72-hour notification
+scoping?</em></li>
+</ul>
+<p><strong>What you’ll need.</strong> Current information system
+inventory, NPI-bearing application list, third-party service provider
+register (§500.11), vulnerability management process (§500.5), incident
+response plan (§500.16), monitoring approach (§500.14), and the CISO
+function’s reporting cadence.</p>
+<p><strong>Where to start.</strong> Sections 1–4 if you are scoping; 5–7
+if you are designing and simulating policy; 9–10 if you are preparing
+for the annual §500.17(b) notice of compliance or the senior officer
+certification within the next quarter.</p>
+<hr />
+<!-- CSW-RUNBOOK-PRIMER:v1 -->
+<h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</h2>
+<p>Cisco Secure Workload (CSW) is a <strong>workload protection
+platform</strong>. A lightweight <strong>agent</strong> on each
+server/VM/container observes processes and network flows; <strong>cloud
+connectors</strong> add AWS/Azure/GCP inventory where agents are not
+deployed.</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW term</th>
+<th>Meaning</th>
+<th>Why compliance teams care</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Logical boundary (CDE, PHI zone, CUI enclave)</td>
+<td>Defines the systems you must prove are isolated</td>
+</tr>
+<tr>
+<td><strong>Label / filter</strong></td>
+<td>Tag or query assigning workloads to scopes</td>
+<td>Automates scope membership — reduces drift</td>
+</tr>
+<tr>
+<td><strong>ADM</strong></td>
+<td>Application Dependency Mapping from observed traffic</td>
+<td><strong>Live</strong> network/data-flow diagram for assessors</td>
+</tr>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>Policy container for one scope or application</td>
+<td>Where allow/deny rules are authored</td>
+</tr>
+<tr>
+<td><strong>Monitor → Simulation → Enforce</strong></td>
+<td>Safe rollout sequence</td>
+<td>Simulation = change-board evidence before blocking traffic</td>
+</tr>
+<tr>
+<td><strong>Denied Connections</strong></td>
+<td>Log of flows blocked by policy</td>
+<td>Primary proof that enforcement <strong>operates</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Console areas:</strong> Investigate (inventory, flows, vulns)
+· Defend/Segmentation (policy) · Manage (agents) · Platform (connectors)
+· Administration (audit log)</p>
+<p><strong>Read next:</strong> <a href="../docs/compliance-evidence-playbook.html">Compliance evidence
+playbook</a> (full step-by-step) · <a href="../docs/about-csw.html">About
+CSW</a> (platform intro)</p>
+<hr />
+<h2 id="universal-evidence-workflow">Universal evidence workflow</h2>
+<p>Execute these phases for <strong>this framework’s</strong> compliance
+boundary. Map exports to control IDs in the <strong>Reporting &amp;
+Evidence</strong> section below.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Key CSW actions</th>
+<th>Typical duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Coverage</strong></td>
+<td>Every in-scope workload in CSW</td>
+<td>Install agents/connectors; apply compliance labels; create
+scope</td>
+<td>Days 1–10</td>
+</tr>
+<tr>
+<td><strong>2 — Baseline</strong></td>
+<td>Machine-generated flow map</td>
+<td>Run ADM ≥2 weeks; export clusters; app-owner signoff</td>
+<td>Days 11–28</td>
+</tr>
+<tr>
+<td><strong>3 — Policy</strong></td>
+<td>Designed isolation before enforce</td>
+<td>Build workspace; Simulation mode; fix false positives</td>
+<td>Days 29–45</td>
+</tr>
+<tr>
+<td><strong>4 — Operate</strong></td>
+<td>Continuous proof between audits</td>
+<td>Enforce; quarterly export pack; ADM refresh every 90 days</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-checklist-coverage">Phase 1 checklist (coverage)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>In-scope host list reconciled to CSW
+Inventory (100% or documented exceptions)</label></li>
+<li><label><input type="checkbox"></input>Labels applied:
+<code>compliance:&lt;framework&gt;</code>,
+<code>data:&lt;classification&gt;</code>,
+<code>env:&lt;tier&gt;</code></label></li>
+<li><label><input type="checkbox"></input>CSW scope created matching
+compliance boundary</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> inventory
+CSV + agent status screenshot</label></li>
+</ul>
+<h3 id="phase-2-checklist-baseline">Phase 2 checklist (baseline)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>ADM running on compliance scope for
+full business cycle (≥2 weeks)</label></li>
+<li><label><input type="checkbox"></input>Unexpected flows documented (shadow
+IT, vendor egress, scope creep)</label></li>
+<li><label><input type="checkbox"></input>App owners signed
+cluster-to-application mapping</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> ADM diagram
++ flow samples with process context</label></li>
+</ul>
+<h3 id="phase-3-checklist-policy">Phase 3 checklist (policy)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Default-deny posture defined for
+sensitive scope</label></li>
+<li><label><input type="checkbox"></input>ADM-imported rules refined;
+Simulation run ≥1 week</label></li>
+<li><label><input type="checkbox"></input>Change tickets for false-positive
+fixes; exception register updated</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> policy
+export + simulation report</label></li>
+</ul>
+<h3 id="phase-4-checklist-operate">Phase 4 checklist (operate)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Enforcement enabled on pilot scope;
+negative test recorded in Denied Connections</label></li>
+<li><label><input type="checkbox"></input>Quarterly pack: inventory, policy,
+denies, vulns, audit log (see playbook)</label></li>
+<li><label><input type="checkbox"></input>SIEM integration verified (sample
+events)</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> enforcement
+screenshot + quarterly binder</label></li>
+</ul>
+<h3 id="what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</h3>
+<p>Physical access, HR/training records, encryption key management,
+signed BAAs/vendor contracts, formal pen tests, and assessor attestation
+still require separate programmes. CSW addresses the
+<strong>workload-resident</strong> slice: segmentation, flows, process
+context, vuln reachability, and change drift.</p>
+<hr />
+<h2 id="csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</h2>
+<ul>
+<li>Covered-system workload visibility</li>
+<li>NPI application scope with continuous inventory</li>
+<li>Third-party service-provider egress monitoring</li>
+</ul>
+<p><strong>Compared to manual programmes:</strong> static diagrams and
+annual firewall samples age immediately; CSW ties evidence to
+<strong>live workload behaviour</strong> and produces queryable exports
+on demand — supporting “operating effectively” language in PCI v4.0, SOC
+2 CC7, and HIPAA risk analysis.</p>
+<hr />
+<h2 id="overview">1. Overview</h2>
+<p>23 NYCRR Part 500 is a prescriptive cybersecurity rule. It defines a
+Cybersecurity Program (§500.2), Cybersecurity Policy (§500.3), CISO role
+(§500.4), and a set of technical and operational requirements covering
+vulnerability management, audit trail, access privileges, application
+security, risk assessment, third-party service providers, MFA, asset
+management, monitoring, encryption, incident response, and notification
+obligations.</p>
+<p>CSW can support <strong>technical evidence</strong> for the
+workload-level dimensions of §500.2 (program), §500.5 (vulnerability
+management), §500.6 (audit trail), §500.7 (access privileges), §500.13
+(asset management), §500.14 (monitoring), and §500.16 (incident
+response). CSW does <strong>not</strong> replace the CISO function,
+written policies, MFA / IAM enforcement, encryption programmes, the risk
+assessment itself, the 72-hour notification decision (§500.17(a)), or
+the senior officer certification.</p>
+<h3 id="part-500-section-map-and-csw-relevance">Part 500 Section Map and
+CSW Relevance</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Section</th>
+<th>Topic</th>
+<th>CSW relevance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>§500.2</td>
+<td>Cybersecurity Program</td>
+<td>Workload telemetry feeding the program; CSW outputs are program
+inputs, not the program itself</td>
+</tr>
+<tr>
+<td>§500.3</td>
+<td>Cybersecurity Policy</td>
+<td>Out of scope (governance)</td>
+</tr>
+<tr>
+<td>§500.4</td>
+<td>CISO</td>
+<td>Out of scope (role)</td>
+</tr>
+<tr>
+<td>§500.5</td>
+<td>Vulnerability Management</td>
+<td>CVE / package exposure with reachability context</td>
+</tr>
+<tr>
+<td>§500.6</td>
+<td>Audit Trail</td>
+<td>Workload-level flow + process telemetry retained over the required
+window</td>
+</tr>
+<tr>
+<td>§500.7</td>
+<td>Access Privileges and Management</td>
+<td>Workload-to-workload allowlist + audit; complements identity-layer
+privilege management</td>
+</tr>
+<tr>
+<td>§500.8</td>
+<td>Application Security</td>
+<td>Out of scope for code-level controls; CSW can show application
+reachability and dependencies</td>
+</tr>
+<tr>
+<td>§500.9</td>
+<td>Risk Assessment</td>
+<td>Workload reachability + vulnerability context as input to the
+assessment</td>
+</tr>
+<tr>
+<td>§500.11</td>
+<td>Third-Party Service Provider Security Policy</td>
+<td>Outbound flow visibility to third-party endpoints</td>
+</tr>
+<tr>
+<td>§500.12</td>
+<td>MFA</td>
+<td>Out of scope (identity control)</td>
+</tr>
+<tr>
+<td>§500.13</td>
+<td>Asset Management and Data Retention</td>
+<td>Workload inventory; scope + label evidence</td>
+</tr>
+<tr>
+<td>§500.14</td>
+<td>Monitoring and Training</td>
+<td>Continuous workload monitoring; alerts and anomaly indicators</td>
+</tr>
+<tr>
+<td>§500.15</td>
+<td>Encryption</td>
+<td>Detection of plaintext flows on regulated paths</td>
+</tr>
+<tr>
+<td>§500.16</td>
+<td>Incident Response and BCDR Plans</td>
+<td>Forensic flow / process telemetry; impact scoping</td>
+</tr>
+<tr>
+<td>§500.17</td>
+<td>Notices to Superintendent</td>
+<td>Affected-systems scoping inputs (decision is governance)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="pre-deployment-checklist">2. Pre-Deployment Checklist</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>CSW cluster provisioned</label></li>
+<li><label><input type="checkbox"></input>Sensor compatibility verified for
+Linux / Windows covered workloads</label></li>
+<li><label><input type="checkbox"></input>Cloud accounts connected via CSW
+cloud connectors where covered workloads run in cloud</label></li>
+<li><label><input type="checkbox"></input>Covered entity scope statement
+reviewed (which information systems are in scope of §500)</label></li>
+<li><label><input type="checkbox"></input>NPI inventory reviewed with
+information owners</label></li>
+<li><label><input type="checkbox"></input>Third-party service provider
+register available (§500.11)</label></li>
+<li><label><input type="checkbox"></input>Stakeholders identified: CISO,
+application owners, internal audit</label></li>
+<li><label><input type="checkbox"></input>Evidence retention period agreed and
+consistent with §500.6 expectations</label></li>
+</ul>
+<hr />
+<h2 id="phase-1-sensor-connector-deployment-days-15">3. Phase 1 — Sensor
+&amp; Connector Deployment (Days 1–5)</h2>
+<ul>
+<li>Install software sensors on representative covered workloads in
+monitoring mode</li>
+<li>Connect cloud accounts as read-only CSW cloud connectors for
+in-scope cloud workloads</li>
+<li>Apply Day-1 labels: <code>application</code>, <code>env</code>,
+<code>data_class</code>, <code>npi</code>, <code>criticality</code>,
+<code>owner</code>, <code>compliance=nydfs-500</code></li>
+<li>Maintain a <code>cannot-instrument</code> register for managed SaaS
+and appliances; the register is evidence</li>
+<li>Retain a Phase-1 sensor inventory baseline (status, version, last
+check-in)</li>
+</ul>
+<hr />
+<h2 id="phase-2-scope-asset-management-days-610-supports-500.13">4.
+Phase 2 — Scope &amp; Asset Management (Days 6–10) — supports
+§500.13</h2>
+<h3 id="suggested-scope-architecture">4.1 Suggested Scope
+Architecture</h3>
+<pre><code>Root Scope
+└── NYDFS-500
+    ├── Covered-Systems
+    │   ├── Customer-Channels
+    │   ├── Account-and-Ledger
+    │   ├── Payments-and-Settlement
+    │   └── Underwriting-Claims
+    ├── NPI-Applications
+    │   ├── Customer-Data-Stores
+    │   └── Analytics-on-NPI
+    ├── Critical-Operations
+    │   ├── Identity-Adjacent
+    │   ├── Monitoring
+    │   └── Patch-Management
+    └── Third-Party-Service-Providers</code></pre>
+<h3 id="inventory-filters">4.2 Inventory Filters</h3>
+<pre><code>Filter: NPI-Application-Candidates
+  - Tag: data_class = npi
+  - Listening port: 1521, 3306, 5432, 1433, 27017
+  - Hostname / application pattern matches NPI app names
+
+Filter: Third-Party-Service-Provider-Edges
+  - Destination outside on-prem and cloud allow-lists
+  - Tag: managed_by = vendor</code></pre>
+<h3 id="labeling-strategy">4.3 Labeling Strategy</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Label key</th>
+<th>Example values</th>
+<th>Why it matters for Part 500</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>npi</code></td>
+<td>true, false</td>
+<td>Anchor for §500.7 / §500.13 / §500.15</td>
+</tr>
+<tr>
+<td><code>data_class</code></td>
+<td>npi, customer, internal, public</td>
+<td>Required to evidence handling and protection of NPI</td>
+</tr>
+<tr>
+<td><code>criticality</code></td>
+<td>critical, important, standard</td>
+<td>Risk-tiering for §500.9 and §500.13</td>
+</tr>
+<tr>
+<td><code>application</code></td>
+<td><named app></td>
+<td>Connects workloads to applications named in the program</td>
+</tr>
+<tr>
+<td><code>owner</code></td>
+<td><named function></td>
+<td>Accountability</td>
+</tr>
+<tr>
+<td><code>compliance</code></td>
+<td>nydfs-500</td>
+<td>Filters CSW evidence to Part 500 scope</td>
+</tr>
+</tbody>
+</table>
+<p>Workload inventory + labels + scope membership = §500.13 asset
+management evidence.</p>
+<hr />
+<h2 id="phase-3-application-dependency-mapping-days-1121">5. Phase 3 —
+Application Dependency Mapping (Days 11–21)</h2>
+<p>Run ADM for each scope across a 2-week-minimum window that covers
+business cycles. Document:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Question</th>
+<th>Part 500 section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Which workloads receive connections from outside
+Covered-Systems?</td>
+<td>§500.7 (access privileges)</td>
+</tr>
+<tr>
+<td>Which database connections are plaintext?</td>
+<td>§500.15 (encryption)</td>
+</tr>
+<tr>
+<td>Which workloads reach Third-Party-Service-Providers?</td>
+<td>§500.11</td>
+</tr>
+<tr>
+<td>Are there unexpected lateral flows within NPI-Applications?</td>
+<td>§500.7 / §500.14</td>
+</tr>
+<tr>
+<td>Which workloads are reached by admin paths?</td>
+<td>§500.7 (privileged paths)</td>
+</tr>
+</tbody>
+</table>
+<p>Use ADM clusters to confirm or correct <code>npi</code>,
+<code>data_class</code>, and <code>criticality</code> labels with
+application owners.</p>
+<hr />
+<h2 id="phase-4-policy-development-days-2235-supports-500.7">6. Phase 4
+— Policy Development (Days 22–35) — supports §500.7</h2>
+<h3 id="part-500-aligned-policy-framework">6.1 Part-500-Aligned Policy
+Framework</h3>
+<p><strong>Absolute policies:</strong></p>
+<pre><code>DENY  Any                       → NPI-Applications              (default deny inbound)
+DENY  NPI-Applications          → Internet                      (no direct internet egress from NPI)
+DENY  Corporate-IT              → NPI-Applications              (admin only via approved jump paths)</code></pre>
+<p><strong>Allowlist policies (least privilege):</strong></p>
+<pre><code>ALLOW Customer-Channels          → Account-and-Ledger           tcp/443
+ALLOW Account-and-Ledger         → Customer-Data-Stores         tcp/&lt;db-port-tls&gt;
+ALLOW NPI-Applications           → Identity-Adjacent            tcp/636, tcp/88
+ALLOW Jump-Hosts                 → Covered-Systems              tcp/22, tcp/3389
+ALLOW Covered-Systems            → Monitoring                   tcp/443</code></pre>
+<p><strong>Catch-all:</strong></p>
+<pre><code>LOG   Any                        → NPI-Applications              (unmatched inbound)
+LOG   NPI-Applications           → Any                           (unmatched outbound)</code></pre>
+<h3 id="policy-workspace-lifecycle">6.2 Policy Workspace Lifecycle</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Mode</th>
+<th>Duration</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Simulation</td>
+<td>2 weeks</td>
+<td>Validate the candidate policy</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Enforcement (high-confidence rules only)</td>
+<td>1 week</td>
+<td>Enforce obvious deny rules</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Full Enforcement</td>
+<td>Ongoing</td>
+<td>Workload allowlist enforced; monthly exception review</td>
+</tr>
+</tbody>
+</table>
+<p>Workspace snapshots = §500.7 evidence.</p>
+<hr />
+<h2 id="phase-5-section-mapping-with-csw-evidence">7. Phase 5 — Section
+Mapping with CSW Evidence</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Part 500 section</th>
+<th>What CSW produces</th>
+<th>How to use it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>§500.2</td>
+<td>Continuous workload telemetry; periodic evidence pack</td>
+<td>Demonstrate program is operating, not just defined</td>
+</tr>
+<tr>
+<td>§500.5</td>
+<td>Vulnerability + reachability report scoped to NYDFS-500</td>
+<td>Risk-based remediation prioritisation evidence</td>
+</tr>
+<tr>
+<td>§500.6</td>
+<td>Flow + process telemetry retained per retention policy</td>
+<td>Audit trail (workload network layer)</td>
+</tr>
+<tr>
+<td>§500.7</td>
+<td>Policy workspace + enforcement / violation log</td>
+<td>Least-privilege evidence at workload-to-workload layer</td>
+</tr>
+<tr>
+<td>§500.9</td>
+<td>Reachability and exposure inputs</td>
+<td>Inputs to the periodic risk assessment</td>
+</tr>
+<tr>
+<td>§500.11</td>
+<td>Outbound flow summary to third-party endpoints</td>
+<td>Reconcile against the third-party register</td>
+</tr>
+<tr>
+<td>§500.13</td>
+<td>Workload inventory; scope + label export</td>
+<td>Asset management and classification evidence</td>
+</tr>
+<tr>
+<td>§500.14</td>
+<td>Continuous monitoring; alerts; anomaly indicators</td>
+<td>Monitoring evidence (network + process layer)</td>
+</tr>
+<tr>
+<td>§500.15</td>
+<td>Plaintext-flow detection on regulated paths</td>
+<td>Detection input only; encryption is enforced by other controls</td>
+</tr>
+<tr>
+<td>§500.16</td>
+<td>Forensic flow + process search across the incident window</td>
+<td>Incident scoping and timeline</td>
+</tr>
+<tr>
+<td>§500.17(a)</td>
+<td>Affected-systems list, time windows, paths</td>
+<td>Scoping input to the 72-hour notification decision</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-6-vulnerability-risk-management-500.5-500.9">8. Phase 6 —
+Vulnerability &amp; Risk Management (§500.5 / §500.9)</h2>
+<p>Use reachability-weighted CVE data:</p>
+<pre><code>Priority 1: Critical CVE on NPI-Applications with inbound reachability
+Priority 2: Critical CVE on Covered-Systems
+Priority 3: Critical CVE on supporting workloads with reach into NPI-Applications</code></pre>
+<p>Document compensating controls in the policy workspace exception
+register; this register is itself evidence under §500.7 / §500.9.</p>
+<hr />
+<h2 id="phase-7-monitoring-alerting-500.14">9. Phase 7 — Monitoring
+&amp; Alerting (§500.14)</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Alert</th>
+<th>Trigger</th>
+<th>Section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unauthorised reach to NPI-Applications</td>
+<td>Any unapproved source → NPI scope</td>
+<td>§500.7</td>
+</tr>
+<tr>
+<td>Plaintext on NPI path</td>
+<td>HTTP / unencrypted DB protocol from NPI scope</td>
+<td>§500.15</td>
+</tr>
+<tr>
+<td>Lateral movement inside Covered-Systems</td>
+<td>New east-west flow outside baseline</td>
+<td>§500.14 / §500.16</td>
+</tr>
+<tr>
+<td>External egress from NPI</td>
+<td>NPI-Applications → external endpoint not in allow-list</td>
+<td>§500.11</td>
+</tr>
+<tr>
+<td>Policy violation</td>
+<td>Enforced policy block triggered</td>
+<td>§500.7</td>
+</tr>
+<tr>
+<td>Sensor offline</td>
+<td>Agent stops reporting</td>
+<td>§500.6 / §500.14 (evidence integrity)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="forensic-telemetry-500.16">9.2 Forensic Telemetry (§500.16)</h3>
+<p>For each material incident, retain:</p>
+<ul>
+<li>Flow log scoped to affected workload(s) and time window (with
+process context)</li>
+<li>Process search output</li>
+<li>Policy workspace state at the time of the incident</li>
+<li>Vulnerability snapshot for the affected workload(s)</li>
+<li>Third-party endpoint reach summary if relevant</li>
+</ul>
+<hr />
+<h2 id="reporting-evidence-collection">10. Reporting &amp; Evidence
+Collection</h2>
+<h3 id="evidence-per-audit-500.17b-cycle-quarterly-recommended-annually-required">10.1
+Evidence per Audit / §500.17(b) Cycle (quarterly recommended; annually
+required)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Evidence item</th>
+<th>CSW source area</th>
+<th>Section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Workload inventory</td>
+<td>Inventory export</td>
+<td>§500.13</td>
+</tr>
+<tr>
+<td>Scope + label membership</td>
+<td>Scope membership export</td>
+<td>§500.13</td>
+</tr>
+<tr>
+<td>Approved vs. observed flows</td>
+<td>ADM workspace export</td>
+<td>§500.7 / §500.14</td>
+</tr>
+<tr>
+<td>Policy workspace snapshot</td>
+<td>Policy workspace export</td>
+<td>§500.7</td>
+</tr>
+<tr>
+<td>Policy enforcement / violations</td>
+<td>Policy analysis output</td>
+<td>§500.7 / §500.16</td>
+</tr>
+<tr>
+<td>Vulnerability + reachability</td>
+<td>Vulnerability report scoped to NYDFS-500</td>
+<td>§500.5 / §500.9</td>
+</tr>
+<tr>
+<td>Third-party egress summary</td>
+<td>Flow search to vendor endpoints</td>
+<td>§500.11</td>
+</tr>
+<tr>
+<td>Incident timeline sample</td>
+<td>Flow + process search</td>
+<td>§500.16 / §500.17(a)</td>
+</tr>
+<tr>
+<td>Exception register</td>
+<td>Policy workspace exceptions list</td>
+<td>§500.7 (risk acceptance)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ongoing-compliance-posture">10.2 Ongoing Compliance Posture</h3>
+<ul>
+<li><strong>Monthly:</strong> scope / inventory hygiene; third-party
+egress reconciliation</li>
+<li><strong>Quarterly:</strong> policy workspace review; refresh
+evidence pack 10.1</li>
+<li><strong>Annually:</strong> §500.17(b) notice of compliance; senior
+officer / board acknowledgement; refresh CSW baselines</li>
+<li><strong>Continuously:</strong> policy drift detection; ADM re-run
+every 90 days</li>
+</ul>
+<hr />
+<h2 id="common-pitfalls">11. Common Pitfalls</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pitfall</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Treating CSW evidence as full §500 compliance</td>
+<td>CSW is one technical input; §500.2 program is broader</td>
+</tr>
+<tr>
+<td><code>npi</code> labels missing or inconsistent</td>
+<td>Reconcile NPI inventory ↔︎ CSW labels monthly</td>
+</tr>
+<tr>
+<td>Scope set by subnet rather than workload</td>
+<td>Use process + label identity</td>
+</tr>
+<tr>
+<td>ADM run too short, missing cycle peaks</td>
+<td>Minimum 2-week ADM; align to business cycles</td>
+</tr>
+<tr>
+<td>Third-party egress not in <code>vendor</code> scope</td>
+<td>Maintain the vendor register; ensure CSW labels mirror it</td>
+</tr>
+<tr>
+<td>§500.17(a) treated as automated</td>
+<td>Notification is a CISO/senior-officer decision; CSW provides scoping
+inputs</td>
+</tr>
+<tr>
+<td>Encryption assumed by port number</td>
+<td>Confirm by process + observed handshake, not by TCP port</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-frameworks-in-this-repository">Related Frameworks in
+This Repository</h2>
+<ul>
+<li><a href="../PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.html">PCI DSS
+v4.0</a> — cardholder data overlap</li>
+<li><a href="../SOC2/CSW-SOC2-Reference-Design.html">SOC 2 Type II</a> —
+many DFS-covered entities also issue SOC 2 reports</li>
+<li><a href="../NIST-800-53/CSW-NIST-800-53-Reference-Design.html">NIST SP
+800-53 Rev 5</a></li>
+<li><a href="../ISO-27001-2022/CSW-ISO27001-Reference-Design.html">ISO/IEC
+27001:2022</a></li>
+</ul>
+<hr />
+<p><em>Document prepared for Cisco financial-services engagements
+regulated by NY DFS. Replace [Customer Name] and any bracketed fields
+before customer delivery. Validate section references against the
+current DFS published rule and applicable transition dates.</em></p>
+</body>
+</html>

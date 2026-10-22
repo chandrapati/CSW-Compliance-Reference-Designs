@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Australian Essential Eight — Reference Design</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-Essential-Eight-Reference-Design.html">CSW-Essential-Eight-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-07T17:30:37Z UTC · Repository commit: a630820</div>
+<header id="title-block-header">
+<h1 class="title">Australian Essential Eight — Reference Design</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload-australian-cyber-security-centre-acsc-essential-eight" id="toc-cisco-secure-workload-australian-cyber-security-centre-acsc-essential-eight">Cisco
+Secure Workload — Australian Cyber Security Centre (ACSC) Essential
+Eight</a>
+<ul>
+<li><a href="#reference-design-essential-eight-maturity-model-eemm" id="toc-reference-design-essential-eight-maturity-model-eemm">Reference
+Design | Essential Eight Maturity Model (EEMM)</a></li>
+<li><a href="#readers-guide" id="toc-readers-guide">Reader’s
+Guide</a></li>
+<li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</a></li>
+<li><a href="#universal-evidence-workflow" id="toc-universal-evidence-workflow">Universal evidence workflow</a>
+<ul>
+<li><a href="#phase-1-checklist-coverage" id="toc-phase-1-checklist-coverage">Phase 1 checklist
+(coverage)</a></li>
+<li><a href="#phase-2-checklist-baseline" id="toc-phase-2-checklist-baseline">Phase 2 checklist
+(baseline)</a></li>
+<li><a href="#phase-3-checklist-policy" id="toc-phase-3-checklist-policy">Phase 3 checklist (policy)</a></li>
+<li><a href="#phase-4-checklist-operate" id="toc-phase-4-checklist-operate">Phase 4 checklist (operate)</a></li>
+<li><a href="#what-csw-evidence-does-not-replace" id="toc-what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</a></li>
+</ul></li>
+<li><a href="#csw-effectiveness-for-this-framework" id="toc-csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</a></li>
+<li><a href="#overview" id="toc-overview">1. Overview</a>
+<ul>
+<li><a href="#essential-eight-strategies-and-csw-support-summary" id="toc-essential-eight-strategies-and-csw-support-summary">1.1
+Essential Eight Strategies and CSW Support Summary</a></li>
+<li><a href="#how-to-read-this-reference-design-with-the-eemm" id="toc-how-to-read-this-reference-design-with-the-eemm">1.2 How to Read
+This Reference design with the EEMM</a></li>
+</ul></li>
+<li><a href="#pre-deployment-checklist" id="toc-pre-deployment-checklist">2. Pre-Deployment Checklist</a></li>
+<li><a href="#phase-1-sensor-deployment-days-15" id="toc-phase-1-sensor-deployment-days-15">3. Phase 1 — Sensor
+Deployment (Days 1–5)</a>
+<ul>
+<li><a href="#install-sensors-linux" id="toc-install-sensors-linux">3.1
+Install Sensors (Linux)</a></li>
+<li><a href="#install-sensors-windows" id="toc-install-sensors-windows">3.2 Install Sensors (Windows)</a></li>
+<li><a href="#initial-posture" id="toc-initial-posture">3.3 Initial
+Posture</a></li>
+</ul></li>
+<li><a href="#phase-2-scope-design-for-essential-eight" id="toc-phase-2-scope-design-for-essential-eight">4. Phase 2 — Scope
+Design for Essential Eight</a>
+<ul>
+<li><a href="#recommended-scope-layout" id="toc-recommended-scope-layout">4.1 Recommended Scope Layout</a></li>
+<li><a href="#label-taxonomy" id="toc-label-taxonomy">4.2 Label
+Taxonomy</a></li>
+</ul></li>
+<li><a href="#phase-3-visibility-and-baseline-adm" id="toc-phase-3-visibility-and-baseline-adm">5. Phase 3 — Visibility and
+Baseline (ADM)</a>
+<ul>
+<li><a href="#adm-for-unexpected-behavior-e1-e4-e5" id="toc-adm-for-unexpected-behavior-e1-e4-e5">5.1 ADM for Unexpected
+Behavior (<strong>E1</strong>, <strong>E4</strong>,
+<strong>E5</strong>)</a></li>
+<li><a href="#software-inventory-for-patch-posture-e2-e6" id="toc-software-inventory-for-patch-posture-e2-e6">5.2 Software
+Inventory for Patch Posture (<strong>E2</strong>,
+<strong>E6</strong>)</a></li>
+</ul></li>
+<li><a href="#phase-4-policy-design-and-enforcement" id="toc-phase-4-policy-design-and-enforcement">6. Phase 4 — Policy
+Design and Enforcement</a>
+<ul>
+<li><a href="#e5-administrative-privilege-paths-illustrative-policies" id="toc-e5-administrative-privilege-paths-illustrative-policies">6.1
+<strong>E5</strong> — Administrative Privilege Paths (Illustrative
+Policies)</a></li>
+<li><a href="#e2-e6-network-containment-while-patching-compensating" id="toc-e2-e6-network-containment-while-patching-compensating">6.2
+<strong>E2</strong> / <strong>E6</strong> — Network Containment While
+Patching (Compensating)</a></li>
+<li><a href="#e1-e4-detection-oriented-rules-complementary" id="toc-e1-e4-detection-oriented-rules-complementary">6.3
+<strong>E1</strong> / <strong>E4</strong> — Detection-Oriented Rules
+(Complementary)</a></li>
+<li><a href="#workspace-publication" id="toc-workspace-publication">6.4
+Workspace Publication</a></li>
+</ul></li>
+<li><a href="#phase-5-maturity-level-mapping-ml1ml3" id="toc-phase-5-maturity-level-mapping-ml1ml3">7. Phase 5 — Maturity
+Level Mapping (ML1–ML3)</a>
+<ul>
+<li><a href="#e1-application-control" id="toc-e1-application-control">7.1 <strong>E1 — Application
+Control</strong></a></li>
+<li><a href="#e2-patch-applications-e6-patch-operating-systems" id="toc-e2-patch-applications-e6-patch-operating-systems">7.2 <strong>E2
+— Patch Applications</strong> &amp; <strong>E6 — Patch Operating
+Systems</strong></a></li>
+<li><a href="#e3-office-macros" id="toc-e3-office-macros">7.3 <strong>E3
+— Office Macros</strong></a></li>
+<li><a href="#e4-user-application-hardening" id="toc-e4-user-application-hardening">7.4 <strong>E4 — User Application
+Hardening</strong></a></li>
+<li><a href="#e5-restrict-administrative-privileges" id="toc-e5-restrict-administrative-privileges">7.5 <strong>E5 — Restrict
+Administrative Privileges</strong></a></li>
+<li><a href="#e7-multi-factor-authentication" id="toc-e7-multi-factor-authentication">7.6 <strong>E7 — Multi-Factor
+Authentication</strong></a></li>
+<li><a href="#e8-regular-backups" id="toc-e8-regular-backups">7.7
+<strong>E8 — Regular Backups</strong></a></li>
+</ul></li>
+<li><a href="#phase-6-control-by-control-mapping-table" id="toc-phase-6-control-by-control-mapping-table">8. Phase 6 —
+Control-by-Control Mapping Table</a></li>
+<li><a href="#boundaries-what-csw-does-not-cover" id="toc-boundaries-what-csw-does-not-cover">9. Boundaries — What CSW
+Does <strong>Not</strong> Cover</a></li>
+<li><a href="#audit-preparation-and-evidence-export" id="toc-audit-preparation-and-evidence-export">10. Audit Preparation and
+Evidence Export</a>
+<ul>
+<li><a href="#suggested-evidence-schedule" id="toc-suggested-evidence-schedule">10.1 Suggested Evidence
+Schedule</a></li>
+<li><a href="#export-workflows" id="toc-export-workflows">10.2 Export
+Workflows</a></li>
+<li><a href="#bash-helper-evidence-folder-staging-illustrative" id="toc-bash-helper-evidence-folder-staging-illustrative">10.3 Bash
+Helper — Evidence Folder Staging (Illustrative)</a></li>
+</ul></li>
+<li><a href="#common-pitfalls" id="toc-common-pitfalls">11. Common
+Pitfalls</a></li>
+<li><a href="#appendix-a-related-frameworks" id="toc-appendix-a-related-frameworks">Appendix A — Related
+Frameworks</a></li>
+<li><a href="#appendix-b-official-references-external" id="toc-appendix-b-official-references-external">Appendix B — Official
+References (External)</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload-australian-cyber-security-centre-acsc-essential-eight">Cisco
+Secure Workload — Australian Cyber Security Centre (ACSC) Essential
+Eight</h1>
+<h2 id="reference-design-essential-eight-maturity-model-eemm">Reference
+Design | Essential Eight Maturity Model (EEMM)</h2>
+<p><strong>Version:</strong> 1.0<br />
+<strong>Use Case:</strong> Fresh Install, Hybrid Environment (On-Prem +
+Cloud)<br />
+<strong>Reference framework:</strong> ACSC <em>Essential Eight Maturity
+Model</em> (strategies E1–E8; Maturity Levels ML1–ML3)</p>
+<hr />
+<h2 id="readers-guide">Reader’s Guide</h2>
+<p><strong>Who this is for.</strong> Australian Government entities and
+organizations aligning with the ACSC Essential Eight; security
+architects translating the eight mitigation strategies into technical
+evidence; and assurance teams preparing for assessments against ML1–ML3
+while using Cisco Secure Workload (CSW) as part of the control
+stack.</p>
+<p><strong>Questions this reference design helps you
+answer:</strong></p>
+<ul>
+<li><em>Where does CSW provide <strong>primary</strong> technical
+evidence versus <strong>complementary</strong> visibility alongside
+dedicated tools (application control, patching, MFA, backups)?</em></li>
+<li><em>How do I map CSW telemetry and segmentation to each Essential
+Eight strategy (E1–E8)?</em></li>
+<li><em>What can I demonstrate at <strong>ML1</strong>,
+<strong>ML2</strong>, and <strong>ML3</strong> maturity levels using CSW
+exports and enforcement artifacts—without over-claiming coverage for
+strategies that are fundamentally endpoint- or
+identity-provider-led?</em></li>
+<li><em>How do I prioritize patch effort using CVE, EPSS, and
+reachability context (<strong>E2</strong>,
+<strong>E6</strong>)?</em></li>
+<li><em>How do I evidence restriction of administrative privilege
+<strong>paths</strong> and visibility into privileged tooling usage
+(<strong>E5</strong>), in addition to identity controls?</em></li>
+</ul>
+<p><strong>What you’ll need.</strong> Your organization’s Essential
+Eight target maturity level per strategy, an accurate workload
+inventory, authoritative patching sources for OS and applications, and
+(where used) allowlisting or endpoint protection tooling that pairs with
+CSW for E1.</p>
+<p><strong>Where to start.</strong> Sections 1–4 for scope and sensor
+rollout; 5–6 for ADM baselines aligned to E1/E4/E5; 7 for maturity-level
+evidence; 8–10 for audit exports and boundaries.</p>
+<hr />
+<!-- CSW-RUNBOOK-PRIMER:v1 -->
+<h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</h2>
+<p>Cisco Secure Workload (CSW) is a <strong>workload protection
+platform</strong>. A lightweight <strong>agent</strong> on each
+server/VM/container observes processes and network flows; <strong>cloud
+connectors</strong> add AWS/Azure/GCP inventory where agents are not
+deployed.</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW term</th>
+<th>Meaning</th>
+<th>Why compliance teams care</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Logical boundary (CDE, PHI zone, CUI enclave)</td>
+<td>Defines the systems you must prove are isolated</td>
+</tr>
+<tr>
+<td><strong>Label / filter</strong></td>
+<td>Tag or query assigning workloads to scopes</td>
+<td>Automates scope membership — reduces drift</td>
+</tr>
+<tr>
+<td><strong>ADM</strong></td>
+<td>Application Dependency Mapping from observed traffic</td>
+<td><strong>Live</strong> network/data-flow diagram for assessors</td>
+</tr>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>Policy container for one scope or application</td>
+<td>Where allow/deny rules are authored</td>
+</tr>
+<tr>
+<td><strong>Monitor → Simulation → Enforce</strong></td>
+<td>Safe rollout sequence</td>
+<td>Simulation = change-board evidence before blocking traffic</td>
+</tr>
+<tr>
+<td><strong>Denied Connections</strong></td>
+<td>Log of flows blocked by policy</td>
+<td>Primary proof that enforcement <strong>operates</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Console areas:</strong> Investigate (inventory, flows, vulns)
+· Defend/Segmentation (policy) · Manage (agents) · Platform (connectors)
+· Administration (audit log)</p>
+<p><strong>Read next:</strong> <a href="../docs/compliance-evidence-playbook.html">Compliance evidence
+playbook</a> (full step-by-step) · <a href="../docs/about-csw.html">About
+CSW</a> (platform intro)</p>
+<hr />
+<h2 id="universal-evidence-workflow">Universal evidence workflow</h2>
+<p>Execute these phases for <strong>this framework’s</strong> compliance
+boundary. Map exports to control IDs in the <strong>Reporting &amp;
+Evidence</strong> section below.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Key CSW actions</th>
+<th>Typical duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Coverage</strong></td>
+<td>Every in-scope workload in CSW</td>
+<td>Install agents/connectors; apply compliance labels; create
+scope</td>
+<td>Days 1–10</td>
+</tr>
+<tr>
+<td><strong>2 — Baseline</strong></td>
+<td>Machine-generated flow map</td>
+<td>Run ADM ≥2 weeks; export clusters; app-owner signoff</td>
+<td>Days 11–28</td>
+</tr>
+<tr>
+<td><strong>3 — Policy</strong></td>
+<td>Designed isolation before enforce</td>
+<td>Build workspace; Simulation mode; fix false positives</td>
+<td>Days 29–45</td>
+</tr>
+<tr>
+<td><strong>4 — Operate</strong></td>
+<td>Continuous proof between audits</td>
+<td>Enforce; quarterly export pack; ADM refresh every 90 days</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-checklist-coverage">Phase 1 checklist (coverage)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>In-scope host list reconciled to CSW
+Inventory (100% or documented exceptions)</label></li>
+<li><label><input type="checkbox"></input>Labels applied:
+<code>compliance:&lt;framework&gt;</code>,
+<code>data:&lt;classification&gt;</code>,
+<code>env:&lt;tier&gt;</code></label></li>
+<li><label><input type="checkbox"></input>CSW scope created matching
+compliance boundary</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> inventory
+CSV + agent status screenshot</label></li>
+</ul>
+<h3 id="phase-2-checklist-baseline">Phase 2 checklist (baseline)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>ADM running on compliance scope for
+full business cycle (≥2 weeks)</label></li>
+<li><label><input type="checkbox"></input>Unexpected flows documented (shadow
+IT, vendor egress, scope creep)</label></li>
+<li><label><input type="checkbox"></input>App owners signed
+cluster-to-application mapping</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> ADM diagram
++ flow samples with process context</label></li>
+</ul>
+<h3 id="phase-3-checklist-policy">Phase 3 checklist (policy)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Default-deny posture defined for
+sensitive scope</label></li>
+<li><label><input type="checkbox"></input>ADM-imported rules refined;
+Simulation run ≥1 week</label></li>
+<li><label><input type="checkbox"></input>Change tickets for false-positive
+fixes; exception register updated</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> policy
+export + simulation report</label></li>
+</ul>
+<h3 id="phase-4-checklist-operate">Phase 4 checklist (operate)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Enforcement enabled on pilot scope;
+negative test recorded in Denied Connections</label></li>
+<li><label><input type="checkbox"></input>Quarterly pack: inventory, policy,
+denies, vulns, audit log (see playbook)</label></li>
+<li><label><input type="checkbox"></input>SIEM integration verified (sample
+events)</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> enforcement
+screenshot + quarterly binder</label></li>
+</ul>
+<h3 id="what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</h3>
+<p>Physical access, HR/training records, encryption key management,
+signed BAAs/vendor contracts, formal pen tests, and assessor attestation
+still require separate programmes. CSW addresses the
+<strong>workload-resident</strong> slice: segmentation, flows, process
+context, vuln reachability, and change drift.</p>
+<hr />
+<h2 id="csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</h2>
+<ul>
+<li>E2/E6 patch prioritisation via CVE+EPSS+reachability</li>
+<li>E5 admin privilege path restriction</li>
+<li>ML1–ML3 maturity evidence progression</li>
+</ul>
+<p><strong>Compared to manual programmes:</strong> static diagrams and
+annual firewall samples age immediately; CSW ties evidence to
+<strong>live workload behaviour</strong> and produces queryable exports
+on demand — supporting “operating effectively” language in PCI v4.0, SOC
+2 CC7, and HIPAA risk analysis.</p>
+<hr />
+<h2 id="overview">1. Overview</h2>
+<p>The <strong>Essential Eight</strong> is a prioritized set of
+mitigation strategies published by the Australian Cyber Security Centre
+(ACSC). The <strong>Essential Eight Maturity Model (EEMM)</strong>
+defines three maturity levels (<strong>ML1</strong>,
+<strong>ML2</strong>, <strong>ML3</strong>) with increasing rigor.
+<strong>CSW is not a complete Essential Eight solution.</strong> It
+<strong>strongly complements</strong> patch prioritization and
+admin-path containment (<strong>E2</strong>, <strong>E5</strong>,
+<strong>E6</strong>), and provides <strong>meaningful but
+partial</strong> visibility for application execution and hardening
+signals (<strong>E1</strong>, <strong>E4</strong>). Several strategies
+are <strong>predominantly out of CSW scope</strong> (<strong>E3</strong>
+configuration, <strong>E7</strong> MFA, <strong>E8</strong> backups),
+though CSW may still provide <strong>peripheral</strong> telemetry (for
+example, flows associated with backup or macro-enabled application
+behavior).</p>
+<h3 id="essential-eight-strategies-and-csw-support-summary">1.1
+Essential Eight Strategies and CSW Support Summary</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Name</th>
+<th>CSW support level</th>
+<th>Primary CSW mechanisms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>E1</strong></td>
+<td>Application Control</td>
+<td><strong>Partial / complementary</strong></td>
+<td>Process and hash visibility; execution telemetry; forensic hunting
+for unapproved binaries <em>alongside</em> allowlisting</td>
+</tr>
+<tr>
+<td><strong>E2</strong></td>
+<td>Patch Applications</td>
+<td><strong>Strong</strong></td>
+<td>Software inventory, CVE awareness, EPSS where available,
+reachability/exposure prioritization</td>
+</tr>
+<tr>
+<td><strong>E3</strong></td>
+<td>Configure Microsoft Office Macro Settings</td>
+<td><strong>Limited</strong></td>
+<td>Detection of macro-enabled processes with unexpected network egress
+<em>after the fact</em>; does not set Office trust settings</td>
+</tr>
+<tr>
+<td><strong>E4</strong></td>
+<td>User Application Hardening</td>
+<td><strong>Partial</strong></td>
+<td>Unexpected connection patterns from browsers/office suites; depends
+on baseline/normalcy</td>
+</tr>
+<tr>
+<td><strong>E5</strong></td>
+<td>Restrict Administrative Privileges</td>
+<td><strong>Strong (network path); partial (usage)</strong></td>
+<td>Microsegmentation of admin ports; observation of admin tool usage at
+process level</td>
+</tr>
+<tr>
+<td><strong>E6</strong></td>
+<td>Patch Operating Systems</td>
+<td><strong>Strong</strong></td>
+<td>OS inventory, CVE mapping, prioritization via exposure</td>
+</tr>
+<tr>
+<td><strong>E7</strong></td>
+<td>Multi-Factor Authentication</td>
+<td><strong>Out of scope</strong></td>
+<td>Identity provider / IdP function; CSW does not perform MFA</td>
+</tr>
+<tr>
+<td><strong>E8</strong></td>
+<td>Regular Backups</td>
+<td><strong>Out of scope (core)</strong></td>
+<td>Optional: monitor backup traffic paths; does not prove backup
+integrity or immutability</td>
+</tr>
+</tbody>
+</table>
+<h3 id="how-to-read-this-reference-design-with-the-eemm">1.2 How to Read
+This Reference design with the EEMM</h3>
+<p>The ACSC defines <strong>maturity levels per strategy</strong>, not
+globally. Your evidence pack should <strong>label each strategy
+separately</strong>. CSW evidence is typically
+<strong>cross-cutting</strong> (inventory, flows, policy enforcement)
+and must be <strong>mapped</strong> to the subset of EEMM requirements
+it can support—never substitute CSW for endpoint configuration or IdP
+controls.</p>
+<hr />
+<h2 id="pre-deployment-checklist">2. Pre-Deployment Checklist</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Target maturity
+(<strong>ML1</strong> / <strong>ML2</strong> / <strong>ML3</strong>)
+documented <strong>per strategy</strong> with accountable
+owners</label></li>
+<li><label><input type="checkbox"></input>CSW cluster available; connectivity
+from in-scope workloads (typically TCP 443 outbound)</label></li>
+<li><label><input type="checkbox"></input>Sensor support validated for
+Windows/Linux versions in scope (patch posture <strong>E6</strong>
+prerequisites)</label></li>
+<li><label><input type="checkbox"></input>Cloud connectors configured where
+workloads run on AWS, Azure, or GCP</label></li>
+<li><label><input type="checkbox"></input>Change windows approved for agent
+rollout; communications plan for security and application
+teams</label></li>
+<li><label><input type="checkbox"></input>Complementary tools identified:
+<strong>E1</strong> allowlisting, <strong>E3</strong> Office GPO/MDM,
+<strong>E7</strong> IdP, <strong>E8</strong> backup/DR</label></li>
+<li><label><input type="checkbox"></input>Evidence storage location defined
+(retention, classification, access control) for audit
+exports</label></li>
+</ul>
+<hr />
+<h2 id="phase-1-sensor-deployment-days-15">3. Phase 1 — Sensor
+Deployment (Days 1–5)</h2>
+<h3 id="install-sensors-linux">3.1 Install Sensors (Linux)</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> rpm <span class="at">-ivh</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.rpm    <span class="co"># RHEL/CentOS/Rocky/Alma</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dpkg <span class="at">-i</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.deb    <span class="co"># Debian/Ubuntu</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl enable <span class="at">--now</span> csw-agent <span class="dv">2</span><span class="op">&gt;</span>/dev/null <span class="kw">||</span> <span class="fu">sudo</span> systemctl enable <span class="at">--now</span> tetration-agent</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> status csw-agent <span class="kw">||</span> <span class="ex">systemctl</span> status tetration-agent</span></code></pre></div>
+<h3 id="install-sensors-windows">3.2 Install Sensors (Windows)</h3>
+<p>Use the CSW-provided Windows installer package from your tenant;
+verify service health:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-Service</span> <span class="op">|</span> <span class="fu">Where-Object</span> <span class="op">{</span> <span class="va">$_</span><span class="op">.</span><span class="fu">Name</span> <span class="op">-match</span> <span class="st">&#39;tetration|csw&#39;</span> <span class="op">}</span></span></code></pre></div>
+<h3 id="initial-posture">3.3 Initial Posture</h3>
+<ul>
+<li><strong>Enforcement:</strong> Monitoring Only until ADM and owner
+sign-off (<strong>E2</strong>/<strong>E6</strong> patching still proceed
+via patch management; CSW does not patch)</li>
+<li><strong>Tagging:</strong> Use labels that support Essential Eight
+reporting, for example <code>e8:e1</code>, <code>e8:e5-admin</code>,
+<code>tier:crown-jewel</code>,
+<code>patch_group:windows-servers</code></li>
+</ul>
+<hr />
+<h2 id="phase-2-scope-design-for-essential-eight">4. Phase 2 — Scope
+Design for Essential Eight</h2>
+<h3 id="recommended-scope-layout">4.1 Recommended Scope Layout</h3>
+<pre><code>Enterprise
+├── Crown-Jewels-Apps
+├── Windows-Servers          # E6 heavy
+├── Windows-Desktops         # E1/E3/E4/E5
+├── Linux-Servers            # E2/E6 heavy
+├── Admins-Jump-Zone         # E5 path controls
+└── Backup-Infrastructure    # E8 adjacent telemetry only</code></pre>
+<h3 id="label-taxonomy">4.2 Label Taxonomy</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Label</th>
+<th>Values</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>e8_strategy</code></td>
+<td>E1…E8</td>
+<td>Filter evidence by strategy narrative</td>
+</tr>
+<tr>
+<td><code>admin_tier</code></td>
+<td>tier0/tier1/user</td>
+<td><strong>E5</strong> path policies</td>
+</tr>
+<tr>
+<td><code>internet_exposed</code></td>
+<td>true/false</td>
+<td><strong>E2</strong>/<strong>E6</strong> prioritization</td>
+</tr>
+<tr>
+<td><code>patch_source</code></td>
+<td>wsus, sccm, vendor</td>
+<td>Correlate inventory to patch authority</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-3-visibility-and-baseline-adm">5. Phase 3 — Visibility and
+Baseline (ADM)</h2>
+<h3 id="adm-for-unexpected-behavior-e1-e4-e5">5.1 ADM for Unexpected
+Behavior (<strong>E1</strong>, <strong>E4</strong>,
+<strong>E5</strong>)</h3>
+<pre><code>CSW UI → Investigate → Application Dependency Mapping
+  → Workspace: &quot;EssentialEight-Baseline&quot;
+  → Scope: Windows-Desktops + Linux-Servers (iterate)
+  → Duration: ≥ 14 days (capture patch Tuesdays and admin windows)</code></pre>
+<p><strong>Baseline questions:</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Question</th>
+<th>Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Which executables initiate network connections on endpoints?</td>
+<td><strong>E1</strong>, <strong>E4</strong></td>
+</tr>
+<tr>
+<td>Do browsers talk to rare external IPs or ports?</td>
+<td><strong>E4</strong></td>
+</tr>
+<tr>
+<td>Which hosts initiate inbound admin protocol sessions?</td>
+<td><strong>E5</strong></td>
+</tr>
+<tr>
+<td>Do Office processes spawn child processes with egress?</td>
+<td><strong>E3</strong> (complementary)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="software-inventory-for-patch-posture-e2-e6">5.2 Software
+Inventory for Patch Posture (<strong>E2</strong>,
+<strong>E6</strong>)</h3>
+<pre><code>CSW UI → Investigate → Inventory
+  → Filter: OS family, package/version, last observed
+  → Export CSV weekly for reconciliation with WSUS/SCCM/Intune or Linux repos</code></pre>
+<p>Use inventory <strong>gaps</strong> (unknown agents) as ML2/ML3
+coverage metrics for <strong>visibility completeness</strong>, not as a
+substitute for patch SLAs.</p>
+<hr />
+<h2 id="phase-4-policy-design-and-enforcement">6. Phase 4 — Policy
+Design and Enforcement</h2>
+<h3 id="e5-administrative-privilege-paths-illustrative-policies">6.1
+<strong>E5</strong> — Administrative Privilege Paths (Illustrative
+Policies)</h3>
+<p>CSW enforces <strong>who can reach</strong> admin services—not
+<strong>who authenticates</strong>. Pair with PAM/MFA
+(<strong>E7</strong>).</p>
+<pre><code>DENY: Any-NonJumpHost → Windows-Servers (dst ports 3389, 5985, 5986)
+DENY: Any-NonJumpHost → Linux-Servers (dst port 22) except Bastion-Subnet
+ALLOW: Admins-Jump-Zone → Windows-Servers (3389/RDP gateway paths as validated)
+ALLOW: Admins-Jump-Zone → Linux-Servers (22)
+LOG: any other administrative port attempts</code></pre>
+<h3 id="e2-e6-network-containment-while-patching-compensating">6.2
+<strong>E2</strong> / <strong>E6</strong> — Network Containment While
+Patching (Compensating)</h3>
+<p>During delayed patching on exposed tiers, <strong>narrow</strong>
+connectivity:</p>
+<pre><code>DENY: Internet → Vulnerable-App-Tier (except approved WAF/load-balancer paths)
+ALLOW: Patch-Management-Infra → Windows-Servers / Linux-Servers (update ports per tool)</code></pre>
+<h3 id="e1-e4-detection-oriented-rules-complementary">6.3
+<strong>E1</strong> / <strong>E4</strong> — Detection-Oriented Rules
+(Complementary)</h3>
+<p>After baseline, alert on <strong>first-seen unsigned binary
+path</strong> or <strong>unexpected child of browser</strong>—tune
+aggressively to avoid noise:</p>
+<pre><code>ALERT: first_seen_process = true AND scope = Windows-Desktops
+ALERT: parent_process in (browser_set) AND dst_port not in (443, 80) AND dst not in approved_proxy</code></pre>
+<blockquote>
+<p>Application allowlisting (<strong>E1</strong> primary) remains the
+authoritative control; CSW <strong>augments</strong> with
+network/process context.</p>
+</blockquote>
+<h3 id="workspace-publication">6.4 Workspace Publication</h3>
+<pre><code>CSW UI → Defend → Segmentation
+  → Workspace: &quot;EssentialEight-E5-AdminPaths&quot;
+  → Mode: Simulation (2+ weeks) → staged Enforcement</code></pre>
+<hr />
+<h2 id="phase-5-maturity-level-mapping-ml1ml3">7. Phase 5 — Maturity
+Level Mapping (ML1–ML3)</h2>
+<p>The ACSC defines requirements per strategy at each maturity level.
+The tables below state <strong>what CSW evidence commonly
+supports</strong>—your assessor’s official checklist remains
+authoritative.</p>
+<h3 id="e1-application-control">7.1 <strong>E1 — Application
+Control</strong></h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Maturity</th>
+<th>ACSC intent (summary)</th>
+<th>CSW evidence that may support</th>
+<th>CSW limitations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML1</strong></td>
+<td>Basic controls for workstations</td>
+<td>Process inventory and notable execution telemetry samples</td>
+<td>Not an allowlist enforcer</td>
+</tr>
+<tr>
+<td><strong>ML2</strong></td>
+<td>Stronger coverage/focus areas</td>
+<td>Longer ADM baselines; alerts on rare executables with network
+activity</td>
+<td>Tuning burden; requires baselining</td>
+</tr>
+<tr>
+<td><strong>ML3</strong></td>
+<td>Organization-wide / advanced</td>
+<td>Coverage dashboards (% agents active per desktop population); hunt
+exports</td>
+<td>Does not replace centralized application control policy</td>
+</tr>
+</tbody>
+</table>
+<h3 id="e2-patch-applications-e6-patch-operating-systems">7.2 <strong>E2
+— Patch Applications</strong> &amp; <strong>E6 — Patch Operating
+Systems</strong></h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Maturity</th>
+<th>CSW evidence that may support</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML1</strong></td>
+<td>Inventory exports showing versions; CVE lists for in-scope
+apps/OS</td>
+<td>Prioritization narratives for risk acceptance</td>
+</tr>
+<tr>
+<td><strong>ML2</strong></td>
+<td>Reachability-informed priority queues; evidence of exposed vs
+internal-only risk</td>
+<td>Pair with patch ticket closure from patch tool</td>
+</tr>
+<tr>
+<td><strong>ML3</strong></td>
+<td>Continuous monitoring of inventory drift; alerting on high-risk
+deltas</td>
+<td>CSW <strong>detects</strong> drift; patching action is external</td>
+</tr>
+</tbody>
+</table>
+<h3 id="e3-office-macros">7.3 <strong>E3 — Office Macros</strong></h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Maturity</th>
+<th>CSW evidence that may support</th>
+<th>CSW limitations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML1–ML3</strong></td>
+<td>Flows showing WINWORD/EXCEL/POWERPNT child processes with
+egress</td>
+<td>Does not prove macro trust settings or ASR rules</td>
+</tr>
+</tbody>
+</table>
+<h3 id="e4-user-application-hardening">7.4 <strong>E4 — User Application
+Hardening</strong></h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Maturity</th>
+<th>CSW evidence that may support</th>
+<th>CSW limitations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML1</strong></td>
+<td>Basic external connection inventory from browsers</td>
+<td>No browser configuration management</td>
+</tr>
+<tr>
+<td><strong>ML2–ML3</strong></td>
+<td>Anomaly alerts on rare destinations, protocols, or lateral use</td>
+<td>Requires sound baseline; false positives possible</td>
+</tr>
+</tbody>
+</table>
+<h3 id="e5-restrict-administrative-privileges">7.5 <strong>E5 — Restrict
+Administrative Privileges</strong></h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Maturity</th>
+<th>CSW evidence that may support</th>
+<th>Pair with</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML1</strong></td>
+<td>Visibility into admin protocol usage</td>
+<td>Jump host/PAM design</td>
+</tr>
+<tr>
+<td><strong>ML2</strong></td>
+<td>Simulation and then enforcement restricting admin ports</td>
+<td>IdP + MFA (<strong>E7</strong>) for actual privilege
+restriction</td>
+</tr>
+<tr>
+<td><strong>ML3</strong></td>
+<td>Ongoing conformance dashboards; deny logs for policy violations</td>
+<td>Privileged access reviews (process outside CSW)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="e7-multi-factor-authentication">7.6 <strong>E7 — Multi-Factor
+Authentication</strong></h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Maturity</th>
+<th>CSW role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML1–ML3</strong></td>
+<td><strong>No primary CSW mapping.</strong> Maintain IdP/MFA evidence
+separately. Optional: enforce paths to auth infrastructure only.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="e8-regular-backups">7.7 <strong>E8 — Regular
+Backups</strong></h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Maturity</th>
+<th>CSW role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML1–ML3</strong></td>
+<td><strong>No backup immutability or restore testing.</strong>
+Optional: monitor backup client flows; alert on backup traffic to
+unexpected destinations.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-6-control-by-control-mapping-table">8. Phase 6 —
+Control-by-Control Mapping Table</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Essential Eight requirement (strategy)</th>
+<th>CSW capability</th>
+<th>Evidence produced</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>E1</strong> Application control</td>
+<td>Process visibility; execution telemetry; forensic search</td>
+<td>Process export for sample period; alerts on anomalous executions
+<em>with</em> allowlist policy records from endpoint tool</td>
+</tr>
+<tr>
+<td><strong>E2</strong> Patch applications</td>
+<td>Inventory; CVE + EPSS + exposure</td>
+<td>Vulnerability CSV; prioritized remediation list with reachability
+column</td>
+</tr>
+<tr>
+<td><strong>E3</strong> Office macros</td>
+<td>Egress patterns from Office processes</td>
+<td>Flow exports for investigation windows; <strong>not</strong> macro
+policy config</td>
+</tr>
+<tr>
+<td><strong>E4</strong> Application hardening</td>
+<td>Browser/Office network baselines; anomalies</td>
+<td>ADM diff; alert history</td>
+</tr>
+<tr>
+<td><strong>E5</strong> Restrict admin privileges</td>
+<td>Segmentation around admin services; process visibility</td>
+<td>Policy exports; deny logs; jump-host path diagrams backed by
+flows</td>
+</tr>
+<tr>
+<td><strong>E6</strong> Patch operating systems</td>
+<td>OS inventory; CVE mapping</td>
+<td>Same as <strong>E2</strong>, OS-focused filters</td>
+</tr>
+<tr>
+<td><strong>E7</strong> Multi-factor authentication</td>
+<td>N/A (identity)</td>
+<td>Maintain MFA platform logs; CSW optional path allowlists only</td>
+</tr>
+<tr>
+<td><strong>E8</strong> Regular backups</td>
+<td>Peripheral flow monitoring</td>
+<td>Backup traffic baselines; anomaly alerts <strong>plus</strong>
+backup product reports</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="boundaries-what-csw-does-not-cover">9. Boundaries — What CSW
+Does <strong>Not</strong> Cover</h2>
+<ul>
+<li><strong>Application allowlisting</strong> implementation
+(<strong>E1</strong> primary control) and <strong>Microsoft Office macro
+trust configuration</strong> (<strong>E3</strong>)</li>
+<li><strong>Multi-factor authentication</strong> enrollment and
+enforcement (<strong>E7</strong>)</li>
+<li><strong>Backup</strong> scheduling, immutability, offline copies,
+and restore testing (<strong>E8</strong>)</li>
+<li><strong>Endpoint hardening baselines</strong> (ASR, AppLocker,
+browser settings) for <strong>E4</strong></li>
+<li><strong>Patch deployment</strong> itself
+(<strong>E2</strong>/<strong>E6</strong>): CSW informs priority; patch
+systems execute change</li>
+<li><strong>People and process</strong> maturity artifacts (policies,
+training records, governance minutes) required by EEMM assessments</li>
+</ul>
+<hr />
+<h2 id="audit-preparation-and-evidence-export">10. Audit Preparation and
+Evidence Export</h2>
+<h3 id="suggested-evidence-schedule">10.1 Suggested Evidence
+Schedule</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Evidence</th>
+<th>CSW source</th>
+<th>Suggested frequency</th>
+<th>Strategies served</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent coverage by population</td>
+<td>Manage → Agents</td>
+<td>Monthly</td>
+<td><strong>E1</strong>–<strong>E6</strong> (visibility
+completeness)</td>
+</tr>
+<tr>
+<td>ADM baseline snapshot</td>
+<td>Investigate → ADM</td>
+<td>90 days</td>
+<td><strong>E1</strong>, <strong>E4</strong>, <strong>E5</strong></td>
+</tr>
+<tr>
+<td>Inventory export (OS + apps)</td>
+<td>Investigate → Inventory</td>
+<td>Weekly</td>
+<td><strong>E2</strong>, <strong>E6</strong></td>
+</tr>
+<tr>
+<td>Vulnerability prioritized export</td>
+<td>Investigate → Vulnerability</td>
+<td>Monthly</td>
+<td><strong>E2</strong>, <strong>E6</strong></td>
+</tr>
+<tr>
+<td>Segmentation policy version</td>
+<td>Defend → Segmentation</td>
+<td>Each change</td>
+<td><strong>E5</strong> (paths), compensating
+<strong>E2</strong>/<strong>E6</strong></td>
+</tr>
+<tr>
+<td>Alert sample pack</td>
+<td>Alerts / SIEM</td>
+<td>Quarterly or ad hoc</td>
+<td><strong>E1</strong>, <strong>E4</strong>, <strong>E5</strong>
+incidents</td>
+</tr>
+</tbody>
+</table>
+<h3 id="export-workflows">10.2 Export Workflows</h3>
+<pre><code>CSW UI → Investigate → Flow Search
+  → Scope + time window
+  → Export CSV/JSON with process metadata
+
+CSW UI → Investigate → Process Search
+  → Filter: suspicious parent chains or first-seen binaries
+  → Export for IR or assessor sampling
+
+CSW UI → Defend → Segmentation
+  → Export policy workspace and change history notes</code></pre>
+<h3 id="bash-helper-evidence-folder-staging-illustrative">10.3 Bash
+Helper — Evidence Folder Staging (Illustrative)</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env bash</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Example output: 2026-Q2</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="va">AUDIT_CYCLE</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$(</span><span class="fu">date</span> +%Y-Q<span class="va">$((</span> ( <span class="va">$(</span><span class="fu">date</span> +%-m<span class="va">)</span> <span class="op">-</span> <span class="dv">1</span> ) <span class="op">/</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">1</span> <span class="va">)))</span><span class="st">&quot;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="va">TARGET_ROOT</span><span class="op">=</span><span class="st">&quot;/secure/evidence/acsc-e8/</span><span class="va">${AUDIT_CYCLE}</span><span class="st">&quot;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">&quot;</span><span class="va">${TARGET_ROOT}</span><span class="st">&quot;</span>/<span class="dt">{inventory</span><span class="op">,</span><span class="dt">vuln</span><span class="op">,</span><span class="dt">policies</span><span class="op">,</span><span class="dt">adm}</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;Copy CSW UI/API exports into the subfolders and generate MANIFEST.sha256&quot;</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> <span class="st">&quot;</span><span class="va">${TARGET_ROOT}</span><span class="st">&quot;</span> <span class="at">-type</span> f <span class="at">-print0</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-z</span> <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-0</span> sha256sum <span class="op">&gt;</span> <span class="st">&quot;</span><span class="va">${TARGET_ROOT}</span><span class="st">/MANIFEST.sha256&quot;</span></span></code></pre></div>
+<blockquote>
+<p>Store manifests and exports under your records management policy;
+redact sensitive endpoints for third-party sharing.</p>
+</blockquote>
+<hr />
+<h2 id="common-pitfalls">11. Common Pitfalls</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pitfall</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claiming CSW satisfies <strong>E7</strong> or
+<strong>E8</strong></td>
+<td>Keep IdP and backup evidence separate; use CSW only as
+supplementary</td>
+</tr>
+<tr>
+<td>Over-alerting on <strong>E4</strong> without baseline</td>
+<td>Run ADM for full business cycles before enforcement/detection
+thresholds</td>
+</tr>
+<tr>
+<td><strong>E5</strong> enforcement breaking emergency access</td>
+<td>Document break-glass paths; alert-only exceptions with expiry</td>
+</tr>
+<tr>
+<td>Inventory false confidence</td>
+<td>Reconcile CSW inventory with CMDB; chase agents not reporting</td>
+</tr>
+<tr>
+<td>Assuming macro security is “fixed” due to CSW</td>
+<td>Validate Office trust settings via MDM/GPO and ASR</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="appendix-a-related-frameworks">Appendix A — Related
+Frameworks</h2>
+<ul>
+<li><p><a href="../CIS-Controls-v8/CSW-CIS-Reference-Design.html">CIS
+Controls v8</a> — control themes aligned to hardening and visibility
+narratives.</p></li>
+<li><p><a href="../NIST-800-207/CSW-NIST-800-207-Reference-Design.html">NIST SP
+800-207</a> — zero trust segmentation patterns supporting
+<strong>E5</strong> path restriction.</p></li>
+<li><p><a href="../ISO-27001-2022/CSW-ISO27001-Reference-Design.html">ISO/IEC
+27001:2022</a> — for organizations mapping Essential Eight to broader
+ISMS audits.</p></li>
+<li><p><a href="../UK-NCSC-CAF/caf-mapping.html">UK NCSC CAF v3.2</a> — E2
+and E6 patch evidence is the reuse path for CAF B4.</p></li>
+</ul>
+<hr />
+<h2 id="appendix-b-official-references-external">Appendix B — Official
+References (External)</h2>
+<ul>
+<li>Australian Cyber Security Centre — <em>Essential Eight</em> and
+<em>Essential Eight Maturity Model</em> publications: <a href="https://www.cyber.gov.au/resources-business-and-government/essential-cyber-security/essential-eight">https://www.cyber.gov.au/resources-business-and-government/essential-cyber-security/essential-eight</a></li>
+</ul>
+<blockquote>
+<p>Verify you use the <strong>current</strong> ACSC version and
+assessment guidance; maturity requirements evolve.</p>
+</blockquote>
+<hr />
+<p><em>Document prepared for Cisco customer engagements. Tailor scopes,
+maturity targets, and evidence indexes to your ACSC assessment boundary
+before external sharing.</em></p>
+</body>
+</html>

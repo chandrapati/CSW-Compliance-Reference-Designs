@@ -148,7 +148,7 @@ than ignore them.
 
 1. **Scope workshop.** Translate essential functions into the CSW scope
    pattern described in the
-   [Technical Runbook](./CSW-UK-NCSC-CAF-Technical-Runbook.md) Phase 1.
+   [Reference Design](./CSW-UK-NCSC-CAF-Reference-Design.md) Phase 1.
 2. **Baseline snapshot.** Run `cluster_snapshot.py` and
    `generate_executive_report.py` to capture the current posture — this
    becomes "Year 0" in the maturity narrative.

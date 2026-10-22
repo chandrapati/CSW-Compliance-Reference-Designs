@@ -2,7 +2,7 @@
 
 Use this when walking an industry analyst or reviewer through
 [chandrapati/CSW-Compliance-Reference-Designs](https://github.com/chandrapati/CSW-Compliance-Reference-Designs).
-It explains each report and runbook at the point a reader can misread the coverage label.
+It explains each report and reference design at the point a reader can misread the coverage label.
 
 This library is a field mapping maintained for customer conversations. It is an evidence map, not a Cisco corporate attestation, not a certification, and not an analyst submission. Several older PDFs still say “Prepared by: Cisco Systems, Inc.” and “Cisco Confidential.” Say that those covers are templates. The current position is in the repository disclaimer: SME review is still required, and the mapping does not establish compliance.
 
@@ -13,7 +13,7 @@ Cisco Secure Workload watches workload-to-workload communication: which process 
 Two documents sit in every framework folder:
 
 - The **report** is the narrative for a CISO, a GRC lead, or an assessor. It says which requirement the evidence can support and where another control still has to be filed.
-- The **runbook** is the engineering view. It shows scope design, policy shape, and which export to pull. If a claim in the report is real, the steps are in the runbook.
+- The **reference design** is the engineering view. It shows scope design, policy shape, and which export to pull. If a claim in the report is real, the steps are in the reference design.
 
 Coverage in this library always means “evidence from instrumented workloads in the agreed scope.” It never means the organization is compliant, and it never means Secure Workload is the only control.
 
@@ -38,70 +38,70 @@ When an older report says “Full Coverage” on a governance or identity row, u
 ### HIPAA Security Rule
 
 - **Report.** Walks administrative, physical, technical, and organizational safeguards and names the export for each.
-- **Runbook.** Builds the ePHI scope tree, the allowlist, and the quarterly evidence pack.
+- **Reference design.** Builds the ePHI scope tree, the allowlist, and the quarterly evidence pack.
 - **Unclear label.** Administrative safeguards and technical safeguards are marked Full Coverage. Physical is Partial. Organizational requirements and the business-associate contract are Evidence Required.
 - **Say this.** Full on the technical side means workload allowlists, flow and process audit trails, and forensic timelines for systems that hold ePHI. The written risk analysis, sanctions, workforce training, and the business-associate agreement are still the covered entity’s. Physical safeguards stay with facilities. The Epic microsegmentation guide is the practitioner companion for EHR tier design. It is a product pattern, not a named-customer write-up.
 
 ### HIPAA 2025 NPRM
 
 - **Report.** Maps the *proposed* Security Rule changes: mandatory segmentation, a wider asset inventory, longer audit retention, a 72-hour breach timeline, and an annual technical assessment.
-- **Runbook.** Shows how to collect those inputs if the proposal is what the customer is planning against.
+- **Reference design.** Shows how to collect those inputs if the proposal is what the customer is planning against.
 - **Unclear point.** A proposed rule is not the rule in force.
 - **Say this.** Re-read this pair against the final rule before anyone relies on it. Secure Workload can supply segmentation, inventory, and timeline evidence. It does not make the breach-notification decision, write the risk analysis, or manage the BAA.
 
 ### SOC 2 Type II
 
 - **Report.** Maps selected Trust Services Criteria, mainly CC6, CC7, CC8, CC9, A1, and C1. Every row in that table says Full Coverage.
-- **Runbook.** Shows the operating-effectiveness exports an auditor can sample across the period: policy, denied flows, change diffs, and monitoring.
+- **Reference design.** Shows the operating-effectiveness exports an auditor can sample across the period: policy, denied flows, change diffs, and monitoring.
 - **Unclear label.** “Full Coverage” on all ten rows reads as “SOC 2 is done.”
 - **Say this.** Those rows are the workload evidence inside the system the service organization describes. The system description, the control design, and the auditor’s sample are still the organization’s. Availability in this table is sensor and telemetry continuity, not the business-continuity programme. Confidentiality is scope isolation and plaintext-path detection, not data classification.
 
 ### PCI DSS v4.0
 
 - **Report.** Maps Requirements 1, 6.3.3, 7.2.1, 10, 11.3.1, 11.4.1, and 12.3.2.
-- **Runbook.** Designs the CDE scope, default-deny in and out, and the QSA evidence pack.
+- **Reference design.** Designs the CDE scope, default-deny in and out, and the QSA evidence pack.
 - **Unclear label.** Most rows say Full Coverage. Penetration testing (11.4.1) is Partial. Targeted risk analysis (12.3.2) is Evidence Required. The executive summary says Secure Workload “directly satisfies” five requirements.
 - **Say this.** The QSA can sample CDE segmentation, allowed flows, and workload logs from the exports. Secure Workload does not replace the QSA, the penetration test, or the written targeted risk analysis. Vulnerability “Full Coverage” is inventory and prioritization on instrumented systems. The patch install and the compensating-control write-up stay with the customer. Validate the defined or customized approach with the QSA.
 
 ### NIST SP 800-53 Rev 5
 
 - **Report.** Maps 18 controls in AC, AU, CM, IR, RA, SC, and SI. The opening line says Full Coverage across all 18. The impact-level table marks Low / simulation-only as Partial.
-- **Runbook.** Shows how those 18 are configured and which export feeds a POA&M or a continuous-monitoring package.
+- **Reference design.** Shows how those 18 are configured and which export feeds a POA&M or a continuous-monitoring package.
 - **Unclear label.** “All 18” can be heard as “all of 800-53.”
 - **Say this.** The 18 are the workload-relevant controls in those families: flow enforcement, least privilege on the network path, audit content, inventory, boundary protection, and monitoring. Simulation mode is design evidence, not enforcement proof. Identity, privacy, physical security, and the authorization package sit outside this table.
 
 ### ISO/IEC 27001:2022
 
 - **Report.** Maps selected Annex A controls, mostly A.5 and A.8. Most rows say Full Coverage. Security testing (A.8.29), secure coding (A.8.28), and data masking (A.8.11) are Partial.
-- **Runbook.** Turns network segregation, logging, and supplier egress into scope design and exports.
+- **Reference design.** Turns network segregation, logging, and supplier egress into scope design and exports.
 - **Unclear label.** Annex A coverage can be heard as ISMS certification.
 - **Say this.** The Full rows are network security, segregation, logging, monitoring, and inventory-style evidence. Secure coding, security testing, and data masking need the SDLC, the test team, and data-protection controls beside the export. Clauses 4 through 10 — context, leadership, internal audit, management review, and the certificate — are not in the table.
 
 ### FIPS 140
 
 - **Report.** Lists cleartext protocols Secure Workload can see and block, and a FIPS-boundary scope around cryptographic services. Almost every detection row says Full Coverage. TLS 1.0/1.1 is Partial.
-- **Runbook.** Builds the plaintext-protocol deny rules and the boundary scope.
+- **Reference design.** Builds the plaintext-protocol deny rules and the boundary scope.
 - **Unclear label.** “FIPS 140 compliance” can be heard as “the module is FIPS validated.”
 - **Say this.** Secure Workload can show a cleartext flow and deny it, and it can restrict which workloads reach a crypto service. It is not the cryptographic module. Confirming TLS version and cipher suite still needs the module or endpoint configuration. Programme ownership of FIPS 140-3 transition stays with the customer.
 
 ### NIST SP 800-207
 
 - **Report.** Scores the seven Zero Trust tenets. Tenets 1 through 5 and 7 say Full Coverage. Tenet 6 says Partial, and the report explains why.
-- **Runbook.** Places the sensor as one policy-enforcement point and collects the tenet evidence.
+- **Reference design.** Places the sensor as one policy-enforcement point and collects the tenet evidence.
 - **Unclear label.** Six Full tenets can be heard as a complete zero-trust architecture.
 - **Say this.** Full here is the workload tier: every instrumented host is a resource, communications can be held to an allowlist, and telemetry is continuous. Tenet 6 is partial because Secure Workload can force the path through LDAPS or Kerberos and can see a bypass. It does not evaluate the identity, the session, or step-up authentication. Pair identity with the IdP and a ZTNA control such as Cisco Secure Access.
 
 ### NIST SP 800-207A
 
 - **Report.** Maps PDP, PEP, PA, and PIP, then three use cases. Most component rows say Full Coverage. The subject, agentless cloud coverage, and identity-aware partner access are Partial. Treat the component model as draft-derived and confirm the NIST text in force.
-- **Runbook.** Traces one access decision through those components using workload policy.
+- **Reference design.** Traces one access decision through those components using workload policy.
 - **Unclear label.** “Full Coverage” on the PDP can be heard as “Secure Workload is the enterprise policy decision point.”
 - **Say this.** For workload-to-workload allow and deny, the policy engine decides, the sensor enforces, the workspace records the change, and telemetry informs the decision. The requesting user’s identity proof, and any partner identity proof, stay with the IdP. Agentless cloud connectors provide flow visibility. Enforcement on those workloads still needs a sensor or the cloud-native control.
 
 ### CISA Zero Trust Maturity Model
 
 - **Report.** Scores five pillars and a path from Traditional toward Optimal. Networks and Applications & Workloads are marked Full. Data is marked Full in the summary table even though the role column says Supporting. Identity and Devices are Partial.
-- **Runbook.** Stages the network pillar from visibility, to microsegmentation, to ongoing policy review, and says what the other pillars still need.
+- **Reference design.** Stages the network pillar from visibility, to microsegmentation, to ongoing policy review, and says what the other pillars still need.
 - **Unclear label.** “Advanced → Optimal” can be heard as Optimal on every pillar.
 - **Say this.** The workload and network path is where Secure Workload can show progression. Identity, device health, and data governance remain other pillars. Optimal is a maturity description of that workload slice after enforcement and continuous review, not a score of the whole architecture.
 
@@ -112,57 +112,57 @@ These reports already contain a posture table and an out-of-scope section. The u
 ### DORA (EU 2022/2554)
 
 - **Report.** Articles 8, 9, 10, and 19 for ICT inventory, segregation, detection, and the incident file, plus Article 28 egress to third parties.
-- **Runbook.** Builds one scope per important business function and the dossier export.
+- **Reference design.** Builds one scope per important business function and the dossier export.
 - **Say this.** The register of information, contracts, the threat-led testing programme, and the report to the competent authority stay with the financial entity. Secure Workload fills the technical annex: what talked to what, and what was denied.
 
 ### NIS2 (EU 2022/2555)
 
 - **Report.** Article 21(2) risk-management measures and Article 23 timelines. Monitoring evidence is Article 21(2)(b).
-- **Runbook.** Collects the 24-hour, 72-hour, and one-month dossier inputs from flow and process history.
+- **Reference design.** Collects the 24-hour, 72-hour, and one-month dossier inputs from flow and process history.
 - **Say this.** Secure Workload can show segmentation, logging, vulnerability context, and supplier egress. It does not make the authority notification, and it does not transpose the directive. National law is what the entity is assessed against.
 
 ### UK NCSC CAF v3.2
 
 - **Report.** Customer narrative for NIS operators of essential services and GovAssure.
-- **Runbook.** How to collect the evidence. **caf-mapping.md** is the 14-principle crosswalk. The maturity scorer and the evidence-pack template sit beside them.
+- **Reference design.** How to collect the evidence. **caf-mapping.md** is the 14-principle crosswalk. The maturity scorer and the evidence-pack template sit beside them.
 - **Unclear point.** CAF has 14 principles. Only one outcome is direct evidence.
 - **Say this.** Direct evidence is B5.b only: segregation of essential-function systems from other business systems, shown with policy and denied connections. Achieved for B5.b still expects separate infrastructure, independent administration, and no browsing or email from those systems. A1, A2, A3, A4, B1, B3, B4, C1, C2, D1, and D2 are supporting. B2 identity and B6 staff awareness are out of scope. CAF v3.2 does not name eBPF, NetFlow, or IEC 62443. An export does not, by itself, move a principle to Achieved. This set is draft and needs SME review.
 
 ### UK Cyber Essentials Plus
 
 - **Report.** Control themes for firewalls, secure configuration, security-update management, and what a Plus technical check can sample.
-- **Runbook.** Produces the workload-firewall and patch-priority evidence.
+- **Reference design.** Produces the workload-firewall and patch-priority evidence.
 - **Say this.** Secure Workload can show workload firewall policy, configuration drift, and which vulnerable software is reachable. Malware protection, user access control, the questionnaire, and the IASME certification decision stay outside it. Plus testing is the assessor’s.
 
 ### NERC CIP
 
 - **Report.** Two tables. The posture table is Direct, Supporting, or out of scope. The control coverage summary is Full, Partial, or Evidence Required, and it includes CIP-007 R5, CIP-012, and CIP-015.
-- **Runbook.** IT-side ESP approach, interactive remote access evidence, ports and baseline, and the same coverage column.
+- **Reference design.** IT-side ESP approach, interactive remote access evidence, ports and baseline, and the same coverage column.
 - **Say this.** Full Coverage is only CIP-007 R1 (listening ports) and CIP-010 R1 (baseline and change disposition) on instrumented IT-side hosts. CIP-012 shows paths between instrumented control-center workloads. The entity still files the CIP-012 plan and the protection on that link. Secure Workload is not an Electronic Access Point and does not enforce on PLCs, RTUs, IEDs, or HMIs. Evidence Required with no Secure Workload artifact: CIP-004, CIP-006, and CIP-014. Draft, pending a NERC CIP specialist review.
 
 ### TSA Pipeline Security Directive
 
 - **Report.** IT-side reading of the 2021-02 series: segmentation, access, monitoring, unpatched-system risk, and incident and assessment packs.
-- **Runbook.** Builds the IT-to-OT-facing scopes and the evidence for Sections III.A through III.D.
+- **Reference design.** Builds the IT-to-OT-facing scopes and the evidence for Sections III.A through III.D.
 - **Say this.** The boundary firewall, the Cybersecurity Coordinator, the architecture review, the incident plan, and OT protocol inspection stay with the operator. Secure Workload hardens the IT side up to that boundary. It does not inspect DNP3, IEC 61850, Modbus, or OPC-UA, and it does not enforce on pipeline OT devices. Draft.
 
 ### IEC 62443
 
 - **Report.** Zones and conduits as scope and policy for IT-side systems that face the industrial network.
-- **Runbook.** Designs those zones and the evidence for the security requirements Secure Workload can actually record.
+- **Reference design.** Designs those zones and the evidence for the security requirements Secure Workload can actually record.
 - **Say this.** This is not an IEC 62443 certification. OT device security requirements and OT protocol inspection belong with an OT product such as Cyber Vision, Claroty, Nozomi, or Dragos.
 
 ### NIST SP 800-82
 
 - **Report.** OT-adjacent IT: historians, engineering workstations, jump hosts, patch servers, and vendor access.
-- **Runbook.** Scopes that tier and records the flows across the IT/OT boundary from the IT side.
+- **Reference design.** Scopes that tier and records the flows across the IT/OT boundary from the IT side.
 - **Say this.** Same boundary as IEC 62443. Secure Workload does not parse Modbus, DNP3, S7, or OPC UA, and it does not replace the OT programme.
 
 ## Generated reports — read Out of Scope before the map
 
-Each of these reports already has an executive summary, a scope picture, an in-scope list, an out-of-scope list, a topic map, and a collection cadence. The runbook is the same folder’s engineering steps. The unclear part is leading with the topic map and skipping the boundary paragraph.
+Each of these reports already has an executive summary, a scope picture, an in-scope list, an out-of-scope list, a topic map, and a collection cadence. The reference design is the same folder’s engineering steps. The unclear part is leading with the topic map and skipping the boundary paragraph.
 
-| Framework | Report argues | Runbook does | Say this when it is unclear |
+| Framework | Report argues | Reference design does | Say this when it is unclear |
 |---|---|---|---|
 | **NIST CSF 2.0** | Outcomes, not a control catalogue. Direct on asset, risk, protection, detection, and response subcategories that workload telemetry can evidence. Govern and Recover are supporting. | How to produce the evidence pack for those subcategories. | A subcategory mapping is not a Profile, and it is not an implementation of every Informative Reference. Draft. |
 | **CIS Controls v8.1** | Direct on Controls 1, 2, 4, 7, 8, and 13 at the workload tier. Written at Implementation Group 2, with IG1 and IG3 called out. | Safeguard-level collection for those controls. | Controls 5, 9, 11, and 14, plus HR and physical safeguards, are out of scope. Secure Workload feeds a SIEM. It is not the SIEM. Draft. |
@@ -184,4 +184,4 @@ Each of these reports already has an executive summary, a scope picture, an in-s
 
 ## How to close
 
-Offer one framework the analyst cares about, open the runbook, and show one export path from sensor to the artifact named in the report. Then show the out-of-scope or Partial row for that same framework. That pair is the argument: continuous workload evidence, with the rest of the control still owned by the customer and the assessor.
+Offer one framework the analyst cares about, open the reference design, and show one export path from sensor to the artifact named in the report. Then show the out-of-scope or Partial row for that same framework. That pair is the argument: continuous workload evidence, with the rest of the control still owned by the customer and the assessor.

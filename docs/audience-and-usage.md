@@ -3,7 +3,7 @@
 > Companion to the
 > [CSW Compliance Mapping repository](../README.md). Everything in
 > this page is about *how to navigate* the assets — who should lead
-> with which document, when to pick the runbook vs the report, which
+> with which document, when to pick the reference design vs the report, which
 > file format to share, and where to find things in the folder tree.
 
 ## Audience guide
@@ -13,8 +13,8 @@
 | **CISO / Security leadership** | The PDF report's executive summary and the *Compliance Posture Summary* table | CSW collapses several manual evidence-gathering programs (segmentation reviews, change attestation, drift tracking) into continuous, query-able state. |
 | **Security architect** | The full PDF report's control-by-control mapping | Where CSW can contribute to control evidence (agent telemetry, policy enforcement, conversation graph, forensic flows) and what gaps remain to be designed around. |
 | **Compliance / GRC team** | The *Audit Evidence* and *Gap Analysis* sections in the PDF | Which CSW reports, exports, and dashboards can become candidate auditor-review artefacts, and what supplementary attestation language to use. |
-| **Operations / SRE / DevSecOps** | The Markdown technical runbook | Concrete configuration steps, policy patterns, and "what to show the auditor on day 1" playbooks. |
-| **You already have firewalls and EDR** | The runbooks and the 800-207 / 207A reports | Workload-resident telemetry and identity-aware segmentation address many evidence questions about *process-to-process* and *intra-host East–West* flows that perimeter and endpoint controls usually see only partially. The frameworks below spell out which obligations sit in that gap — and which still require other tools. |
+| **Operations / SRE / DevSecOps** | The Markdown reference design | Concrete configuration steps, policy patterns, and "what to show the auditor on day 1" playbooks. |
+| **You already have firewalls and EDR** | The reference designs and the 800-207 / 207A reports | Workload-resident telemetry and identity-aware segmentation address many evidence questions about *process-to-process* and *intra-host East–West* flows that perimeter and endpoint controls usually see only partially. The frameworks below spell out which obligations sit in that gap — and which still require other tools. |
 
 ## How to get the most out of this repo
 
@@ -32,13 +32,13 @@ time:
    to a current audit, a customer contractual ask, or board-level
    pressure. Skimming all thirty-four will dilute the signal — pick one
    and stay with it.
-2. **Start with the technical runbook (`*-Technical-Runbook.md` in the
-   same folder).** Each runbook now includes a **CSW primer**, **universal
+2. **Start with the reference design (`*-Reference-Design.md` in the
+   same folder).** Each reference design now includes a **CSW primer**, **universal
    evidence workflow checklists**, and **framework-specific CSW effectiveness**
    highlights at the top — then the detailed phased deployment for that
    standard. It shows the *how*: sensor deployment phases, policy
    patterns, evidence collection cadence, and typical proof points to
-   validate with your auditor or assessor. If the runbook's level of detail looks
+   validate with your auditor or assessor. If the reference design's level of detail looks
    plausible for your environment, that's the strongest signal that the
    mapping is real and not marketing — and it's the right place to
    stress-test scope before investing in a wider read.
@@ -61,17 +61,17 @@ time:
    abstract mappings into scope-specific artefacts you can validate with
    auditors and leadership.
 
-## Runbook or report — when to use which
+## Reference design or report — when to use which
 
-- **Runbook** is the technical foundation everything else rests on. It's
+- **Reference design** is the technical foundation everything else rests on. It's
   written for the **security engineers and platform owners actually doing
   the work**: deployment playbooks, CSW configuration steps, sample
   policies, evidence-collection commands, and the auditor-response guidance
   the report cites. If a customer wants to know whether a mapping is real
-  or just slideware, the runbook is where they look. Use **Markdown** when
+  or just slideware, the reference design is where they look. Use **Markdown** when
   editing or diff-reviewing in a code editor, **HTML** when reading through
   it in a browser.
-- **Report** is the customer-facing narrative built on top of the runbook.
+- **Report** is the customer-facing narrative built on top of the reference design.
   It's for **leaders, auditors, customers in due diligence, and
   procurement** — explaining how Cisco Secure Workload supports the
   framework, the artefacts produced, and where the boundaries are. Use
@@ -81,13 +81,13 @@ time:
 
 ## File formats
 
-- **Markdown runbooks** — The technical foundation. Reference for the
+- **Markdown reference designs** — The technical foundation. Reference for the
   security engineers and platform owners doing the work: deployment
   playbooks, CSW configuration steps, sample policies, and the
   auditor-response guidance the report cites. Markdown for editing or
   diff-reviewing in a code editor; HTML for reading in a browser.
 - **DOCX reports** — Customer-facing editable master built on top of the
-  runbook. Replace `[Customer Name]` and `[Month Year]` placeholders, and
+  reference design. Replace `[Customer Name]` and `[Month Year]` placeholders, and
   tailor the Compliance Posture Summary table to the customer's specific
   scope and deployment stage before sharing externally.
 - **PDF reports** — Render of the DOCX for customer review and audit
@@ -95,10 +95,10 @@ time:
   the DOCX via LibreOffice; treat the DOCX as the editable master and
   re-generate the PDF after any edits.
 - **Generated niche PDFs** — Summary renderings for selected frameworks.
-  Use the matching Markdown runbook and editable DOCX as the primary
+  Use the matching Markdown reference design and editable DOCX as the primary
   engineering/evidence sources; do not submit a simplified generated PDF
   alone as an audit evidence package.
-- **HTML** — Browseable, mobile-friendly view for both runbooks and
+- **HTML** — Browseable, mobile-friendly view for both reference designs and
   reports. Once GitHub Pages is enabled, the same HTML is published at
   `https://chandrapati.github.io/CSW-Compliance-Mapping/` (landing page:
   [`index.html`](../index.html)).
@@ -136,7 +136,7 @@ CSW-Compliance-Mapping/
 ```
 
 Every framework folder follows the same shape: a Markdown technical
-runbook, a DOCX (editable master) and PDF (review render) of the
+reference design, a DOCX (editable master) and PDF (review render) of the
 customer-facing report, and HTML versions of both built by
 [`.html-tools/build-html.py`](../.html-tools/build-html.py).
 

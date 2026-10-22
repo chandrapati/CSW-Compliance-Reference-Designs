@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>IEC 62443 (IACS) — Reference Design</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-IEC62443-Reference-Design.html">CSW-IEC62443-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-07T17:30:34Z UTC · Repository commit: a630820</div>
+<header id="title-block-header">
+<h1 class="title">IEC 62443 (IACS) — Reference Design</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload-iec-62443-compliance-framework" id="toc-cisco-secure-workload-iec-62443-compliance-framework">Cisco
+Secure Workload — IEC 62443 Compliance Framework</a>
+<ul>
+<li><a href="#reference-design-industrial-automation-control-systems-iacs" id="toc-reference-design-industrial-automation-control-systems-iacs">Reference
+Design | Industrial Automation &amp; Control Systems (IACS)</a></li>
+<li><a href="#readers-guide" id="toc-readers-guide">Reader’s
+Guide</a></li>
+<li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</a></li>
+<li><a href="#universal-evidence-workflow" id="toc-universal-evidence-workflow">Universal evidence workflow</a>
+<ul>
+<li><a href="#phase-1-checklist-coverage" id="toc-phase-1-checklist-coverage">Phase 1 checklist
+(coverage)</a></li>
+<li><a href="#phase-2-checklist-baseline" id="toc-phase-2-checklist-baseline">Phase 2 checklist
+(baseline)</a></li>
+<li><a href="#phase-3-checklist-policy" id="toc-phase-3-checklist-policy">Phase 3 checklist (policy)</a></li>
+<li><a href="#phase-4-checklist-operate" id="toc-phase-4-checklist-operate">Phase 4 checklist (operate)</a></li>
+<li><a href="#what-csw-evidence-does-not-replace" id="toc-what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</a></li>
+</ul></li>
+<li><a href="#csw-effectiveness-for-this-framework" id="toc-csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</a></li>
+<li><a href="#overview" id="toc-overview">1. Overview</a>
+<ul>
+<li><a href="#iec-62443-structure-mapped-to-csw-capabilities" id="toc-iec-62443-structure-mapped-to-csw-capabilities">IEC 62443
+structure mapped to CSW capabilities</a></li>
+</ul></li>
+<li><a href="#pre-deployment-checklist" id="toc-pre-deployment-checklist">2. Pre-Deployment Checklist</a></li>
+<li><a href="#phase-1-sensor-deployment-days-15" id="toc-phase-1-sensor-deployment-days-15">3. Phase 1 — Sensor
+Deployment (Days 1–5)</a>
+<ul>
+<li><a href="#on-premises-it-adjacent-to-iacs" id="toc-on-premises-it-adjacent-to-iacs">3.1 On-premises IT adjacent to
+IACS</a></li>
+<li><a href="#cloud-hybrid-iacs-data-paths" id="toc-cloud-hybrid-iacs-data-paths">3.2 Cloud &amp; hybrid IACS data
+paths</a></li>
+<li><a href="#sensor-validation" id="toc-sensor-validation">3.3 Sensor
+validation</a></li>
+</ul></li>
+<li><a href="#phase-2-scope-inventory-design-zones-conduits-sl-days-612" id="toc-phase-2-scope-inventory-design-zones-conduits-sl-days-612">4.
+Phase 2 — Scope &amp; Inventory Design — Zones, Conduits, SL (Days
+6–12)</a>
+<ul>
+<li><a href="#map-csw-scopes-to-iec-zones-conduits" id="toc-map-csw-scopes-to-iec-zones-conduits">4.1 Map CSW scopes to IEC
+zones &amp; conduits</a></li>
+<li><a href="#discovery-filters-for-iacs-adjacent-candidates" id="toc-discovery-filters-for-iacs-adjacent-candidates">4.2 Discovery
+filters for IACS-adjacent candidates</a></li>
+<li><a href="#label-strategy-sms-friendly" id="toc-label-strategy-sms-friendly">4.3 Label strategy
+(SMS-friendly)</a></li>
+</ul></li>
+<li><a href="#phase-3-application-dependency-mapping-baseline-days-1328" id="toc-phase-3-application-dependency-mapping-baseline-days-1328">5.
+Phase 3 — Application Dependency Mapping &amp; Baseline (Days 13–28)</a>
+<ul>
+<li><a href="#adm-workspace" id="toc-adm-workspace">5.1 ADM
+workspace</a></li>
+<li><a href="#adm-review-checklist-62443-oriented" id="toc-adm-review-checklist-62443-oriented">5.2 ADM review checklist
+(62443-oriented)</a></li>
+<li><a href="#baselining-for-integrity-sr-3-inputs" id="toc-baselining-for-integrity-sr-3-inputs">5.3 Baselining for
+integrity (SR 3 inputs)</a></li>
+</ul></li>
+<li><a href="#phase-4-policy-design-enforcement-days-2945" id="toc-phase-4-policy-design-enforcement-days-2945">6. Phase 4 — Policy
+Design &amp; Enforcement (Days 29–45)</a>
+<ul>
+<li><a href="#conduit-aligned-policy-framework" id="toc-conduit-aligned-policy-framework">6.1 Conduit-aligned policy
+framework</a></li>
+<li><a href="#policy-workspace" id="toc-policy-workspace">6.2 Policy
+workspace</a></li>
+<li><a href="#enforcement-progression" id="toc-enforcement-progression">6.3 Enforcement progression</a></li>
+</ul></li>
+<li><a href="#phase-5-monitoring-availability-signals-sms-feeds" id="toc-phase-5-monitoring-availability-signals-sms-feeds">7. Phase 5 —
+Monitoring, Availability Signals &amp; SMS Feeds</a>
+<ul>
+<li><a href="#alerts-aligned-to-62443-operations" id="toc-alerts-aligned-to-62443-operations">7.1 Alerts aligned to 62443
+operations</a></li>
+<li><a href="#iec-62443-2-1-continuous-monitoring-dashboard" id="toc-iec-62443-2-1-continuous-monitoring-dashboard">7.2 IEC 62443-2-1
+continuous monitoring dashboard</a></li>
+</ul></li>
+<li><a href="#control-by-control-mapping-framework-requirement-csw-evidence" id="toc-control-by-control-mapping-framework-requirement-csw-evidence">8.
+Control-by-control mapping — Framework requirement → CSW → evidence</a>
+<ul>
+<li><a href="#sr-5-restricted-data-flow-zones-conduits" id="toc-sr-5-restricted-data-flow-zones-conduits">8.1 SR 5 — Restricted
+data flow (zones &amp; conduits)</a></li>
+<li><a href="#sr-1-identification-authentication-and-access-control" id="toc-sr-1-identification-authentication-and-access-control">8.2 SR 1
+— Identification, authentication, and access control</a></li>
+<li><a href="#sr-3-system-integrity" id="toc-sr-3-system-integrity">8.3
+SR 3 — System integrity</a></li>
+<li><a href="#sr-6-event-monitoring-timely-response" id="toc-sr-6-event-monitoring-timely-response">8.4 SR 6 — Event
+monitoring &amp; timely response</a></li>
+<li><a href="#sr-7-resource-availability" id="toc-sr-7-resource-availability">8.5 SR 7 — Resource
+availability</a></li>
+<li><a href="#iec-62443-2-1-security-management-system-technical-contributors-only" id="toc-iec-62443-2-1-security-management-system-technical-contributors-only">8.6
+IEC 62443-2-1 — Security management system (technical contributors
+only)</a></li>
+</ul></li>
+<li><a href="#vulnerability-patch-compensating-controls" id="toc-vulnerability-patch-compensating-controls">9. Vulnerability,
+patch &amp; compensating controls</a>
+<ul>
+<li><a href="#vulnerability-visibility" id="toc-vulnerability-visibility">9.1 Vulnerability visibility</a></li>
+<li><a href="#compensating-controls-when-patching-waits-for-outage" id="toc-compensating-controls-when-patching-waits-for-outage">9.2
+Compensating controls when patching waits for outage</a></li>
+</ul></li>
+<li><a href="#forensics-incident-reconstruction" id="toc-forensics-incident-reconstruction">10. Forensics &amp; incident
+reconstruction</a></li>
+<li><a href="#audit-preparation-evidence-export" id="toc-audit-preparation-evidence-export">11. Audit preparation &amp;
+evidence export</a>
+<ul>
+<li><a href="#quarterly-evidence-pack-adjust-to-customer-cadence" id="toc-quarterly-evidence-pack-adjust-to-customer-cadence">11.1
+Quarterly evidence pack (adjust to customer cadence)</a></li>
+<li><a href="#bash-helper-examples-on-analysis-workstation" id="toc-bash-helper-examples-on-analysis-workstation">11.2 Bash helper
+examples (on analysis workstation)</a></li>
+</ul></li>
+<li><a href="#boundaries-what-csw-does-not-cover" id="toc-boundaries-what-csw-does-not-cover">12. Boundaries — what CSW
+does <strong>not</strong> cover</a></li>
+<li><a href="#common-pitfalls" id="toc-common-pitfalls">13. Common
+pitfalls</a></li>
+<li><a href="#related-frameworks" id="toc-related-frameworks">Related
+Frameworks</a>
+<ul>
+<li><a href="#appendix-a-sample-segmentation-policy-fragment-illustrative-yaml-style" id="toc-appendix-a-sample-segmentation-policy-fragment-illustrative-yaml-style">Appendix
+A — Sample segmentation policy fragment (illustrative
+YAML-style)</a></li>
+<li><a href="#appendix-b-pas-correlation-workflow" id="toc-appendix-b-pas-correlation-workflow">Appendix B — PAS
+correlation workflow</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload-iec-62443-compliance-framework">Cisco
+Secure Workload — IEC 62443 Compliance Framework</h1>
+<h2 id="reference-design-industrial-automation-control-systems-iacs">Reference
+Design | Industrial Automation &amp; Control Systems (IACS)</h2>
+<p><strong>Version:</strong> 1.0<br />
+<strong>Use Case:</strong> Fresh Install, Hybrid Environment (On-Prem +
+Cloud)<br />
+<strong>Standards anchor:</strong> IEC 62443-3-3 (System security
+requirements and security levels); IEC 62443-2-1 (Security program
+requirements for IACS asset owners) — consult your SL-T target and
+zone/conduit documentation for authoritative control text.</p>
+<hr />
+<h2 id="readers-guide">Reader’s Guide</h2>
+<p><strong>Who this is for.</strong> IACS asset owners, OT/IT security
+architects, plant or operations cybersecurity teams, and integrators
+preparing for IEC 62443-aligned assessments, customer security
+requirements, or internal security management system (SMS) evidence for
+industrial environments.</p>
+<p><strong>Scope boundary you must understand before reading
+further.</strong> Cisco Secure Workload (CSW) enforces segmentation,
+discovers dependencies, and produces forensic telemetry on
+<strong>servers, virtual machines, containers, and cloud
+workloads</strong> — the <strong>IT side of the IT/OT boundary</strong>
+and the systems that <strong>support</strong> IACS (jump hosts,
+engineering workstations, historians, MES interfaces, DMZ brokers,
+identity services, patch servers, vendor remote-access concentrators).
+CSW does <strong>not</strong> replace dedicated OT visibility for Level
+0–2 devices (PLCs, RTUs, IEDs, drives, field instruments). Pair CSW at
+the IT layer with <strong>Cisco Cyber Vision</strong>,
+<strong>Claroty</strong>, <strong>Nozomi</strong>, or equivalent for
+asset discovery, ICS protocol analytics, and device-level integrity
+signals.</p>
+<p><strong>Questions this reference design helps you
+answer:</strong></p>
+<ul>
+<li><em>SR 5.1–5.4 (restricted data flow / zones &amp; conduits): Can I
+prove that only documented conduits carry traffic between OT-support
+tiers and corporate/cloud, and that lateral movement outside those
+conduits is structurally denied or logged?</em></li>
+<li><em>SR 1.1–1.13 (identification / authentication / access control):
+Can I show identity-aligned allow rules and deny-by-default paths for
+systems that administer or bridge into IACS zones?</em></li>
+<li><em>SR 3.1–3.9 (data / system integrity): Can I baseline inventory
+(processes, binaries, listening services) and detect unexpected change
+or unauthorized software on IACS-adjacent IT workloads?</em></li>
+<li><em>SR 6.1–6.2 (event monitoring &amp; timely response): Can I
+reconstruct a timeline of flows and processes during an OT-adjacent
+incident?</em></li>
+<li><em>SR 7.1–7.8 (resource availability): Can I detect volumetric or
+connection storms indicative of denial-of-service against critical IT
+services that underpin OT availability?</em></li>
+<li><em>IEC 62443-2-1 (security program / operations): Can I produce
+continuous monitoring dashboards and exports that feed our SMS without
+manual spreadsheet reconciliation?</em></li>
+</ul>
+<p><strong>What you’ll need.</strong> Your zone &amp; conduit model (per
+IEC 62443-3-2 or customer ZCRD), Security Level Target (SL-T) per zone,
+inventory of IACS-adjacent IT systems (EWS, jump hosts, AD/PKI,
+historians), change management approval for sensor install, and naming
+alignment between your PAS/OT tools and CMDB labels.</p>
+<p><strong>Where to start.</strong> Sections 1–2 while scoping; 3–5
+during pilot sensor and baseline; 6–8 when designing enforcement; 9–10
+for control mapping and SMS reporting; section
+<strong>Boundaries</strong> before promising CSW coverage to integrators
+or auditors.</p>
+<hr />
+<!-- CSW-RUNBOOK-PRIMER:v1 -->
+<h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</h2>
+<p>Cisco Secure Workload (CSW) is a <strong>workload protection
+platform</strong>. A lightweight <strong>agent</strong> on each
+server/VM/container observes processes and network flows; <strong>cloud
+connectors</strong> add AWS/Azure/GCP inventory where agents are not
+deployed.</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW term</th>
+<th>Meaning</th>
+<th>Why compliance teams care</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Logical boundary (CDE, PHI zone, CUI enclave)</td>
+<td>Defines the systems you must prove are isolated</td>
+</tr>
+<tr>
+<td><strong>Label / filter</strong></td>
+<td>Tag or query assigning workloads to scopes</td>
+<td>Automates scope membership — reduces drift</td>
+</tr>
+<tr>
+<td><strong>ADM</strong></td>
+<td>Application Dependency Mapping from observed traffic</td>
+<td><strong>Live</strong> network/data-flow diagram for assessors</td>
+</tr>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>Policy container for one scope or application</td>
+<td>Where allow/deny rules are authored</td>
+</tr>
+<tr>
+<td><strong>Monitor → Simulation → Enforce</strong></td>
+<td>Safe rollout sequence</td>
+<td>Simulation = change-board evidence before blocking traffic</td>
+</tr>
+<tr>
+<td><strong>Denied Connections</strong></td>
+<td>Log of flows blocked by policy</td>
+<td>Primary proof that enforcement <strong>operates</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Console areas:</strong> Investigate (inventory, flows, vulns)
+· Defend/Segmentation (policy) · Manage (agents) · Platform (connectors)
+· Administration (audit log)</p>
+<p><strong>Read next:</strong> <a href="../docs/compliance-evidence-playbook.html">Compliance evidence
+playbook</a> (full step-by-step) · <a href="../docs/about-csw.html">About
+CSW</a> (platform intro)</p>
+<hr />
+<h2 id="universal-evidence-workflow">Universal evidence workflow</h2>
+<p>Execute these phases for <strong>this framework’s</strong> compliance
+boundary. Map exports to control IDs in the <strong>Reporting &amp;
+Evidence</strong> section below.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Key CSW actions</th>
+<th>Typical duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Coverage</strong></td>
+<td>Every in-scope workload in CSW</td>
+<td>Install agents/connectors; apply compliance labels; create
+scope</td>
+<td>Days 1–10</td>
+</tr>
+<tr>
+<td><strong>2 — Baseline</strong></td>
+<td>Machine-generated flow map</td>
+<td>Run ADM ≥2 weeks; export clusters; app-owner signoff</td>
+<td>Days 11–28</td>
+</tr>
+<tr>
+<td><strong>3 — Policy</strong></td>
+<td>Designed isolation before enforce</td>
+<td>Build workspace; Simulation mode; fix false positives</td>
+<td>Days 29–45</td>
+</tr>
+<tr>
+<td><strong>4 — Operate</strong></td>
+<td>Continuous proof between audits</td>
+<td>Enforce; quarterly export pack; ADM refresh every 90 days</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-checklist-coverage">Phase 1 checklist (coverage)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>In-scope host list reconciled to CSW
+Inventory (100% or documented exceptions)</label></li>
+<li><label><input type="checkbox"></input>Labels applied:
+<code>compliance:&lt;framework&gt;</code>,
+<code>data:&lt;classification&gt;</code>,
+<code>env:&lt;tier&gt;</code></label></li>
+<li><label><input type="checkbox"></input>CSW scope created matching
+compliance boundary</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> inventory
+CSV + agent status screenshot</label></li>
+</ul>
+<h3 id="phase-2-checklist-baseline">Phase 2 checklist (baseline)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>ADM running on compliance scope for
+full business cycle (≥2 weeks)</label></li>
+<li><label><input type="checkbox"></input>Unexpected flows documented (shadow
+IT, vendor egress, scope creep)</label></li>
+<li><label><input type="checkbox"></input>App owners signed
+cluster-to-application mapping</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> ADM diagram
++ flow samples with process context</label></li>
+</ul>
+<h3 id="phase-3-checklist-policy">Phase 3 checklist (policy)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Default-deny posture defined for
+sensitive scope</label></li>
+<li><label><input type="checkbox"></input>ADM-imported rules refined;
+Simulation run ≥1 week</label></li>
+<li><label><input type="checkbox"></input>Change tickets for false-positive
+fixes; exception register updated</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> policy
+export + simulation report</label></li>
+</ul>
+<h3 id="phase-4-checklist-operate">Phase 4 checklist (operate)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Enforcement enabled on pilot scope;
+negative test recorded in Denied Connections</label></li>
+<li><label><input type="checkbox"></input>Quarterly pack: inventory, policy,
+denies, vulns, audit log (see playbook)</label></li>
+<li><label><input type="checkbox"></input>SIEM integration verified (sample
+events)</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> enforcement
+screenshot + quarterly binder</label></li>
+</ul>
+<h3 id="what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</h3>
+<p>Physical access, HR/training records, encryption key management,
+signed BAAs/vendor contracts, formal pen tests, and assessor attestation
+still require separate programmes. CSW addresses the
+<strong>workload-resident</strong> slice: segmentation, flows, process
+context, vuln reachability, and change drift.</p>
+<hr />
+<h2 id="csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</h2>
+<ul>
+<li>Zones &amp; conduits segmentation on IT-side OT boundaries</li>
+<li>SR control evidence; pair with Cyber Vision/Claroty for device
+layer</li>
+<li>Jump host and historian path visibility</li>
+</ul>
+<p><strong>Compared to manual programmes:</strong> static diagrams and
+annual firewall samples age immediately; CSW ties evidence to
+<strong>live workload behaviour</strong> and produces queryable exports
+on demand — supporting “operating effectively” language in PCI v4.0, SOC
+2 CC7, and HIPAA risk analysis.</p>
+<hr />
+<h2 id="overview">1. Overview</h2>
+<p>IEC 62443 provides a lifecycle-oriented security framework for
+industrial automation and control systems. <strong>IEC
+62443-3-3</strong> specifies foundational requirements (FRs) and
+associated <strong>system requirements (SRs)</strong> for IACS
+components and systems. <strong>IEC 62443-2-1</strong> defines
+requirements for an IACS <strong>security management system</strong>
+operated by the asset owner. CSW contributes <strong>technical
+evidence</strong> for restricted data flow, access enforcement,
+integrity-related visibility, detection support, and
+availability-oriented anomaly awareness on the <strong>IT
+workloads</strong> that border or support IACS — not as a substitute for
+OT protocol inspection or safety-instrumented logic.</p>
+<h3 id="iec-62443-structure-mapped-to-csw-capabilities">IEC 62443
+structure mapped to CSW capabilities</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>IEC 62443 topic</th>
+<th>Typical artifacts</th>
+<th>Relevant CSW capabilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FR 5 / SR 5.1–5.4</strong> — Restricted data flow (zones
+&amp; conduits)</td>
+<td>Zone diagrams, conduit allowlists, firewall/ACL rules</td>
+<td>Microsegmentation workspaces; scope hierarchy mirroring zones;
+default-deny with explicit conduits</td>
+</tr>
+<tr>
+<td><strong>FR 1 / SR 1.1–1.13</strong> — Identification,
+authentication, access control</td>
+<td>Account lifecycle, RBAC, remote access paths</td>
+<td>Identity-aware policies (where integrated); least-privilege
+allowlists; jump-host-only admin paths</td>
+</tr>
+<tr>
+<td><strong>FR 3 / SR 3.1–3.9</strong> — System &amp; data
+integrity</td>
+<td>Software inventory, patch posture, change detection</td>
+<td>Process/binary inventory; listening-port baseline; vulnerability
+context; drift alerts</td>
+</tr>
+<tr>
+<td><strong>FR 6 / SR 6.1–6.2</strong> — Event monitoring &amp; timely
+response</td>
+<td>SOC reference designs, timelines, ticket exports</td>
+<td>Flow + process forensics; alert correlation inputs to SIEM</td>
+</tr>
+<tr>
+<td><strong>FR 7 / SR 7.1–7.8</strong> — Resource availability</td>
+<td>SLAs, capacity plans, DoS playbooks</td>
+<td>Flow anomaly detection (connection/session volume spikes); early
+warning on saturation patterns</td>
+</tr>
+<tr>
+<td><strong>62443-2-1</strong> — Security management / operations</td>
+<td>KPIs, dashboards, management review</td>
+<td>Continuous inventory/policy dashboards; scheduled evidence
+export</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Regional or contractual note:</strong> Many asset owners
+implement 62443 requirements through customer purchase specifications or
+national interpretations. Map this reference design’s
+<strong>SR</strong> references to <em>your</em> contractual clauses and
+audit questionnaires; numbering alone is not sufficient for
+certification evidence without your target SL and scope.</p>
+<hr />
+<h2 id="pre-deployment-checklist">2. Pre-Deployment Checklist</h2>
+<p>Before deploying CSW sensors on IACS-adjacent IT estates,
+confirm:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>CSW cluster (SaaS or on-prem) is
+provisioned; <strong>air-gap / data residency</strong> rules reviewed if
+telemetry leaves the plant DMZ</label></li>
+<li><label><input type="checkbox"></input>Network path from workloads to CSW
+cluster (typically <strong>443 outbound</strong>); proxy exceptions
+documented</label></li>
+<li><label><input type="checkbox"></input>Linux/Windows agent compatibility
+verified for <strong>engineering workstations, jump servers, historians,
+AD/PKI</strong>, and cloud broker VMs</label></li>
+<li><label><input type="checkbox"></input>Cloud connectors configured where
+plant data lands in <strong>AWS / Azure / GCP</strong> (historian
+mirrors, IoT hubs, analytics lakes)</label></li>
+<li><label><input type="checkbox"></input>Stakeholders engaged: <strong>OT
+security lead</strong>, <strong>plant IT</strong>,
+<strong>integrator</strong>, <strong>SOC</strong>, and <strong>SMS
+owner</strong> (62443-2-1)</label></li>
+<li><label><input type="checkbox"></input><strong>Maintenance window</strong>
+approved; <strong>OT change freeze</strong> rules respected — start in
+<strong>Monitoring Only</strong></label></li>
+<li><label><input type="checkbox"></input><strong>PAS / OT tool</strong>
+(Cyber Vision, Claroty, Nozomi) inventory export available for
+cross-walk of hostnames / VLANs / cell IDs</label></li>
+</ul>
+<hr />
+<h2 id="phase-1-sensor-deployment-days-15">3. Phase 1 — Sensor
+Deployment (Days 1–5)</h2>
+<h3 id="on-premises-it-adjacent-to-iacs">3.1 On-premises IT adjacent to
+IACS</h3>
+<p><strong>Install software sensors on representative tiers:</strong>
+EWS images, jump hosts, historian/MES application servers, AD
+connectors, vendor VPN concentrators — <em>never</em> on safety PLCs or
+real-time controllers if those run unsupported or prohibited agent
+OSes.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux (RHEL/CentOS/Ubuntu family)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> rpm <span class="at">-ivh</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.rpm    <span class="co"># RHEL/CentOS-compatible</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dpkg <span class="at">-i</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.deb    <span class="co"># Debian/Ubuntu</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify sensor service</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl status csw-agent</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl enable <span class="at">--now</span> csw-agent</span></code></pre></div>
+<p><strong>Windows (engineering workstation build):</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: install from staged MSI (version/path per release)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>msiexec <span class="op">/</span>i <span class="st">&quot;C:\Deploy\tet-sensor-&lt;version&gt;.msi&quot;</span> <span class="op">/</span>qn</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-Service</span> <span class="op">|</span> <span class="fu">Where-Object</span> <span class="op">{</span> <span class="va">$_</span><span class="op">.</span><span class="fu">Name</span> <span class="op">-like</span> <span class="st">&quot;*tet*&quot;</span> <span class="op">-or</span> <span class="va">$_</span><span class="op">.</span><span class="fu">Name</span> <span class="op">-like</span> <span class="st">&quot;*csw*&quot;</span> <span class="op">}</span></span></code></pre></div>
+<p><strong>Initial posture:</strong></p>
+<ul>
+<li>Enforcement: <strong>Monitoring Only</strong> (no blocks until ADM +
+simulation complete)</li>
+<li>Collection: <strong>process hash</strong>, <strong>network
+flow</strong>, <strong>listening services</strong>,
+<strong>vulnerability exposure</strong> (where licensed)</li>
+<li>Tags from day one: <code>zone:&lt;cell&gt;</code>,
+<code>conduit:&lt;id&gt;</code>, <code>iqs:iacs-adj</code>,
+<code>sl-target:SL2</code> (example)</li>
+</ul>
+<h3 id="cloud-hybrid-iacs-data-paths">3.2 Cloud &amp; hybrid IACS data
+paths</h3>
+<p>Use <strong>cloud connectors</strong> when historian/analytics or IT
+control plane lives in public cloud:</p>
+<pre><code>CSW UI → Platform → External Orchestrators
+  → Add AWS / Azure / GCP connector
+  → Least-privilege IAM / service principal
+  → Enable flow visibility (VPC/VNet flow ingestion where supported)</code></pre>
+<h3 id="sensor-validation">3.3 Sensor validation</h3>
+<pre><code>CSW UI → Manage → Agents
+  → Status: Active for all pilot hosts
+  → Confirm telemetry (flow/process) within 15–30 minutes of install
+  → Record agent build in baseline export (62443-3 SR 3 / change mgmt input)</code></pre>
+<hr />
+<h2 id="phase-2-scope-inventory-design-zones-conduits-sl-days-612">4.
+Phase 2 — Scope &amp; Inventory Design — Zones, Conduits, SL (Days
+6–12)</h2>
+<h3 id="map-csw-scopes-to-iec-zones-conduits">4.1 Map CSW scopes to IEC
+zones &amp; conduits</h3>
+<p>Model scopes to mirror <strong>62443-3-2</strong> zone definitions
+without renaming your-certified drawings — use <strong>labels</strong>
+that reference drawing IDs.</p>
+<pre><code>Root: Industrial-Enterprise
+├── Plant-&lt;Site&gt;-OT-Support        # IT that touches OT (EWS, jump, historian app tier)
+│   ├── Cell-A-Conduit-IT-OT       # Scoped to hosts in conduit endpoints only
+│   ├── Cell-B-Conduit-IT-OT
+│   └── Shared-Services-IACS       # AD, PKI, patch, backup — constrained to conduits
+├── Plant-DMZ-Brokers              # Data diodes / OPC brokers / MQTT gateways (VM-based)
+├── Corporate-IT                   # Default no direct path to OT-support
+└── Vendor-Remote-Access           # Termination servers for integrator VPN</code></pre>
+<p><strong>Conduit rule of thumb:</strong> One CSW policy workspace per
+<strong>documented conduit</strong> (or group of symmetric conduits) so
+evidence maps 1:1 to the ZCRD.</p>
+<h3 id="discovery-filters-for-iacs-adjacent-candidates">4.2 Discovery
+filters for IACS-adjacent candidates</h3>
+<pre><code>Filter: Historian-MES-Tier
+  - Process name contains: historian, mes, opc*, scada, &quot;wonderware&quot;
+  - Ports: 1433, 1521, 5432, 135, 502 (context-dependent — validate in YOUR env)
+  - Tag pas:ot-adjacent (if synchronized from PAS)
+
+Filter: Jump-EWS
+  - Hostname regex: (?i)(ews|eng|hmi-jump|vendor-jump)
+  - User workload tag: role=engineering</code></pre>
+<p>Validate every automated filter with <strong>OT SME sign-off</strong>
+— <strong>SR 5</strong> evidence must match the <em>as-engineered</em>
+conduit list, not a guessed list.</p>
+<h3 id="label-strategy-sms-friendly">4.3 Label strategy
+(SMS-friendly)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Label key</th>
+<th>Examples</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zone</code></td>
+<td><code>cell-a</code>, <code>line-3</code></td>
+<td>Aligns to 62443 zone ID</td>
+</tr>
+<tr>
+<td><code>conduit</code></td>
+<td><code>c-ot-to-mes-01</code></td>
+<td>Audit trail for restricted data flow</td>
+</tr>
+<tr>
+<td><code>sl-target</code></td>
+<td><code>SL2</code>, <code>SL3</code></td>
+<td>Drive rule strictness / monitoring cadence</td>
+</tr>
+<tr>
+<td><code>ics-role</code></td>
+<td><code>ews</code>, <code>jump</code>, <code>historian</code>,
+<code>broker</code></td>
+<td>Policy grouping</td>
+</tr>
+<tr>
+<td><code>owner</code></td>
+<td><code>ot-sec</code>, <code>plant-it</code></td>
+<td>Accountability in exports</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-3-application-dependency-mapping-baseline-days-1328">5.
+Phase 3 — Application Dependency Mapping &amp; Baseline (Days
+13–28)</h2>
+<h3 id="adm-workspace">5.1 ADM workspace</h3>
+<p>ADM establishes <strong>observed</strong> vs
+<strong>designed</strong> conduits — essential for <strong>SR 5</strong>
+and access <strong>SR 1</strong> reviews.</p>
+<pre><code>CSW UI → Investigate → Application Dependency Mapping
+  → New Workspace
+  → Name: IACS-Conduit-Baseline-&lt;Site&gt;
+  → Scope: Plant-&lt;Site&gt;-OT-Support + DMZ brokers
+  → Window: minimum 2–4 weeks (capture patch Tuesday, recipe changes, campaigns)
+  → Enable process context; retain ≥ 30 days if storage policy allows</code></pre>
+<h3 id="adm-review-checklist-62443-oriented">5.2 ADM review checklist
+(62443-oriented)</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Investigation question</th>
+<th>SR / FR linkage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Which corporate subnets talk to historians or OPC brokers?</td>
+<td><strong>SR 5</strong> — restricted data flow</td>
+</tr>
+<tr>
+<td>Are there HTTPS/LD/RDP paths bypassing EWS/jump?</td>
+<td><strong>SR 1</strong> — access paths</td>
+</tr>
+<tr>
+<td>Do EWS images reach the internet directly?</td>
+<td><strong>SR 5</strong>, <strong>SR 1</strong></td>
+</tr>
+<tr>
+<td>New binary or service on jump host?</td>
+<td><strong>SR 3</strong> — integrity</td>
+</tr>
+<tr>
+<td>Sudden east-west fan-out from a broker VM?</td>
+<td><strong>SR 6</strong> — detection; <strong>SR 7</strong> —
+availability stress</td>
+</tr>
+</tbody>
+</table>
+<h3 id="baselining-for-integrity-sr-3-inputs">5.3 Baselining for
+integrity (SR 3 inputs)</h3>
+<p>Export <strong>inventory snapshots</strong> after accepted build
+state:</p>
+<pre><code>CSW UI → Investigate → Inventory (or equivalent workload inventory view)
+  → Filter: scope = Plant-&lt;Site&gt;-OT-Support
+  → Export: processes, packages, listening ports, hashes (as available)
+  → Store in secure evidence library with version + timestamp</code></pre>
+<p>Repeat on <strong>known-good</strong> patch cycles to update baseline
+registers.</p>
+<hr />
+<h2 id="phase-4-policy-design-enforcement-days-2945">6. Phase 4 — Policy
+Design &amp; Enforcement (Days 29–45)</h2>
+<h3 id="conduit-aligned-policy-framework">6.1 Conduit-aligned policy
+framework</h3>
+<p>Translate <strong>allowlisted conduits</strong> into CSW rules.
+<strong>Example pattern</strong> — adjust ports, scopes, and identities
+to your ZCRD.</p>
+<p><strong>Absolute denies (illustrative):</strong></p>
+<pre><code>DENY: Corporate-IT → Plant-&lt;Site&gt;-OT-Support (all)
+  EXCEPTION: documented Intermediary / jump subnet only
+
+DENY: Vendor-Remote-Access → any except Plant-DMZ-Brokers &amp; Jump hosts
+
+DENY: Plant-&lt;Site&gt;-OT-Support → Internet (0.0.0.0/0)
+  EXCEPTION: explicit patch/CDN allowlist + CSW SaaS egress if required</code></pre>
+<p><strong>Conduit allows (illustrative):</strong></p>
+<pre><code>ALLOW: Plant-DMZ-Brokers ↔ Historian-MES-Tier
+  - TCP 135, 49320–49330 (DCOM range — validate), OPC-UA 4840 (if used)
+
+ALLOW: Jump-EWS → Plant-&lt;Site&gt;-OT-Support
+  - RDP 3389 / SSH 22 only from Jump-EWS scope
+
+ALLOW: Plant-&lt;Site&gt;-OT-Support → AD-PKI
+  - LDAPS 636, Kerberos 88, DNS 53 — block cleartext LDAP 389 where possible</code></pre>
+<p><strong>Audit unmatched:</strong></p>
+<pre><code>LOG + ALERT: any flow not matching explicit conduit rules</code></pre>
+<h3 id="policy-workspace">6.2 Policy workspace</h3>
+<pre><code>CSW UI → Defend → Segmentation
+  → New Workspace: IEC62443-Conduits-&lt;Site&gt;
+  → Import ADM-suggested rules → reconcile with ZCRD
+  → Mode: Simulation (minimum 2 weeks typical) → Enforcement by conduit tier</code></pre>
+<h3 id="enforcement-progression">6.3 Enforcement progression</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Step</th>
+<th>Mode</th>
+<th>Objective</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Simulation</td>
+<td>Prove OTSupport apps still function; tune OPC/RPC ranges</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Selective enforcement</td>
+<td>Lock down highest-risk corporate lateral paths first</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Full enforcement on IT border</td>
+<td>Default deny except conduits; maintain break-glass procedure</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Integrator coordination:</strong> Provide <strong>simulation
+reports</strong> before enabling blocks on lines under warranty
+support.</p>
+<hr />
+<h2 id="phase-5-monitoring-availability-signals-sms-feeds">7. Phase 5 —
+Monitoring, Availability Signals &amp; SMS Feeds</h2>
+<h3 id="alerts-aligned-to-62443-operations">7.1 Alerts aligned to 62443
+operations</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Alert</th>
+<th>Example trigger</th>
+<th>SR mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Undocumented conduit attempt</td>
+<td>New src→dst across OT-support boundary</td>
+<td><strong>SR 5</strong></td>
+</tr>
+<tr>
+<td>Cleartext admin</td>
+<td>LDAP/HTTP to AD from EWS</td>
+<td><strong>SR 1</strong>, <strong>SR 3</strong></td>
+</tr>
+<tr>
+<td>New listening service on jump</td>
+<td>Port opens not in baseline</td>
+<td><strong>SR 3</strong></td>
+</tr>
+<tr>
+<td>Flow anomaly / storm</td>
+<td>Connection rate &gt;&gt; baseline</td>
+<td><strong>SR 6</strong> (detect), <strong>SR 7</strong>
+(availability)</td>
+</tr>
+<tr>
+<td>Critical CVE on historian tier</td>
+<td>CVSS ≥ threshold</td>
+<td><strong>SR 3</strong>, <strong>62443-2-1</strong> risk
+treatment</td>
+</tr>
+<tr>
+<td>Sensor offline</td>
+<td>Loss of heartbeats</td>
+<td><strong>SR 6</strong> — visibility gap</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iec-62443-2-1-continuous-monitoring-dashboard">7.2 IEC 62443-2-1
+continuous monitoring dashboard</h3>
+<p>Schedule <strong>weekly</strong> management-visible tiles (exact UI
+path may vary by release):</p>
+<ul>
+<li><strong>Scope coverage</strong> — % of IACS-adjacent IT with active
+agent</li>
+<li><strong>Policy drift</strong> — rules changed since last approval
+export</li>
+<li><strong>Open simulation violations</strong> — unreviewed would-block
+flows</li>
+<li><strong>Top talkers</strong> across conduits — compare to PAS asset
+roles</li>
+</ul>
+<p>Export snapshots into your SMS review record <strong>monthly</strong>
+minimum.</p>
+<hr />
+<h2 id="control-by-control-mapping-framework-requirement-csw-evidence">8.
+Control-by-control mapping — Framework requirement → CSW → evidence</h2>
+<p>Use this table to <strong>start</strong> questionnaire mapping.
+Official conformity assessment requires your <strong>SL-T</strong>,
+<strong>scope statement</strong>, and <strong>test methods</strong> from
+the certification body or customer spec.</p>
+<h3 id="sr-5-restricted-data-flow-zones-conduits">8.1 SR 5 — Restricted
+data flow (zones &amp; conduits)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>IEC 62443-3-3 requirement (summary)</th>
+<th>CSW capability</th>
+<th>Evidence produced</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SR 5.1</strong> — Segmentation / zones</td>
+<td>Scope hierarchy; segmentation workspaces; labels <code>zone</code>,
+<code>conduit</code></td>
+<td>Scope export; diagram cross-walk memo</td>
+</tr>
+<tr>
+<td><strong>SR 5.2</strong> — Segmentation for zones of differing
+security requirements</td>
+<td>Tiered scopes by SL labels; stricter workspaces for higher SL</td>
+<td>Policy diff between SL scopes</td>
+</tr>
+<tr>
+<td><strong>SR 5.3</strong> — Conduit control</td>
+<td>Allowlist rules per conduit; default deny</td>
+<td>Policy JSON/export + simulation/enforcement logs</td>
+</tr>
+<tr>
+<td><strong>SR 5.4</strong> — Covert channel mitigation (as applicable
+at IT layer)</td>
+<td>Egress restrictions; anomaly detection on volume</td>
+<td>Flow anomaly reports + change tickets</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sr-1-identification-authentication-and-access-control">8.2 SR 1
+— Identification, authentication, and access control</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>IEC 62443-3-3 requirement (summary)</th>
+<th>CSW capability</th>
+<th>Evidence produced</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SR 1.1–1.13</strong> (human / process / service access
+paths)</td>
+<td>Identity-aware policies (when integrated); admin path lock-down;
+least privilege allowlists</td>
+<td>Flow logs with user/process context; policy allow/deny history</td>
+</tr>
+<tr>
+<td><strong>Remote access</strong> paths via jump</td>
+<td>Rules limiting src to jump scope; deny corporate→OTSupport
+direct</td>
+<td>ADM + enforcement hit logs</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sr-3-system-integrity">8.3 SR 3 — System integrity</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>IEC 62443-3-3 requirement (summary)</th>
+<th>CSW capability</th>
+<th>Evidence produced</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SR 3.1–3.9</strong> (software integrity, malware deterrence
+inputs, etc.)</td>
+<td>Process &amp; binary inventory; package visibility; vulnerability
+data</td>
+<td>Inventory export; drift alerts; VA connectors / built-in
+reports</td>
+</tr>
+<tr>
+<td><strong>Unauthorized software</strong> indicators</td>
+<td>New process / listener alerts vs baseline</td>
+<td>Ticket + before/after inventory</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sr-6-event-monitoring-timely-response">8.4 SR 6 — Event
+monitoring &amp; timely response</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>IEC 62443-3-3 requirement (summary)</th>
+<th>CSW capability</th>
+<th>Evidence produced</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SR 6.1</strong> — Audit logging support</td>
+<td>Flow + process retention; export APIs / UI exports</td>
+<td>Raw &amp; summary logs with UTC stamps</td>
+</tr>
+<tr>
+<td><strong>SR 6.2</strong> — Continuous monitoring inputs</td>
+<td>Alerts; SIEM forwarders</td>
+<td>Alert rule catalog; SOC ingest proof</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sr-7-resource-availability">8.5 SR 7 — Resource
+availability</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>IEC 62443-3-3 requirement (summary)</th>
+<th>CSW capability</th>
+<th>Evidence produced</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SR 7.1–7.8</strong> (DoS considerations at system
+level)</td>
+<td>Flow volumetrics; session rate anomalies; saturation precursors</td>
+<td>Time-series anomaly exports + IR narrative</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iec-62443-2-1-security-management-system-technical-contributors-only">8.6
+IEC 62443-2-1 — Security management system (technical contributors
+only)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>62443-2-1 theme (summary)</th>
+<th>CSW capability</th>
+<th>Evidence produced</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operations monitoring &amp; KPIs</td>
+<td>Dashboards; scheduled exports</td>
+<td>Monthly PDF/CSV appendices to SMS review</td>
+</tr>
+<tr>
+<td>Incident response support</td>
+<td>Forensic drill exports</td>
+<td>Tabletop package — flow + process trace</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="vulnerability-patch-compensating-controls">9. Vulnerability,
+patch &amp; compensating controls</h2>
+<h3 id="vulnerability-visibility">9.1 Vulnerability visibility</h3>
+<pre><code>CSW UI → Investigate → Vulnerability Report
+  → Scope: Plant-&lt;Site&gt;-OT-Support
+  → Filter: CVSS ≥ 7.0 (example)
+  → Export CSV for SMS risk register linkage</code></pre>
+<h3 id="compensating-controls-when-patching-waits-for-outage">9.2
+Compensating controls when patching waits for outage</h3>
+<ul>
+<li>Narrow allow rules to <strong>known peer scopes</strong> only</li>
+<li>Raise <strong>alert severity</strong> on vulnerable process
+names</li>
+<li>Capture <strong>full flow logs</strong> to affected workload until
+patched</li>
+</ul>
+<hr />
+<h2 id="forensics-incident-reconstruction">10. Forensics &amp; incident
+reconstruction</h2>
+<pre><code>CSW UI → Investigate → Flow Search
+  → Time range: incident window (extend for long-running OT campaigns)
+  → Source/Destination: suspected broker or EWS
+  → Export: CSV/JSON with process + user context
+
+CSW UI → Investigate → Process Search
+  → Parent/child chain for suspicious binaries on jump hosts</code></pre>
+<p>Retain exports per <strong>your</strong> SMS / legal hold policy;
+correlate with <strong>PAS</strong> PCAP or ICS alerts for full OT
+picture.</p>
+<hr />
+<h2 id="audit-preparation-evidence-export">11. Audit preparation &amp;
+evidence export</h2>
+<h3 id="quarterly-evidence-pack-adjust-to-customer-cadence">11.1
+Quarterly evidence pack (adjust to customer cadence)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Evidence item</th>
+<th>CSW source</th>
+<th>Typical IEC mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conduit policy export</td>
+<td>Defend → workspace export</td>
+<td><strong>SR 5.x</strong></td>
+</tr>
+<tr>
+<td>Simulation vs enforcement history</td>
+<td>Policy lifecycle / audit log</td>
+<td><strong>SR 5</strong>, <strong>SR 1</strong></td>
+</tr>
+<tr>
+<td>ADM cluster report</td>
+<td>ADM workspace</td>
+<td><strong>SR 5</strong>, <strong>SR 1</strong></td>
+</tr>
+<tr>
+<td>Inventory baseline delta</td>
+<td>Inventory exports</td>
+<td><strong>SR 3.x</strong></td>
+</tr>
+<tr>
+<td>Vulnerability exposure</td>
+<td>Vulnerability report</td>
+<td><strong>SR 3</strong>, <strong>62443-2-1</strong></td>
+</tr>
+<tr>
+<td>Alert &amp; flow excerpts</td>
+<td>Flow Search, Alerts</td>
+<td><strong>SR 6</strong>, incident packs</td>
+</tr>
+<tr>
+<td>Coverage report</td>
+<td>Agent inventory</td>
+<td><strong>62443-2-1</strong> monitoring scope</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bash-helper-examples-on-analysis-workstation">11.2 Bash helper
+examples (on analysis workstation)</h3>
+<p>After UI export to <code>/evidence/csw/</code>:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify exported policy archive integrity (after UI download)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">shasum</span> <span class="at">-a</span> 256 /evidence/csw/iec62443-policy-export-YYYYMMDD.zip <span class="kw">|</span> <span class="fu">tee</span> /evidence/csw/SHA256SUMS</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Redact non-production subnets before sharing with integrator</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">perl</span> <span class="at">-pe</span> <span class="st">&#39;s/\b10\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/10.REDACTED.0.0/g&#39;</span> <span class="dt">\</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  /evidence/csw/flows-incident-window.csv <span class="op">&gt;</span> /evidence/csw/flows-incident-window-redacted.csv</span></code></pre></div>
+<hr />
+<h2 id="boundaries-what-csw-does-not-cover">12. Boundaries — what CSW
+does <strong>not</strong> cover</h2>
+<ul>
+<li><strong>Level 0–2 OT devices</strong> (PLCs, IEDs, devices without
+supported agents) — use PAS/OT security tools; CSW does not inspect
+proprietary fieldbus payloads at wire speed.</li>
+<li><strong>Safety instrumented functions</strong> — CSW is not a
+SIL-rated safety device; engineering lifecycle evidence stays with SIS
+vendor tools.</li>
+<li><strong>Physical security &amp; personnel screening</strong> —
+access badges, gates, contractor vetting — outside CSW.</li>
+<li><strong>Cryptographic key management policy</strong> — CSW may
+enforce <strong>paths</strong> (e.g., TLS-only) but does not replace PKI
+governance or HSM decisions.</li>
+<li><strong>62443-2-1 organizational processes</strong> — CSW supplies
+<strong>telemetry and policy exports</strong>; it does not author your
+procedures, training roster, or supplier security clauses.</li>
+</ul>
+<hr />
+<h2 id="common-pitfalls">13. Common pitfalls</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pitfall</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mis-mapping CSW scopes to <strong>electrical zones</strong> instead
+of <strong>cyber zones</strong></td>
+<td>Anchor labels to approved cyber ZCRD IDs</td>
+</tr>
+<tr>
+<td>Blocking <strong>dynamic RPC/OPC</strong> ranges without ADM</td>
+<td>Long simulation + integrator test scripts</td>
+</tr>
+<tr>
+<td>Deploying only on corporate IT</td>
+<td><strong>OT-adjacent</strong> IT is the compliance-critical tier</td>
+</tr>
+<tr>
+<td>Ignoring cloud <strong>shadow IT</strong> paths to plant data</td>
+<td>Enable cloud connectors for mirrored historians</td>
+</tr>
+<tr>
+<td>Expecting CSW to <strong>replace</strong> OT IDS</td>
+<td>Maintain Cyber Vision / Claroty / Nozomi for ICS context</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-frameworks">Related Frameworks</h2>
+<ul>
+<li><p><a href="../NERC-CIP/CSW-NERC-CIP-Reference-Design.html">NERC
+CIP</a> — analogous IT/OT boundary evidence pattern for BES
+entities.</p></li>
+<li><p><a href="https://csrc.nist.gov/publications/detail/sp/800-82/rev-3/final">NIST
+SP 800-82</a> — operational technology companion guidance
+(external).</p></li>
+<li><p><a href="../ISO-27001-2022/CSW-ISO27001-Reference-Design.html">ISO/IEC
+27001:2022</a> — when plants pair 62443 with enterprise ISMS
+audits.</p></li>
+<li><p><a href="../NIST-800-207/CSW-NIST-800-207-Reference-Design.html">NIST SP
+800-207</a> — zero trust patterns for conduit enforcement
+narratives.</p></li>
+<li><p><a href="../UK-NCSC-CAF/caf-mapping.html">UK NCSC CAF v3.2</a> —
+zones and conduits are the reuse path for CAF B5 on the IT side of an
+IT/OT boundary.</p></li>
+</ul>
+<hr />
+<h3 id="appendix-a-sample-segmentation-policy-fragment-illustrative-yaml-style">Appendix
+A — Sample segmentation policy fragment (illustrative YAML-style)</h3>
+<blockquote>
+<p><strong>Do not paste verbatim into production.</strong> Replace
+scopes, addresses, and L4 tuples with values from your ZCRD. Syntax
+mirrors conceptual CSW rule metadata; exact API/UI format follows
+product version.</p>
+</blockquote>
+<div class="sourceCode" id="cb16"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">workspace</span><span class="kw">:</span><span class="at"> IEC62443-Conduits-Site01</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mode</span><span class="kw">:</span><span class="at"> simulation</span><span class="co">          # change to enforcement after sign-off</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">default_action</span><span class="kw">:</span><span class="at"> deny</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rules</span><span class="kw">:</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> conduit-opcua-historian</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">action</span><span class="kw">:</span><span class="at"> allow</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">src_scope</span><span class="kw">:</span><span class="at"> Plant-DMZ-Brokers</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">dst_scope</span><span class="kw">:</span><span class="at"> Historian-MES-Tier</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> tcp/4840</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> admin-via-jump-only</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">action</span><span class="kw">:</span><span class="at"> allow</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">src_scope</span><span class="kw">:</span><span class="at"> Jump-EWS</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">dst_scope</span><span class="kw">:</span><span class="at"> Plant-Site01-OT-Support</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> tcp/22</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> tcp/3389</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> log-unknown-east-west</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">action</span><span class="kw">:</span><span class="at"> alert</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">src_scope</span><span class="kw">:</span><span class="at"> Plant-Site01-OT-Support</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">dst_scope</span><span class="kw">:</span><span class="at"> Plant-Site01-OT-Support</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">match</span><span class="kw">:</span><span class="at"> not_in_conduit_allowlist</span></span></code></pre></div>
+<h3 id="appendix-b-pas-correlation-workflow">Appendix B — PAS
+correlation workflow</h3>
+<ol type="1">
+<li>Export <strong>asset list</strong> from Cyber Vision / Claroty /
+Nozomi (IP, MAC, VLAN, firmware).</li>
+<li>Join on <strong>IP or hostname</strong> with CSW inventory.</li>
+<li>Flag <strong>CSW-only</strong> or <strong>PAS-only</strong> assets —
+resolve before <strong>SR 5</strong> attestation.</li>
+<li>For discrepancies, <strong>field-verify</strong> with plant
+engineering.</li>
+</ol>
+<hr />
+<p><em>Document prepared for industrial account engagements. Replace
+site names, drawing references, and SL targets with customer-specific
+values before delivery.</em></p>
+</body>
+</html>

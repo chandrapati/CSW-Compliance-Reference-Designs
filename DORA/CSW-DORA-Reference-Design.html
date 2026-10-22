@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>DORA (EU 2022/2554) — Reference Design</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-DORA-Reference-Design.html">CSW-DORA-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-07T17:30:31Z UTC · Repository commit: a630820</div>
+<header id="title-block-header">
+<h1 class="title">DORA (EU 2022/2554) — Reference Design</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload-dora-digital-operational-resilience-act" id="toc-cisco-secure-workload-dora-digital-operational-resilience-act">Cisco
+Secure Workload — DORA (Digital Operational Resilience Act)</a>
+<ul>
+<li><a href="#reference-design-eu-financial-entities-critical-ict-third-party-providers" id="toc-reference-design-eu-financial-entities-critical-ict-third-party-providers">Reference
+Design | EU Financial Entities &amp; Critical ICT Third-Party
+Providers</a></li>
+<li><a href="#readers-guide" id="toc-readers-guide">Reader’s
+Guide</a></li>
+<li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</a></li>
+<li><a href="#universal-evidence-workflow" id="toc-universal-evidence-workflow">Universal evidence workflow</a>
+<ul>
+<li><a href="#phase-1-checklist-coverage" id="toc-phase-1-checklist-coverage">Phase 1 checklist
+(coverage)</a></li>
+<li><a href="#phase-2-checklist-baseline" id="toc-phase-2-checklist-baseline">Phase 2 checklist
+(baseline)</a></li>
+<li><a href="#phase-3-checklist-policy" id="toc-phase-3-checklist-policy">Phase 3 checklist (policy)</a></li>
+<li><a href="#phase-4-checklist-operate" id="toc-phase-4-checklist-operate">Phase 4 checklist (operate)</a></li>
+<li><a href="#what-csw-evidence-does-not-replace" id="toc-what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</a></li>
+</ul></li>
+<li><a href="#csw-effectiveness-for-this-framework" id="toc-csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</a></li>
+<li><a href="#overview" id="toc-overview">1. Overview</a></li>
+<li><a href="#scoping-important-business-functions-ibfs" id="toc-scoping-important-business-functions-ibfs">2. Scoping —
+Important Business Functions (IBFs)</a></li>
+<li><a href="#article-8-ict-asset-inventory" id="toc-article-8-ict-asset-inventory">3. Article 8 — ICT Asset
+Inventory</a></li>
+<li><a href="#article-9-protection-and-prevention" id="toc-article-9-protection-and-prevention">4. Article 9 — Protection
+and Prevention</a></li>
+<li><a href="#article-10-detection" id="toc-article-10-detection">5.
+Article 10 — Detection</a></li>
+<li><a href="#article-11-response-and-recovery" id="toc-article-11-response-and-recovery">6. Article 11 — Response and
+Recovery</a></li>
+<li><a href="#articles-1723-incident-management-classification-reporting" id="toc-articles-1723-incident-management-classification-reporting">7.
+Articles 17–23 — Incident Management, Classification &amp;
+Reporting</a></li>
+<li><a href="#articles-2427-digital-operational-resilience-testing" id="toc-articles-2427-digital-operational-resilience-testing">8.
+Articles 24–27 — Digital Operational Resilience Testing</a></li>
+<li><a href="#articles-2830-ict-third-party-risk-technical-lens" id="toc-articles-2830-ict-third-party-risk-technical-lens">9. Articles
+28–30 — ICT Third-Party Risk (Technical Lens)</a></li>
+<li><a href="#article-13-learning-and-evolving" id="toc-article-13-learning-and-evolving">10. Article 13 — Learning and
+Evolving</a></li>
+<li><a href="#mapping-table-dora-article-csw-capability" id="toc-mapping-table-dora-article-csw-capability">11. Mapping Table —
+DORA Article → CSW Capability</a></li>
+<li><a href="#auditor-competent-authority-response-guide" id="toc-auditor-competent-authority-response-guide">12. Auditor /
+Competent-Authority Response Guide</a></li>
+<li><a href="#related-frameworks" id="toc-related-frameworks">13.
+Related Frameworks</a></li>
+<li><a href="#disclaimer" id="toc-disclaimer">14. Disclaimer</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload-dora-digital-operational-resilience-act">Cisco
+Secure Workload — DORA (Digital Operational Resilience Act)</h1>
+<h2 id="reference-design-eu-financial-entities-critical-ict-third-party-providers">Reference
+Design | EU Financial Entities &amp; Critical ICT Third-Party
+Providers</h2>
+<p><strong>Version:</strong> 1.0 | <strong>Standard:</strong> Regulation
+(EU) 2022/2554 — DORA | <strong>Effective:</strong> 17 January 2025 |
+<strong>Environment:</strong> Hybrid</p>
+<hr />
+<h2 id="readers-guide">Reader’s Guide</h2>
+<p><strong>Who this is for.</strong> EU financial entities in scope of
+DORA — credit institutions, payment &amp; e-money institutions,
+investment firms, CCPs, trading venues, insurers, crypto-asset service
+providers, crowdfunding service providers — and the critical ICT
+third-party providers (CTPPs) that serve them. Also useful for the
+security architects and ICT risk officers preparing those organisations
+for their competent-authority engagement.</p>
+<p><strong>Questions this reference design helps you
+answer:</strong></p>
+<ul>
+<li><em>Article 8 — ICT Risk Management Framework: can I produce a
+current inventory view of CSW-covered ICT assets supporting “important
+business functions” (IBFs), classified by criticality, and reconcile it
+with the authoritative enterprise ICT asset register?</em></li>
+<li><em>Article 9(2) — protection and prevention: for each IBF, can I
+demonstrate that network segmentation between supporting systems is
+enforced and continuously verified, not just designed?</em></li>
+<li><em>Article 10 — detection: when an anomalous workload-to-workload
+flow appears inside an IBF (e.g., a payments service starts talking to a
+general ledger system it never touched before), is it detected, and what
+is the artefact?</em></li>
+<li><em>Article 17 — ICT-related incident management: when a major
+incident occurs, can I reconstruct the exact process and flow context at
+the time of compromise to support the 4h/24h/72h/1-month reporting
+cadence under Article 19?</em></li>
+<li><em>Article 24–25 — digital operational resilience testing (TLPT,
+threat- led penetration testing): can red teams run TIBER-EU style
+exercises against my environment, and can I produce the workload-level
+evidence (lateral movement attempts, segmentation holds, detections) the
+testers and the lead competent authority will ask for?</em></li>
+<li><em>Article 28 — ICT third-party risk: do I actually know which
+third- party (CTPP) services my critical workloads call out to, on what
+ports, with what frequency — independent of what the contract
+says?</em></li>
+<li><em>If my lead competent authority requests under Article 50 the
+“results of testing” or “register of information” on third-party
+arrangements, what do I hand over from CSW within one business
+day?</em></li>
+</ul>
+<p><strong>What you’ll need.</strong> Your current ICT asset inventory,
+the list of “important business functions” your management body has
+approved (Article 8(4)), your current Register of Information for ICT
+third- party arrangements (Article 28(3)), your incident classification
+criteria under the RTS on classification of major incidents, and the
+list of competent and lead authorities applicable to your entity.</p>
+<p><strong>Where to start.</strong> Section 2 if you’re scoping an IBF;
+sections 3–4 if you’re building the ICT risk management framework
+artefacts; sections 5–6 if you’re preparing for TLPT; section 7 if your
+incident response programme is the gap; section 9 if third-party
+visibility is the open item.</p>
+<p><strong>Important.</strong> DORA assigns ultimate accountability to
+the <em>management body</em> (Article 5). Nothing in this reference
+design substitutes for that governance. CSW gives the management body
+the <em>evidence</em> it needs to discharge that accountability with
+confidence; it does not discharge it on the body’s behalf.</p>
+<hr />
+<!-- CSW-RUNBOOK-PRIMER:v1 -->
+<h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</h2>
+<p>Cisco Secure Workload (CSW) is a <strong>workload protection
+platform</strong>. A lightweight <strong>agent</strong> on each
+server/VM/container observes processes and network flows; <strong>cloud
+connectors</strong> add AWS/Azure/GCP inventory where agents are not
+deployed.</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW term</th>
+<th>Meaning</th>
+<th>Why compliance teams care</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Logical boundary (CDE, PHI zone, CUI enclave)</td>
+<td>Defines the systems you must prove are isolated</td>
+</tr>
+<tr>
+<td><strong>Label / filter</strong></td>
+<td>Tag or query assigning workloads to scopes</td>
+<td>Automates scope membership — reduces drift</td>
+</tr>
+<tr>
+<td><strong>ADM</strong></td>
+<td>Application Dependency Mapping from observed traffic</td>
+<td><strong>Live</strong> network/data-flow diagram for assessors</td>
+</tr>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>Policy container for one scope or application</td>
+<td>Where allow/deny rules are authored</td>
+</tr>
+<tr>
+<td><strong>Monitor → Simulation → Enforce</strong></td>
+<td>Safe rollout sequence</td>
+<td>Simulation = change-board evidence before blocking traffic</td>
+</tr>
+<tr>
+<td><strong>Denied Connections</strong></td>
+<td>Log of flows blocked by policy</td>
+<td>Primary proof that enforcement <strong>operates</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Console areas:</strong> Investigate (inventory, flows, vulns)
+· Defend/Segmentation (policy) · Manage (agents) · Platform (connectors)
+· Administration (audit log)</p>
+<p><strong>Read next:</strong> <a href="../docs/compliance-evidence-playbook.html">Compliance evidence
+playbook</a> (full step-by-step) · <a href="../docs/about-csw.html">About
+CSW</a> (platform intro)</p>
+<hr />
+<h2 id="universal-evidence-workflow">Universal evidence workflow</h2>
+<p>Execute these phases for <strong>this framework’s</strong> compliance
+boundary. Map exports to control IDs in the <strong>Reporting &amp;
+Evidence</strong> section below.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Key CSW actions</th>
+<th>Typical duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Coverage</strong></td>
+<td>Every in-scope workload in CSW</td>
+<td>Install agents/connectors; apply compliance labels; create
+scope</td>
+<td>Days 1–10</td>
+</tr>
+<tr>
+<td><strong>2 — Baseline</strong></td>
+<td>Machine-generated flow map</td>
+<td>Run ADM ≥2 weeks; export clusters; app-owner signoff</td>
+<td>Days 11–28</td>
+</tr>
+<tr>
+<td><strong>3 — Policy</strong></td>
+<td>Designed isolation before enforce</td>
+<td>Build workspace; Simulation mode; fix false positives</td>
+<td>Days 29–45</td>
+</tr>
+<tr>
+<td><strong>4 — Operate</strong></td>
+<td>Continuous proof between audits</td>
+<td>Enforce; quarterly export pack; ADM refresh every 90 days</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-checklist-coverage">Phase 1 checklist (coverage)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>In-scope host list reconciled to CSW
+Inventory (100% or documented exceptions)</label></li>
+<li><label><input type="checkbox"></input>Labels applied:
+<code>compliance:&lt;framework&gt;</code>,
+<code>data:&lt;classification&gt;</code>,
+<code>env:&lt;tier&gt;</code></label></li>
+<li><label><input type="checkbox"></input>CSW scope created matching
+compliance boundary</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> inventory
+CSV + agent status screenshot</label></li>
+</ul>
+<h3 id="phase-2-checklist-baseline">Phase 2 checklist (baseline)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>ADM running on compliance scope for
+full business cycle (≥2 weeks)</label></li>
+<li><label><input type="checkbox"></input>Unexpected flows documented (shadow
+IT, vendor egress, scope creep)</label></li>
+<li><label><input type="checkbox"></input>App owners signed
+cluster-to-application mapping</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> ADM diagram
++ flow samples with process context</label></li>
+</ul>
+<h3 id="phase-3-checklist-policy">Phase 3 checklist (policy)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Default-deny posture defined for
+sensitive scope</label></li>
+<li><label><input type="checkbox"></input>ADM-imported rules refined;
+Simulation run ≥1 week</label></li>
+<li><label><input type="checkbox"></input>Change tickets for false-positive
+fixes; exception register updated</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> policy
+export + simulation report</label></li>
+</ul>
+<h3 id="phase-4-checklist-operate">Phase 4 checklist (operate)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Enforcement enabled on pilot scope;
+negative test recorded in Denied Connections</label></li>
+<li><label><input type="checkbox"></input>Quarterly pack: inventory, policy,
+denies, vulns, audit log (see playbook)</label></li>
+<li><label><input type="checkbox"></input>SIEM integration verified (sample
+events)</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> enforcement
+screenshot + quarterly binder</label></li>
+</ul>
+<h3 id="what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</h3>
+<p>Physical access, HR/training records, encryption key management,
+signed BAAs/vendor contracts, formal pen tests, and assessor attestation
+still require separate programmes. CSW addresses the
+<strong>workload-resident</strong> slice: segmentation, flows, process
+context, vuln reachability, and change drift.</p>
+<hr />
+<h2 id="csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</h2>
+<ul>
+<li>Art. 8/9 segmentation + ICT asset inventory from live scope</li>
+<li>Art. 19 incident dossier templates from flow/process export</li>
+<li>Art. 28 third-party egress from observed outbound flows</li>
+</ul>
+<p><strong>Compared to manual programmes:</strong> static diagrams and
+annual firewall samples age immediately; CSW ties evidence to
+<strong>live workload behaviour</strong> and produces queryable exports
+on demand — supporting “operating effectively” language in PCI v4.0, SOC
+2 CC7, and HIPAA risk analysis.</p>
+<hr />
+<h2 id="overview">1. Overview</h2>
+<p>DORA harmonises the ICT risk management requirements for the EU
+financial sector across five pillars:</p>
+<ol type="1">
+<li><strong>ICT Risk Management</strong> (Articles 5–16) — governance,
+risk framework, asset inventory, protection, detection, response,
+learning.</li>
+<li><strong>ICT-Related Incident Management, Classification &amp;
+Reporting</strong> (Articles 17–23) — single harmonised reporting flow
+to competent authorities.</li>
+<li><strong>Digital Operational Resilience Testing</strong> (Articles
+24–27) — including TLPT every 3 years for significant entities.</li>
+<li><strong>Managing of ICT Third-Party Risk</strong> (Articles 28–44) —
+register of information, contractual provisions, oversight of CTPPs by
+the ESAs.</li>
+<li><strong>Information-Sharing Arrangements</strong> (Article 45) —
+voluntary intelligence exchange between financial entities.</li>
+</ol>
+<p><strong>Where CSW fits.</strong> CSW is not an end-to-end DORA
+solution and does not address Pillars 4 (third-party contracts) or 5
+(information sharing) directly. It does, however, provide the
+workload-level evidence engine that Pillars 1, 2 and 3 increasingly
+require — and gives you measurable visibility into Pillar 4’s
+<em>technical</em> exposure question (“what is my workload actually
+talking to that I don’t control?”).</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>DORA Pillar</th>
+<th>CSW contribution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pillar 1 — ICT Risk Management</td>
+<td>Continuous workload inventory inputs (Art. 8), segmentation
+enforcement (Art. 9), behavioural detection (Art. 10), forensic flow
+data for response &amp; learning (Arts. 11, 13).</td>
+</tr>
+<tr>
+<td>Pillar 2 — Incident Management</td>
+<td>Reconstructable process and flow timeline supporting initial,
+intermediate and final reports (Art. 19).</td>
+</tr>
+<tr>
+<td>Pillar 3 — Resilience Testing</td>
+<td>Workload-level evidence for vulnerability assessments and
+scenario-based tests (Art. 25(1)); attack-path data and segmentation
+telemetry for TLPT (Art. 26).</td>
+</tr>
+<tr>
+<td>Pillar 4 — Third-Party Risk</td>
+<td>Independent technical view of which third-party endpoints critical
+workloads call (complements but does not replace contractual
+register).</td>
+</tr>
+<tr>
+<td>Pillar 5 — Information Sharing</td>
+<td>Indicators-of-compromise and behavioural signatures derived from CSW
+telemetry can feed sectoral sharing arrangements.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="scoping-important-business-functions-ibfs">2. Scoping —
+Important Business Functions (IBFs)</h2>
+<p>Article 8(4) requires entities to identify and classify ICT systems
+supporting “important business functions.” Everything else in DORA
+escalates in stringency for these.</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Get the management-body-approved IBF list
+  → Typical examples (insert your own):
+      - Card payment authorisation
+      - SEPA credit transfer initiation
+      - Securities settlement
+      - Custody booking
+      - Trading order routing
+      - KYC / AML decisioning
+
+Step 2: Label every workload that supports an IBF
+  CSW UI → Inventory → Bulk Label
+  Mandatory labels:
+    dora_ibf:        true | false
+    ibf_name:        [IBF identifier from management body register]
+    ibf_criticality: critical | important | supporting
+    data_class:      personal | financial | confidential | internal
+    entity_legal:    [legal entity in scope of DORA]
+
+Step 3: Build an IBF Scope per business function
+  CSW UI → Organize → Scopes → New
+  Filter: ibf_name = &quot;card-payment-auth&quot; → Save scope
+  Repeat for each IBF
+  → This becomes the unit of policy, evidence, and reporting
+
+Step 4: Validate CSW coverage against the authoritative inventory baseline
+  → Cross-check CSW inventory count vs. your CMDB / ServiceNow IBF view
+  → Any delta = scoping risk; resolve before formal Art. 8 sign-off</code></pre>
+<p><strong>Evidence:</strong> Per-IBF scope export (CSV) with workload
+count, OS, location, owner, last-seen timestamp.</p>
+<hr />
+<h2 id="article-8-ict-asset-inventory">3. Article 8 — ICT Asset
+Inventory</h2>
+<p>DORA Article 8(1) requires a current inventory of <em>all</em> ICT
+assets, including their interdependencies. Article 8(6) specifies it
+must be updated “periodically and on every significant change.”</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Achieve sensor coverage on every supported workload supporting an IBF
+  → Linux:   yum/dnf/apt + systemctl enable csw-agent
+  → Windows: MSI install + service verification
+  → Containers: DaemonSet sensor for K8s; per-node sensor for ECS/AKS/GKE
+  → Cloud:   External Orchestrators (AWS/Azure/GCP) for asset metadata
+
+Step 2: Configure interdependency capture (ADM)
+  CSW UI → Defend → Segmentation → ADM Run
+  Scope: each IBF Scope (run per-IBF, not all at once)
+  Duration: ≥ 14 days to capture month-end batch processes
+
+Step 3: Schedule continuous inventory drift detection
+  CSW UI → Reports → Inventory → Schedule
+  Cadence: daily snapshot, weekly delta report
+  Owner: ICT Risk function (delegated under Art. 6(4))
+
+Step 4: Wire the inventory feed to your Register of Information
+  → API: /openapi/v1/inventory
+  → Use: nightly export → reconcile against management&#39;s Register</code></pre>
+<p><strong>Evidence:</strong> (a) current CSW inventory export with each
+covered workload’s OS, hostname, IP, agent version, owner labels,
+last-check-in; (b) ADM dependency graph per IBF; (c) drift report
+showing additions/removals since the previous management-body review;
+(d) reconciliation notes for assets outside CSW coverage.</p>
+<hr />
+<h2 id="article-9-protection-and-prevention">4. Article 9 — Protection
+and Prevention</h2>
+<p>Article 9(2) calls for “design, procurement and operation” of ICT
+systems that minimise impact, including segregation, monitoring and
+resilient configuration.</p>
+<p><strong>CSW Implementation — IBF Segmentation Pattern:</strong></p>
+<pre><code>Step 1: Define the IBF policy workspace
+  CSW UI → Defend → Segmentation → New Workspace
+  Name: dora-ibf-{ibf_name}
+  Scope: ibf_name = {ibf_name}
+
+Step 2: Use ADM to compute the as-observed policy
+  → Run ADM on the workspace; review proposed clusters
+  → Reject &quot;noise&quot; clusters; rename clusters to business roles
+  → Clusters become policy intents
+
+Step 3: Layer DORA-aligned hardening rules on top
+  DENY:  Any IBF workload → Internet (egress) unless explicitly required
+  DENY:  Non-IBF workloads → IBF workloads (cross-IBF lateral)
+  DENY:  Plaintext protocols (HTTP/21/23/389) → IBF workloads
+  ALLOW: IBF workloads → approved CTPP egress endpoints (whitelist by
+         FQDN/IP, with port + frequency constraint where supported)
+
+Step 4: Run in Simulation for ≥ 30 days
+  → Capture and resolve every legitimate-but-blocked flow with the
+    application owner; document every exception in the workspace notes
+  → This is the artefact that demonstrates &quot;continuous review&quot; required
+    under Art. 9(4)(g)
+
+Step 5: Promote to Enforce; gate with change-management approval
+  → Each subsequent change is captured in CSW change history
+  → Evidence: enforcement diff report, exported per quarter</code></pre>
+<p><strong>Evidence:</strong> (a) policy workspace export per IBF; (b)
+simulation→ enforcement transition log; (c) quarterly enforcement diff
+report.</p>
+<hr />
+<h2 id="article-10-detection">5. Article 10 — Detection</h2>
+<p>Article 10 requires detection of “anomalous activities, including ICT
+network performance issues and ICT-related incidents.”</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Enable behavioural detections
+  CSW UI → Defend → Forensics → Rules
+  → Out-of-the-box rules: privilege escalation, persistence, lateral movement
+  → Custom rules: encode IBF-specific abuse patterns
+      Example: &quot;Process on payment-auth host writes to /etc/shadow&quot;
+      Example: &quot;Outbound TLS to non-allowlisted FQDN from settlement host&quot;
+
+Step 2: Enable Conversation-graph anomaly detection
+  → Auto-flag new edges in the IBF dependency graph
+  → Auto-flag changes in port/protocol distribution per workload
+
+Step 3: Wire alerts to your SOC
+  CSW UI → Manage → Data Tap → SIEM
+  → Splunk HEC, QRadar, Sentinel, Cisco XDR
+  → Tag alerts with dora_ibf=true so SOC can prioritise per Art. 17
+
+Step 4: Track detection latency (an Art. 11(2) lessons-learned input)
+  → CSW timestamps every detection; SIEM timestamps acknowledgement
+  → Compute MTTD per IBF; report to management body quarterly</code></pre>
+<p><strong>Evidence:</strong> (a) detection rule catalogue with
+last-modified dates; (b) SIEM forwarding configuration; (c) MTTD trend
+report per IBF.</p>
+<hr />
+<h2 id="article-11-response-and-recovery">6. Article 11 — Response and
+Recovery</h2>
+<p>Article 11(2) requires “comprehensive ICT business continuity policy”
+including procedures for “containment, eradication and recovery.”</p>
+<p><strong>CSW Implementation — Containment Playbook:</strong></p>
+<pre><code>Scenario: SOC declares a confirmed compromise on workload W in IBF X
+
+Step 1 (T+0): Quarantine W
+  CSW UI → Inventory → W → Apply Quarantine Policy
+  → Pre-built policy: deny all, allow only IR jump-host on TCP/22
+  → Typically applied in seconds without firewall change tickets
+
+Step 2 (T+0): Pivot to other workloads in IBF X with similar exposure
+  → Use CSW vulnerability + process inventory to identify peers running
+    the same software/version → preemptively quarantine if criticality
+    warrants
+
+Step 3 (T+5min): Capture forensic baseline
+  → CSW historical flow data: all conversations to/from W in last 30 days
+  → CSW process snapshot: every process running on W at containment
+  → CSW package inventory: every installed package and version
+  → Export to incident case; this is the Art. 11(2)(d) &quot;post-incident
+    review&quot; raw material</code></pre>
+<p><strong>Evidence:</strong> (a) quarantine policy applied
+(timestamped); (b) forensic export bundle; (c)
+containment-to-remediation timeline.</p>
+<hr />
+<h2 id="articles-1723-incident-management-classification-reporting">7.
+Articles 17–23 — Incident Management, Classification &amp;
+Reporting</h2>
+<p>DORA harmonises incident reporting into one flow with three deadlines
+under Article 19 (subject to the implementing RTS on incident
+reporting):</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Deadline (typical, confirm against final RTS)</th>
+<th>Required content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Initial notification</td>
+<td>As soon as possible, no later than <strong>4 h after classification
+as major</strong></td>
+<td>Nature, type, root cause if known, geographic spread</td>
+</tr>
+<tr>
+<td>Intermediate report</td>
+<td>Within <strong>72 h</strong> of initial</td>
+<td>Updated facts, status of containment, impact estimates</td>
+</tr>
+<tr>
+<td>Final report</td>
+<td>Within <strong>1 month</strong> of initial</td>
+<td>Root cause analysis, remediation, lessons learned</td>
+</tr>
+</tbody>
+</table>
+<p><strong>CSW Implementation — Reporting Evidence:</strong></p>
+<pre><code>For each major incident, assemble from CSW:
+
+  (a) Affected workload set
+      → Inventory query: hostnames, IPs, OS, IBF labels, ownership
+  (b) Time-anchored flow record
+      → CSW historical conversations: source, destination, port, byte
+        counts, timestamps, geographic origin via flow context
+  (c) Process activity record
+      → Every process spawned on affected workloads in the window
+  (d) Software footprint at time of incident
+      → Package list, CVE exposure at that moment (not &quot;today&quot;)
+  (e) Containment evidence
+      → Policy applied; flow drop count after policy; time-to-quarantine
+  (f) Post-incident control proof
+      → Diff between pre-incident segmentation and remediated state
+
+These six artefacts populate the standard incident report template
+your competent authority will accept.</code></pre>
+<p><strong>Evidence:</strong> (a) incident dossier per major event; (b)
+MTTD/MTTR metrics by IBF; (c) annual aggregate incident-trend report (an
+Art. 13 “learning” input to the management body).</p>
+<hr />
+<h2 id="articles-2427-digital-operational-resilience-testing">8.
+Articles 24–27 — Digital Operational Resilience Testing</h2>
+<p>Article 24 requires a sound and comprehensive testing programme.
+Article 25(1) lists baseline tests (vulnerability assessments,
+scenario-based, performance, end-to-end). Article 26 introduces TLPT
+(threat-led penetration testing) every 3 years for significant entities,
+modelled on TIBER-EU.</p>
+<p><strong>CSW Implementation — Baseline Test Support (Art.
+25):</strong></p>
+<pre><code>Vulnerability assessment:
+  → CSW Vulnerability Dashboard: per-workload CVE list with CVSS,
+    exploit availability, EPSS score
+  → Filter by ibf_ciricality=critical → priority remediation queue
+  → Evidence: weekly export tied to remediation ticket IDs
+
+Scenario-based testing:
+  → CSW supports &quot;what-if&quot; policy queries:
+      &quot;If host X were compromised, which IBF Y workloads are reachable
+       under current policy?&quot;
+  → Use to validate segmentation assumptions before tabletop exercises
+  → Evidence: pre-test reachability report; post-test reachability report</code></pre>
+<p><strong>CSW Implementation — TLPT Support (Art. 26):</strong></p>
+<pre><code>Pre-engagement (with TIBER-EU lead):
+  → Scope selection: provide IBF inventory + dependency graph to red team
+  → Threat intel grounding: provide CSW outbound-flow patterns to scope
+    realistic attacker pivots
+
+During engagement:
+  → Red team operates blind; no CSW data shared in real time
+  → Defenders may be in &quot;purple&quot; mode if pre-agreed; CSW alerts can
+    be observed but not acted on without authorised abort
+
+Post-engagement:
+  → CSW timeline reconstruction: every flow attempted by red team,
+    every detection generated, every block enforced
+  → Gap analysis: which Art. 9 segmentation rules held, which were
+    bypassed, which detections fired vs. missed
+  → Evidence: full red-team activity reconstruction, comparable to the
+    findings report — this is the artefact the lead authority and
+    your management body will rely on most</code></pre>
+<p><strong>Evidence:</strong> (a) Art. 25 test catalogue with results
+and remediation status; (b) per-TLPT engagement reconstruction
+package.</p>
+<hr />
+<h2 id="articles-2830-ict-third-party-risk-technical-lens">9. Articles
+28–30 — ICT Third-Party Risk (Technical Lens)</h2>
+<p>DORA Pillar 4 is largely contractual and governance-driven (Articles
+28(3)–(7), 30 contractual provisions, 31–44 CTPP oversight). CSW does
+<em>not</em> substitute for the Register of Information or for legal
+review. It does answer the technical companion question: <em>what are my
+critical workloads actually doing with third parties?</em></p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Enumerate third-party egress per IBF
+  CSW UI → Investigate → Flow Search
+  Filter: source_scope = ibf_name=X AND destination_ip ∉ internal_ranges
+  → Group by destination FQDN/IP; rank by byte count, frequency
+  → Output: technical view of third-party dependency per IBF
+
+Step 2: Reconcile against the Register of Information
+  → For each observed third-party endpoint, find the corresponding entry
+    in the Register; flag missing / undocumented endpoints
+  → This is the *gap* between contracted and actual third-party usage
+
+Step 3: Enforce egress allow-listing for IBF workloads
+  ALLOW: IBF workloads → {Register-listed third-party endpoints only}
+  DENY:  IBF workloads → all other external destinations
+  → Run in Simulation; resolve gaps; promote to Enforce
+  → New third-party usage now requires Register update before deployment
+
+Step 4: Continuous monitoring
+  → CSW alert: &quot;new external destination from IBF workload&quot;
+  → Routes to ICT Risk function for Register reconciliation within
+    the cadence required under Art. 28(3)</code></pre>
+<p><strong>Evidence:</strong> (a) per-IBF third-party flow report; (b)
+Register-vs- observed delta report; (c) egress policy enforcement diff
+history.</p>
+<blockquote>
+<p><strong>Important caveat.</strong> A CTPP’s <em>internal</em> posture
+is out of scope for CSW unless that CTPP also runs CSW within its
+environment. Article 30 contractual provisions remain the primary
+control for CTPP behaviour outside your perimeter.</p>
+</blockquote>
+<hr />
+<h2 id="article-13-learning-and-evolving">10. Article 13 — Learning and
+Evolving</h2>
+<p>Article 13 requires a continuous-improvement loop. The combination of
+incident metrics (§7), test outcomes (§8) and third-party drift findings
+(§9) produces a quarterly evidence pack the management body can use to
+discharge its Article 5 accountability.</p>
+<p><strong>Recommended quarterly pack contents:</strong></p>
+<ol type="1">
+<li>IBF inventory drift summary</li>
+<li>Segmentation policy diff (changes, new exceptions, removed
+exceptions)</li>
+<li>Incident summary with MTTD/MTTR per IBF</li>
+<li>Vulnerability backlog aged by criticality</li>
+<li>Third-party egress drift summary</li>
+<li>Test programme status (Art. 25 baseline + Art. 26 TLPT cycle
+position)</li>
+<li>Open audit/competent-authority findings and remediation status</li>
+</ol>
+<hr />
+<h2 id="mapping-table-dora-article-csw-capability">11. Mapping Table —
+DORA Article → CSW Capability</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>DORA Article</th>
+<th>Requirement</th>
+<th>CSW Capability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td>Governance &amp; accountability</td>
+<td>Quarterly evidence pack to management body (§10)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>ICT risk management framework</td>
+<td>Centralised inventory, policy and detection state</td>
+</tr>
+<tr>
+<td>8(1)–(6)</td>
+<td>ICT asset inventory</td>
+<td>Continuous workload inventory + ADM dependency graph</td>
+</tr>
+<tr>
+<td>9(2)(a)</td>
+<td>Network segmentation</td>
+<td>Per-IBF segmentation workspaces, simulation→enforce</td>
+</tr>
+<tr>
+<td>9(2)(b)</td>
+<td>Identification of unauthorised activities</td>
+<td>ADM drift, conversation-graph anomalies</td>
+</tr>
+<tr>
+<td>9(4)(g)</td>
+<td>Continuous review of segmentation</td>
+<td>Quarterly policy diff report</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Detection</td>
+<td>Behavioural rules + SIEM forwarding</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Response and recovery</td>
+<td>Quarantine policy + forensic export bundle</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Learning and evolving</td>
+<td>Quarterly metrics pack</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Incident management process</td>
+<td>Forensic timeline reconstruction</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Classification of incidents</td>
+<td>IBF labels + flow context inform classification</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Reporting deadlines (4h / 72h / 1mo)</td>
+<td>Six-artefact dossier (§7)</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Testing programme</td>
+<td>Vulnerability + scenario test evidence</td>
+</tr>
+<tr>
+<td>25(1)</td>
+<td>Baseline tests</td>
+<td>CVE dashboard + reachability queries</td>
+</tr>
+<tr>
+<td>26</td>
+<td>TLPT</td>
+<td>Red-team activity reconstruction</td>
+</tr>
+<tr>
+<td>28(3)</td>
+<td>Register of Information</td>
+<td>Third-party egress reconciliation feed</td>
+</tr>
+<tr>
+<td>28(4)</td>
+<td>Third-party risk monitoring</td>
+<td>Continuous outbound flow monitoring</td>
+</tr>
+<tr>
+<td>30(2)(c)</td>
+<td>Contractual right to monitor</td>
+<td>Technical evidence supporting contractual right</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="auditor-competent-authority-response-guide">12. Auditor /
+Competent-Authority Response Guide</h2>
+<p>When asked under Article 50 (information requests) for evidence:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Authority asks</th>
+<th>You provide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Show your IBF asset inventory as of [date]”</td>
+<td>CSW inventory snapshot filtered by <code>dora_ibf=true</code>,
+dated</td>
+</tr>
+<tr>
+<td>“Demonstrate segmentation between IBF A and IBF B”</td>
+<td>Workspace export + Simulation run showing zero allowed flows between
+scopes</td>
+</tr>
+<tr>
+<td>“Provide the incident timeline for event [ID]”</td>
+<td>Six-artefact dossier (§7)</td>
+</tr>
+<tr>
+<td>“Show how you monitor third-party drift”</td>
+<td>Register-vs-observed delta report (§9)</td>
+</tr>
+<tr>
+<td>“Provide the TLPT remediation evidence”</td>
+<td>Pre/post reachability reports + workspace diff + detection rule
+additions</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-frameworks">13. Related Frameworks</h2>
+<p>DORA shares substantial control surface with:</p>
+<ul>
+<li><p><strong>NIS2</strong> — many of the Article 21(2) measures
+overlap with DORA Pillars 1–2 (see <a href="../NIS2/CSW-NIS2-Reference-Design.html">NIS2 reference
+design</a>).</p></li>
+<li><p><strong>ISO/IEC 27001:2022</strong> — Annex A controls map
+cleanly to DORA Pillar 1 (see <a href="../ISO-27001-2022/CSW-ISO27001-Reference-Design.html">ISO 27001
+reference design</a>).</p></li>
+<li><p><strong>NIST SP 800-207</strong> — DORA’s segmentation and
+continuous-monitoring expectations align with the seven ZTA tenets (see
+<a href="../NIST-800-207/CSW-NIST-800-207-Reference-Design.html">800-207
+reference design</a>).</p></li>
+<li><p><strong>PCI DSS v4.0</strong> — for payment-services entities,
+DORA Pillar 1 and PCI Reqs 1, 7, 10, 11 share evidence (see <a href="../PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.html">PCI reference
+design</a>).</p></li>
+<li><p><strong>UK NCSC CAF v3.2</strong> — Art. 28 and Art. 19 are the
+reuse path for CAF A4 and D1 (see <a href="../UK-NCSC-CAF/caf-mapping.html">CAF crosswalk</a>).</p></li>
+</ul>
+<hr />
+<h2 id="disclaimer">14. Disclaimer</h2>
+<p>This reference design describes how Cisco Secure Workload
+capabilities can support a DORA programme. It is <strong>not</strong>
+legal advice and does not constitute a finding of compliance. Final
+classification of incidents, identification of “important business
+functions,” determination of TLPT applicability, and contractual
+obligations under Articles 28–30 are the responsibility of the financial
+entity’s management body and its qualified legal and compliance counsel,
+working with the relevant competent authority. Always validate against
+the latest published RTS and ITS and against any guidance issued by your
+lead overseer.</p>
+</body>
+</html>

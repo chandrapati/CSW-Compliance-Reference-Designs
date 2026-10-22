@@ -23,7 +23,7 @@
   Over-claiming on a compliance or insurance call is the fastest way to lose a
   CISO's trust.
 - **Map, then prove.** Every claim in the conversation should point to an
-  artifact this repo already provides — a framework runbook, the
+  artifact this repo already provides — a framework reference design, the
   [evidence playbook](./compliance-evidence-playbook.md), or the
   [scope design guide](./framework-scope-design.md).
 
@@ -136,21 +136,21 @@ DENY    env=nonprod       ->  app=payments  env=prod      (lateral)
 ## Act 3 — Frame it in their compliance language
 
 Now translate to the specific framework(s) that bind them, using this repo's
-runbooks as the proof the mapping is real (not marketing):
+reference designs as the proof the mapping is real (not marketing):
 
 | If they live under… | Lead with these controls | Repo asset |
 |---|---|---|
-| **PCI DSS v4.0** | CDE segmentation (Req 1.2), scope reduction, Req 11 testing inputs | [PCI runbook](../PCI-DSS-v4/CSW-PCI-DSS-Technical-Runbook.md) |
-| **HIPAA** / 2025 NPRM | ePHI isolation §164.312(a)(1); NPRM's *proposed* mandatory segmentation | [HIPAA](../HIPAA/CSW-HIPAA-Technical-Runbook.md) · [NPRM](../HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Technical-Runbook.md) |
-| **SOC 2** | Continuous CC6.x evidence vs point-in-time samples | [SOC 2 runbook](../SOC2/CSW-SOC2-Technical-Runbook.md) |
-| **NIST 800-53 / CSF 2.0** | AC-4 flow enforcement; CA-7 continuous monitoring | [800-53](../NIST-800-53/CSW-NIST-800-53-Technical-Runbook.md) · [CSF](../NIST-CSF-2/CSW-CSF-Technical-Runbook.md) |
-| **NY DFS 500 / MAS / APRA** | Covered-system segmentation; third-party egress; incident support | [NY DFS](../NY-DFS-23-NYCRR-500/CSW-NYDFS-Technical-Runbook.md) |
-| **DORA / NIS2** | Art. 9 / Art. 21 segmentation; incident dossier timelines | [DORA](../DORA/CSW-DORA-Technical-Runbook.md) · [NIS2](../NIS2/CSW-NIS2-Technical-Runbook.md) |
-| **Zero-trust mandate** | CISA ZTMM Networks pillar; 800-207 PEP placement | [ZTMM](../CISA-ZeroTrust/CSW-CISA-ZTMM-Technical-Runbook.md) |
+| **PCI DSS v4.0** | CDE segmentation (Req 1.2), scope reduction, Req 11 testing inputs | [PCI reference design](../PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.md) |
+| **HIPAA** / 2025 NPRM | ePHI isolation §164.312(a)(1); NPRM's *proposed* mandatory segmentation | [HIPAA](../HIPAA/CSW-HIPAA-Reference-Design.md) · [NPRM](../HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.md) |
+| **SOC 2** | Continuous CC6.x evidence vs point-in-time samples | [SOC 2 reference design](../SOC2/CSW-SOC2-Reference-Design.md) |
+| **NIST 800-53 / CSF 2.0** | AC-4 flow enforcement; CA-7 continuous monitoring | [800-53](../NIST-800-53/CSW-NIST-800-53-Reference-Design.md) · [CSF](../NIST-CSF-2/CSW-CSF-Reference-Design.md) |
+| **NY DFS 500 / MAS / APRA** | Covered-system segmentation; third-party egress; incident support | [NY DFS](../NY-DFS-23-NYCRR-500/CSW-NYDFS-Reference-Design.md) |
+| **DORA / NIS2** | Art. 9 / Art. 21 segmentation; incident dossier timelines | [DORA](../DORA/CSW-DORA-Reference-Design.md) · [NIS2](../NIS2/CSW-NIS2-Reference-Design.md) |
+| **Zero-trust mandate** | CISA ZTMM Networks pillar; 800-207 PEP placement | [ZTMM](../CISA-ZeroTrust/CSW-CISA-ZTMM-Reference-Design.md) |
 
 > **Alex:** Whichever of these you're graded on, the underlying ask is the same
 > control — enforced segmentation with living evidence. We have a control-by-control
-> runbook for each so your GRC team sees the exact CSW step and the exact export,
+> reference design for each so your GRC team sees the exact CSW step and the exact export,
 > and your assessor sees something real. Start with the
 > [evidence playbook](./compliance-evidence-playbook.md); it's framework-agnostic.
 
@@ -224,7 +224,7 @@ same control your IR team needs. One investment, three audiences.
 **Concrete next steps to leave on the table:**
 
 1. Share the [evidence playbook](./compliance-evidence-playbook.md) and the
-   runbook(s) for their binding framework(s).
+   reference design(s) for their binding framework(s).
 2. Agree the **one application** and success criteria for the POV (use the
    [scope design guide](./framework-scope-design.md)).
 3. Get the **insurance renewal date** and the supplemental questionnaire; map its
@@ -249,7 +249,7 @@ same control your IR team needs. One investment, three audiences.
 
 ## Leave-behind checklist (send within 24h)
 
-- [ ] Links: [README asset library](../README.md), the binding-framework runbook(s),
+- [ ] Links: [README asset library](../README.md), the binding-framework reference design(s),
       [evidence playbook](./compliance-evidence-playbook.md).
 - [ ] The **Act 4 control-mapping table** as their insurance-prep worksheet.
 - [ ] One-paragraph POV scope (the single application + simulate-only + evidence pack).

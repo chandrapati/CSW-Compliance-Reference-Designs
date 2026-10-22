@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>HITRUST CSF (v11) — Reference Design</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-HITRUST-Reference-Design.html">CSW-HITRUST-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-07T17:30:36Z UTC · Repository commit: a630820</div>
+<header id="title-block-header">
+<h1 class="title">HITRUST CSF (v11) — Reference Design</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload-hitrust-csf-v11" id="toc-cisco-secure-workload-hitrust-csf-v11">Cisco Secure Workload —
+HITRUST CSF v11</a>
+<ul>
+<li><a href="#reference-design-certifiable-security-privacy-programs" id="toc-reference-design-certifiable-security-privacy-programs">Reference
+Design | Certifiable Security &amp; Privacy Programs</a></li>
+<li><a href="#readers-guide" id="toc-readers-guide">Reader’s
+Guide</a></li>
+<li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</a></li>
+<li><a href="#universal-evidence-workflow" id="toc-universal-evidence-workflow">Universal evidence workflow</a>
+<ul>
+<li><a href="#phase-1-checklist-coverage" id="toc-phase-1-checklist-coverage">Phase 1 checklist
+(coverage)</a></li>
+<li><a href="#phase-2-checklist-baseline" id="toc-phase-2-checklist-baseline">Phase 2 checklist
+(baseline)</a></li>
+<li><a href="#phase-3-checklist-policy" id="toc-phase-3-checklist-policy">Phase 3 checklist (policy)</a></li>
+<li><a href="#phase-4-checklist-operate" id="toc-phase-4-checklist-operate">Phase 4 checklist (operate)</a></li>
+<li><a href="#what-csw-evidence-does-not-replace" id="toc-what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</a></li>
+</ul></li>
+<li><a href="#csw-effectiveness-for-this-framework" id="toc-csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</a></li>
+<li><a href="#overview" id="toc-overview">1. Overview</a>
+<ul>
+<li><a href="#hitrust-harmonisation-context" id="toc-hitrust-harmonisation-context">1.1 HITRUST Harmonisation
+Context</a></li>
+<li><a href="#hitrust-domain-themes-csw-capabilities-summary" id="toc-hitrust-domain-themes-csw-capabilities-summary">1.2 HITRUST
+Domain Themes → CSW Capabilities (Summary)</a></li>
+</ul></li>
+<li><a href="#pre-deployment-checklist" id="toc-pre-deployment-checklist">2. Pre-Deployment Checklist</a></li>
+<li><a href="#phase-1-sensor-deployment-days-17" id="toc-phase-1-sensor-deployment-days-17">3. Phase 1 — Sensor
+Deployment (Days 1–7)</a>
+<ul>
+<li><a href="#standard-agent-deployment-linux-example" id="toc-standard-agent-deployment-linux-example">3.1 Standard Agent
+Deployment (Linux Example)</a></li>
+<li><a href="#cloud-agentless-augmentation" id="toc-cloud-agentless-augmentation">3.2 Cloud / Agentless
+Augmentation</a></li>
+<li><a href="#coverage-validation" id="toc-coverage-validation">3.3
+Coverage Validation</a></li>
+</ul></li>
+<li><a href="#phase-2-scope-segmentation-design-days-514" id="toc-phase-2-scope-segmentation-design-days-514">4. Phase 2 — Scope
+&amp; Segmentation Design (Days 5–14)</a>
+<ul>
+<li><a href="#scope-hierarchy-example" id="toc-scope-hierarchy-example">4.1 Scope Hierarchy (Example)</a></li>
+<li><a href="#labels-for-assessment-traceability" id="toc-labels-for-assessment-traceability">4.2 Labels for Assessment
+Traceability</a></li>
+</ul></li>
+<li><a href="#phase-3-visibility-baseline-adm-days-735" id="toc-phase-3-visibility-baseline-adm-days-735">5. Phase 3 —
+Visibility, Baseline &amp; ADM (Days 7–35)</a>
+<ul>
+<li><a href="#application-dependency-mapping-10.a-security-requirements-analysis" id="toc-application-dependency-mapping-10.a-security-requirements-analysis">5.1
+Application Dependency Mapping (10.a — Security Requirements
+Analysis)</a></li>
+<li><a href="#network-segregation-visibility-01.m-01.n-01.o" id="toc-network-segregation-visibility-01.m-01.n-01.o">5.2 Network
+Segregation Visibility (01.m / 01.n / 01.o)</a></li>
+</ul></li>
+<li><a href="#phase-4-policy-design-enforcement-monitoring-days-2560" id="toc-phase-4-policy-design-enforcement-monitoring-days-2560">6. Phase
+4 — Policy Design, Enforcement &amp; Monitoring (Days 25–60)</a>
+<ul>
+<li><a href="#policy-workspace" id="toc-policy-workspace">6.1 Policy
+Workspace</a></li>
+<li><a href="#illustrative-policy-snippets-logical" id="toc-illustrative-policy-snippets-logical">6.2 Illustrative Policy
+Snippets (Logical)</a></li>
+</ul></li>
+<li><a href="#phase-5-control-by-control-mapping-csf-v11-statements-key-user-references" id="toc-phase-5-control-by-control-mapping-csf-v11-statements-key-user-references">7.
+Phase 5 — Control-by-Control Mapping (CSF v11 Statements — Key User
+References)</a>
+<ul>
+<li><a href="#hitrust-source-framework-cross-walk-where-overlapping-prs-exist" id="toc-hitrust-source-framework-cross-walk-where-overlapping-prs-exist">7.1
+HITRUST ↔︎ Source Framework Cross-Walk (Where Overlapping PRS
+Exist)</a></li>
+</ul></li>
+<li><a href="#boundaries-what-csw-does-not-cover" id="toc-boundaries-what-csw-does-not-cover">8. Boundaries — What CSW
+Does <strong>Not</strong> Cover</a></li>
+<li><a href="#audit-preparation-evidence-export" id="toc-audit-preparation-evidence-export">9. Audit Preparation &amp;
+Evidence Export</a>
+<ul>
+<li><a href="#hitrust-friendly-evidence-catalogue-technical" id="toc-hitrust-friendly-evidence-catalogue-technical">9.1
+HITRUST-Friendly Evidence Catalogue (Technical)</a></li>
+<li><a href="#bash-packaging-example" id="toc-bash-packaging-example">9.2 Bash / Packaging Example</a></li>
+<li><a href="#siem-ticketing-integration" id="toc-siem-ticketing-integration">9.3 SIEM &amp; Ticketing
+Integration</a></li>
+</ul></li>
+<li><a href="#vulnerability-compensating-controls-10.m-depth" id="toc-vulnerability-compensating-controls-10.m-depth">10.
+Vulnerability &amp; Compensating Controls (10.m Depth)</a></li>
+<li><a href="#common-pitfalls" id="toc-common-pitfalls">11. Common
+Pitfalls</a></li>
+<li><a href="#appendix-a-assessment-levels-e1-i1-r2" id="toc-appendix-a-assessment-levels-e1-i1-r2">Appendix A — Assessment
+Levels (e1, i1, r2)</a></li>
+<li><a href="#appendix-b-cross-reference-index-to-repo-reference-designs" id="toc-appendix-b-cross-reference-index-to-repo-reference-designs">Appendix
+B — Cross-Reference Index to Repo Reference designs</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload-hitrust-csf-v11">Cisco Secure Workload —
+HITRUST CSF v11</h1>
+<h2 id="reference-design-certifiable-security-privacy-programs">Reference
+Design | Certifiable Security &amp; Privacy Programs</h2>
+<p><strong>Version:</strong> 1.0<br />
+<strong>Use Case:</strong> Fresh Install, Hybrid Environment (On-Prem +
+Cloud)<br />
+<strong>Framework Reference:</strong> HITRUST CSF v11 (MyCSF / assessed
+programs)</p>
+<hr />
+<h2 id="readers-guide">Reader’s Guide</h2>
+<p><strong>Who this is for.</strong> Organisations pursuing
+<strong>HITRUST certification or re-certification</strong> (healthcare,
+payer, SaaS, business associates) and security architects implementing
+<strong>assessment level</strong> obligations across harmonised controls
+drawn from <strong>HIPAA</strong>, <strong>ISO 27001</strong>,
+<strong>NIST SP 800-53</strong>, <strong>PCI DSS</strong>, and related
+sources.</p>
+<p><strong>Questions this reference design helps you
+answer:</strong></p>
+<ul>
+<li><em>How do I demonstrate <strong>continuous technical
+enforcement</strong> for network segregation and connection control—not
+only annual policy PDFs?</em> (01.m, 01.n, 01.o)</li>
+<li><em>What machine-generated evidence supports <strong>monitoring of
+system use</strong> and <strong>administrator / operator
+traceability</strong> between assessments?</em> (09.ab, 09.ad)</li>
+<li><em>How does <strong>ADM</strong> help with <strong>security
+requirements analysis</strong> and dependency mapping during design
+changes or M&amp;A integrations?</em> (10.a)</li>
+<li><em>Where do <strong>CVE awareness + reachability</strong>
+strengthen <strong>control of technical vulnerabilities</strong> between
+scans and patch cycles?</em> (10.m)</li>
+<li><em>What forensic-ready exports support <strong>reporting
+information security events</strong> and <strong>collection of
+evidence</strong> during incidents?</em> (11.a, 11.c)</li>
+</ul>
+<p><strong>What you’ll need.</strong> Your <strong>HITRUST
+scope</strong> (systems, facilities, cloud), the <strong>selected
+assessment levels</strong> (e.g., e1, i1, r2) for in-scope requirements,
+PRS/statement mappings from your assessor or MyCSF export, and
+<strong>cross-walks</strong> to any organization-specific control
+IDs.</p>
+<p><strong>Where to start.</strong> Sections 1–2 for framing; 3–6 for
+deployment; 7 for <strong>requirement-level</strong> mapping to CSW; 8
+for boundaries; 9–10 for evidence; Appendix A for <strong>assessment
+levels</strong>; Appendix B for <strong>cross-framework</strong>
+reference design pointers.</p>
+<hr />
+<!-- CSW-RUNBOOK-PRIMER:v1 -->
+<h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</h2>
+<p>Cisco Secure Workload (CSW) is a <strong>workload protection
+platform</strong>. A lightweight <strong>agent</strong> on each
+server/VM/container observes processes and network flows; <strong>cloud
+connectors</strong> add AWS/Azure/GCP inventory where agents are not
+deployed.</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW term</th>
+<th>Meaning</th>
+<th>Why compliance teams care</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Logical boundary (CDE, PHI zone, CUI enclave)</td>
+<td>Defines the systems you must prove are isolated</td>
+</tr>
+<tr>
+<td><strong>Label / filter</strong></td>
+<td>Tag or query assigning workloads to scopes</td>
+<td>Automates scope membership — reduces drift</td>
+</tr>
+<tr>
+<td><strong>ADM</strong></td>
+<td>Application Dependency Mapping from observed traffic</td>
+<td><strong>Live</strong> network/data-flow diagram for assessors</td>
+</tr>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>Policy container for one scope or application</td>
+<td>Where allow/deny rules are authored</td>
+</tr>
+<tr>
+<td><strong>Monitor → Simulation → Enforce</strong></td>
+<td>Safe rollout sequence</td>
+<td>Simulation = change-board evidence before blocking traffic</td>
+</tr>
+<tr>
+<td><strong>Denied Connections</strong></td>
+<td>Log of flows blocked by policy</td>
+<td>Primary proof that enforcement <strong>operates</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Console areas:</strong> Investigate (inventory, flows, vulns)
+· Defend/Segmentation (policy) · Manage (agents) · Platform (connectors)
+· Administration (audit log)</p>
+<p><strong>Read next:</strong> <a href="../docs/compliance-evidence-playbook.html">Compliance evidence
+playbook</a> (full step-by-step) · <a href="../docs/about-csw.html">About
+CSW</a> (platform intro)</p>
+<hr />
+<h2 id="universal-evidence-workflow">Universal evidence workflow</h2>
+<p>Execute these phases for <strong>this framework’s</strong> compliance
+boundary. Map exports to control IDs in the <strong>Reporting &amp;
+Evidence</strong> section below.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Key CSW actions</th>
+<th>Typical duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Coverage</strong></td>
+<td>Every in-scope workload in CSW</td>
+<td>Install agents/connectors; apply compliance labels; create
+scope</td>
+<td>Days 1–10</td>
+</tr>
+<tr>
+<td><strong>2 — Baseline</strong></td>
+<td>Machine-generated flow map</td>
+<td>Run ADM ≥2 weeks; export clusters; app-owner signoff</td>
+<td>Days 11–28</td>
+</tr>
+<tr>
+<td><strong>3 — Policy</strong></td>
+<td>Designed isolation before enforce</td>
+<td>Build workspace; Simulation mode; fix false positives</td>
+<td>Days 29–45</td>
+</tr>
+<tr>
+<td><strong>4 — Operate</strong></td>
+<td>Continuous proof between audits</td>
+<td>Enforce; quarterly export pack; ADM refresh every 90 days</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-checklist-coverage">Phase 1 checklist (coverage)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>In-scope host list reconciled to CSW
+Inventory (100% or documented exceptions)</label></li>
+<li><label><input type="checkbox"></input>Labels applied:
+<code>compliance:&lt;framework&gt;</code>,
+<code>data:&lt;classification&gt;</code>,
+<code>env:&lt;tier&gt;</code></label></li>
+<li><label><input type="checkbox"></input>CSW scope created matching
+compliance boundary</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> inventory
+CSV + agent status screenshot</label></li>
+</ul>
+<h3 id="phase-2-checklist-baseline">Phase 2 checklist (baseline)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>ADM running on compliance scope for
+full business cycle (≥2 weeks)</label></li>
+<li><label><input type="checkbox"></input>Unexpected flows documented (shadow
+IT, vendor egress, scope creep)</label></li>
+<li><label><input type="checkbox"></input>App owners signed
+cluster-to-application mapping</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> ADM diagram
++ flow samples with process context</label></li>
+</ul>
+<h3 id="phase-3-checklist-policy">Phase 3 checklist (policy)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Default-deny posture defined for
+sensitive scope</label></li>
+<li><label><input type="checkbox"></input>ADM-imported rules refined;
+Simulation run ≥1 week</label></li>
+<li><label><input type="checkbox"></input>Change tickets for false-positive
+fixes; exception register updated</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> policy
+export + simulation report</label></li>
+</ul>
+<h3 id="phase-4-checklist-operate">Phase 4 checklist (operate)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Enforcement enabled on pilot scope;
+negative test recorded in Denied Connections</label></li>
+<li><label><input type="checkbox"></input>Quarterly pack: inventory, policy,
+denies, vulns, audit log (see playbook)</label></li>
+<li><label><input type="checkbox"></input>SIEM integration verified (sample
+events)</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> enforcement
+screenshot + quarterly binder</label></li>
+</ul>
+<h3 id="what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</h3>
+<p>Physical access, HR/training records, encryption key management,
+signed BAAs/vendor contracts, formal pen tests, and assessor attestation
+still require separate programmes. CSW addresses the
+<strong>workload-resident</strong> slice: segmentation, flows, process
+context, vuln reachability, and change drift.</p>
+<hr />
+<h2 id="csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</h2>
+<ul>
+<li>Harmonized HIPAA+ISO+NIST+PCI evidence in one scope model</li>
+<li>e1/i1/r2 assessment level guidance</li>
+<li>Single workload evidence source for multiple inherited controls</li>
+</ul>
+<p><strong>Compared to manual programmes:</strong> static diagrams and
+annual firewall samples age immediately; CSW ties evidence to
+<strong>live workload behaviour</strong> and produces queryable exports
+on demand — supporting “operating effectively” language in PCI v4.0, SOC
+2 CC7, and HIPAA risk analysis.</p>
+<hr />
+<h2 id="overview">1. Overview</h2>
+<p><strong>HITRUST CSF v11</strong> is a <strong>certifiable</strong>
+control framework that <strong>harmonises</strong> multiple regulatory
+and standards baselines. CSW contributes <strong>technical and
+operational evidence</strong> where controls expect <strong>network
+segregation, connection control, continuous monitoring of workloads,
+vulnerability context, and forensic visibility</strong>—without
+replacing governance, risk analysis, privacy programme elements, or
+assessor judgement.</p>
+<h3 id="hitrust-harmonisation-context">1.1 HITRUST Harmonisation
+Context</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Harmonised Baseline (Examples)</th>
+<th>Role in Typical HITRUST Engagement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HIPAA Security Rule</td>
+<td>Healthcare privacy/security posture</td>
+</tr>
+<tr>
+<td>ISO/IEC 27001 / 27002</td>
+<td>ISMS-aligned management system evidence</td>
+</tr>
+<tr>
+<td>NIST SP 800-53</td>
+<td>Control depth for federal-style rigour</td>
+</tr>
+<tr>
+<td>PCI DSS</td>
+<td>Payment environments inside hybrid scope</td>
+</tr>
+<tr>
+<td>NIST CSF / others (per your factor analysis)</td>
+<td>Risk program alignment</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Cross-reference:</strong> This repo includes dedicated CSW
+reference designs for <a href="../HIPAA/CSW-HIPAA-Reference-Design.html">HIPAA</a>, <a href="../ISO-27001-2022/CSW-ISO27001-Reference-Design.html">ISO/IEC
+27001:2022</a>, <a href="../NIST-800-53/CSW-NIST-800-53-Reference-Design.html">NIST SP
+800-53</a>, and <a href="../PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.html">PCI DSS v4.0</a>.
+Use them when your HITRUST statement explicitly cites those underlying
+requirements.</p>
+</blockquote>
+<h3 id="hitrust-domain-themes-csw-capabilities-summary">1.2 HITRUST
+Domain Themes → CSW Capabilities (Summary)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSF Domain Theme (Illustrative)</th>
+<th>Representative Topics</th>
+<th>Relevant CSW Capabilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>01</strong> — Network / connectivity</td>
+<td>Segregation, connection &amp; routing control</td>
+<td>Microsegmentation, policy enforcement, flow visibility</td>
+</tr>
+<tr>
+<td><strong>06</strong> — Data management</td>
+<td>Protection, handling mapping</td>
+<td>Data-flow mapping (technical), isolation enforcement</td>
+</tr>
+<tr>
+<td><strong>09</strong> — Monitoring &amp; logging</td>
+<td>System use, privileged activity evidence</td>
+<td>Continuous monitoring, process telemetry, exports</td>
+</tr>
+<tr>
+<td><strong>10</strong> — Vulnerability / change</td>
+<td>Requirements analysis, technical vulnerability mgmt</td>
+<td>ADM, CVE + reachability, drift signals</td>
+</tr>
+<tr>
+<td><strong>11</strong> — Incident mgmt</td>
+<td>Reporting, evidence handling</td>
+<td>Forensic timelines, snapshots, integrations</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Notation:</strong> Requirement identifiers such as
+<strong>01.m</strong> follow common HITRUST short-form references used
+in assessment discussions. <strong>Confirm exact PRS text and
+keys</strong> in your MyCSF/MyCSF export—HITRUST wording evolves by
+release and factor analysis.</p>
+</blockquote>
+<hr />
+<h2 id="pre-deployment-checklist">2. Pre-Deployment Checklist</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"></input><strong>HITRUST scope</strong>
+document current (systems, sites, cloud accounts, outsourced
+functions)</label></li>
+<li><label><input type="checkbox"></input><strong>Assessment levels</strong>
+selected per requirement (e.g., e1 / i1 / r2—see Appendix A) and agreed
+with assessor</label></li>
+<li><label><input type="checkbox"></input><strong>Data classification</strong>
+map available for in-scope workloads</label></li>
+<li><label><input type="checkbox"></input>CSW cluster online; connectivity
+from workloads (typically <strong>443 outbound</strong>)</label></li>
+<li><label><input type="checkbox"></input>Sensor support matrix validated for
+all <strong>in-scope OSes / containers</strong> (per vendor
+guidance)</label></li>
+<li><label><input type="checkbox"></input>Cloud connectors (AWS/Azure/GCP)
+configured if workloads are IaaS/PaaS</label></li>
+<li><label><input type="checkbox"></input>Stakeholders: Risk owner, ISO,
+SOC/IR, GRC tooling admin, platform owners</label></li>
+<li><label><input type="checkbox"></input>Change approvals for
+<strong>monitoring-first</strong> deployment (no Day-1
+enforcement)</label></li>
+</ul>
+<hr />
+<h2 id="phase-1-sensor-deployment-days-17">3. Phase 1 — Sensor
+Deployment (Days 1–7)</h2>
+<h3 id="standard-agent-deployment-linux-example">3.1 Standard Agent
+Deployment (Linux Example)</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RHEL/CentOS family</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> rpm <span class="at">-ivh</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.rpm</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Debian/Ubuntu</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dpkg <span class="at">-i</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.deb</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Health check (service name may vary by packaging)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> status csw-agent <span class="kw">||</span> <span class="ex">systemctl</span> status tetration-agent</span></code></pre></div>
+<p><strong>Day-1 posture</strong></p>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enforcement</td>
+<td><strong>Off / Monitoring</strong></td>
+</tr>
+<tr>
+<td>Labels</td>
+<td><code>compliance:hitrust</code>, <code>hitrust-scope:in</code></td>
+</tr>
+<tr>
+<td>Collection</td>
+<td>Flow + process (+ vulnerability where licensed)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cloud-agentless-augmentation">3.2 Cloud / Agentless
+Augmentation</h3>
+<pre><code>CSW UI → Platform → External Orchestrators
+  → Connect cloud accounts (least privilege)
+  → Enable flow telemetry pathways (e.g., VPC/VNet flow logs) where used</code></pre>
+<h3 id="coverage-validation">3.3 Coverage Validation</h3>
+<pre><code>CSW UI → Manage → Agents
+  → Filter labels: hitrust-scope=in
+  → Confirm 100% of production in-scope instances **active** (target)</code></pre>
+<p><strong>Evidence:</strong> Screenshot or API export of agent
+inventory + version compliance.</p>
+<hr />
+<h2 id="phase-2-scope-segmentation-design-days-514">4. Phase 2 — Scope
+&amp; Segmentation Design (Days 5–14)</h2>
+<h3 id="scope-hierarchy-example">4.1 Scope Hierarchy (Example)</h3>
+<pre><code>Root Scope
+└── HITRUST-In-Scope
+    ├── PHI-Production (if healthcare data present)
+    ├── PCI-CDE-Connected (if card data adjacent)
+    ├── Enterprise-Critical (shared services — justify narrowing)
+    └── Sandboxed-DevTest (usually policy-parity, non-prod evidence optional)</code></pre>
+<p>Align scopes to <strong>risk tiers</strong> in your HITRUST
+<strong>risk analysis</strong> record.</p>
+<h3 id="labels-for-assessment-traceability">4.2 Labels for Assessment
+Traceability</h3>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hitrust-scope</code></td>
+<td>in | out | dual</td>
+</tr>
+<tr>
+<td><code>data-class</code></td>
+<td>phi | pii | confidential | public</td>
+</tr>
+<tr>
+<td><code>tier</code></td>
+<td>critical | high | medium</td>
+</tr>
+<tr>
+<td><code>owner</code></td>
+<td>team accountable for control operation</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-3-visibility-baseline-adm-days-735">5. Phase 3 —
+Visibility, Baseline &amp; ADM (Days 7–35)</h2>
+<h3 id="application-dependency-mapping-10.a-security-requirements-analysis">5.1
+Application Dependency Mapping (10.a — Security Requirements
+Analysis)</h3>
+<p>CSW <strong>ADM</strong> validates <strong>as-designed vs
+as-observed</strong> connectivity—critical when HITRUST expects evidence
+of <strong>security requirements analysis</strong> during architecture
+changes.</p>
+<pre><code>CSW UI → Investigate → Application Dependency Mapping
+  → Workspace: &quot;HITRUST-ADM-Baseline&quot;
+  → Scope: HITRUST-In-Scope (start broad; refine)
+  → Window: ≥2–4 weeks
+  → Enable process context; user context where supported</code></pre>
+<p><strong>Workflow</strong></p>
+<ol type="1">
+<li>Export cluster + edge inventory.<br />
+</li>
+<li>Compare to <strong>approved connection matrix / data-flow
+diagrams</strong>.<br />
+</li>
+<li>File <strong>exceptions</strong> or <strong>change records</strong>
+for every undocumented path.<br />
+</li>
+<li>Promote refined scopes and policy candidates.</li>
+</ol>
+<h3 id="network-segregation-visibility-01.m-01.n-01.o">5.2 Network
+Segregation Visibility (01.m / 01.n / 01.o)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>CSW Angle</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>01.m</strong> Segregation in networks</td>
+<td>Workload-level <strong>segmentation</strong>; deny lateral movement
+by default in-policy</td>
+<td>Policy exports; ADM before/after</td>
+</tr>
+<tr>
+<td><strong>01.n</strong> Network connection control</td>
+<td><strong>Allowlists</strong> tied to apps/services; deny/residual
+logging</td>
+<td>Enforcement + violation stats</td>
+</tr>
+<tr>
+<td><strong>01.o</strong> Network routing control</td>
+<td><strong>Observed routing outcomes</strong> via flows (what actually
+connected, on which ports)</td>
+<td>Flow searches; path over time</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Assessment level nuance:</strong> Higher
+<strong>i1/r2</strong> rigour often expects <strong>ongoing</strong>
+validation artifacts, not a one-time screenshot—schedule quarterly ADM
+refresh.</p>
+</blockquote>
+<hr />
+<h2 id="phase-4-policy-design-enforcement-monitoring-days-2560">6. Phase
+4 — Policy Design, Enforcement &amp; Monitoring (Days 25–60)</h2>
+<h3 id="policy-workspace">6.1 Policy Workspace</h3>
+<pre><code>CSW UI → Defend → Segmentation
+  → Workspace: &quot;HITRUST-Technical-Enforcement&quot;
+  → Import ADM rules → shrink to **authorised** edges only
+  → Simulation → phased enforcement</code></pre>
+<h3 id="illustrative-policy-snippets-logical">6.2 Illustrative Policy
+Snippets (Logical)</h3>
+<p><strong>Segregation baseline (default deny between
+tiers):</strong></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rules</span><span class="kw">:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deny-High-to-PHI-Lateral</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">action</span><span class="kw">:</span><span class="at"> DENY</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">labels</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">tier</span><span class="kw">:</span><span class="at"> medium </span><span class="kw">}</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">destination</span><span class="kw">:</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">labels</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">data-class</span><span class="kw">:</span><span class="at"> phi </span><span class="kw">}</span></span></code></pre></div>
+<p><strong>Connection control (service allowlist):</strong></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rules</span><span class="kw">:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Allow-Approved-Web-To-API</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">action</span><span class="kw">:</span><span class="at"> ALLOW</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">labels</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">app-tier</span><span class="kw">:</span><span class="at"> web </span><span class="kw">}</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">destination</span><span class="kw">:</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">labels</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">app-tier</span><span class="kw">:</span><span class="at"> api </span><span class="kw">}</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">protocol</span><span class="kw">:</span><span class="at"> TCP</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">ports</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">443</span><span class="kw">]</span></span></code></pre></div>
+<p><strong>Monitoring-first alert on novel dependency:</strong></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rules</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Log-New-EastWest-Unapproved</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">action</span><span class="kw">:</span><span class="at"> ALERT</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">scope</span><span class="kw">:</span><span class="at"> HITRUST-In-Scope</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">destination</span><span class="kw">:</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">scope</span><span class="kw">:</span><span class="at"> HITRUST-In-Scope</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">match</span><span class="kw">:</span><span class="at"> not_in_adm_baseline: true</span></span></code></pre></div>
+<hr />
+<h2 id="phase-5-control-by-control-mapping-csf-v11-statements-key-user-references">7.
+Phase 5 — Control-by-Control Mapping (CSF v11 Statements — Key User
+References)</h2>
+<blockquote>
+<p>Replace bracketed notes with your <strong>exact PRS
+identifiers</strong> from MyCSF. <strong>Assessment columns</strong>
+show how rigour typically <strong>ramps</strong> from <strong>e1 → i1 →
+r2</strong> for technical evidence depth (see Appendix A).</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>HITRUST Ref</th>
+<th>Statement Theme (Short)</th>
+<th>CSW Capability</th>
+<th>Evidence Produced</th>
+<th>Typical Level Expectation*</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>01.m</strong></td>
+<td>Segregation in networks</td>
+<td><strong>Microsegmentation</strong> (allowlist/deny between
+labels/scopes); <strong>ADM</strong> proves intended isolation</td>
+<td>Policy exports; ADM diffs; violation reports</td>
+<td><strong>e1:</strong> design + samples; <strong>i1/r2:</strong>
+recurring automated exports, drift detection</td>
+</tr>
+<tr>
+<td><strong>01.n</strong></td>
+<td>Network connection control</td>
+<td><strong>Enforcement</strong> of authorised services/ports; logging
+of denials</td>
+<td>Enforcement mode history; connection control dashboards</td>
+<td><strong>i1/r2:</strong> stronger continuous proof</td>
+</tr>
+<tr>
+<td><strong>01.o</strong></td>
+<td>Network routing control</td>
+<td><strong>Flow-based visibility</strong> of <strong>effective</strong>
+paths; multi-hop context via telemetry</td>
+<td>Time-bounded flow searches; top-talkers &amp; new edges</td>
+<td><strong>r2:</strong> often pairs with formal residual risk
+treatment</td>
+</tr>
+<tr>
+<td><strong>06.d</strong></td>
+<td>Data protection &amp; privacy (technical facets)</td>
+<td><strong>Data-flow mapping</strong> at workload layer;
+<strong>isolation</strong> between classes</td>
+<td>Flow maps tagged by <code>data-class</code>; segregation
+policies</td>
+<td>Pair with <strong>privacy</strong> artifacts (RoPA, DPIA) external
+to CSW</td>
+</tr>
+<tr>
+<td><strong>09.ab</strong></td>
+<td>Monitoring system use</td>
+<td><strong>Continuous monitoring</strong> of flows/processes; anomaly
+detection</td>
+<td>24×7 monitoring exports; alert routing to SOC</td>
+<td>Integrate with SIEM narrative</td>
+</tr>
+<tr>
+<td><strong>09.ad</strong></td>
+<td>Administrator &amp; operator logs</td>
+<td><strong>Process + identity context</strong> on admin tooling paths;
+forensics exports</td>
+<td>Admin-path flow bundles; operator session timelines</td>
+<td>Correlate with IdP / privileged access logs</td>
+</tr>
+<tr>
+<td><strong>10.a</strong></td>
+<td>Security requirements analysis</td>
+<td><strong>ADM + change reviews</strong> for requirements
+validation</td>
+<td>Before/after ADM on change tickets; architecture review pack</td>
+<td>Strong fit for <strong>design-stage</strong> evidence</td>
+</tr>
+<tr>
+<td><strong>10.m</strong></td>
+<td>Control of technical vulnerabilities</td>
+<td><strong>CVE visibility + reachability</strong>; policy
+<strong>compensations</strong></td>
+<td>Scoped vulnerability reports; exposure ranked by workload
+criticality</td>
+<td>Combine with patch SLAs</td>
+</tr>
+<tr>
+<td><strong>11.a</strong></td>
+<td>Reporting information security events</td>
+<td><strong>Incident evidence</strong>: flows/processes for IOC
+timeboxes</td>
+<td>IR exports + ticketing references</td>
+<td>CSW supports <strong>evidence</strong>, not IR governance alone</td>
+</tr>
+<tr>
+<td><strong>11.c</strong></td>
+<td>Collection of evidence</td>
+<td><strong>Forensic snapshots</strong> (flows/process/policy
+versions)</td>
+<td>Signed export packages; hash manifests</td>
+<td>Chain-of-custody alignment</td>
+</tr>
+</tbody>
+</table>
+<p>* <strong>Typical expectation</strong> varies by <strong>assessor
+interpretation</strong>, <strong>organizational risk</strong>, and
+<strong>selected factors</strong>—treat this column as planning
+guidance, not a guarantee.</p>
+<h3 id="hitrust-source-framework-cross-walk-where-overlapping-prs-exist">7.1
+HITRUST ↔︎ Source Framework Cross-Walk (Where Overlapping PRS Exist)</h3>
+<p>When your MyCSF mapping cites an underlying clause, consult the
+matching repo reference design <strong>in addition</strong> to this
+document:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>If your PRS traces to…</th>
+<th>See Also</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HIPAA Security Rule technical/administrative themes</td>
+<td><a href="../HIPAA/CSW-HIPAA-Reference-Design.html">HIPAA</a></td>
+</tr>
+<tr>
+<td>ISO 27001 Annex A (network logging, segregation)</td>
+<td><a href="../ISO-27001-2022/CSW-ISO27001-Reference-Design.html">ISO
+27001</a></td>
+</tr>
+<tr>
+<td>NIST 800-53 AC/SC/AU/SI families</td>
+<td><a href="../NIST-800-53/CSW-NIST-800-53-Reference-Design.html">NIST
+800-53</a></td>
+</tr>
+<tr>
+<td>PCI DSS Req 1/10/11-style evidence</td>
+<td><a href="../PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.html">PCI DSS
+v4</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="boundaries-what-csw-does-not-cover">8. Boundaries — What CSW
+Does <strong>Not</strong> Cover</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HITRUST certification decision</strong></td>
+<td>Only HITRUST / external assessors certify; CSW supplies
+artifacts.</td>
+</tr>
+<tr>
+<td><strong>Policy &amp; programme documents</strong></td>
+<td>Policies, standards, SoA, risk register <strong>narratives</strong>
+remain GRC tasks.</td>
+</tr>
+<tr>
+<td><strong>Privacy-specific legal controls</strong></td>
+<td>DPIA, lawful basis, consent, BAAs/DPA execution—legal/privacy
+teams.</td>
+</tr>
+<tr>
+<td><strong>Cryptographic implementations</strong></td>
+<td>Algorithm selection, key ceremony, HSM governance—outside CSW.</td>
+</tr>
+<tr>
+<td><strong>Endpoint AV / EDR</strong></td>
+<td>CSW complements but does not replace traditional malware
+controls.</td>
+</tr>
+<tr>
+<td><strong>Vulnerability scanning tools</strong></td>
+<td>CSW contextualises exposure; <strong>authenticated scans</strong>
+may still be required.</td>
+</tr>
+<tr>
+<td><strong>Physical security</strong></td>
+<td>Facilities, badges, cameras—out of scope.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="audit-preparation-evidence-export">9. Audit Preparation &amp;
+Evidence Export</h2>
+<h3 id="hitrust-friendly-evidence-catalogue-technical">9.1
+HITRUST-Friendly Evidence Catalogue (Technical)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Evidence</th>
+<th>CSW Source</th>
+<th>Useful For (Examples)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inventory &amp; label posture</td>
+<td>Manage → Inventory</td>
+<td>01.m / baseline scoping</td>
+</tr>
+<tr>
+<td>Segmentation policy + versions</td>
+<td>Defend → Segmentation</td>
+<td>01.m / 01.n</td>
+</tr>
+<tr>
+<td>ADM reports (time-stamped)</td>
+<td>Investigate → ADM</td>
+<td>01.o / 10.a</td>
+</tr>
+<tr>
+<td>Flow exports (samples + population stats)</td>
+<td>Flow Search</td>
+<td>06.d / 09.ab</td>
+</tr>
+<tr>
+<td>Process / admin path exports</td>
+<td>Process Search</td>
+<td>09.ad</td>
+</tr>
+<tr>
+<td>Vulnerability + reachability</td>
+<td>Vulnerability views</td>
+<td>10.m</td>
+</tr>
+<tr>
+<td>Alert history &amp; SOC tickets</td>
+<td>Alerts / integrations</td>
+<td>11.a</td>
+</tr>
+<tr>
+<td>Forensic bundles</td>
+<td>Combined export + hashes</td>
+<td>11.c</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bash-packaging-example">9.2 Bash / Packaging Example</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env bash</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="va">CYCLE</span><span class="op">=</span><span class="st">&quot;2026-05-HITRUST&quot;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="va">OUT</span><span class="op">=</span><span class="st">&quot;hitrust_tech_evidence_</span><span class="va">${CYCLE}</span><span class="st">&quot;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">&quot;</span><span class="va">${OUT}</span><span class="st">&quot;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace with supported CSW automation:</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># csw inventory export --labels hitrust-scope=in &gt; &quot;${OUT}/inventory.json&quot;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># csw policy export --workspace HITRUST-Technical-Enforcement &gt; &quot;${OUT}/policy.json&quot;</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># csw adm export --workspace HITRUST-ADM-Baseline &gt; &quot;${OUT}/adm_edges.csv&quot;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="bu">cd</span> <span class="st">&quot;</span><span class="va">${OUT}</span><span class="st">&quot;</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">find</span> . <span class="at">-type</span> f <span class="at">-print0</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-z</span> <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-0</span> sha256sum</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span> <span class="op">&gt;</span> <span class="st">&quot;</span><span class="va">${OUT}</span><span class="st">/SHA256SUMS.txt&quot;</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;Transmit </span><span class="va">${OUT}</span><span class="st"> via approved secure file transfer; retain manifest.&quot;</span></span></code></pre></div>
+<h3 id="siem-ticketing-integration">9.3 SIEM &amp; Ticketing
+Integration</h3>
+<ul>
+<li>Forward <strong>alerts</strong> and <strong>high-signal
+logs</strong> using CSW-supported integrations (Splunk, QRadar,
+Sentinel, Chronicle, etc.—per deployment).</li>
+<li>Always store <strong>correlation IDs</strong> linking SIEM events ↔︎
+CSW investigation UUIDs.</li>
+</ul>
+<hr />
+<h2 id="vulnerability-compensating-controls-10.m-depth">10.
+Vulnerability &amp; Compensating Controls (10.m Depth)</h2>
+<pre><code>CSW UI → Investigate → Vulnerability Report
+  → Scope: HITRUST-In-Scope + tier=critical
+  → Sort: Reachable from untrusted labels first
+  → Export for risk committee review</code></pre>
+<p><strong>Compensating pattern (illustrative):</strong></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rules</span><span class="kw">:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Compensate-Critical-CVE-442-limit-peers</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">action</span><span class="kw">:</span><span class="at"> ALLOW</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">labels</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">app-tier</span><span class="kw">:</span><span class="at"> trusted-integrators </span><span class="kw">}</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">destination</span><span class="kw">:</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">hosts</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">db-prod</span><span class="dv">-01</span><span class="kw">]</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">protocol</span><span class="kw">:</span><span class="at"> TCP</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">ports</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">5432</span><span class="kw">]</span></span></code></pre></div>
+<p>Document <strong>time-bound</strong> compensations with
+<strong>owners</strong> and <strong>expiry</strong> in your HITRUST risk
+register.</p>
+<hr />
+<h2 id="common-pitfalls">11. Common Pitfalls</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pitfall</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Treating <strong>ADM once</strong> as perpetual truth</td>
+<td>Quarterly or <strong>change-triggered</strong> reruns</td>
+</tr>
+<tr>
+<td>Over-segmenting <strong>shared services</strong></td>
+<td>Design <strong>narrow broker</strong> roles; avoid brittle
+allowlists</td>
+</tr>
+<tr>
+<td>Confusing <strong>network diagrams</strong> with <strong>observed
+flows</strong></td>
+<td>Lead assessors with <strong>ADM + flows</strong> side-by-side</td>
+</tr>
+<tr>
+<td>Missing <strong>container</strong> inventory</td>
+<td>Deploy supported visibility for orchestrated workloads</td>
+</tr>
+<tr>
+<td>Weak <strong>change record</strong> linkage</td>
+<td>Tie tickets → policy version bumps</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="appendix-a-assessment-levels-e1-i1-r2">Appendix A — Assessment
+Levels (e1, i1, r2)</h2>
+<p>HITRUST engagements commonly frame <strong>progressive
+assurance</strong> across requirements. <strong>Exact
+definitions</strong> are contractually specified in HITRUST methodology
+and your <strong>MyCSF</strong> program settings. <strong>Practical
+technical interpretation</strong> for CSW evidence:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Level</th>
+<th>Short Label (Colloquial)</th>
+<th>How CSW Evidence Usually Shows Up</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>e1</strong></td>
+<td><strong>Established</strong> baseline</td>
+<td><strong>Policies + sample exports</strong> showing controls exist;
+point-in-time <strong>inventory</strong></td>
+</tr>
+<tr>
+<td><strong>i1</strong></td>
+<td><strong>Implemented</strong> with ongoing operation</td>
+<td><strong>Scheduled</strong> exports, dashboards, alert routing
+proofs; <strong>months</strong> of history</td>
+</tr>
+<tr>
+<td><strong>r2</strong></td>
+<td><strong>Risk-based</strong> maturity depth</td>
+<td><strong>Continuous</strong> drift detection, robust exception
+handling, <strong>trend</strong> metrics, integration with enterprise
+GRC</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Always validate level selection with your <strong>HITRUST
+assessor</strong>—programs vary by <strong>industry factor
+analysis</strong> and <strong>relief</strong> choices.</p>
+</blockquote>
+<hr />
+<h2 id="appendix-b-cross-reference-index-to-repo-reference-designs">Appendix
+B — Cross-Reference Index to Repo Reference designs</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Framework</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HIPAA</td>
+<td><a href="../HIPAA/CSW-HIPAA-Reference-Design.html">../HIPAA/CSW-HIPAA-Reference-Design.md</a></td>
+</tr>
+<tr>
+<td>ISO/IEC 27001:2022</td>
+<td><a href="../ISO-27001-2022/CSW-ISO27001-Reference-Design.html">../ISO-27001-2022/CSW-ISO27001-Reference-Design.md</a></td>
+</tr>
+<tr>
+<td>NIST SP 800-53</td>
+<td><a href="../NIST-800-53/CSW-NIST-800-53-Reference-Design.html">../NIST-800-53/CSW-NIST-800-53-Reference-Design.md</a></td>
+</tr>
+<tr>
+<td>PCI DSS v4.0</td>
+<td><a href="../PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.html">../PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.md</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Document prepared for Cisco healthcare &amp; regulated SaaS
+engagements. Replace [Customer Name] and organization-specific
+identifiers before customer delivery.</em></p>
+</body>
+</html>

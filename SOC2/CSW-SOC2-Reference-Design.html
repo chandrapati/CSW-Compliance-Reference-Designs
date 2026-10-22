@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOC 2 Type II — Reference Design</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-SOC2-Reference-Design.html">CSW-SOC2-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-07T17:30:28Z UTC · Repository commit: a630820</div>
+<header id="title-block-header">
+<h1 class="title">SOC 2 Type II — Reference Design</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload-soc-2-compliance-framework" id="toc-cisco-secure-workload-soc-2-compliance-framework">Cisco Secure
+Workload — SOC 2 Compliance Framework</a>
+<ul>
+<li><a href="#reference-design-enterprise-accounts" id="toc-reference-design-enterprise-accounts">Reference Design |
+Enterprise Accounts</a></li>
+<li><a href="#readers-guide" id="toc-readers-guide">Reader’s
+Guide</a></li>
+<li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</a></li>
+<li><a href="#universal-evidence-workflow" id="toc-universal-evidence-workflow">Universal evidence workflow</a>
+<ul>
+<li><a href="#phase-1-checklist-coverage" id="toc-phase-1-checklist-coverage">Phase 1 checklist
+(coverage)</a></li>
+<li><a href="#phase-2-checklist-baseline" id="toc-phase-2-checklist-baseline">Phase 2 checklist
+(baseline)</a></li>
+<li><a href="#phase-3-checklist-policy" id="toc-phase-3-checklist-policy">Phase 3 checklist (policy)</a></li>
+<li><a href="#phase-4-checklist-operate" id="toc-phase-4-checklist-operate">Phase 4 checklist (operate)</a></li>
+<li><a href="#what-csw-evidence-does-not-replace" id="toc-what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</a></li>
+</ul></li>
+<li><a href="#csw-effectiveness-for-this-framework" id="toc-csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</a></li>
+<li><a href="#overview" id="toc-overview">1. Overview</a>
+<ul>
+<li><a href="#soc-2-tsc-to-csw-capability-map" id="toc-soc-2-tsc-to-csw-capability-map">SOC 2 TSC to CSW Capability
+Map</a></li>
+</ul></li>
+<li><a href="#soc-2-audit-preparation-with-csw" id="toc-soc-2-audit-preparation-with-csw">2. SOC 2 Audit Preparation
+with CSW</a>
+<ul>
+<li><a href="#evidence-collection-timeline" id="toc-evidence-collection-timeline">2.1 Evidence Collection
+Timeline</a></li>
+<li><a href="#key-control-areas" id="toc-key-control-areas">2.2 Key
+Control Areas</a></li>
+</ul></li>
+<li><a href="#csw-deployment-for-soc-2" id="toc-csw-deployment-for-soc-2">3. CSW Deployment for SOC 2</a>
+<ul>
+<li><a href="#scope-definition" id="toc-scope-definition">3.1 Scope
+Definition</a></li>
+<li><a href="#policy-requirements-per-cc-control" id="toc-policy-requirements-per-cc-control">3.2 Policy Requirements per
+CC Control</a></li>
+<li><a href="#continuous-monitoring-setup" id="toc-continuous-monitoring-setup">3.3 Continuous Monitoring
+Setup</a></li>
+</ul></li>
+<li><a href="#evidence-package-for-soc-2-auditors" id="toc-evidence-package-for-soc-2-auditors">4. Evidence Package for SOC
+2 Auditors</a></li>
+<li><a href="#common-soc-2-audit-findings-csw-addresses" id="toc-common-soc-2-audit-findings-csw-addresses">5. Common SOC 2 Audit
+Findings CSW Addresses</a></li>
+<li><a href="#related-frameworks" id="toc-related-frameworks">Related
+Frameworks</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload-soc-2-compliance-framework">Cisco Secure
+Workload — SOC 2 Compliance Framework</h1>
+<h2 id="reference-design-enterprise-accounts">Reference Design |
+Enterprise Accounts</h2>
+<p><strong>Version:</strong> 1.0 | <strong>Standard:</strong> SOC 2 Type
+II (AICPA Trust Services Criteria)</p>
+<hr />
+<h2 id="readers-guide">Reader’s Guide</h2>
+<p><strong>Who this is for.</strong> Service organizations preparing for
+or maintaining an annual SOC 2 Type II attestation, and the security or
+GRC teams who own the report.</p>
+<p><strong>Questions this reference design helps you
+answer:</strong></p>
+<ul>
+<li><em>Which Common Criteria controls can I evidence with continuous
+data rather than point-in-time samples? Type II auditors increasingly
+prefer the former.</em> (CC6.1, CC6.6, CC7.2)</li>
+<li><em>When my auditor asks me to prove a segmentation control
+“operated effectively throughout the period”, what does the artifact
+look like?</em> (CC6.1, CC6.6)</li>
+<li><em>When a customer in due diligence asks “is workload X isolated
+from workload Y?”, can I prove it from live data instead of a network
+diagram?</em> (CC6.1, CC6.7)</li>
+<li><em>Are my privileged access changes producing the artifact format
+my auditor’s evidence template expects?</em> (CC6.2, CC6.3)</li>
+<li><em>For my Availability or Confidentiality TSC additions, what do I
+gain from workload-level telemetry that I don’t get today?</em></li>
+</ul>
+<p><strong>What you’ll need.</strong> A defined trust boundary (system
+description), your current TSC selection, and your auditor’s evidence
+request list or last year’s PBC list.</p>
+<p><strong>Where to start.</strong> Section 1 for the TSC↔︎CSW capability
+map; sections 2–3 to design evidence collection; sections 4–5 if you’re
+inside the audit window.</p>
+<hr />
+<!-- CSW-RUNBOOK-PRIMER:v1 -->
+<h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</h2>
+<p>Cisco Secure Workload (CSW) is a <strong>workload protection
+platform</strong>. A lightweight <strong>agent</strong> on each
+server/VM/container observes processes and network flows; <strong>cloud
+connectors</strong> add AWS/Azure/GCP inventory where agents are not
+deployed.</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW term</th>
+<th>Meaning</th>
+<th>Why compliance teams care</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Logical boundary (CDE, PHI zone, CUI enclave)</td>
+<td>Defines the systems you must prove are isolated</td>
+</tr>
+<tr>
+<td><strong>Label / filter</strong></td>
+<td>Tag or query assigning workloads to scopes</td>
+<td>Automates scope membership — reduces drift</td>
+</tr>
+<tr>
+<td><strong>ADM</strong></td>
+<td>Application Dependency Mapping from observed traffic</td>
+<td><strong>Live</strong> network/data-flow diagram for assessors</td>
+</tr>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>Policy container for one scope or application</td>
+<td>Where allow/deny rules are authored</td>
+</tr>
+<tr>
+<td><strong>Monitor → Simulation → Enforce</strong></td>
+<td>Safe rollout sequence</td>
+<td>Simulation = change-board evidence before blocking traffic</td>
+</tr>
+<tr>
+<td><strong>Denied Connections</strong></td>
+<td>Log of flows blocked by policy</td>
+<td>Primary proof that enforcement <strong>operates</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Console areas:</strong> Investigate (inventory, flows, vulns)
+· Defend/Segmentation (policy) · Manage (agents) · Platform (connectors)
+· Administration (audit log)</p>
+<p><strong>Read next:</strong> <a href="../docs/compliance-evidence-playbook.html">Compliance evidence
+playbook</a> (full step-by-step) · <a href="../docs/about-csw.html">About
+CSW</a> (platform intro)</p>
+<hr />
+<h2 id="universal-evidence-workflow">Universal evidence workflow</h2>
+<p>Execute these phases for <strong>this framework’s</strong> compliance
+boundary. Map exports to control IDs in the <strong>Reporting &amp;
+Evidence</strong> section below.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Key CSW actions</th>
+<th>Typical duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Coverage</strong></td>
+<td>Every in-scope workload in CSW</td>
+<td>Install agents/connectors; apply compliance labels; create
+scope</td>
+<td>Days 1–10</td>
+</tr>
+<tr>
+<td><strong>2 — Baseline</strong></td>
+<td>Machine-generated flow map</td>
+<td>Run ADM ≥2 weeks; export clusters; app-owner signoff</td>
+<td>Days 11–28</td>
+</tr>
+<tr>
+<td><strong>3 — Policy</strong></td>
+<td>Designed isolation before enforce</td>
+<td>Build workspace; Simulation mode; fix false positives</td>
+<td>Days 29–45</td>
+</tr>
+<tr>
+<td><strong>4 — Operate</strong></td>
+<td>Continuous proof between audits</td>
+<td>Enforce; quarterly export pack; ADM refresh every 90 days</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-checklist-coverage">Phase 1 checklist (coverage)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>In-scope host list reconciled to CSW
+Inventory (100% or documented exceptions)</label></li>
+<li><label><input type="checkbox"></input>Labels applied:
+<code>compliance:&lt;framework&gt;</code>,
+<code>data:&lt;classification&gt;</code>,
+<code>env:&lt;tier&gt;</code></label></li>
+<li><label><input type="checkbox"></input>CSW scope created matching
+compliance boundary</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> inventory
+CSV + agent status screenshot</label></li>
+</ul>
+<h3 id="phase-2-checklist-baseline">Phase 2 checklist (baseline)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>ADM running on compliance scope for
+full business cycle (≥2 weeks)</label></li>
+<li><label><input type="checkbox"></input>Unexpected flows documented (shadow
+IT, vendor egress, scope creep)</label></li>
+<li><label><input type="checkbox"></input>App owners signed
+cluster-to-application mapping</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> ADM diagram
++ flow samples with process context</label></li>
+</ul>
+<h3 id="phase-3-checklist-policy">Phase 3 checklist (policy)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Default-deny posture defined for
+sensitive scope</label></li>
+<li><label><input type="checkbox"></input>ADM-imported rules refined;
+Simulation run ≥1 week</label></li>
+<li><label><input type="checkbox"></input>Change tickets for false-positive
+fixes; exception register updated</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> policy
+export + simulation report</label></li>
+</ul>
+<h3 id="phase-4-checklist-operate">Phase 4 checklist (operate)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Enforcement enabled on pilot scope;
+negative test recorded in Denied Connections</label></li>
+<li><label><input type="checkbox"></input>Quarterly pack: inventory, policy,
+denies, vulns, audit log (see playbook)</label></li>
+<li><label><input type="checkbox"></input>SIEM integration verified (sample
+events)</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> enforcement
+screenshot + quarterly binder</label></li>
+</ul>
+<h3 id="what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</h3>
+<p>Physical access, HR/training records, encryption key management,
+signed BAAs/vendor contracts, formal pen tests, and assessor attestation
+still require separate programmes. CSW addresses the
+<strong>workload-resident</strong> slice: segmentation, flows, process
+context, vuln reachability, and change drift.</p>
+<hr />
+<h2 id="csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</h2>
+<ul>
+<li>CC6/CC7: continuous control operation vs. auditor sample
+windows</li>
+<li>Change and drift evidence from policy audit log + ADM refresh</li>
+<li>Customer due-diligence pack from repeatable quarterly exports</li>
+</ul>
+<p><strong>Compared to manual programmes:</strong> static diagrams and
+annual firewall samples age immediately; CSW ties evidence to
+<strong>live workload behaviour</strong> and produces queryable exports
+on demand — supporting “operating effectively” language in PCI v4.0, SOC
+2 CC7, and HIPAA risk analysis.</p>
+<hr />
+<h2 id="overview">1. Overview</h2>
+<p>SOC 2 Type II audits evaluate whether security controls operated
+effectively over a defined period (typically 6–12 months). Cisco Secure
+Workload (CSW) can support evidence for selected
+<strong>Security</strong> Trust Services Criteria (TSC) and contribute
+technical inputs to <strong>Availability</strong>,
+<strong>Confidentiality</strong>, and <strong>Processing
+Integrity</strong> criteria through workload visibility,
+micro-segmentation, vulnerability exposure context, and forensic
+telemetry.</p>
+<h3 id="soc-2-tsc-to-csw-capability-map">SOC 2 TSC to CSW Capability
+Map</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Trust Services Criteria</th>
+<th>CSW Capability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CC6 — Logical &amp; Physical Access</td>
+<td>Micro-segmentation, scope-based access enforcement</td>
+</tr>
+<tr>
+<td>CC7 — System Operations</td>
+<td>Anomaly detection, vulnerability exposure visibility, alerting</td>
+</tr>
+<tr>
+<td>CC8 — Change Management</td>
+<td>Policy workspace versioning, ADM drift detection</td>
+</tr>
+<tr>
+<td>CC9 — Risk Mitigation</td>
+<td>Vulnerability prioritization, compensating controls</td>
+</tr>
+<tr>
+<td>A1 — Availability</td>
+<td>Workload health monitoring, sensor telemetry</td>
+</tr>
+<tr>
+<td>C1 — Confidentiality</td>
+<td>PHI/PII zone isolation, encryption enforcement</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="soc-2-audit-preparation-with-csw">2. SOC 2 Audit Preparation
+with CSW</h2>
+<h3 id="evidence-collection-timeline">2.1 Evidence Collection
+Timeline</h3>
+<p>SOC 2 Type II requires evidence across the <strong>entire audit
+period</strong>. Configure CSW from Day 1:</p>
+<ul>
+<li>Enable full flow telemetry retention (minimum 12 months)</li>
+<li>Enable policy workspace audit logging</li>
+<li>Schedule monthly vulnerability scan exports</li>
+<li>Configure alert export to SIEM for centralized evidence
+collection</li>
+</ul>
+<h3 id="key-control-areas">2.2 Key Control Areas</h3>
+<p><strong>CC6.1 — Logical Access Controls</strong> - CSW enforces
+workload-level allowlist policies - Every inbound connection to
+sensitive workloads requires explicit policy approval - Policy
+violations logged with source, destination, process, and timestamp</p>
+<p><strong>CC6.6 — Network and Infrastructure Controls</strong> - ADM
+documents communication paths visible to CSW over the selected
+observation window; corroborate coverage gaps with other discovery
+sources - Micro-segmentation enforces least-privilege network access -
+External access paths (third-party, partner) isolated in dedicated CSW
+scopes</p>
+<p><strong>CC6.7 — Transmission of Confidential Information</strong> -
+CSW detects unencrypted transmission (HTTP, FTP, plain LDAP) - Alerts
+trigger on any plaintext flow from confidential data scopes - Encryption
+compliance report available for auditor evidence package</p>
+<p><strong>CC7.1 — Detection of Vulnerabilities</strong> - Continuous
+vulnerability exposure / CVE inventory for CSW-instrumented workloads -
+CVSS-scored reports with workload-level attribution - Remediation
+tracking via policy compensating controls</p>
+<p><strong>CC7.2 — Monitoring of System Components</strong> - Full
+process and network telemetry across all monitored workloads - Anomaly
+detection alerts on baseline deviation - Sensor health monitoring —
+alerts on agent offline events</p>
+<p><strong>CC7.3 — Evaluation of Security Events</strong> - Forensic
+telemetry supports security event investigation - Process-level audit
+trail: what ran, when, what it connected to - Flow search enables
+retrospective query across audit period</p>
+<hr />
+<h2 id="csw-deployment-for-soc-2">3. CSW Deployment for SOC 2</h2>
+<h3 id="scope-definition">3.1 Scope Definition</h3>
+<p>Define CSW scopes aligned to SOC 2 system boundaries:</p>
+<pre><code>Root Scope
+└── SOC2-Boundary (audit scope)
+    ├── Production-Systems (primary controls)
+    │   ├── Application-Servers
+    │   ├── Databases
+    │   └── APIs
+    ├── Supporting-Infrastructure
+    │   ├── Auth-Systems (LDAP/SSO)
+    │   └── Monitoring-Stack
+    └── Third-Party-Integrations
+        └── Vendor-Connections</code></pre>
+<h3 id="policy-requirements-per-cc-control">3.2 Policy Requirements per
+CC Control</h3>
+<table>
+<thead>
+<tr>
+<th>CC Control</th>
+<th>CSW Policy Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CC6.1</td>
+<td>Default-deny inbound to Production-Systems scope</td>
+</tr>
+<tr>
+<td>CC6.6</td>
+<td>Explicit allowlist for all inter-service communication</td>
+</tr>
+<tr>
+<td>CC6.7</td>
+<td>Block HTTP/FTP from Production-Systems; enforce HTTPS</td>
+</tr>
+<tr>
+<td>CC7.1</td>
+<td>Vulnerability scan enabled on all SOC2-Boundary workloads</td>
+</tr>
+<tr>
+<td>CC7.2</td>
+<td>Anomaly detection alert on all Production-Systems</td>
+</tr>
+<tr>
+<td>CC8.1</td>
+<td>Policy changes require approval workflow; audit logged</td>
+</tr>
+</tbody>
+</table>
+<h3 id="continuous-monitoring-setup">3.3 Continuous Monitoring
+Setup</h3>
+<pre><code>CSW UI → Defend → Alerts
+  → New Alert Policy
+  → Scope: SOC2-Boundary
+  → Triggers:
+    - Policy violation (any)
+    - New vulnerability CVSS ≥ 7.0
+    - Sensor offline &gt; 5 minutes
+    - Anomalous flow (ADM baseline deviation)
+  → Notify: SIEM webhook + email to security team</code></pre>
+<hr />
+<h2 id="evidence-package-for-soc-2-auditors">4. Evidence Package for SOC
+2 Auditors</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Evidence Item</th>
+<th>CSW Source</th>
+<th>CC Control</th>
+<th>Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access control policy export</td>
+<td>Defend → Policy Workspaces</td>
+<td>CC6.1</td>
+<td>Per audit request</td>
+</tr>
+<tr>
+<td>Policy violation log</td>
+<td>Alerts → Triggered Events</td>
+<td>CC6.1, CC6.6</td>
+<td>Monthly export</td>
+</tr>
+<tr>
+<td>Vulnerability exposure report</td>
+<td>Investigate → Vulnerability</td>
+<td>CC7.1, CC9.1</td>
+<td>Weekly</td>
+</tr>
+<tr>
+<td>Network flow audit log</td>
+<td>Investigate → Flow Search</td>
+<td>CC6.7, CC7.2</td>
+<td>Continuous</td>
+</tr>
+<tr>
+<td>Anomaly alert log</td>
+<td>Alerts → Dashboard</td>
+<td>CC7.2, CC7.3</td>
+<td>Monthly</td>
+</tr>
+<tr>
+<td>ADM application map</td>
+<td>Investigate → ADM</td>
+<td>CC6.6, CC8.1</td>
+<td>Quarterly</td>
+</tr>
+<tr>
+<td>Sensor health report</td>
+<td>Manage → Agents</td>
+<td>CC7.2, A1.1</td>
+<td>Monthly</td>
+</tr>
+<tr>
+<td>Policy change audit trail</td>
+<td>Policy workspace history</td>
+<td>CC8.1</td>
+<td>Per change</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="common-soc-2-audit-findings-csw-addresses">5. Common SOC 2 Audit
+Findings CSW Addresses</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Auditor Finding</th>
+<th>CSW Remediation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Undocumented network access paths</td>
+<td>ADM generates observed dependency maps as evidence inputs</td>
+</tr>
+<tr>
+<td>No workload-level access controls</td>
+<td>Micro-segmentation enforces and logs all access</td>
+</tr>
+<tr>
+<td>Undetected lateral movement</td>
+<td>Anomaly detection + forensic telemetry</td>
+</tr>
+<tr>
+<td>No evidence of encryption enforcement</td>
+<td>Protocol-level flow analysis + block policy</td>
+</tr>
+<tr>
+<td>Vulnerability management gaps</td>
+<td>Continuous vulnerability exposure view with CVSS prioritization</td>
+</tr>
+<tr>
+<td>Insufficient logging</td>
+<td>Full process + network telemetry across audit period</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-frameworks">Related Frameworks</h2>
+<ul>
+<li><a href="../ISO-27001-2022/CSW-ISO27001-Reference-Design.html">ISO/IEC
+27001:2022</a> — the international ISMS counterpart; many organisations
+pursue SOC 2 + ISO 27001 jointly.</li>
+<li><a href="../NIST-800-53/CSW-NIST-800-53-Reference-Design.html">NIST SP
+800-53 Rev 5</a> — for cross-mapping CC-series criteria to a federal
+control catalogue.</li>
+<li><a href="../NIST-800-207/CSW-NIST-800-207-Reference-Design.html">NIST
+SP 800-207</a> — the ZTA pattern underneath CC6 logical access and CC7
+system operations.</li>
+</ul>
+<hr />
+<p><em>Replace [Customer Name] and bracketed fields before customer
+delivery.</em></p>
+</body>
+</html>

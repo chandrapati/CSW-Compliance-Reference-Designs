@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cisco Secure Workload &mdash; Compliance Mapping</title>
+<title>Cisco Secure Workload &mdash; Compliance Reference Designs &amp; Reports</title>
 <style>
 :root {
   --fg: #1f2328;
@@ -175,59 +175,59 @@ td.cov-evidence   { background: #808080; color: #fff; font-weight: 600; text-ali
 </style>
 </head>
 <body>
-<h1>Cisco Secure Workload &mdash; Compliance Mapping Assets</h1>
-<p>Browseable HTML renderings of the customer-facing reports and the matching technical runbooks for thirty-four compliance, sector, and zero-trust frameworks. DOCX (editable master), PDF (review copy), and Markdown (runbook source) remain in the repository and on each framework's GitHub folder page.</p>
-<p><strong>Repository:</strong> <a href="https://github.com/chandrapati/CSW-Compliance-Mapping">chandrapati/CSW-Compliance-Mapping</a></p>
-<p style="font-size:.85rem;color:var(--fg-muted);">Build: 2026-10-06T03:17:56Z UTC · Repository commit: fe71f19</p>
+<h1>Cisco Secure Workload &mdash; Compliance Reference Designs &amp; Reports</h1>
+<p>Browseable HTML renderings of the customer-facing reports and the matching reference designs for thirty-four compliance, sector, and zero-trust frameworks. DOCX (editable master), PDF (review copy), and Markdown (reference-design source) remain in the repository and on each framework's GitHub folder page.</p>
+<p><strong>Repository:</strong> <a href="https://github.com/chandrapati/CSW-Compliance-Reference-Designs">chandrapati/CSW-Compliance-Reference-Designs</a></p>
+<p style="font-size:.85rem;color:var(--fg-muted);">Build: 2026-10-07T17:30:42Z UTC · Repository commit: a630820</p>
 <h2>Start here</h2>
 <ul>
-  <li><a href="README.html">Repository README</a> &mdash; compliance-mapping focus, asset library, scope notes, and disclaimer.</li>
+  <li><a href="README.html">Repository README</a> &mdash; reference-design focus, asset library, scope notes, and disclaimer.</li>
   <li><a href="docs/about-csw.html">Background &mdash; What is Cisco Secure Workload?</a> &mdash; one-page intro to the platform.</li>
   <li><a href="docs/compliance-evidence-playbook.html">CSW Compliance Evidence Playbook</a> &mdash; step-by-step guide for CSW newcomers (evidence programme, exports).</li>
   <li><a href="docs/why-these-mappings-matter.html">Why these mappings matter</a> &mdash; conversation-starter questions to ask about your own environment.</li>
-  <li><a href="docs/audience-and-usage.html">Audience and usage guide</a> &mdash; who reads what, runbook-vs-report, file formats, and folder layout.</li>
+  <li><a href="docs/audience-and-usage.html">Audience and usage guide</a> &mdash; who reads what, reference-design-vs-report, file formats, and folder layout.</li>
   <li><a href="docs/framework-scope-design.html">Framework Scope Design Guide</a> &mdash; workshop patterns for scopes, labels, and evidence boundaries.</li>
   <li><a href="docs/governance-and-evidence-standards.html">Governance and Evidence Standards</a> &mdash; applicability, provenance, export handling, and exception management.</li>
   <li><a href="control-id-index.html">Control-ID Index</a> &mdash; lookup across all thirty-four frameworks (PCI Req 1.2, HIPAA §164.312(a)(1), DORA Art. 9, NIS2 Art. 21(2)(d), NIST AC-4, NERC CIP-005 R1, TSA SD Section III.A, IEC 62443 SR 5.3, GDPR Art. 32, CIS Safeguard 13.4, CSF PR.IR-01, CMMC AC.L2-3.1.1, etc.).</li>
 </ul>
 <h2>Frameworks</h2>
 <table>
-<thead><tr><th>Framework</th><th>Customer report</th><th>Technical runbook</th></tr></thead>
+<thead><tr><th>Framework</th><th>Customer report</th><th>Reference design</th></tr></thead>
 <tbody>
-    <tr><td>HIPAA Security Rule</td><td><a href="HIPAA/CSW-HIPAA-Compliance-Report.html">Report</a></td><td><a href="HIPAA/CSW-HIPAA-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>SOC 2 Type II</td><td><a href="SOC2/CSW-SOC2-Compliance-Report.html">Report</a></td><td><a href="SOC2/CSW-SOC2-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>PCI DSS v4.0</td><td><a href="PCI-DSS-v4/CSW-PCI-DSS-Compliance-Report.html">Report</a></td><td><a href="PCI-DSS-v4/CSW-PCI-DSS-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>NIST SP 800-53 Rev 5</td><td><a href="NIST-800-53/CSW-NIST-800-53-Compliance-Report.html">Report</a></td><td><a href="NIST-800-53/CSW-NIST-800-53-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>ISO/IEC 27001:2022</td><td><a href="ISO-27001-2022/CSW-ISO27001-Compliance-Report.html">Report</a></td><td><a href="ISO-27001-2022/CSW-ISO27001-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>CISA Zero Trust Maturity Model</td><td><a href="CISA-ZeroTrust/CSW-CISA-ZTMM-Compliance-Report.html">Report</a></td><td><a href="CISA-ZeroTrust/CSW-CISA-ZTMM-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>FIPS 140</td><td><a href="FIPS-140/CSW-FIPS-Compliance-Report.html">Report</a></td><td><a href="FIPS-140/CSW-FIPS-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>NIST SP 800-207 (ZTA Seven Tenets)</td><td><a href="NIST-800-207/CSW-NIST-800-207-Compliance-Report.html">Report</a></td><td><a href="NIST-800-207/CSW-NIST-800-207-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>NIST SP 800-207A (PDP/PEP/PA/PIP)</td><td><a href="NIST-800-207A/CSW-NIST-800-207A-Compliance-Report.html">Report</a></td><td><a href="NIST-800-207A/CSW-NIST-800-207A-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>DORA (EU 2022/2554)</td><td><a href="DORA/CSW-DORA-Compliance-Report.html">Report</a></td><td><a href="DORA/CSW-DORA-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>NIS2 (EU 2022/2555)</td><td><a href="NIS2/CSW-NIS2-Compliance-Report.html">Report</a></td><td><a href="NIS2/CSW-NIS2-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>NERC CIP (Bulk Electric System)</td><td><a href="NERC-CIP/CSW-NERC-CIP-Compliance-Report.html">Report</a></td><td><a href="NERC-CIP/CSW-NERC-CIP-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>TSA Pipeline Security Directive</td><td><a href="TSA-Pipeline/CSW-TSA-Pipeline-Compliance-Report.html">Report</a></td><td><a href="TSA-Pipeline/CSW-TSA-Pipeline-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>CIS Critical Security Controls v8.1</td><td><a href="CIS-Controls-v8/CSW-CIS-Compliance-Report.html">Report</a></td><td><a href="CIS-Controls-v8/CSW-CIS-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>NIST Cybersecurity Framework 2.0</td><td><a href="NIST-CSF-2/CSW-CSF-Compliance-Report.html">Report</a></td><td><a href="NIST-CSF-2/CSW-CSF-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>CMMC 2.0</td><td><a href="CMMC-2/CSW-CMMC-Compliance-Report.html">Report</a></td><td><a href="CMMC-2/CSW-CMMC-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>IEC 62443 (IACS)</td><td><a href="IEC-62443/CSW-IEC62443-Compliance-Report.html">Report</a></td><td><a href="IEC-62443/CSW-IEC62443-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>GDPR (EU 2016/679)</td><td><a href="GDPR/CSW-GDPR-Compliance-Report.html">Report</a></td><td><a href="GDPR/CSW-GDPR-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>MITRE ATT&CK (Enterprise)</td><td><a href="MITRE-ATTACK/CSW-MITRE-ATTACK-Compliance-Report.html">Report</a></td><td><a href="MITRE-ATTACK/CSW-MITRE-ATTACK-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>FedRAMP (Moderate)</td><td><a href="FedRAMP/CSW-FedRAMP-Compliance-Report.html">Report</a></td><td><a href="FedRAMP/CSW-FedRAMP-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>SWIFT CSCF (v2024)</td><td><a href="SWIFT-CSCF/CSW-SWIFT-CSCF-Compliance-Report.html">Report</a></td><td><a href="SWIFT-CSCF/CSW-SWIFT-CSCF-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>HITRUST CSF (v11)</td><td><a href="HITRUST-CSF/CSW-HITRUST-Compliance-Report.html">Report</a></td><td><a href="HITRUST-CSF/CSW-HITRUST-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>NIST SP 800-171 Rev. 3</td><td><a href="NIST-800-171/CSW-NIST-800-171-Compliance-Report.html">Report</a></td><td><a href="NIST-800-171/CSW-NIST-800-171-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>CSA CCM v4</td><td><a href="CSA-CCM/CSW-CSA-CCM-Compliance-Report.html">Report</a></td><td><a href="CSA-CCM/CSW-CSA-CCM-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>COBIT 2019</td><td><a href="COBIT-2019/CSW-COBIT-Compliance-Report.html">Report</a></td><td><a href="COBIT-2019/CSW-COBIT-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>Australian Essential Eight</td><td><a href="AU-Essential-Eight/CSW-Essential-Eight-Compliance-Report.html">Report</a></td><td><a href="AU-Essential-Eight/CSW-Essential-Eight-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>UK Cyber Essentials Plus</td><td><a href="UK-Cyber-Essentials/CSW-Cyber-Essentials-Compliance-Report.html">Report</a></td><td><a href="UK-Cyber-Essentials/CSW-Cyber-Essentials-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>HIPAA Security Rule — 2025 NPRM</td><td><a href="HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Compliance-Report.html">Report</a></td><td><a href="HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>MAS Technology Risk Management Guidelines</td><td><a href="MAS-TRM/CSW-MAS-TRM-Compliance-Report.html">Report</a></td><td><a href="MAS-TRM/CSW-MAS-TRM-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>APRA CPS 234</td><td><a href="APRA-CPS-234/CSW-APRA-CPS234-Compliance-Report.html">Report</a></td><td><a href="APRA-CPS-234/CSW-APRA-CPS234-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>NY DFS 23 NYCRR Part 500</td><td><a href="NY-DFS-23-NYCRR-500/CSW-NYDFS-Compliance-Report.html">Report</a></td><td><a href="NY-DFS-23-NYCRR-500/CSW-NYDFS-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>TISAX / VDA ISA</td><td><a href="TISAX/CSW-TISAX-Compliance-Report.html">Report</a></td><td><a href="TISAX/CSW-TISAX-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>NIST SP 800-82</td><td><a href="NIST-800-82/CSW-NIST-800-82-Compliance-Report.html">Report</a></td><td><a href="NIST-800-82/CSW-NIST-800-82-Technical-Runbook.html">Runbook</a></td></tr>
-    <tr><td>BSI C5</td><td><a href="BSI-C5/CSW-BSI-C5-Compliance-Report.html">Report</a></td><td><a href="BSI-C5/CSW-BSI-C5-Technical-Runbook.html">Runbook</a></td></tr>
+    <tr><td>HIPAA Security Rule</td><td><a href="HIPAA/CSW-HIPAA-Compliance-Report.html">Report</a></td><td><a href="HIPAA/CSW-HIPAA-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>SOC 2 Type II</td><td><a href="SOC2/CSW-SOC2-Compliance-Report.html">Report</a></td><td><a href="SOC2/CSW-SOC2-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>PCI DSS v4.0</td><td><a href="PCI-DSS-v4/CSW-PCI-DSS-Compliance-Report.html">Report</a></td><td><a href="PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>NIST SP 800-53 Rev 5</td><td><a href="NIST-800-53/CSW-NIST-800-53-Compliance-Report.html">Report</a></td><td><a href="NIST-800-53/CSW-NIST-800-53-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>ISO/IEC 27001:2022</td><td><a href="ISO-27001-2022/CSW-ISO27001-Compliance-Report.html">Report</a></td><td><a href="ISO-27001-2022/CSW-ISO27001-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>CISA Zero Trust Maturity Model</td><td><a href="CISA-ZeroTrust/CSW-CISA-ZTMM-Compliance-Report.html">Report</a></td><td><a href="CISA-ZeroTrust/CSW-CISA-ZTMM-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>FIPS 140</td><td><a href="FIPS-140/CSW-FIPS-Compliance-Report.html">Report</a></td><td><a href="FIPS-140/CSW-FIPS-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>NIST SP 800-207 (ZTA Seven Tenets)</td><td><a href="NIST-800-207/CSW-NIST-800-207-Compliance-Report.html">Report</a></td><td><a href="NIST-800-207/CSW-NIST-800-207-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>NIST SP 800-207A (PDP/PEP/PA/PIP)</td><td><a href="NIST-800-207A/CSW-NIST-800-207A-Compliance-Report.html">Report</a></td><td><a href="NIST-800-207A/CSW-NIST-800-207A-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>DORA (EU 2022/2554)</td><td><a href="DORA/CSW-DORA-Compliance-Report.html">Report</a></td><td><a href="DORA/CSW-DORA-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>NIS2 (EU 2022/2555)</td><td><a href="NIS2/CSW-NIS2-Compliance-Report.html">Report</a></td><td><a href="NIS2/CSW-NIS2-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>NERC CIP (Bulk Electric System)</td><td><a href="NERC-CIP/CSW-NERC-CIP-Compliance-Report.html">Report</a></td><td><a href="NERC-CIP/CSW-NERC-CIP-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>TSA Pipeline Security Directive</td><td><a href="TSA-Pipeline/CSW-TSA-Pipeline-Compliance-Report.html">Report</a></td><td><a href="TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>CIS Critical Security Controls v8.1</td><td><a href="CIS-Controls-v8/CSW-CIS-Compliance-Report.html">Report</a></td><td><a href="CIS-Controls-v8/CSW-CIS-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>NIST Cybersecurity Framework 2.0</td><td><a href="NIST-CSF-2/CSW-CSF-Compliance-Report.html">Report</a></td><td><a href="NIST-CSF-2/CSW-CSF-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>CMMC 2.0</td><td><a href="CMMC-2/CSW-CMMC-Compliance-Report.html">Report</a></td><td><a href="CMMC-2/CSW-CMMC-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>IEC 62443 (IACS)</td><td><a href="IEC-62443/CSW-IEC62443-Compliance-Report.html">Report</a></td><td><a href="IEC-62443/CSW-IEC62443-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>GDPR (EU 2016/679)</td><td><a href="GDPR/CSW-GDPR-Compliance-Report.html">Report</a></td><td><a href="GDPR/CSW-GDPR-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>MITRE ATT&CK (Enterprise)</td><td><a href="MITRE-ATTACK/CSW-MITRE-ATTACK-Compliance-Report.html">Report</a></td><td><a href="MITRE-ATTACK/CSW-MITRE-ATTACK-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>FedRAMP (Moderate)</td><td><a href="FedRAMP/CSW-FedRAMP-Compliance-Report.html">Report</a></td><td><a href="FedRAMP/CSW-FedRAMP-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>SWIFT CSCF (v2024)</td><td><a href="SWIFT-CSCF/CSW-SWIFT-CSCF-Compliance-Report.html">Report</a></td><td><a href="SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>HITRUST CSF (v11)</td><td><a href="HITRUST-CSF/CSW-HITRUST-Compliance-Report.html">Report</a></td><td><a href="HITRUST-CSF/CSW-HITRUST-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>NIST SP 800-171 Rev. 3</td><td><a href="NIST-800-171/CSW-NIST-800-171-Compliance-Report.html">Report</a></td><td><a href="NIST-800-171/CSW-NIST-800-171-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>CSA CCM v4</td><td><a href="CSA-CCM/CSW-CSA-CCM-Compliance-Report.html">Report</a></td><td><a href="CSA-CCM/CSW-CSA-CCM-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>COBIT 2019</td><td><a href="COBIT-2019/CSW-COBIT-Compliance-Report.html">Report</a></td><td><a href="COBIT-2019/CSW-COBIT-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>Australian Essential Eight</td><td><a href="AU-Essential-Eight/CSW-Essential-Eight-Compliance-Report.html">Report</a></td><td><a href="AU-Essential-Eight/CSW-Essential-Eight-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>UK Cyber Essentials Plus</td><td><a href="UK-Cyber-Essentials/CSW-Cyber-Essentials-Compliance-Report.html">Report</a></td><td><a href="UK-Cyber-Essentials/CSW-Cyber-Essentials-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>HIPAA Security Rule — 2025 NPRM</td><td><a href="HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Compliance-Report.html">Report</a></td><td><a href="HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>MAS Technology Risk Management Guidelines</td><td><a href="MAS-TRM/CSW-MAS-TRM-Compliance-Report.html">Report</a></td><td><a href="MAS-TRM/CSW-MAS-TRM-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>APRA CPS 234</td><td><a href="APRA-CPS-234/CSW-APRA-CPS234-Compliance-Report.html">Report</a></td><td><a href="APRA-CPS-234/CSW-APRA-CPS234-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>NY DFS 23 NYCRR Part 500</td><td><a href="NY-DFS-23-NYCRR-500/CSW-NYDFS-Compliance-Report.html">Report</a></td><td><a href="NY-DFS-23-NYCRR-500/CSW-NYDFS-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>TISAX / VDA ISA</td><td><a href="TISAX/CSW-TISAX-Compliance-Report.html">Report</a></td><td><a href="TISAX/CSW-TISAX-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>NIST SP 800-82</td><td><a href="NIST-800-82/CSW-NIST-800-82-Compliance-Report.html">Report</a></td><td><a href="NIST-800-82/CSW-NIST-800-82-Reference-Design.html">Reference design</a></td></tr>
+    <tr><td>BSI C5</td><td><a href="BSI-C5/CSW-BSI-C5-Compliance-Report.html">Report</a></td><td><a href="BSI-C5/CSW-BSI-C5-Reference-Design.html">Reference design</a></td></tr>
 </tbody>
 </table>
 <hr>

@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>NIST SP 800-171 Rev. 3 — Reference Design</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-NIST-800-171-Reference-Design.html">CSW-NIST-800-171-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-07T17:30:36Z UTC · Repository commit: a630820</div>
+<header id="title-block-header">
+<h1 class="title">NIST SP 800-171 Rev. 3 — Reference Design</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload-nist-sp-800-171-rev.-3" id="toc-cisco-secure-workload-nist-sp-800-171-rev.-3">Cisco Secure
+Workload — NIST SP 800-171 Rev. 3</a>
+<ul>
+<li><a href="#reference-design-cui-in-nonfederal-systems" id="toc-reference-design-cui-in-nonfederal-systems">Reference Design |
+CUI in Nonfederal Systems</a></li>
+<li><a href="#readers-guide" id="toc-readers-guide">Reader’s
+Guide</a></li>
+<li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</a></li>
+<li><a href="#universal-evidence-workflow" id="toc-universal-evidence-workflow">Universal evidence workflow</a>
+<ul>
+<li><a href="#phase-1-checklist-coverage" id="toc-phase-1-checklist-coverage">Phase 1 checklist
+(coverage)</a></li>
+<li><a href="#phase-2-checklist-baseline" id="toc-phase-2-checklist-baseline">Phase 2 checklist
+(baseline)</a></li>
+<li><a href="#phase-3-checklist-policy" id="toc-phase-3-checklist-policy">Phase 3 checklist (policy)</a></li>
+<li><a href="#phase-4-checklist-operate" id="toc-phase-4-checklist-operate">Phase 4 checklist (operate)</a></li>
+<li><a href="#what-csw-evidence-does-not-replace" id="toc-what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</a></li>
+</ul></li>
+<li><a href="#csw-effectiveness-for-this-framework" id="toc-csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</a></li>
+<li><a href="#overview" id="toc-overview">1. Overview</a>
+<ul>
+<li><a href="#alignment-with-nist-sp-800-53-rev.-5-and-cmmc" id="toc-alignment-with-nist-sp-800-53-rev.-5-and-cmmc">1.1 Alignment
+with NIST SP 800-53 Rev. 5 and CMMC</a></li>
+<li><a href="#rev.-3-family-structure-and-csw-relevance" id="toc-rev.-3-family-structure-and-csw-relevance">1.2 Rev. 3 Family
+Structure and CSW Relevance</a></li>
+</ul></li>
+<li><a href="#pre-deployment-checklist" id="toc-pre-deployment-checklist">2. Pre-Deployment Checklist</a></li>
+<li><a href="#phase-1-sensor-deployment-days-15" id="toc-phase-1-sensor-deployment-days-15">3. Phase 1 — Sensor
+Deployment (Days 1–5)</a>
+<ul>
+<li><a href="#on-premises-workloads" id="toc-on-premises-workloads">3.1
+On-Premises Workloads</a></li>
+<li><a href="#cloud-workloads" id="toc-cloud-workloads">3.2 Cloud
+Workloads</a></li>
+<li><a href="#validation" id="toc-validation">3.3 Validation</a></li>
+</ul></li>
+<li><a href="#phase-2-scope-design-and-cui-inventory-days-612" id="toc-phase-2-scope-design-and-cui-inventory-days-612">4. Phase 2 —
+Scope Design and CUI Inventory (Days 6–12)</a>
+<ul>
+<li><a href="#recommended-scope-hierarchy" id="toc-recommended-scope-hierarchy">4.1 Recommended Scope
+Hierarchy</a></li>
+<li><a href="#label-schema-minimum" id="toc-label-schema-minimum">4.2
+Label Schema (Minimum)</a></li>
+<li><a href="#discovery-filters-examples" id="toc-discovery-filters-examples">4.3 Discovery Filters
+(Examples)</a></li>
+</ul></li>
+<li><a href="#phase-3-visibility-and-baseline-days-1025" id="toc-phase-3-visibility-and-baseline-days-1025">5. Phase 3 —
+Visibility and Baseline (Days 10–25)</a>
+<ul>
+<li><a href="#application-dependency-mapping-adm" id="toc-application-dependency-mapping-adm">5.1 Application Dependency
+Mapping (ADM)</a></li>
+<li><a href="#software-inventory-and-drift" id="toc-software-inventory-and-drift">5.2 Software Inventory and
+Drift</a></li>
+</ul></li>
+<li><a href="#phase-4-policy-design-days-2240" id="toc-phase-4-policy-design-days-2240">6. Phase 4 — Policy Design
+(Days 22–40)</a>
+<ul>
+<li><a href="#policy-workspace-pattern" id="toc-policy-workspace-pattern">6.1 Policy Workspace Pattern</a></li>
+<li><a href="#illustrative-policy-stanzas-conceptual" id="toc-illustrative-policy-stanzas-conceptual">6.2 Illustrative Policy
+Stanzas (Conceptual)</a></li>
+<li><a href="#plaintext-and-unexpected-protocol-handling-support-to-03.13.x" id="toc-plaintext-and-unexpected-protocol-handling-support-to-03.13.x">6.3
+Plaintext and Unexpected Protocol Handling (Support to 03.13.x)</a></li>
+</ul></li>
+<li><a href="#phase-5-enforcement-and-validation-days-40" id="toc-phase-5-enforcement-and-validation-days-40">7. Phase 5 —
+Enforcement and Validation (Days 40+)</a></li>
+<li><a href="#phase-6-risk-assessment-and-vulnerability-context-ongoing" id="toc-phase-6-risk-assessment-and-vulnerability-context-ongoing">8.
+Phase 6 — Risk Assessment and Vulnerability Context (Ongoing)</a></li>
+<li><a href="#phase-7-audit-readiness-monitoring-and-accountability-ongoing" id="toc-phase-7-audit-readiness-monitoring-and-accountability-ongoing">9.
+Phase 7 — Audit Readiness: Monitoring and Accountability (Ongoing)</a>
+<ul>
+<li><a href="#alerts-suited-to-cui-operations" id="toc-alerts-suited-to-cui-operations">9.1 Alerts Suited to CUI
+Operations</a></li>
+<li><a href="#forensic-export-pattern" id="toc-forensic-export-pattern">9.2 Forensic Export Pattern</a></li>
+</ul></li>
+<li><a href="#control-by-control-mapping-representative-set" id="toc-control-by-control-mapping-representative-set">10.
+Control-by-Control Mapping (Representative Set)</a></li>
+<li><a href="#common-pitfalls" id="toc-common-pitfalls">11. Common
+Pitfalls</a></li>
+<li><a href="#boundaries-what-csw-does-not-cover" id="toc-boundaries-what-csw-does-not-cover">12. Boundaries — What CSW
+Does <strong>Not</strong> Cover</a></li>
+<li><a href="#audit-preparation-and-evidence-export" id="toc-audit-preparation-and-evidence-export">13. Audit Preparation and
+Evidence Export</a>
+<ul>
+<li><a href="#quarterly-evidence-bundle-suggested-contents" id="toc-quarterly-evidence-bundle-suggested-contents">13.1 Quarterly
+Evidence Bundle (Suggested Contents)</a></li>
+<li><a href="#optional-cli-automation-examples" id="toc-optional-cli-automation-examples">13.2 Optional CLI / Automation
+Examples</a></li>
+</ul></li>
+<li><a href="#appendix-a-cross-walk-to-nist-sp-800-53-rev.-5-illustrative" id="toc-appendix-a-cross-walk-to-nist-sp-800-53-rev.-5-illustrative">Appendix
+A — Cross-Walk to NIST SP 800-53 Rev. 5 (Illustrative)</a></li>
+<li><a href="#appendix-b-siem-field-mapping-example" id="toc-appendix-b-siem-field-mapping-example">Appendix B — SIEM Field
+Mapping (Example)</a></li>
+<li><a href="#appendix-c-related-framework-reference-designs" id="toc-appendix-c-related-framework-reference-designs">Appendix C —
+Related Framework Reference designs</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload-nist-sp-800-171-rev.-3">Cisco Secure
+Workload — NIST SP 800-171 Rev. 3</h1>
+<h2 id="reference-design-cui-in-nonfederal-systems">Reference Design |
+CUI in Nonfederal Systems</h2>
+<p><strong>Version:</strong> 1.0<br />
+<strong>Standard:</strong> NIST SP 800-171 Rev. 3 (May 2024),
+<em>Protecting Controlled Unclassified Information in Nonfederal Systems
+and Organizations</em><br />
+<strong>Use Case:</strong> Fresh install, hybrid environment
+(on-premises + cloud), CUI processing enclaves</p>
+<hr />
+<h2 id="readers-guide">Reader’s Guide</h2>
+<p><strong>Who this is for.</strong> Nonfederal organizations that
+process, store, or transmit CUI under federal contracts or agreements;
+security architects building CUI enclaves; and assessors collecting
+technical evidence for 800-171A assessment procedures.</p>
+<p><strong>Questions this reference design helps you
+answer:</strong></p>
+<ul>
+<li><em>For requirement 03.13.06 (deny by default, allow by exception),
+can I show continuous enforcement at the workload tier—not only
+perimeter firewalls—with a documented allow-list derived from observed
+traffic?</em></li>
+<li><em>For 03.01.03 (information flow enforcement for CUI), can I prove
+authorized flows between CUI and non-CUI segments and detect or block
+unauthorized cross-boundary paths?</em></li>
+<li><em>For 03.03.x (audit and accountability), can I export flow and
+process-level telemetry that traces CUI-adjacent workloads to specific
+processes and time windows for SIEM retention?</em></li>
+<li><em>For 03.04.x (configuration management), can I baseline
+communications and software exposure, then demonstrate drift when new
+services, ports, or binaries appear on CUI systems?</em></li>
+<li><em>For 03.11.x (risk assessment) and vulnerability prioritization,
+can I combine CVE exposure with east-west reachability and EPSS-style
+context to support POA&amp;M and risk narratives?</em></li>
+</ul>
+<p><strong>What you’ll need.</strong> A current CUI boundary definition
+(which components process, store, or transmit CUI), a system security
+plan (SSP) or equivalent scope description, labeling standards for
+workloads, and assessor or PMO expectations for evidence format
+(reports, exports, screenshots).</p>
+<p><strong>Where to start.</strong> Sections 1–2 for scope alignment;
+3–6 for deployment and baseline; 7–9 for policy design tied to 03.01.03,
+03.01.05, and 03.13.x; section 13 if you are packaging evidence for an
+assessment window.</p>
+<hr />
+<!-- CSW-RUNBOOK-PRIMER:v1 -->
+<h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</h2>
+<p>Cisco Secure Workload (CSW) is a <strong>workload protection
+platform</strong>. A lightweight <strong>agent</strong> on each
+server/VM/container observes processes and network flows; <strong>cloud
+connectors</strong> add AWS/Azure/GCP inventory where agents are not
+deployed.</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW term</th>
+<th>Meaning</th>
+<th>Why compliance teams care</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Logical boundary (CDE, PHI zone, CUI enclave)</td>
+<td>Defines the systems you must prove are isolated</td>
+</tr>
+<tr>
+<td><strong>Label / filter</strong></td>
+<td>Tag or query assigning workloads to scopes</td>
+<td>Automates scope membership — reduces drift</td>
+</tr>
+<tr>
+<td><strong>ADM</strong></td>
+<td>Application Dependency Mapping from observed traffic</td>
+<td><strong>Live</strong> network/data-flow diagram for assessors</td>
+</tr>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>Policy container for one scope or application</td>
+<td>Where allow/deny rules are authored</td>
+</tr>
+<tr>
+<td><strong>Monitor → Simulation → Enforce</strong></td>
+<td>Safe rollout sequence</td>
+<td>Simulation = change-board evidence before blocking traffic</td>
+</tr>
+<tr>
+<td><strong>Denied Connections</strong></td>
+<td>Log of flows blocked by policy</td>
+<td>Primary proof that enforcement <strong>operates</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Console areas:</strong> Investigate (inventory, flows, vulns)
+· Defend/Segmentation (policy) · Manage (agents) · Platform (connectors)
+· Administration (audit log)</p>
+<p><strong>Read next:</strong> <a href="../docs/compliance-evidence-playbook.html">Compliance evidence
+playbook</a> (full step-by-step) · <a href="../docs/about-csw.html">About
+CSW</a> (platform intro)</p>
+<hr />
+<h2 id="universal-evidence-workflow">Universal evidence workflow</h2>
+<p>Execute these phases for <strong>this framework’s</strong> compliance
+boundary. Map exports to control IDs in the <strong>Reporting &amp;
+Evidence</strong> section below.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Key CSW actions</th>
+<th>Typical duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Coverage</strong></td>
+<td>Every in-scope workload in CSW</td>
+<td>Install agents/connectors; apply compliance labels; create
+scope</td>
+<td>Days 1–10</td>
+</tr>
+<tr>
+<td><strong>2 — Baseline</strong></td>
+<td>Machine-generated flow map</td>
+<td>Run ADM ≥2 weeks; export clusters; app-owner signoff</td>
+<td>Days 11–28</td>
+</tr>
+<tr>
+<td><strong>3 — Policy</strong></td>
+<td>Designed isolation before enforce</td>
+<td>Build workspace; Simulation mode; fix false positives</td>
+<td>Days 29–45</td>
+</tr>
+<tr>
+<td><strong>4 — Operate</strong></td>
+<td>Continuous proof between audits</td>
+<td>Enforce; quarterly export pack; ADM refresh every 90 days</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-checklist-coverage">Phase 1 checklist (coverage)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>In-scope host list reconciled to CSW
+Inventory (100% or documented exceptions)</label></li>
+<li><label><input type="checkbox"></input>Labels applied:
+<code>compliance:&lt;framework&gt;</code>,
+<code>data:&lt;classification&gt;</code>,
+<code>env:&lt;tier&gt;</code></label></li>
+<li><label><input type="checkbox"></input>CSW scope created matching
+compliance boundary</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> inventory
+CSV + agent status screenshot</label></li>
+</ul>
+<h3 id="phase-2-checklist-baseline">Phase 2 checklist (baseline)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>ADM running on compliance scope for
+full business cycle (≥2 weeks)</label></li>
+<li><label><input type="checkbox"></input>Unexpected flows documented (shadow
+IT, vendor egress, scope creep)</label></li>
+<li><label><input type="checkbox"></input>App owners signed
+cluster-to-application mapping</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> ADM diagram
++ flow samples with process context</label></li>
+</ul>
+<h3 id="phase-3-checklist-policy">Phase 3 checklist (policy)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Default-deny posture defined for
+sensitive scope</label></li>
+<li><label><input type="checkbox"></input>ADM-imported rules refined;
+Simulation run ≥1 week</label></li>
+<li><label><input type="checkbox"></input>Change tickets for false-positive
+fixes; exception register updated</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> policy
+export + simulation report</label></li>
+</ul>
+<h3 id="phase-4-checklist-operate">Phase 4 checklist (operate)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Enforcement enabled on pilot scope;
+negative test recorded in Denied Connections</label></li>
+<li><label><input type="checkbox"></input>Quarterly pack: inventory, policy,
+denies, vulns, audit log (see playbook)</label></li>
+<li><label><input type="checkbox"></input>SIEM integration verified (sample
+events)</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> enforcement
+screenshot + quarterly binder</label></li>
+</ul>
+<h3 id="what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</h3>
+<p>Physical access, HR/training records, encryption key management,
+signed BAAs/vendor contracts, formal pen tests, and assessor attestation
+still require separate programmes. CSW addresses the
+<strong>workload-resident</strong> slice: segmentation, flows, process
+context, vuln reachability, and change drift.</p>
+<hr />
+<h2 id="csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</h2>
+<ul>
+<li>CUI enclave isolation with 03.01/03.13 flow enforcement</li>
+<li>CMMC L2 underpinning evidence</li>
+<li>800-53 Rev 3 family alignment for assessors</li>
+</ul>
+<p><strong>Compared to manual programmes:</strong> static diagrams and
+annual firewall samples age immediately; CSW ties evidence to
+<strong>live workload behaviour</strong> and produces queryable exports
+on demand — supporting “operating effectively” language in PCI v4.0, SOC
+2 CC7, and HIPAA risk analysis.</p>
+<hr />
+<h2 id="overview">1. Overview</h2>
+<p>NIST SP 800-171 Rev. 3 modernizes the CUI protection requirements,
+aligns requirement numbering and structure with <strong>NIST SP 800-53
+Rev. 5</strong>, and preserves the core outcome: confidentiality of CUI
+in nonfederal systems. Cisco Secure Workload (CSW) contributes
+<strong>technical and operational evidence</strong> for requirements
+where workload visibility, micro-segmentation, vulnerability context,
+and forensic telemetry are relevant. It does not replace administrative,
+physical, or personnel controls, identity providers, or cryptographic
+implementations.</p>
+<h3 id="alignment-with-nist-sp-800-53-rev.-5-and-cmmc">1.1 Alignment
+with NIST SP 800-53 Rev. 5 and CMMC</h3>
+<p>Rev. 3 requirements include source-control references to 800-53 (for
+example, 03.13.06 maps from SC-7(5)). For a detailed control-family
+treatment mapped to CSW at the 800-53 control level, see the companion
+reference design below. <strong>CMMC 2.0</strong> uses NIST SP 800-171
+as its technical basis for Level 2; contractors should <strong>confirm
+which revision (Rev. 2 vs. Rev. 3)</strong> their contracts, PMO, or
+assessment framework specify during any transition period. This
+reference design is written to <strong>Rev. 3</strong> identifiers
+(e.g., 03.01.03).</p>
+<h3 id="rev.-3-family-structure-and-csw-relevance">1.2 Rev. 3 Family
+Structure and CSW Relevance</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Family (Rev. 3)</th>
+<th>Title</th>
+<th>CSW relevance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>03.01</td>
+<td>Access Control</td>
+<td><strong>Direct</strong> — identity-aware and scope-based
+micro-segmentation; deny-by-default enforcement paths</td>
+</tr>
+<tr>
+<td>03.02</td>
+<td>Awareness and Training</td>
+<td>Out of scope — HR/training systems</td>
+</tr>
+<tr>
+<td>03.03</td>
+<td>Audit and Accountability</td>
+<td><strong>Direct</strong> — flow + process telemetry; export to
+SIEM</td>
+</tr>
+<tr>
+<td>03.04</td>
+<td>Configuration Management</td>
+<td><strong>Direct</strong> — software inventory, ADM baselines, drift
+versus approved communication profiles</td>
+</tr>
+<tr>
+<td>03.05</td>
+<td>Identification and Authentication</td>
+<td>Supporting — enforcement of authenticated paths (e.g.,
+Kerberos/LDAPS-only); IdP configuration remains outside CSW</td>
+</tr>
+<tr>
+<td>03.06</td>
+<td>Incident Response</td>
+<td><strong>Supporting (evidence)</strong> — forensics, timelines, scope
+of compromise views</td>
+</tr>
+<tr>
+<td>03.07</td>
+<td>Maintenance</td>
+<td>Supporting — monitoring of maintenance-related connectivity if
+expressed in policy baselines</td>
+</tr>
+<tr>
+<td>03.08</td>
+<td>Media Protection</td>
+<td>Limited — no physical media control; logical exfiltration paths may
+be constrained by policy</td>
+</tr>
+<tr>
+<td>03.09</td>
+<td>Personnel Security</td>
+<td>Out of scope</td>
+</tr>
+<tr>
+<td>03.10</td>
+<td>Physical Protection</td>
+<td>Out of scope</td>
+</tr>
+<tr>
+<td>03.11</td>
+<td>Risk Assessment</td>
+<td><strong>Direct</strong> — CVE visibility, reachability from
+threat-facing workloads, prioritization inputs</td>
+</tr>
+<tr>
+<td>03.12</td>
+<td>Security Assessment and Monitoring</td>
+<td>Supporting — continuous monitoring artifacts; CSW does not replace
+formal control testing</td>
+</tr>
+<tr>
+<td>03.13</td>
+<td>System and Communications Protection</td>
+<td><strong>Direct</strong> — CUI enclave isolation, boundary
+enforcement, plaintext/unauthorized protocol detection</td>
+</tr>
+<tr>
+<td>03.14</td>
+<td>System and Information Integrity</td>
+<td><strong>Direct</strong> — process monitoring, anomaly signals,
+forensic integrity of telemetry</td>
+</tr>
+<tr>
+<td>03.15</td>
+<td>Planning</td>
+<td>Supporting — inventory and scope evidence feed SSP accuracy</td>
+</tr>
+<tr>
+<td>03.16</td>
+<td>System and Services Acquisition</td>
+<td>Limited — monitor connectivity to external services; contract terms
+remain organizational</td>
+</tr>
+<tr>
+<td>03.17</td>
+<td>Supply Chain Risk Management</td>
+<td>Limited — workload component visibility; full SCRM is
+organizational</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="pre-deployment-checklist">2. Pre-Deployment Checklist</h2>
+<p>Before deploying CSW sensors into CUI or CUI-adjacent enclaves,
+confirm the following:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>CSW cluster (SaaS or
+customer-managed) is provisioned; data residency and IRP for telemetry
+meet organizational and contractual rules for CUI.</label></li>
+<li><label><input type="checkbox"></input>Outbound connectivity from workloads
+to the CSW cluster (typically TCP 443) is allowed and documented in the
+SSP connection table.</label></li>
+<li><label><input type="checkbox"></input>Linux and Windows sensor versions
+are approved for all target OS builds in the CUI baseline.</label></li>
+<li><label><input type="checkbox"></input>Cloud connectors (AWS, Azure, GCP)
+are authorized if agentless visibility is used; IAM roles / service
+principals are least-privilege and documented.</label></li>
+<li><label><input type="checkbox"></input>Stakeholders engaged: ISSO, system
+owner, network operations, contracting/CUI program office.</label></li>
+<li><label><input type="checkbox"></input>Change windows approved;
+<strong>initial mode is monitoring</strong>, not enforcement, until ADM
+and policy simulation complete.</label></li>
+</ul>
+<hr />
+<h2 id="phase-1-sensor-deployment-days-15">3. Phase 1 — Sensor
+Deployment (Days 1–5)</h2>
+<h3 id="on-premises-workloads">3.1 On-Premises Workloads</h3>
+<p><strong>Install software sensors:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux (RHEL / CentOS stream / Ubuntu variants — use package matching your distro)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> rpm <span class="at">-ivh</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.rpm    <span class="co"># RHEL family</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dpkg <span class="at">-i</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.deb     <span class="co"># Debian family</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify agent service (name may vary slightly by release; consult release notes)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl status tet-engine <span class="kw">||</span> <span class="fu">sudo</span> systemctl status csw-agent</span></code></pre></div>
+<p><strong>Configuration guardrails for CUI:</strong></p>
+<ul>
+<li>Enforcement mode: <strong>Monitoring only</strong> until policy
+sign-off.</li>
+<li>Enable process hash, connection telemetry, and vulnerability
+exposure features supported on your agents.</li>
+<li>Apply labels at install time: <code>cui_scope</code>,
+<code>enclave</code>, <code>environment</code>, <code>owner</code>.</li>
+</ul>
+<h3 id="cloud-workloads">3.2 Cloud Workloads</h3>
+<p><strong>Option A — Agent on every CUI-bearing instance:</strong> same
+as on-prem.</p>
+<p><strong>Option B — Cloud connector (complementary):</strong></p>
+<pre><code>CSW UI → Platform → External Orchestrators
+  → Add AWS / Azure / GCP connector
+  → Attach read-only discovery role (EC2/VM inventory, optional flow log paths per vendor)
+  → Map cloud tags → CSW labels (e.g., tag CuiEnclave=ALPHA → scope CUI-ALPHA)</code></pre>
+<h3 id="validation">3.3 Validation</h3>
+<pre><code>CSW UI → Manage → Agents
+  → Status: Active for every in-scope workload
+  → Version alignment with approved standard image
+  → Confirm flows visible within 15–30 minutes of agent start</code></pre>
+<hr />
+<h2 id="phase-2-scope-design-and-cui-inventory-days-612">4. Phase 2 —
+Scope Design and CUI Inventory (Days 6–12)</h2>
+<h3 id="recommended-scope-hierarchy">4.1 Recommended Scope
+Hierarchy</h3>
+<p>Model <strong>CUI enclaves</strong> explicitly; never rely on a
+single flat “production” scope for assessment evidence.</p>
+<pre><code>Root
+└── Organization
+    ├── CUI-Enclaves
+    │   ├── CUI-Tier1-Apps
+    │   ├── CUI-Datastores
+    │   └── CUI-Integration-Brokers
+    ├── Security-Protection-Assets
+    │   ├── Identity (read-only policy exceptions)
+    │   ├── Patch-Repo / Artifactories (as approved)
+    │   ├── SOC-SIEM-Collectors
+    │   └── Backup / DR targets
+    └── Non-CUI (or “Corporate”)
+        ├── Dev/Test (must not share policy workspace with CUI if contract requires segregation)
+        └── General IT</code></pre>
+<h3 id="label-schema-minimum">4.2 Label Schema (Minimum)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Label key</th>
+<th>Example values</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cui_scope</code></td>
+<td><code>in_scope</code>, <code>spa</code>,
+<code>out_of_scope</code></td>
+<td>Aligns workload to SSP boundary</td>
+</tr>
+<tr>
+<td><code>cui_role</code></td>
+<td><code>processes</code>, <code>stores</code>,
+<code>transmits</code></td>
+<td>Maps to CUI handling roles</td>
+</tr>
+<tr>
+<td><code>enclave_id</code></td>
+<td><code>ENCLAVE-A</code></td>
+<td>Groups policies and ADM workspaces</td>
+</tr>
+<tr>
+<td><code>data_class</code></td>
+<td><code>cui</code>, <code>internal</code>, <code>public</code></td>
+<td>Drives segmentation rules</td>
+</tr>
+<tr>
+<td><code>owner_team</code></td>
+<td><code>prog-office-xyz</code></td>
+<td>Accountability in exports</td>
+</tr>
+</tbody>
+</table>
+<h3 id="discovery-filters-examples">4.3 Discovery Filters
+(Examples)</h3>
+<pre><code>Filter: CUI-Candidate-DBs
+  - Process: postgres, oracle, mysqld, sqlservr, mongod
+  - Ports: 5432, 1521, 1433, 3306, 27017
+
+Filter: CUI-Candidate-App-Tiers
+  - Tag from cloud: DataClassification=CUI
+  - Hostname pattern: *cui*, *gov*, *fed*
+
+Filter: Common-Exfil-Protocols (review only — policy may block after baseline)
+  - Outbound destination not in approved list AND process in (curl, wget, ftp, scp)</code></pre>
+<hr />
+<h2 id="phase-3-visibility-and-baseline-days-1025">5. Phase 3 —
+Visibility and Baseline (Days 10–25)</h2>
+<h3 id="application-dependency-mapping-adm">5.1 Application Dependency
+Mapping (ADM)</h3>
+<p>ADM establishes the <strong>authorized communication
+baseline</strong> needed for 03.01.03, 03.04.x comparison, and 03.13.06
+allow-lists.</p>
+<pre><code>CSW UI → Investigate → Application Dependency Mapping
+  → New Workspace
+  → Name: CUI-ADM-&lt;Enclave&gt;-&lt;YYYYQQ&gt;
+  → Scope: CUI-Enclaves (or single enclave for stricter separation)
+  → Duration: ≥ 14 days (include month-end / payroll / batch cycles if applicable)
+  → Enable rich process context and user context where supported</code></pre>
+<p><strong>During review, document:</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Question</th>
+<th>Relevance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Which workloads initiate sessions <strong>from</strong> non-CUI into
+CUI?</td>
+<td>03.01.03, 03.13.01</td>
+</tr>
+<tr>
+<td>Which CUI workloads initiate <strong>to</strong> non-CUI
+(break-glass, SaaS, email)?</td>
+<td>03.01.03, 03.01.20</td>
+</tr>
+<tr>
+<td>Where is traffic cleartext (HTTP, LDAP, FTP) versus encrypted?</td>
+<td>03.13.x, 03.13.08 (as applicable)</td>
+</tr>
+<tr>
+<td>What is the blast radius if a given internet-facing tier is
+compromised?</td>
+<td>03.11.x</td>
+</tr>
+</tbody>
+</table>
+<h3 id="software-inventory-and-drift">5.2 Software Inventory and
+Drift</h3>
+<pre><code>CSW UI → Investigate → Inventory / Vulnerability (per product navigation)
+  → Scope: CUI-Enclaves
+  → Export: workload, package/CVE summary, listening ports, last seen</code></pre>
+<p>Re-run ADM <strong>at least quarterly</strong> or after major
+releases; treat newly observed flows as <strong>configuration
+changes</strong> under 03.04.x.</p>
+<hr />
+<h2 id="phase-4-policy-design-days-2240">6. Phase 4 — Policy Design
+(Days 22–40)</h2>
+<h3 id="policy-workspace-pattern">6.1 Policy Workspace Pattern</h3>
+<pre><code>CSW UI → Defend → Segmentation
+  → New Workspace: CUI-&lt;Enclave&gt;-Enforcement
+  → Scope: matching CUI scope from section 4
+  → Import ADM-suggested rules → translate to explicit allow/deny with change tickets
+  → Mode: Simulation → Enforcement (staged)</code></pre>
+<h3 id="illustrative-policy-stanzas-conceptual">6.2 Illustrative Policy
+Stanzas (Conceptual)</h3>
+<p>Translate organizational policy into CSW rules. Examples below are
+<strong>patterns</strong>; port lists and peers must come from your ADM
+and SSP.</p>
+<p><strong>03.13.06 — Deny by default, allow by exception (east-west at
+workload tier):</strong></p>
+<pre><code># Implicit default: DENY unmatched intra-scope traffic after cutover
+# Explicit allows (examples):
+ALLOW: CUI-App-Tier → CUI-DB-Tier  [TCP 443, 5432 from approved SG/workload set only]
+ALLOW: CUI-App-Tier → Identity  [TCP 636, 88, 464 — Kerberos/LDAPS paths per your design]
+ALLOW: SOC-Collector → All-CUI  [TCP 443 agent telemetry — if architected this way]
+DENY:  Non-CUI → CUI  [except documented jump hosts / service accounts]
+DENY:  CUI → Internet  [except explicit proxy or vetted SaaS egress IPs]
+LOG:   Any → CUI unmatched traffic (alert + SOC review)</code></pre>
+<p><strong>03.01.03 — Information flow enforcement between CUI and
+non-CUI:</strong></p>
+<pre><code># Separate policy chain or rule section titled &quot;CUI-Boundary-Flow&quot;
+ALLOW: Approved-Integration-Host ↔ Partner-VDI  [documented in connection agreement]
+DENY:  CUI-Datastores → Non-CUI-Desktops (default)
+ALLOW: CUI-Datastores → Backup-Appliance  [narrow destination list]</code></pre>
+<p><strong>03.01.05 — Least privilege (network dimension):</strong></p>
+<ul>
+<li>Every ALLOW rule has: business owner, ticket ID, expected process
+set, expiry/review date.</li>
+<li>Prefer <strong>workload identity</strong> (agent visibility) over
+coarse subnet-only rules.</li>
+</ul>
+<h3 id="plaintext-and-unexpected-protocol-handling-support-to-03.13.x">6.3
+Plaintext and Unexpected Protocol Handling (Support to 03.13.x)</h3>
+<p>Create alerts for flows that indicate cleartext or risky transports
+from CUI scopes (examples: HTTP to sensitive ports, LDAP:389 from CUI
+app tiers, unapproved RDP paths). Pair technical blocks with
+compensating monitoring where applications cannot yet migrate to
+TLS.</p>
+<hr />
+<h2 id="phase-5-enforcement-and-validation-days-40">7. Phase 5 —
+Enforcement and Validation (Days 40+)</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Mode</th>
+<th>Objective</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Simulation (2+ weeks)</td>
+<td>Tune alerts; no production impact</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Selective enforcement</td>
+<td>Enforce <strong>obvious deny</strong> rules (e.g., CUI → open
+internet)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Full enforcement</td>
+<td>Default deny with signed allow-list; break-glass process
+documented</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Break-glass:</strong> maintain an auditable process (ticket +
+time-bound policy toggle or scoped exception) for emergency change;
+avoid permanent “ANY ANY” exceptions.</p>
+<hr />
+<h2 id="phase-6-risk-assessment-and-vulnerability-context-ongoing">8.
+Phase 6 — Risk Assessment and Vulnerability Context (Ongoing)</h2>
+<pre><code>CSW UI → Investigate → Vulnerability Report
+  → Scope: CUI-Enclaves
+  → Sort by environmental priority (e.g., critical CVE on internet-adjacent + ADM path to datastore)
+  → Export for POA&amp;M / risk register</code></pre>
+<p>Use <strong>reachability</strong> from ADM plus exposure to justify
+remediation order (supports 03.11.x narrative). Where patching is
+delayed, document <strong>compensating</strong> CSW controls (tightened
+source IP, removal of path, extra logging on affected tier).</p>
+<hr />
+<h2 id="phase-7-audit-readiness-monitoring-and-accountability-ongoing">9.
+Phase 7 — Audit Readiness: Monitoring and Accountability (Ongoing)</h2>
+<h3 id="alerts-suited-to-cui-operations">9.1 Alerts Suited to CUI
+Operations</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Alert theme</th>
+<th>Example trigger</th>
+<th>Typical requirement tie-in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Boundary violation</td>
+<td>Non-approved source connects to CUI tier</td>
+<td>03.01.02, 03.13.01</td>
+</tr>
+<tr>
+<td>Flow policy deny hit</td>
+<td>Enforcement drop / reject</td>
+<td>03.13.06</td>
+</tr>
+<tr>
+<td>Novel lateral path</td>
+<td>New east-west service on CUI datastore</td>
+<td>03.01.03, 03.04.x</td>
+</tr>
+<tr>
+<td>Cleartext indicator</td>
+<td>HTTP/LDAP from CUI app to sensitive listener</td>
+<td>03.13.x</td>
+</tr>
+<tr>
+<td>Sensor gap</td>
+<td>Agent offline on CUI server</td>
+<td>03.03.x (visibility gap)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="forensic-export-pattern">9.2 Forensic Export Pattern</h3>
+<pre><code>CSW UI → Investigate → Flow Search
+  → Time UTC window, source/destination workload, action
+  → Export CSV/JSON per SOC reference design
+
+CSW UI → Investigate → Process Search
+  → Process tree for suspect host during same window
+  → Attach exports to incident record</code></pre>
+<p>Integrate alerts and enriched logs with SIEM (syslog, API, or vendor
+connector per your subscription).</p>
+<hr />
+<h2 id="control-by-control-mapping-representative-set">10.
+Control-by-Control Mapping (Representative Set)</h2>
+<p>The table below links <strong>selected</strong> Rev. 3 requirements
+to <strong>CSW capabilities</strong> and <strong>example
+evidence</strong>. It is not exhaustive; complete coverage requires
+mapping every applicable requirement in your SSP and 800-171A assessment
+procedures.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Title / intent (summary)</th>
+<th>CSW capability</th>
+<th>Evidence produced</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>03.01.02</td>
+<td>Access enforcement</td>
+<td>Scope-based micro-segmentation; deny default with explicit
+ALLOW</td>
+<td>Policy workspace export; enforcement hit logs; simulation vs
+production diff</td>
+</tr>
+<tr>
+<td>03.01.03</td>
+<td>Information flow enforcement for CUI (CUI flow between connected
+systems)</td>
+<td>Boundary policies CUI↔︎non-CUI; ADM-approved paths</td>
+<td>ADM workspace export; boundary rule set; denied-flow report for
+violations</td>
+</tr>
+<tr>
+<td>03.01.05</td>
+<td>Least privilege (incl. network)</td>
+<td>Minimal allow-list; process-scoped visibility</td>
+<td>Rule review with owner/ticket metadata; process-attributed
+flows</td>
+</tr>
+<tr>
+<td>03.01.12</td>
+<td>Remote access</td>
+<td>Restrict remote paths to managed gateways; log allowed admin
+sessions</td>
+<td>Policies targeting jump hosts / bastions; flow logs for admin
+ports</td>
+</tr>
+<tr>
+<td>03.03.01</td>
+<td>Event logging</td>
+<td>Flow + process telemetry</td>
+<td>SIEM feed samples; retention configuration record</td>
+</tr>
+<tr>
+<td>03.03.02</td>
+<td>Audit events</td>
+<td>Detailed connection records</td>
+<td>Exported flows with 5-tuple, process, user context</td>
+</tr>
+<tr>
+<td>03.03.03</td>
+<td>Audit record content</td>
+<td>Rich telemetry</td>
+<td>Field mapping doc (see Appendix B)</td>
+</tr>
+<tr>
+<td>03.03.04</td>
+<td>Response to audit logging process failures</td>
+<td>Alert when sensor/connectors stop; SIEM ingest health
+dashboards</td>
+<td>SOC reference designs; tickets for logging pipeline failures</td>
+</tr>
+<tr>
+<td>03.03.05</td>
+<td>Audit record review, analysis, and reporting</td>
+<td>Export to SIEM; correlation with identity and netflow</td>
+<td>SOC review cadence; sample investigation reports</td>
+</tr>
+<tr>
+<td>03.03.06</td>
+<td>Audit record reduction and report generation</td>
+<td>Flow/process summaries for investigations</td>
+<td>Saved queries / reports used for after-action review</td>
+</tr>
+<tr>
+<td>03.03.07</td>
+<td>Time stamps (UTC granularity)</td>
+<td>Telemetry timestamps aligned to enterprise time standard</td>
+<td>Sample records + NTP configuration reference</td>
+</tr>
+<tr>
+<td>03.03.08</td>
+<td>Protection of audit information</td>
+<td>RBAC on CSW console; least-privilege admin to change logging</td>
+<td>Admin access list; change control for log integrations</td>
+</tr>
+<tr>
+<td>03.04.01</td>
+<td>Baseline configuration</td>
+<td>ADM as communication baseline</td>
+<td>Baseline vs current diff after change window</td>
+</tr>
+<tr>
+<td>03.04.02</td>
+<td>Configuration change</td>
+<td>New flows / listeners flagged</td>
+<td>Change tickets linked to observed deltas</td>
+</tr>
+<tr>
+<td>03.04.08</td>
+<td>Authorized software — allow by exception</td>
+<td>Process / software inventory; block unexpected listeners via
+policy</td>
+<td>Approved software list vs CSW inventory reconciliation</td>
+</tr>
+<tr>
+<td>03.11.x</td>
+<td>Risk assessment inputs</td>
+<td>CVE + reachability + EPSS-style prioritization if enabled</td>
+<td>Risk workshop slides + CSW export attachments</td>
+</tr>
+<tr>
+<td>03.13.01</td>
+<td>Boundary protection</td>
+<td>Enclave segmentation; internal key interfaces controlled</td>
+<td>Topology from ADM; internal boundary rule list</td>
+</tr>
+<tr>
+<td>03.13.06</td>
+<td>Deny by default / allow by exception</td>
+<td>Workload-level default deny</td>
+<td>Signed allow-list; percentage of traffic denied as “unknown” near
+zero post-tuning</td>
+</tr>
+<tr>
+<td>03.13.08</td>
+<td>Transmission and storage confidentiality</td>
+<td>Detect/block prohibited cleartext paths; visibility into sensitive
+flows (<strong>transmission</strong>); <em>encryption at rest</em> is
+validated outside CSW</td>
+<td>Protocol analysis exports; blocked-flow metrics; SSP narrative for
+TLS/IPsec coverage</td>
+</tr>
+<tr>
+<td>03.14.01</td>
+<td>Flaw remediation (visibility / prioritization support)</td>
+<td>Vulnerability exposure reports; reachability-aware
+prioritization</td>
+<td>POA&amp;M extracts; weekly export samples</td>
+</tr>
+<tr>
+<td>03.14.02</td>
+<td>Malicious code protection (complementary signal)</td>
+<td>Process lineage; anomalous egress <strong>in addition to</strong>
+AV/EDR</td>
+<td>CSW process-tree exports correlated with AV findings</td>
+</tr>
+<tr>
+<td>03.14.06</td>
+<td>System monitoring</td>
+<td>Workload network + process monitoring; unauthorized connection
+detection</td>
+<td>Alert catalog; dashboard screenshots; SOC coverage statement</td>
+</tr>
+<tr>
+<td>03.06.x</td>
+<td>Incident handling (technical evidence)</td>
+<td>Scope and timeline reconstruction</td>
+<td>Forensic export bundle per IR playbook</td>
+</tr>
+<tr>
+<td>03.12.03</td>
+<td>Continuous monitoring</td>
+<td>Ongoing workload telemetry + policy effectiveness metrics</td>
+<td>Monitoring strategy attachment referencing CSW dashboards</td>
+</tr>
+<tr>
+<td>03.12.05</td>
+<td>Information exchange agreements (technical interfaces)</td>
+<td>ADM shows live interfaces; policy enforces approved interconnections
+only</td>
+<td>Interface list from ADM + signed exchange agreement references in
+SSP</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="common-pitfalls">11. Common Pitfalls</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pitfall</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CUI workload missing from CSW inventory</td>
+<td>Weekly reconcile against SSP; auto-label from cloud metadata where
+possible</td>
+</tr>
+<tr>
+<td>Over-broad rules (subnet-only) undermine 03.01.05 evidence</td>
+<td>Prefer workload + process context from ADM; document exceptions</td>
+</tr>
+<tr>
+<td>ADM window too short (misses batch jobs)</td>
+<td>Run ≥14 days; include month-end and patch cycles</td>
+</tr>
+<tr>
+<td>Silent cleartext on non-standard ports</td>
+<td>Inspect process-level protocol data; do not assume encryption by
+port number alone</td>
+</tr>
+<tr>
+<td>Enforcement without successful simulation</td>
+<td>Complete simulation with CAB sign-off; stage by enclave</td>
+</tr>
+<tr>
+<td>Logs retained only in CSW console</td>
+<td>Forward to SIEM / immutable store for assessor retention tests</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="boundaries-what-csw-does-not-cover">12. Boundaries — What CSW
+Does <strong>Not</strong> Cover</h2>
+<ul>
+<li><strong>Policy, training, personnel, and HR workflows</strong>
+(families 03.02, 03.09, parts of 03.15–03.17 documentation
+obligations).</li>
+<li><strong>Physical security</strong> (03.10) and <strong>media
+handling</strong> procedures (03.08).</li>
+<li><strong>Cryptographic module validation</strong> (FIPS 140) — CSW
+may help you see <strong>where</strong> crypto should be enforced, not
+<strong>certify</strong> implementations.</li>
+<li><strong>Authoritative identity lifecycle</strong> (account
+provisioning, MFA enrollment, PIV issuance) — CSW consumes identity
+context where integrated but does not replace IdP/IAM.</li>
+<li><strong>Formal security assessments</strong> — CSW supplies
+artifacts; assessors render official findings.</li>
+<li><strong>Out-of-scope workloads</strong> — if an asset is missing an
+agent or connector, CSW cannot assert controls for it.</li>
+</ul>
+<hr />
+<h2 id="audit-preparation-and-evidence-export">13. Audit Preparation and
+Evidence Export</h2>
+<h3 id="quarterly-evidence-bundle-suggested-contents">13.1 Quarterly
+Evidence Bundle (Suggested Contents)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>CSW source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope membership export</td>
+<td>Inventory</td>
+<td>Must reconcile to SSP component list</td>
+</tr>
+<tr>
+<td>ADM baseline snapshot</td>
+<td>ADM workspace</td>
+<td>Time-bounded, signed by owner</td>
+</tr>
+<tr>
+<td>Active policy workspace</td>
+<td>Defend</td>
+<td>Version ID + approver</td>
+</tr>
+<tr>
+<td>Enforcement / simulation report</td>
+<td>Policy analytics</td>
+<td>Show drift vs prior quarter</td>
+</tr>
+<tr>
+<td>Vulnerability exposure report</td>
+<td>Vulnerability</td>
+<td>CUI scope only</td>
+</tr>
+<tr>
+<td>Sample SIEM ingest</td>
+<td>SOC</td>
+<td>Proof of central retention</td>
+</tr>
+</tbody>
+</table>
+<h3 id="optional-cli-automation-examples">13.2 Optional CLI / Automation
+Examples</h3>
+<p>Use your enterprise automation pattern (CI pipeline, SOC playbook).
+Example: <strong>periodic inventory pull</strong> via your supported
+API/automation tool (replace with your gateway host and tokens):</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env bash</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Illustrative only — use the official Cisco Secure Workload API / automation documented for your tenant.</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CSW_API_BASE</span><span class="op">=</span><span class="st">&quot;https://&lt;tenant-api-endpoint&gt;&quot;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CSW_API_TOKEN</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$(</span><span class="ex">vault</span> kv get <span class="at">-field</span><span class="op">=</span>token secret/csw/automation<span class="va">)</span><span class="st">&quot;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sS</span> <span class="at">-H</span> <span class="st">&quot;Authorization: Bearer </span><span class="va">${CSW_API_TOKEN}</span><span class="st">&quot;</span> <span class="dt">\</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;</span><span class="va">${CSW_API_BASE}</span><span class="st">/v2/inventory/export?scope=CUI-Enclaves&quot;</span> <span class="dt">\</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> <span class="st">&quot;cui_inventory_</span><span class="va">$(</span><span class="fu">date</span> <span class="at">-u</span> +%Y%m%dT%H%M%SZ<span class="va">)</span><span class="st">.csv&quot;</span></span></code></pre></div>
+<p>Store exports in protectively marked storage consistent with CUI
+handling rules.</p>
+<hr />
+<h2 id="appendix-a-cross-walk-to-nist-sp-800-53-rev.-5-illustrative">Appendix
+A — Cross-Walk to NIST SP 800-53 Rev. 5 (Illustrative)</h2>
+<table>
+<thead>
+<tr>
+<th>800-171 Rev. 3</th>
+<th>Related 800-53 control(s) (per NIST mapping)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>03.01.03</td>
+<td>AC-4</td>
+</tr>
+<tr>
+<td>03.01.05</td>
+<td>AC-6</td>
+</tr>
+<tr>
+<td>03.13.01</td>
+<td>SC-7</td>
+</tr>
+<tr>
+<td>03.13.06</td>
+<td>SC-7(5)</td>
+</tr>
+<tr>
+<td>03.03.x</td>
+<td>AU-2, AU-3, AU-6, AU-12 (family-dependent)</td>
+</tr>
+<tr>
+<td>03.14.x</td>
+<td>SI-4, SI-7 (representative)</td>
+</tr>
+</tbody>
+</table>
+<p>Use official NIST mapping tables in <strong>SP 800-171</strong> and
+<strong>SP 800-171A</strong> as the authoritative cross-walk.</p>
+<hr />
+<h2 id="appendix-b-siem-field-mapping-example">Appendix B — SIEM Field
+Mapping (Example)</h2>
+<p>Map exported events to your logging standard. Minimum useful
+fields:</p>
+<ul>
+<li>Timestamp (UTC), sensor/workload ID, source/destination IP and port,
+protocol, action (allow/deny/alert), policy ID, process name, process
+hash, user (if available), scope labels (<code>cui_scope</code>,
+<code>enclave_id</code>).</li>
+</ul>
+<hr />
+<h2 id="appendix-c-related-framework-reference-designs">Appendix C —
+Related Framework Reference designs</h2>
+<ul>
+<li><a href="../NIST-800-53/CSW-NIST-800-53-Reference-Design.html">NIST SP
+800-53 Rev. 5</a> — federal control catalog alignment at AC, AU, CM, IR,
+RA, SC, SI.</li>
+<li><a href="../CMMC-2/CSW-CMMC-Reference-Design.html">CMMC 2.0</a> —
+assessment-oriented CUI scope patterns and Level 2 practice mapping
+(verify Rev. 2 vs. Rev. 3 contract baseline).</li>
+<li><a href="../NIST-800-207/CSW-NIST-800-207-Reference-Design.html">NIST
+SP 800-207</a> — Zero Trust architectural context for segmentation and
+telemetry.</li>
+<li><a href="../FedRAMP/CSW-FedRAMP-Reference-Design.html">FedRAMP</a> —
+when CUI processing shares infrastructure with FedRAMP-style
+packages.</li>
+</ul>
+<hr />
+<p><em>Replace organization-specific names and bracketed placeholders
+before external distribution. For contractual compliance, rely on your
+legal and program office interpretation of applicable NIST
+revisions.</em></p>
+</body>
+</html>

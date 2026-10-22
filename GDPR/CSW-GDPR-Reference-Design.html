@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>GDPR (EU 2016/679) — Reference Design</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-GDPR-Reference-Design.html">CSW-GDPR-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-07T17:30:34Z UTC · Repository commit: a630820</div>
+<header id="title-block-header">
+<h1 class="title">GDPR (EU 2016/679) — Reference Design</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload-gdpr-compliance-framework" id="toc-cisco-secure-workload-gdpr-compliance-framework">Cisco Secure
+Workload — GDPR Compliance Framework</a>
+<ul>
+<li><a href="#reference-design-eu-general-data-protection-regulation-2016679" id="toc-reference-design-eu-general-data-protection-regulation-2016679">Reference
+Design | EU General Data Protection Regulation (2016/679)</a></li>
+<li><a href="#readers-guide" id="toc-readers-guide">Reader’s
+Guide</a></li>
+<li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</a></li>
+<li><a href="#universal-evidence-workflow" id="toc-universal-evidence-workflow">Universal evidence workflow</a>
+<ul>
+<li><a href="#phase-1-checklist-coverage" id="toc-phase-1-checklist-coverage">Phase 1 checklist
+(coverage)</a></li>
+<li><a href="#phase-2-checklist-baseline" id="toc-phase-2-checklist-baseline">Phase 2 checklist
+(baseline)</a></li>
+<li><a href="#phase-3-checklist-policy" id="toc-phase-3-checklist-policy">Phase 3 checklist (policy)</a></li>
+<li><a href="#phase-4-checklist-operate" id="toc-phase-4-checklist-operate">Phase 4 checklist (operate)</a></li>
+<li><a href="#what-csw-evidence-does-not-replace" id="toc-what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</a></li>
+</ul></li>
+<li><a href="#csw-effectiveness-for-this-framework" id="toc-csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</a></li>
+<li><a href="#overview" id="toc-overview">1. Overview</a>
+<ul>
+<li><a href="#gdpr-articles-csw-capabilities-high-level" id="toc-gdpr-articles-csw-capabilities-high-level">GDPR articles → CSW
+capabilities (high level)</a></li>
+</ul></li>
+<li><a href="#pre-deployment-checklist" id="toc-pre-deployment-checklist">2. Pre-Deployment Checklist</a></li>
+<li><a href="#phase-1-sensor-deployment-days-15" id="toc-phase-1-sensor-deployment-days-15">3. Phase 1 — Sensor
+Deployment (Days 1–5)</a>
+<ul>
+<li><a href="#personal-data-processing-tiers" id="toc-personal-data-processing-tiers">3.1 Personal-data processing
+tiers</a></li>
+<li><a href="#cloud-personal-data-estates" id="toc-cloud-personal-data-estates">3.2 Cloud personal-data
+estates</a></li>
+<li><a href="#validation" id="toc-validation">3.3 Validation</a></li>
+</ul></li>
+<li><a href="#phase-2-scope-inventory-design-days-612" id="toc-phase-2-scope-inventory-design-days-612">4. Phase 2 — Scope
+&amp; Inventory Design (Days 6–12)</a>
+<ul>
+<li><a href="#scope-hierarchy-aligned-to-processing-activities" id="toc-scope-hierarchy-aligned-to-processing-activities">4.1 Scope
+hierarchy aligned to processing activities</a></li>
+<li><a href="#discovery-filters-examples-tune-to-your-estate" id="toc-discovery-filters-examples-tune-to-your-estate">4.2 Discovery
+filters (examples — tune to your estate)</a></li>
+<li><a href="#label-taxonomy" id="toc-label-taxonomy">4.3 Label
+taxonomy</a></li>
+</ul></li>
+<li><a href="#phase-3-adm-baseline-for-personal-data-flows-days-1328" id="toc-phase-3-adm-baseline-for-personal-data-flows-days-1328">5. Phase
+3 — ADM &amp; Baseline for Personal Data Flows (Days 13–28)</a>
+<ul>
+<li><a href="#adm-workspace" id="toc-adm-workspace">5.1 ADM
+workspace</a></li>
+<li><a href="#adm-ropa-reconciliation-workflow" id="toc-adm-ropa-reconciliation-workflow">5.2 ADM ↔︎ RoPA reconciliation
+workflow</a></li>
+<li><a href="#article-25-by-design-segmentation-inputs" id="toc-article-25-by-design-segmentation-inputs">5.3 Article 25 —
+by-design segmentation inputs</a></li>
+</ul></li>
+<li><a href="#phase-4-policy-design-plaintext-detection-enforcement-days-2240" id="toc-phase-4-policy-design-plaintext-detection-enforcement-days-2240">6.
+Phase 4 — Policy Design, Plaintext Detection &amp; Enforcement (Days
+22–40)</a>
+<ul>
+<li><a href="#segmentation-policies-illustrative" id="toc-segmentation-policies-illustrative">6.1 Segmentation policies
+(illustrative)</a></li>
+<li><a href="#policy-workspace-lifecycle" id="toc-policy-workspace-lifecycle">6.2 Policy workspace
+lifecycle</a></li>
+<li><a href="#enforcement-stages" id="toc-enforcement-stages">6.3
+Enforcement stages</a></li>
+</ul></li>
+<li><a href="#phase-5-monitoring-vulnerability-resilience-ongoing" id="toc-phase-5-monitoring-vulnerability-resilience-ongoing">7. Phase 5
+— Monitoring, Vulnerability &amp; Resilience (ongoing)</a>
+<ul>
+<li><a href="#monitoring-alerts-examples" id="toc-monitoring-alerts-examples">7.1 Monitoring alerts
+(examples)</a></li>
+<li><a href="#vulnerability-management-tie-in" id="toc-vulnerability-management-tie-in">7.2 Vulnerability management
+tie-in</a></li>
+</ul></li>
+<li><a href="#control-by-control-mapping-requirement-csw-capability-evidence" id="toc-control-by-control-mapping-requirement-csw-capability-evidence">8.
+Control-by-control mapping — requirement → CSW capability →
+evidence</a></li>
+<li><a href="#breach-notification-readiness-articles-3334" id="toc-breach-notification-readiness-articles-3334">9. Breach
+notification readiness (Articles 33–34)</a>
+<ul>
+<li><a href="#technical-drill-checklist" id="toc-technical-drill-checklist">9.1 Technical drill
+checklist</a></li>
+<li><a href="#evidence-bundle-contents-non-exhaustive" id="toc-evidence-bundle-contents-non-exhaustive">9.2 Evidence bundle
+contents (non-exhaustive)</a></li>
+</ul></li>
+<li><a href="#audit-preparation-evidence-export" id="toc-audit-preparation-evidence-export">10. Audit preparation &amp;
+evidence export</a>
+<ul>
+<li><a href="#quarterly-annual-privacy-security-evidence" id="toc-quarterly-annual-privacy-security-evidence">10.1 Quarterly /
+annual privacy &amp; security evidence</a></li>
+<li><a href="#dpas-subprocessors" id="toc-dpas-subprocessors">10.2 DPAs
+&amp; subprocessors</a></li>
+</ul></li>
+<li><a href="#boundaries-what-csw-does-not-cover" id="toc-boundaries-what-csw-does-not-cover">11. Boundaries — what CSW
+does <strong>not</strong> cover</a></li>
+<li><a href="#common-pitfalls" id="toc-common-pitfalls">12. Common
+pitfalls</a></li>
+<li><a href="#related-frameworks" id="toc-related-frameworks">Related
+Frameworks</a>
+<ul>
+<li><a href="#appendix-a-example-plaintext-detection-policy-fragment-conceptual" id="toc-appendix-a-example-plaintext-detection-policy-fragment-conceptual">Appendix
+A — Example “plaintext detection” policy fragment (conceptual)</a></li>
+<li><a href="#appendix-b-ropa-crosswalk-template-spreadsheet-columns" id="toc-appendix-b-ropa-crosswalk-template-spreadsheet-columns">Appendix
+B — RoPA crosswalk template (spreadsheet columns)</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload-gdpr-compliance-framework">Cisco Secure
+Workload — GDPR Compliance Framework</h1>
+<h2 id="reference-design-eu-general-data-protection-regulation-2016679">Reference
+Design | EU General Data Protection Regulation (2016/679)</h2>
+<p><strong>Version:</strong> 1.0<br />
+<strong>Use Case:</strong> Fresh Install, Hybrid Environment (On-Prem +
+Cloud)<br />
+<strong>Legal anchor:</strong> Regulation (EU) 2016/679 — this document
+addresses <strong>technical security evidence</strong> only;
+<strong>legal interpretation, DPO decisions, legitimate-basis analysis,
+consent records, and DPIA sign-off</strong> remain with qualified legal
+counsel and the controller.</p>
+<hr />
+<h2 id="readers-guide">Reader’s Guide</h2>
+<p><strong>Who this is for.</strong> Data controllers and processors
+operating in the EU/EEA (or offering goods/services to persons in the
+Union), including CISOs, privacy engineering teams, DPO
+<em>liaisons</em> (technical), application owners handling personal
+data, and internal audit.</p>
+<p><strong>Important limitation.</strong> The GDPR is a <strong>legal
+and organizational</strong> framework. Cisco Secure Workload (CSW)
+<strong>does not</strong>:</p>
+<ul>
+<li>determine <strong>lawful basis</strong> for processing;</li>
+<li>manage <strong>consent</strong> banners, cookies, or preference
+centers;</li>
+<li>fulfill <strong>data subject rights</strong> requests (access,
+erasure, portability) by itself;</li>
+<li>replace <strong>Records of Processing Activities (RoPA)</strong>
+<em>narratives</em> — though it can substantiate <strong>data
+flows</strong> described there with telemetry.</li>
+</ul>
+<p>CSW <strong>does</strong> strengthen <strong>Article 32</strong>
+security of processing and supplies <strong>forensics</strong> that
+support <strong>Articles 33–34</strong> technical assessment,
+<strong>Article 25</strong> technical and organizational measures when
+paired with governance, and <strong>Article 30 / 35 / 28</strong>
+evidence insofar as your DPIA, RoPA, and processor oversight require
+<strong>accurate, verifiable</strong> descriptions of how personal data
+moves and is protected between systems.</p>
+<p><strong>Questions this reference design helps you
+answer:</strong></p>
+<ul>
+<li><em>Article 5(1)(f) — integrity and confidentiality: Can we show we
+implemented appropriate measures to prevent unauthorized processing,
+loss, or damage, including segmentation and visibility on systems that
+host or touch personal data?</em></li>
+<li><em>Article 25 — data protection by design and by default: Can we
+demonstrate network isolation of personal-data systems and
+least-privilege connectivity derived from observed need, not assumed
+trust?</em></li>
+<li><em>Article 30 — records of processing: Can we corroborate RoPa data
+flows (which systems exchange personal data, with whom, across which
+boundaries) using objective telemetry?</em></li>
+<li><em>Article 32 — security of processing: Can we evidence encryption
+posture in transit where relevant, segmentation enforcement,
+vulnerability visibility on workloads processing personal data, and
+monitoring?</em></li>
+<li><em>Articles 33–34 — breach notification: If a personal data breach
+occurs, can we reconstruct timeline, scope of affected systems, and
+exfiltration/lateral paths to inform supervisory authority and
+data-subject communication?</em></li>
+<li><em>Article 35 — DPIA: Can ADM and flow history support our analysis
+of necessity, proportionality, and residual risks for a new processing
+operation?</em></li>
+<li><em>Article 28 — processor / sub-processor oversight: Can we monitor
+and enforce egress paths from our environment to processors’ endpoints
+and detect deviations?</em></li>
+</ul>
+<p><strong>What you’ll need.</strong> GDPR Article 30 inventory (even
+draft), processing purposes per activity, data categories,
+<strong>Article 28 / DPAs</strong> listing subprocessors, network
+diagrams, classification of <strong>systems that process personal
+data</strong> (including pseudonymised datasets), and legal guidance on
+<strong>Schrems II / transfer tools</strong> if US cloud regions are in
+scope.</p>
+<p><strong>Where to start.</strong> Sections 1–2 for scope; 3–5 to
+deploy sensors and build personal-data scopes; 6–7 for segregation by
+design; 8 for control mapping; 9–10 for breach readiness and exports;
+<strong>Boundaries</strong> before claiming GDPR <em>compliance</em>
+from CSW alone.</p>
+<hr />
+<!-- CSW-RUNBOOK-PRIMER:v1 -->
+<h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</h2>
+<p>Cisco Secure Workload (CSW) is a <strong>workload protection
+platform</strong>. A lightweight <strong>agent</strong> on each
+server/VM/container observes processes and network flows; <strong>cloud
+connectors</strong> add AWS/Azure/GCP inventory where agents are not
+deployed.</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW term</th>
+<th>Meaning</th>
+<th>Why compliance teams care</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Logical boundary (CDE, PHI zone, CUI enclave)</td>
+<td>Defines the systems you must prove are isolated</td>
+</tr>
+<tr>
+<td><strong>Label / filter</strong></td>
+<td>Tag or query assigning workloads to scopes</td>
+<td>Automates scope membership — reduces drift</td>
+</tr>
+<tr>
+<td><strong>ADM</strong></td>
+<td>Application Dependency Mapping from observed traffic</td>
+<td><strong>Live</strong> network/data-flow diagram for assessors</td>
+</tr>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>Policy container for one scope or application</td>
+<td>Where allow/deny rules are authored</td>
+</tr>
+<tr>
+<td><strong>Monitor → Simulation → Enforce</strong></td>
+<td>Safe rollout sequence</td>
+<td>Simulation = change-board evidence before blocking traffic</td>
+</tr>
+<tr>
+<td><strong>Denied Connections</strong></td>
+<td>Log of flows blocked by policy</td>
+<td>Primary proof that enforcement <strong>operates</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Console areas:</strong> Investigate (inventory, flows, vulns)
+· Defend/Segmentation (policy) · Manage (agents) · Platform (connectors)
+· Administration (audit log)</p>
+<p><strong>Read next:</strong> <a href="../docs/compliance-evidence-playbook.html">Compliance evidence
+playbook</a> (full step-by-step) · <a href="../docs/about-csw.html">About
+CSW</a> (platform intro)</p>
+<hr />
+<h2 id="universal-evidence-workflow">Universal evidence workflow</h2>
+<p>Execute these phases for <strong>this framework’s</strong> compliance
+boundary. Map exports to control IDs in the <strong>Reporting &amp;
+Evidence</strong> section below.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Key CSW actions</th>
+<th>Typical duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Coverage</strong></td>
+<td>Every in-scope workload in CSW</td>
+<td>Install agents/connectors; apply compliance labels; create
+scope</td>
+<td>Days 1–10</td>
+</tr>
+<tr>
+<td><strong>2 — Baseline</strong></td>
+<td>Machine-generated flow map</td>
+<td>Run ADM ≥2 weeks; export clusters; app-owner signoff</td>
+<td>Days 11–28</td>
+</tr>
+<tr>
+<td><strong>3 — Policy</strong></td>
+<td>Designed isolation before enforce</td>
+<td>Build workspace; Simulation mode; fix false positives</td>
+<td>Days 29–45</td>
+</tr>
+<tr>
+<td><strong>4 — Operate</strong></td>
+<td>Continuous proof between audits</td>
+<td>Enforce; quarterly export pack; ADM refresh every 90 days</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-checklist-coverage">Phase 1 checklist (coverage)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>In-scope host list reconciled to CSW
+Inventory (100% or documented exceptions)</label></li>
+<li><label><input type="checkbox"></input>Labels applied:
+<code>compliance:&lt;framework&gt;</code>,
+<code>data:&lt;classification&gt;</code>,
+<code>env:&lt;tier&gt;</code></label></li>
+<li><label><input type="checkbox"></input>CSW scope created matching
+compliance boundary</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> inventory
+CSV + agent status screenshot</label></li>
+</ul>
+<h3 id="phase-2-checklist-baseline">Phase 2 checklist (baseline)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>ADM running on compliance scope for
+full business cycle (≥2 weeks)</label></li>
+<li><label><input type="checkbox"></input>Unexpected flows documented (shadow
+IT, vendor egress, scope creep)</label></li>
+<li><label><input type="checkbox"></input>App owners signed
+cluster-to-application mapping</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> ADM diagram
++ flow samples with process context</label></li>
+</ul>
+<h3 id="phase-3-checklist-policy">Phase 3 checklist (policy)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Default-deny posture defined for
+sensitive scope</label></li>
+<li><label><input type="checkbox"></input>ADM-imported rules refined;
+Simulation run ≥1 week</label></li>
+<li><label><input type="checkbox"></input>Change tickets for false-positive
+fixes; exception register updated</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> policy
+export + simulation report</label></li>
+</ul>
+<h3 id="phase-4-checklist-operate">Phase 4 checklist (operate)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Enforcement enabled on pilot scope;
+negative test recorded in Denied Connections</label></li>
+<li><label><input type="checkbox"></input>Quarterly pack: inventory, policy,
+denies, vulns, audit log (see playbook)</label></li>
+<li><label><input type="checkbox"></input>SIEM integration verified (sample
+events)</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> enforcement
+screenshot + quarterly binder</label></li>
+</ul>
+<h3 id="what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</h3>
+<p>Physical access, HR/training records, encryption key management,
+signed BAAs/vendor contracts, formal pen tests, and assessor attestation
+still require separate programmes. CSW addresses the
+<strong>workload-resident</strong> slice: segmentation, flows, process
+context, vuln reachability, and change drift.</p>
+<hr />
+<h2 id="csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</h2>
+<ul>
+<li>Art. 32 security-of-processing from enforcement + logging</li>
+<li>Art. 30 RoPA support via data-flow mapping</li>
+<li>Art. 33/34 breach timeline from flow search exports</li>
+</ul>
+<p><strong>Compared to manual programmes:</strong> static diagrams and
+annual firewall samples age immediately; CSW ties evidence to
+<strong>live workload behaviour</strong> and produces queryable exports
+on demand — supporting “operating effectively” language in PCI v4.0, SOC
+2 CC7, and HIPAA risk analysis.</p>
+<hr />
+<h2 id="overview">1. Overview</h2>
+<p>The GDPR unifies data protection rules across the EU/EEA and governs
+the processing of <strong>personal data</strong> and <strong>special
+categories</strong> where applicable. Controllers must implement
+<strong>appropriate technical and organizational measures
+(TOMs)</strong> under <strong>Article 32</strong>, ensure
+<strong>integrity and confidentiality</strong> under <strong>Article
+5(1)(f)</strong>, and embed <strong>data protection by design and by
+default</strong> under <strong>Article 25</strong>.</p>
+<p>CSW contributes to the <strong>technical layer</strong> of those
+obligations by providing workload inventory,
+<strong>microsegmentation</strong>, detection of <strong>cleartext or
+risky protocols</strong>, <strong>application dependency mapping
+(ADM)</strong>, vulnerability context, <strong>continuous
+monitoring</strong>, and <strong>forensic flow/process data</strong> for
+<strong>breach assessment</strong> and <strong>DPIA</strong> inputs —
+always <strong>in conjunction</strong> with encryption products, IAM,
+DLP, identity governance, contracts, and privacy programme
+operations.</p>
+<h3 id="gdpr-articles-csw-capabilities-high-level">GDPR articles → CSW
+capabilities (high level)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>GDPR article / theme</th>
+<th>Typical compliance questions</th>
+<th>Relevant CSW capabilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Art. 5(1)(f)</strong> — Integrity &amp; confidentiality</td>
+<td>Are personal data systems protected against unauthorized use, loss,
+or damage?</td>
+<td>Segmentation; flow visibility; cleartext / risky-flow detection;
+alerts</td>
+</tr>
+<tr>
+<td><strong>Art. 25</strong> — Data protection by design &amp; by
+default</td>
+<td>Are we minimizing exposure by default (network &amp; access
+paths)?</td>
+<td>Scopes isolating personal-data tiers; default deny; ADM-driven least
+privilege</td>
+</tr>
+<tr>
+<td><strong>Art. 30</strong> — Records of processing activities</td>
+<td>Are documented flows accurate vs reality?</td>
+<td>ADM clusters; flow exports cross-checking RoPA</td>
+</tr>
+<tr>
+<td><strong>Art. 32</strong> — Security of processing</td>
+<td>Confidentiality, integrity, availability, resilience — evidenced
+how?</td>
+<td>Enforcement policies; patch/vuln reports; monitoring;
+resilience</td>
+</tr>
+<tr>
+<td><strong>Art. 33–34</strong> — Breach notification &amp;
+communication</td>
+<td>What happened, when, which systems, extent?</td>
+<td>Time-bounded flow + process forensics; scope membership proofs</td>
+</tr>
+<tr>
+<td><strong>Art. 35</strong> — DPIA (where required)</td>
+<td>What are processing risks &amp; mitigations?</td>
+<td>ADM + flow history; policy baseline; before/after for new
+processing</td>
+</tr>
+<tr>
+<td><strong>Art. 28</strong> — Processor &amp; sub-processor terms</td>
+<td>Is processing only occurring to documented endpoints?</td>
+<td>Egress monitoring; alerts on new external destinations</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="pre-deployment-checklist">2. Pre-Deployment Checklist</h2>
+<p>Before deploying CSW where personal data is processed:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input><strong>Lawful basis &amp; DPIA
+status</strong> documented per processing activity (legal owner: DPO /
+counsel)</label></li>
+<li><label><input type="checkbox"></input>CSW cluster residency reviewed
+against <strong>data transfer</strong> decisions (EU-only vs approved
+SCCs / IDTA, etc.)</label></li>
+<li><label><input type="checkbox"></input><strong>DPA</strong> in place with
+Cisco where CSW processes personal data on behalf of controller (typical
+SaaS scenario — verify with procurement/legal)</label></li>
+<li><label><input type="checkbox"></input><strong>Inventory</strong> of
+controllers’ systems processing personal data — minimum: HRIS, CRM,
+marketing automation, auth directories, analytics warehouses,
+backups</label></li>
+<li><label><input type="checkbox"></input>Cloud connectors configured for
+<strong>AWS/Azure/GCP</strong> workloads hosting personal
+data</label></li>
+<li><label><input type="checkbox"></input>Stakeholders: <strong>CISO</strong>,
+<strong>DPO/liaison</strong>, <strong>data owners</strong>,
+<strong>processor account managers</strong></label></li>
+<li><label><input type="checkbox"></input><strong>Data minimization</strong>
+principles applied to telemetry — confirm whether flow metadata alone
+suffices for your DPIA (avoid collecting unnecessary payload content in
+ancillary tools)</label></li>
+</ul>
+<hr />
+<h2 id="phase-1-sensor-deployment-days-15">3. Phase 1 — Sensor
+Deployment (Days 1–5)</h2>
+<h3 id="personal-data-processing-tiers">3.1 Personal-data processing
+tiers</h3>
+<p>Deploy sensors on <strong>every workload</strong> that stores,
+transforms, or transmits personal data for in-scope activities:
+application servers, databases, ETL workers, identity services, backup
+agents on app hosts, microservices in Kubernetes worker nodes (per
+supported patterns), etc.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> rpm <span class="at">-ivh</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.rpm    <span class="co"># RHEL family</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dpkg <span class="at">-i</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.deb    <span class="co"># Debian/Ubuntu</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl enable <span class="at">--now</span> csw-agent</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl status csw-agent</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows Server / worker roles processing personal data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>msiexec <span class="op">/</span>i <span class="st">&quot;\\repo\tet-sensor-&lt;version&gt;.msi&quot;</span> <span class="op">/</span>qn</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-Service</span> <span class="op">*</span>tet<span class="op">*,*</span>csw<span class="op">*</span> <span class="op">-</span>ErrorAction SilentlyContinue</span></code></pre></div>
+<p><strong>Initial settings:</strong></p>
+<ul>
+<li><strong>Monitoring Only</strong> until ADM + DPIA-aligned review
+complete</li>
+<li>Tag early: <code>gdpr:in-scope</code>,
+<code>ropa-id:&lt;activity&gt;</code>,
+<code>data-class:personal</code></li>
+</ul>
+<h3 id="cloud-personal-data-estates">3.2 Cloud personal-data
+estates</h3>
+<pre><code>CSW UI → Platform → External Orchestrators
+  → Connect cloud accounts processing EU data subjects
+  → Map tags (cost center, env, `contains-pii`) into scopes
+  → Enable flow visibility where supported</code></pre>
+<h3 id="validation">3.3 Validation</h3>
+<pre><code>CSW UI → Manage → Agents
+  → 100% coverage target for in-scope personal-data scopes
+  → Escalate uncovered VMs/containers via change process</code></pre>
+<hr />
+<h2 id="phase-2-scope-inventory-design-days-612">4. Phase 2 — Scope
+&amp; Inventory Design (Days 6–12)</h2>
+<h3 id="scope-hierarchy-aligned-to-processing-activities">4.1 Scope
+hierarchy aligned to processing activities</h3>
+<p>Tie scopes to <strong>RoPA activity IDs</strong> — not only to
+network zones.</p>
+<pre><code>Root: GDPR-In-Scope
+├── ROPA-HR-001 / HR-IS                       # Employee personal data
+├── ROPA-CRM-004 / Customer-360               # Customer personal data
+├── ROPA-MKT-006 / Campaign-Automation        # Marketing contacts (if applicable)
+├── ROPA-Analytics-009 / Product-Analytics    # Pseudonymisation level documented legally
+├── Shared-Services (conditional)
+│   ├── IdP-AD          # personal data attributes? validate legally
+│   └── Central-Logging
+└── Sub-Processors-Egress
+    ├── Payroll-SaaS endpoints (allowlisted FQDNs)
+    └── Support-ticketing SaaS</code></pre>
+<h3 id="discovery-filters-examples-tune-to-your-estate">4.2 Discovery
+filters (examples — tune to your estate)</h3>
+<pre><code>Filter: Personal-Data-DB-Tier
+  - Process: mysqld, postgres, mariadbd, sqlservr, mongod
+  - Tag from CMDB: confidentiality=internal+personenbezogen
+
+Filter: MarTech (if in scope)
+  - Process contains: hubspot, marketo, salesforce-sync
+  - Egress domains from RoPA appendix</code></pre>
+<h3 id="label-taxonomy">4.3 Label taxonomy</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Label</th>
+<th>Values</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ropa-id</code></td>
+<td><code>HR-001</code>, <code>CRM-004</code></td>
+<td>Maps evidence to Article 30 record</td>
+</tr>
+<tr>
+<td><code>data-class</code></td>
+<td><code>personal</code>, <code>special-category</code>,
+<code>pseudonymised</code></td>
+<td>Legal classification drives technical rigor</td>
+</tr>
+<tr>
+<td><code>processor</code></td>
+<td><code>payroll-vendor-x</code></td>
+<td>Article 28 monitoring</td>
+</tr>
+<tr>
+<td><code>env</code></td>
+<td><code>prod</code>, <code>staging</code></td>
+<td>Separate policy workspaces</td>
+</tr>
+<tr>
+<td><code>lawful-basis-ref</code></td>
+<td>internal ticket (not legal advice)</td>
+<td>Cross-team traceability only</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-3-adm-baseline-for-personal-data-flows-days-1328">5. Phase
+3 — ADM &amp; Baseline for Personal Data Flows (Days 13–28)</h2>
+<h3 id="adm-workspace">5.1 ADM workspace</h3>
+<pre><code>CSW UI → Investigate → Application Dependency Mapping
+  → Workspace: GDPR-Personal-Data-ADM
+  → Scope: GDPR-In-Scope (prod)
+  → Window: 3–6 weeks (payroll cycle + monthly batch jobs)
+  → Process + user context where available</code></pre>
+<h3 id="adm-ropa-reconciliation-workflow">5.2 ADM ↔︎ RoPA reconciliation
+workflow</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Step</th>
+<th>Owner</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Export ADM clusters</td>
+<td>Security</td>
+<td>Cluster list with IPs, processes, ports</td>
+</tr>
+<tr>
+<td>2. Map clusters to <strong>processing purposes</strong></td>
+<td>Data owner + DPO liaison</td>
+<td>Updated RoPA appendix</td>
+</tr>
+<tr>
+<td>3. Flag <strong>undocumented flows</strong> to subprocessors</td>
+<td>Privacy</td>
+<td>Ticket + risk note for DPIA refresh</td>
+</tr>
+<tr>
+<td>4. Tag workloads post-validation</td>
+<td>IT Ops</td>
+<td>Labels <code>ropa-id</code> corrected</td>
+</tr>
+<tr>
+<td>5. Re-run ADM after major app changes</td>
+<td>Security</td>
+<td>Version-controlled export</td>
+</tr>
+</tbody>
+</table>
+<h3 id="article-25-by-design-segmentation-inputs">5.3 Article 25 —
+by-design segmentation inputs</h3>
+<p>From ADM, construct <strong>least-privilege</strong> intended
+connectivity <strong>before</strong> wide enforcement:</p>
+<ul>
+<li><strong>Default deny</strong> between unrelated RoPA activities
+sharing a VLAN</li>
+<li><strong>Dedicated</strong> scopes for special-category data if legal
+requires separation</li>
+<li><strong>Dedicated</strong> breach-isolation scope for
+<strong>break-glass</strong> admin</li>
+</ul>
+<hr />
+<h2 id="phase-4-policy-design-plaintext-detection-enforcement-days-2240">6.
+Phase 4 — Policy Design, Plaintext Detection &amp; Enforcement (Days
+22–40)</h2>
+<h3 id="segmentation-policies-illustrative">6.1 Segmentation policies
+(illustrative)</h3>
+<blockquote>
+<p>Replace with your DPIA-approved architecture. <strong>Simulation
+first.</strong></p>
+</blockquote>
+<pre><code>DENY: ROPA-MKT-006 → ROPA-HR-001   # marketing / HR separation example
+DENY: Any → GDPR-In-Scope (default deny inbound except documented edges)
+
+ALLOW: Customer-360 → IdP-AD (LDAPS 636 / Kerberos — block cleartext LDAP)
+ALLOW: HR-IS → Payroll-SaaS-allowlist (443 to enumerated SaaS prefixes only)
+LOG + ALERT: Personal-Data-DB-Tier → Internet except documented patch/CDN list</code></pre>
+<p><strong>Plaintext / weak-protocol mitigation (Art. 32 technical
+measure):</strong></p>
+<ul>
+<li>Create <strong>detect-first</strong> rules for <code>HTTP</code>,
+<code>FTP</code>, <code>LDAP:389</code> from scopes labeled
+<code>gdpr:in-scope</code></li>
+<li>Escalate to <strong>block</strong> after joint sign-off with app
+owners</li>
+</ul>
+<h3 id="policy-workspace-lifecycle">6.2 Policy workspace lifecycle</h3>
+<pre><code>CSW UI → Defend → Segmentation
+  → Workspace: GDPR-Personal-Data-Prod
+  → Import ADM rules → legal/DPO review for business flows
+  → Simulation 2–4+ weeks → phased enforcement</code></pre>
+<h3 id="enforcement-stages">6.3 Enforcement stages</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Objective</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simulation</td>
+<td>Measure would-block events; DPIA residual risk update if
+material</td>
+</tr>
+<tr>
+<td>Tier-1 blocks</td>
+<td>Stop cleartext admin &amp; obvious internet exposure from DB
+tier</td>
+</tr>
+<tr>
+<td>Full enforcement</td>
+<td>Default deny between RoPA scopes except allowlisted conduits</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-5-monitoring-vulnerability-resilience-ongoing">7. Phase 5
+— Monitoring, Vulnerability &amp; Resilience (ongoing)</h2>
+<h3 id="monitoring-alerts-examples">7.1 Monitoring alerts
+(examples)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Alert</th>
+<th>Trigger</th>
+<th>GDPR linkage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New subprocessor destination</td>
+<td>Flow to IP/FQDN not in RoPA allowlist</td>
+<td>Art. 28, Art. 30 accuracy</td>
+</tr>
+<tr>
+<td>Cleartext personal-data path</td>
+<td>HTTP/LDAP from in-scope DB/app tier</td>
+<td>Art. 32, Art. 5(1)(f)</td>
+</tr>
+<tr>
+<td>Lateral movement</td>
+<td>New east-west path between personal-data scopes</td>
+<td>Art. 32, breach assessment</td>
+</tr>
+<tr>
+<td>Vulnerability regression</td>
+<td>Critical CVE on personal-data workload</td>
+<td>Art. 32, risk-based security</td>
+</tr>
+<tr>
+<td>Anomalous volume</td>
+<td>Possible exfil pattern</td>
+<td>Art. 33 technical scoping</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vulnerability-management-tie-in">7.2 Vulnerability management
+tie-in</h3>
+<pre><code>CSW UI → Investigate → Vulnerability Report
+  → Scope: GDPR-In-Scope
+  → Export → attach to Art. 32 TOM evidence pack / ISMS control testing</code></pre>
+<hr />
+<h2 id="control-by-control-mapping-requirement-csw-capability-evidence">8.
+Control-by-control mapping — requirement → CSW capability →
+evidence</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>GDPR requirement (summary)</th>
+<th>CSW capability</th>
+<th>Evidence produced</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Art. 5(1)(f)</strong> — integrity &amp; confidentiality;
+safeguards against unauthorized processing, loss, destruction,
+damage</td>
+<td>Microsegmentation; monitoring; cleartext/plaintext-path detection;
+vuln visibility</td>
+<td>Policy exports; alert history; flow reports; VA exports</td>
+</tr>
+<tr>
+<td><strong>Art. 25(1–2)</strong> — data protection by design &amp; by
+default (appropriate technical measures)</td>
+<td>Scopes isolating processing activities; default deny; ADM-driven
+least privilege</td>
+<td>ADM reports; before/after policy versions; architecture memos</td>
+</tr>
+<tr>
+<td><strong>Art. 30</strong> — records of processing (accuracy of
+systems &amp; transfers)</td>
+<td>ADM &amp; flow telemetry validating documented flows</td>
+<td>RoPA crosswalk spreadsheet + CSW exports</td>
+</tr>
+<tr>
+<td><strong>Art. 32(1)</strong> — pseudonymisation &amp; encryption
+<strong>(implementation uses complementary tools)</strong>; ongoing
+confidentiality, integrity, availability, resilience</td>
+<td>Path hygiene (TLS-only); segmentation fault isolation; resilience
+via anomaly detection</td>
+<td>TLS vs plain detection logs; HA architecture tie-in narrative</td>
+</tr>
+<tr>
+<td><strong>Art. 32(1)(d)</strong> — process for regularly testing
+effectiveness</td>
+<td>Scheduled policy drills; simulation reruns after changes</td>
+<td>Test reports; change tickets</td>
+</tr>
+<tr>
+<td><strong>Art. 33–34</strong> — personal data breach notice /
+communication</td>
+<td>Flow + process forensics; scope membership proof</td>
+<td>Incident timeline bundle; affected-system list skeleton (<em>legal
+finalizes</em>)</td>
+</tr>
+<tr>
+<td><strong>Art. 35</strong> — DPIA where required</td>
+<td>ADM + capacity/flow data for necessity &amp; proportionality;
+residual risk after segmentation</td>
+<td>DPIA annex packs (technical appendix)</td>
+</tr>
+<tr>
+<td><strong>Art. 28</strong> — processor instructions &amp; safeguards;
+sub-processors</td>
+<td>Egress allowlists; alerts on new destinations; enforcement
+audit</td>
+<td>Processor monitoring dashboards; monthly export to account
+owner</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="breach-notification-readiness-articles-3334">9. Breach
+notification readiness (Articles 33–34)</h2>
+<h3 id="technical-drill-checklist">9.1 Technical drill checklist</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Confirm <strong>UTC time
+sync</strong> on agents &amp; CSW cluster</label></li>
+<li><label><input type="checkbox"></input>Run <strong>quarterly</strong> test
+export: <code>Flow Search</code> restricted to random 1-hour window —
+validate tooling &amp; analyst skills</label></li>
+<li><label><input type="checkbox"></input>Maintain <strong>contact
+tree</strong>: DPO, legal, supervisory authority escalation
+(<em>pre-filled by legal</em>)</label></li>
+<li><label><input type="checkbox"></input>Map CSW <strong>scope IDs</strong>
+to <strong>processing activity IDs</strong> for rapid impact
+narrative</label></li>
+</ul>
+<h3 id="evidence-bundle-contents-non-exhaustive">9.2 Evidence bundle
+contents (non-exhaustive)</h3>
+<pre><code>CSW UI → Investigate → Flow Search
+  → Incident start/end
+  → Affected workload filter (scope or IP list)
+  → Export: flows with process, user (if present), bytes, duration
+
+CSW UI → Investigate → Process Search
+  → Suspicious parent/child processes on compromised host</code></pre>
+<p>Pair with <strong>IAM logs</strong>, <strong>EDR</strong>,
+<strong>WAF</strong>, and <strong>application audit</strong> tables —
+CSW is <strong>one lens</strong> on network/workload truth.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># After UI export — package for legal hold (illustrative)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/gdpr-breach-pack/incident-2026-001/<span class="dt">{flows</span><span class="op">,</span><span class="dt">process</span><span class="op">,</span><span class="dt">policies}</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> ~/Downloads/flows-<span class="pp">*</span>.csv ~/gdpr-breach-pack/incident-2026-001/flows/</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="ex">shasum</span> <span class="at">-a</span> 256 ~/gdpr-breach-pack/incident-2026-001/flows/<span class="pp">*</span> <span class="dt">\</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;</span> ~/gdpr-breach-pack/incident-2026-001/manifest-sha256.txt</span></code></pre></div>
+<hr />
+<h2 id="audit-preparation-evidence-export">10. Audit preparation &amp;
+evidence export</h2>
+<h3 id="quarterly-annual-privacy-security-evidence">10.1 Quarterly /
+annual privacy &amp; security evidence</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Evidence item</th>
+<th>CSW source</th>
+<th>Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Segmentation policy baseline</td>
+<td>Defend export</td>
+<td>Art. 25, 32 — TOM substantiation</td>
+</tr>
+<tr>
+<td>RoPA crosswalk</td>
+<td>ADM + spreadsheet</td>
+<td>Art. 30 accuracy</td>
+</tr>
+<tr>
+<td>Sim-to-enforcement audit trail</td>
+<td>Policy workspace history</td>
+<td>Change control</td>
+</tr>
+<tr>
+<td>Vulnerability report</td>
+<td>Vulnerabilities</td>
+<td>Art. 32 testing / risk mgmt</td>
+</tr>
+<tr>
+<td>Alert summary</td>
+<td>Alerts</td>
+<td>Art. 32 monitoring effectiveness</td>
+</tr>
+<tr>
+<td>Processor egress review</td>
+<td>Flow reports filtered by allowlist</td>
+<td>Art. 28 oversight</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dpas-subprocessors">10.2 DPAs &amp; subprocessors</h3>
+<p>Maintain a <strong>CSW rule object</strong> or <strong>external
+documentation</strong> listing approved SaaS <strong>FQDNs / IP
+ranges</strong>. When ADM discovers <strong>new</strong> destinations,
+route through <strong>vendor risk + legal</strong> before
+allowlisting.</p>
+<hr />
+<h2 id="boundaries-what-csw-does-not-cover">11. Boundaries — what CSW
+does <strong>not</strong> cover</h2>
+<ul>
+<li><strong>Lawfulness of processing / consent / legitimate interest
+balancing</strong> — legal analysis only.</li>
+<li><strong>Data subject rights fulfillment</strong> — access,
+rectification, erasure, portability workflows in business applications
+and backup rotation.</li>
+<li><strong>Privacy notices &amp; transparency</strong> — website / UX
+content.</li>
+<li><strong>International transfer mechanisms</strong> alone — CSW may
+show <em>where data flows</em>; <strong>Schrems II</strong> TIA
+completion is separate.</li>
+<li><strong>Organizational measures</strong>: training, HR sanctions,
+confidentiality agreements, <strong>pure policy</strong> documents
+without technical control.</li>
+<li><strong>Completeness of RoPA text fields</strong> — purpose,
+retention schedules, legal basis — CSW cannot author those; it can
+<strong>validate flows</strong>.</li>
+<li><strong>Encryption at rest</strong> — typically database/storage
+layer; CSW does not replace database TDE / storage CMK governance.</li>
+</ul>
+<hr />
+<h2 id="common-pitfalls">12. Common pitfalls</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pitfall</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Assuming <strong>encryption</strong> because HTTPS default port</td>
+<td>Validate <strong>SNI</strong>, termination points, &amp; east-west
+plaintext</td>
+</tr>
+<tr>
+<td>Scoping CSW only to <strong>EU region</strong> subnets while
+<strong>US teams</strong> administer</td>
+<td>Include admin paths; document transfers</td>
+</tr>
+<tr>
+<td>Stale RoPA after cloud refactor</td>
+<td>Re-run ADM on every major architecture change</td>
+</tr>
+<tr>
+<td>Over-collecting evidence with personal data inside
+<strong>SIEM</strong></td>
+<td>Prefer <strong>metadata</strong> flows; align with minimization</td>
+</tr>
+<tr>
+<td>Treating CSW export as <strong>DPIA sign-off</strong></td>
+<td>DPIA remains accountable to <strong>controller + DPO</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-frameworks">Related Frameworks</h2>
+<ul>
+<li><a href="../ISO-27001-2022/CSW-ISO27001-Reference-Design.html">ISO/IEC
+27001:2022</a> — common dual-track with GDPR technical measures.</li>
+<li><a href="../NIS2/CSW-NIS2-Reference-Design.html">NIS2 (EU
+2022/2555)</a> — for essential entities also under NIS2.</li>
+<li><a href="../SOC2/CSW-SOC2-Reference-Design.html">SOC 2</a> — when SaaS
+processors request security attestations alongside GDPR DPAs.</li>
+<li><a href="../NIST-800-207/CSW-NIST-800-207-Reference-Design.html">NIST
+SP 800-207</a> — zero trust segmentation patterns underpinning Article
+25 narratives.</li>
+</ul>
+<hr />
+<h3 id="appendix-a-example-plaintext-detection-policy-fragment-conceptual">Appendix
+A — Example “plaintext detection” policy fragment (conceptual)</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">workspace</span><span class="kw">:</span><span class="at"> GDPR-Personal-Data-Prod</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">phase</span><span class="kw">:</span><span class="at"> simulation</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rules</span><span class="kw">:</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> alert-http-from-pii-tier</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">action</span><span class="kw">:</span><span class="at"> alert</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">src_scope</span><span class="kw">:</span><span class="at"> Personal-Data-App-Tier</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">dst_any</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> tcp/80</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">notes</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Escalate to block after app owner confirms TLS available.&quot;</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> block-ldap-cleartext-from-app</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">action</span><span class="kw">:</span><span class="at"> deny</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">src_scope</span><span class="kw">:</span><span class="at"> Personal-Data-App-Tier</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">dst_scope</span><span class="kw">:</span><span class="at"> IdP-AD</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> tcp/389</span></span></code></pre></div>
+<h3 id="appendix-b-ropa-crosswalk-template-spreadsheet-columns">Appendix
+B — RoPA crosswalk template (spreadsheet columns)</h3>
+<div class="line-block">RoPA Activity ID | Processing purpose (legal
+text) | System / cluster name | CSW scope ID | ADM cluster ref |
+Subprocessors (Y/N) | Last ADM export date | Notes |</div>
+<hr />
+<p><em>Document prepared for customer data-protection discussions. Legal
+review required before external assurance or regulatory
+submission.</em></p>
+</body>
+</html>

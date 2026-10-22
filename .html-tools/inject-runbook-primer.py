@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Inject shared CSW primer + evidence workflow into all *-Technical-Runbook.md files.
+Inject shared CSW primer + evidence workflow into all *-Reference-Design.md files.
 
 Skips files that already contain marker: <!-- CSW-RUNBOOK-PRIMER:v1 -->
 """
@@ -271,7 +271,7 @@ Physical access, HR/training records, encryption key management, signed BAAs/ven
 
 def main():
     root = Path(__file__).resolve().parents[1]
-    runbooks = sorted(root.glob("**/*-Technical-Runbook.md"))
+    runbooks = sorted(root.glob("**/*-Reference-Design.md"))
     updated = 0
     skipped = 0
 

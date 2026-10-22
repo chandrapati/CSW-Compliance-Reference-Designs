@@ -32,42 +32,41 @@ DOCS_PAGES = [
 ]
 
 FRAMEWORKS = [
-    ("HIPAA",         "HIPAA Security Rule",                        "HIPAA/CSW-HIPAA-Compliance-Report",          "HIPAA/CSW-HIPAA-Technical-Runbook"),
-    ("SOC2",          "SOC 2 Type II",                              "SOC2/CSW-SOC2-Compliance-Report",            "SOC2/CSW-SOC2-Technical-Runbook"),
-    ("PCI-DSS-v4",    "PCI DSS v4.0",                               "PCI-DSS-v4/CSW-PCI-DSS-Compliance-Report",   "PCI-DSS-v4/CSW-PCI-DSS-Technical-Runbook"),
-    ("NIST-800-53",   "NIST SP 800-53 Rev 5",                       "NIST-800-53/CSW-NIST-800-53-Compliance-Report","NIST-800-53/CSW-NIST-800-53-Technical-Runbook"),
-    ("ISO-27001-2022","ISO/IEC 27001:2022",                         "ISO-27001-2022/CSW-ISO27001-Compliance-Report","ISO-27001-2022/CSW-ISO27001-Technical-Runbook"),
-    ("CISA-ZeroTrust","CISA Zero Trust Maturity Model",             "CISA-ZeroTrust/CSW-CISA-ZTMM-Compliance-Report","CISA-ZeroTrust/CSW-CISA-ZTMM-Technical-Runbook"),
-    ("FIPS-140",      "FIPS 140",                                   "FIPS-140/CSW-FIPS-Compliance-Report",        "FIPS-140/CSW-FIPS-Technical-Runbook"),
-    ("NIST-800-207",  "NIST SP 800-207 (ZTA Seven Tenets)",         "NIST-800-207/CSW-NIST-800-207-Compliance-Report","NIST-800-207/CSW-NIST-800-207-Technical-Runbook"),
-    ("NIST-800-207A", "NIST SP 800-207A (PDP/PEP/PA/PIP)",          "NIST-800-207A/CSW-NIST-800-207A-Compliance-Report","NIST-800-207A/CSW-NIST-800-207A-Technical-Runbook"),
-    ("DORA",          "DORA (EU 2022/2554)",                        "DORA/CSW-DORA-Compliance-Report",            "DORA/CSW-DORA-Technical-Runbook"),
-    ("NIS2",          "NIS2 (EU 2022/2555)",                        "NIS2/CSW-NIS2-Compliance-Report",            "NIS2/CSW-NIS2-Technical-Runbook"),
-    ("NERC-CIP",      "NERC CIP (Bulk Electric System)",            "NERC-CIP/CSW-NERC-CIP-Compliance-Report",    "NERC-CIP/CSW-NERC-CIP-Technical-Runbook"),
-    ("TSA-Pipeline",  "TSA Pipeline Security Directive",            "TSA-Pipeline/CSW-TSA-Pipeline-Compliance-Report","TSA-Pipeline/CSW-TSA-Pipeline-Technical-Runbook"),
-    ("TSA-Rail",      "TSA Rail Cybersecurity",                     "TSA-Rail/CSW-TSA-Rail-Compliance-Report",    "TSA-Rail/CSW-TSA-Rail-Technical-Runbook"),
-    ("CIS-Controls-v8","CIS Critical Security Controls v8.1",       "CIS-Controls-v8/CSW-CIS-Compliance-Report",  "CIS-Controls-v8/CSW-CIS-Technical-Runbook"),
-    ("NIST-CSF-2",    "NIST Cybersecurity Framework 2.0",           "NIST-CSF-2/CSW-CSF-Compliance-Report",       "NIST-CSF-2/CSW-CSF-Technical-Runbook"),
-    ("CMMC-2",        "CMMC 2.0",                                   "CMMC-2/CSW-CMMC-Compliance-Report",          "CMMC-2/CSW-CMMC-Technical-Runbook"),
-    ("IEC-62443",     "IEC 62443 (IACS)",                           "IEC-62443/CSW-IEC62443-Compliance-Report",   "IEC-62443/CSW-IEC62443-Technical-Runbook"),
-    ("GDPR",          "GDPR (EU 2016/679)",                         "GDPR/CSW-GDPR-Compliance-Report",           "GDPR/CSW-GDPR-Technical-Runbook"),
-    ("MITRE-ATTACK",  "MITRE ATT&CK (Enterprise)",                  "MITRE-ATTACK/CSW-MITRE-ATTACK-Compliance-Report", "MITRE-ATTACK/CSW-MITRE-ATTACK-Technical-Runbook"),
-    ("FedRAMP",       "FedRAMP (Moderate)",                         "FedRAMP/CSW-FedRAMP-Compliance-Report",      "FedRAMP/CSW-FedRAMP-Technical-Runbook"),
-    ("SWIFT-CSCF",    "SWIFT CSCF (v2024)",                         "SWIFT-CSCF/CSW-SWIFT-CSCF-Compliance-Report", "SWIFT-CSCF/CSW-SWIFT-CSCF-Technical-Runbook"),
-    ("HITRUST-CSF",   "HITRUST CSF (v11)",                          "HITRUST-CSF/CSW-HITRUST-Compliance-Report",  "HITRUST-CSF/CSW-HITRUST-Technical-Runbook"),
-    ("NIST-800-171",  "NIST SP 800-171 Rev. 3",                     "NIST-800-171/CSW-NIST-800-171-Compliance-Report", "NIST-800-171/CSW-NIST-800-171-Technical-Runbook"),
-    ("CSA-CCM",       "CSA CCM v4",                                  "CSA-CCM/CSW-CSA-CCM-Compliance-Report",      "CSA-CCM/CSW-CSA-CCM-Technical-Runbook"),
-    ("COBIT-2019",    "COBIT 2019",                                  "COBIT-2019/CSW-COBIT-Compliance-Report",     "COBIT-2019/CSW-COBIT-Technical-Runbook"),
-    ("AU-Essential-Eight", "Australian Essential Eight",             "AU-Essential-Eight/CSW-Essential-Eight-Compliance-Report", "AU-Essential-Eight/CSW-Essential-Eight-Technical-Runbook"),
-    ("UK-Cyber-Essentials", "UK Cyber Essentials Plus",              "UK-Cyber-Essentials/CSW-Cyber-Essentials-Compliance-Report", "UK-Cyber-Essentials/CSW-Cyber-Essentials-Technical-Runbook"),
-    ("HIPAA-2025-NPRM", "HIPAA Security Rule — 2025 NPRM",           "HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Compliance-Report", "HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Technical-Runbook"),
-    ("MAS-TRM",       "MAS Technology Risk Management Guidelines",   "MAS-TRM/CSW-MAS-TRM-Compliance-Report",      "MAS-TRM/CSW-MAS-TRM-Technical-Runbook"),
-    ("APRA-CPS-234",  "APRA CPS 234",                                "APRA-CPS-234/CSW-APRA-CPS234-Compliance-Report", "APRA-CPS-234/CSW-APRA-CPS234-Technical-Runbook"),
-    ("NY-DFS-23-NYCRR-500", "NY DFS 23 NYCRR Part 500",              "NY-DFS-23-NYCRR-500/CSW-NYDFS-Compliance-Report", "NY-DFS-23-NYCRR-500/CSW-NYDFS-Technical-Runbook"),
-    ("TISAX",         "TISAX / VDA ISA",                             "TISAX/CSW-TISAX-Compliance-Report",          "TISAX/CSW-TISAX-Technical-Runbook"),
-    ("NIST-800-82",   "NIST SP 800-82",                              "NIST-800-82/CSW-NIST-800-82-Compliance-Report", "NIST-800-82/CSW-NIST-800-82-Technical-Runbook"),
-    ("BSI-C5",        "BSI C5",                                      "BSI-C5/CSW-BSI-C5-Compliance-Report",        "BSI-C5/CSW-BSI-C5-Technical-Runbook"),
-]
+    ("HIPAA",         "HIPAA Security Rule",                        "HIPAA/CSW-HIPAA-Compliance-Report",          "HIPAA/CSW-HIPAA-Reference-Design"),
+    ("SOC2",          "SOC 2 Type II",                              "SOC2/CSW-SOC2-Compliance-Report",            "SOC2/CSW-SOC2-Reference-Design"),
+    ("PCI-DSS-v4",    "PCI DSS v4.0",                               "PCI-DSS-v4/CSW-PCI-DSS-Compliance-Report",   "PCI-DSS-v4/CSW-PCI-DSS-Reference-Design"),
+    ("NIST-800-53",   "NIST SP 800-53 Rev 5",                       "NIST-800-53/CSW-NIST-800-53-Compliance-Report","NIST-800-53/CSW-NIST-800-53-Reference-Design"),
+    ("ISO-27001-2022","ISO/IEC 27001:2022",                         "ISO-27001-2022/CSW-ISO27001-Compliance-Report","ISO-27001-2022/CSW-ISO27001-Reference-Design"),
+    ("CISA-ZeroTrust","CISA Zero Trust Maturity Model",             "CISA-ZeroTrust/CSW-CISA-ZTMM-Compliance-Report","CISA-ZeroTrust/CSW-CISA-ZTMM-Reference-Design"),
+    ("FIPS-140",      "FIPS 140",                                   "FIPS-140/CSW-FIPS-Compliance-Report",        "FIPS-140/CSW-FIPS-Reference-Design"),
+    ("NIST-800-207",  "NIST SP 800-207 (ZTA Seven Tenets)",         "NIST-800-207/CSW-NIST-800-207-Compliance-Report","NIST-800-207/CSW-NIST-800-207-Reference-Design"),
+    ("NIST-800-207A", "NIST SP 800-207A (PDP/PEP/PA/PIP)",          "NIST-800-207A/CSW-NIST-800-207A-Compliance-Report","NIST-800-207A/CSW-NIST-800-207A-Reference-Design"),
+    ("DORA",          "DORA (EU 2022/2554)",                        "DORA/CSW-DORA-Compliance-Report",            "DORA/CSW-DORA-Reference-Design"),
+    ("NIS2",          "NIS2 (EU 2022/2555)",                        "NIS2/CSW-NIS2-Compliance-Report",            "NIS2/CSW-NIS2-Reference-Design"),
+    ("NERC-CIP",      "NERC CIP (Bulk Electric System)",            "NERC-CIP/CSW-NERC-CIP-Compliance-Report",    "NERC-CIP/CSW-NERC-CIP-Reference-Design"),
+    ("TSA-Pipeline",  "TSA Pipeline Security Directive",            "TSA-Pipeline/CSW-TSA-Pipeline-Compliance-Report","TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design"),
+    ("TSA-Rail",      "TSA Rail Cybersecurity",                     "TSA-Rail/CSW-TSA-Rail-Compliance-Report",    "TSA-Rail/CSW-TSA-Rail-Reference-Design"),
+    ("CIS-Controls-v8","CIS Critical Security Controls v8.1",       "CIS-Controls-v8/CSW-CIS-Compliance-Report",  "CIS-Controls-v8/CSW-CIS-Reference-Design"),
+    ("NIST-CSF-2",    "NIST Cybersecurity Framework 2.0",           "NIST-CSF-2/CSW-CSF-Compliance-Report",       "NIST-CSF-2/CSW-CSF-Reference-Design"),
+    ("CMMC-2",        "CMMC 2.0",                                   "CMMC-2/CSW-CMMC-Compliance-Report",          "CMMC-2/CSW-CMMC-Reference-Design"),
+    ("IEC-62443",     "IEC 62443 (IACS)",                           "IEC-62443/CSW-IEC62443-Compliance-Report",   "IEC-62443/CSW-IEC62443-Reference-Design"),
+    ("GDPR",          "GDPR (EU 2016/679)",                         "GDPR/CSW-GDPR-Compliance-Report",           "GDPR/CSW-GDPR-Reference-Design"),
+    ("MITRE-ATTACK",  "MITRE ATT&CK (Enterprise)",                  "MITRE-ATTACK/CSW-MITRE-ATTACK-Compliance-Report", "MITRE-ATTACK/CSW-MITRE-ATTACK-Reference-Design"),
+    ("FedRAMP",       "FedRAMP (Moderate)",                         "FedRAMP/CSW-FedRAMP-Compliance-Report",      "FedRAMP/CSW-FedRAMP-Reference-Design"),
+    ("SWIFT-CSCF",    "SWIFT CSCF (v2024)",                         "SWIFT-CSCF/CSW-SWIFT-CSCF-Compliance-Report", "SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design"),
+    ("HITRUST-CSF",   "HITRUST CSF (v11)",                          "HITRUST-CSF/CSW-HITRUST-Compliance-Report",  "HITRUST-CSF/CSW-HITRUST-Reference-Design"),
+    ("NIST-800-171",  "NIST SP 800-171 Rev. 3",                     "NIST-800-171/CSW-NIST-800-171-Compliance-Report", "NIST-800-171/CSW-NIST-800-171-Reference-Design"),
+    ("CSA-CCM",       "CSA CCM v4",                                  "CSA-CCM/CSW-CSA-CCM-Compliance-Report",      "CSA-CCM/CSW-CSA-CCM-Reference-Design"),
+    ("COBIT-2019",    "COBIT 2019",                                  "COBIT-2019/CSW-COBIT-Compliance-Report",     "COBIT-2019/CSW-COBIT-Reference-Design"),
+    ("AU-Essential-Eight", "Australian Essential Eight",             "AU-Essential-Eight/CSW-Essential-Eight-Compliance-Report", "AU-Essential-Eight/CSW-Essential-Eight-Reference-Design"),
+    ("UK-Cyber-Essentials", "UK Cyber Essentials Plus",              "UK-Cyber-Essentials/CSW-Cyber-Essentials-Compliance-Report", "UK-Cyber-Essentials/CSW-Cyber-Essentials-Reference-Design"),
+    ("HIPAA-2025-NPRM", "HIPAA Security Rule — 2025 NPRM",           "HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Compliance-Report", "HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design"),
+    ("MAS-TRM",       "MAS Technology Risk Management Guidelines",   "MAS-TRM/CSW-MAS-TRM-Compliance-Report",      "MAS-TRM/CSW-MAS-TRM-Reference-Design"),
+    ("APRA-CPS-234",  "APRA CPS 234",                                "APRA-CPS-234/CSW-APRA-CPS234-Compliance-Report", "APRA-CPS-234/CSW-APRA-CPS234-Reference-Design"),
+    ("NY-DFS-23-NYCRR-500", "NY DFS 23 NYCRR Part 500",              "NY-DFS-23-NYCRR-500/CSW-NYDFS-Compliance-Report", "NY-DFS-23-NYCRR-500/CSW-NYDFS-Reference-Design"),
+    ("TISAX",         "TISAX / VDA ISA",                             "TISAX/CSW-TISAX-Compliance-Report",          "TISAX/CSW-TISAX-Reference-Design"),
+    ("NIST-800-82",   "NIST SP 800-82",                              "NIST-800-82/CSW-NIST-800-82-Compliance-Report", "NIST-800-82/CSW-NIST-800-82-Reference-Design"),
+    ("BSI-C5",        "BSI C5",                                      "BSI-C5/CSW-BSI-C5-Compliance-Report",        "BSI-C5/CSW-BSI-C5-Reference-Design"),]
 
 
 def build_provenance() -> str:
@@ -205,7 +204,7 @@ def build_index(report_html_paths: list[tuple[str, str | None, str | None]]) -> 
             f'<a href="{report_html}">Report</a>' if report_html else "—"
         )
         runbook_cell = (
-            f'<a href="{runbook_html}">Runbook</a>' if runbook_html else "—"
+            f'<a href="{runbook_html}">Reference design</a>' if runbook_html else "—"
         )
         rows.append(
             f"    <tr>"
@@ -220,22 +219,22 @@ def build_index(report_html_paths: list[tuple[str, str | None, str | None]]) -> 
         '<html lang="en">\n<head>\n'
         '<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
-        "<title>Cisco Secure Workload &mdash; Compliance Mapping</title>\n"
+        "<title>Cisco Secure Workload &mdash; Compliance Reference Designs &amp; Reports</title>\n"
         f"<style>\n{CSS.read_text()}\n</style>\n"
         "</head>\n<body>\n"
-        "<h1>Cisco Secure Workload &mdash; Compliance Mapping Assets</h1>\n"
+        "<h1>Cisco Secure Workload &mdash; Compliance Reference Designs &amp; Reports</h1>\n"
         "<p>Browseable HTML renderings of the customer-facing reports and the matching "
-        "technical runbooks for thirty-four compliance, sector, and zero-trust frameworks. "
-        "DOCX (editable master), PDF (review copy), and Markdown (runbook source) "
+        "reference designs for thirty-four compliance, sector, and zero-trust frameworks. "
+        "DOCX (editable master), PDF (review copy), and Markdown (reference-design source) "
         "remain in the repository and on each framework's GitHub folder page.</p>\n"
         '<p><strong>Repository:</strong> '
-        '<a href="https://github.com/chandrapati/CSW-Compliance-Mapping">'
-        "chandrapati/CSW-Compliance-Mapping</a></p>\n"
+        '<a href="https://github.com/chandrapati/CSW-Compliance-Reference-Designs">'
+        "chandrapati/CSW-Compliance-Reference-Designs</a></p>\n"
         f'<p style="font-size:.85rem;color:var(--fg-muted);">{build_provenance()}</p>\n'
         '<h2>Start here</h2>\n'
         '<ul>\n'
         '  <li><a href="README.html">Repository README</a> &mdash; '
-        "compliance-mapping focus, asset library, scope notes, and disclaimer.</li>\n"
+        "reference-design focus, asset library, scope notes, and disclaimer.</li>\n"
         '  <li><a href="docs/about-csw.html">Background &mdash; What is Cisco Secure Workload?</a>'
         " &mdash; one-page intro to the platform.</li>\n"
         '  <li><a href="docs/compliance-evidence-playbook.html">CSW Compliance Evidence Playbook</a>'
@@ -243,7 +242,7 @@ def build_index(report_html_paths: list[tuple[str, str | None, str | None]]) -> 
         '  <li><a href="docs/why-these-mappings-matter.html">Why these mappings matter</a>'
         " &mdash; conversation-starter questions to ask about your own environment.</li>\n"
         '  <li><a href="docs/audience-and-usage.html">Audience and usage guide</a>'
-        " &mdash; who reads what, runbook-vs-report, file formats, and folder layout.</li>\n"
+        " &mdash; who reads what, reference-design-vs-report, file formats, and folder layout.</li>\n"
         '  <li><a href="docs/framework-scope-design.html">Framework Scope Design Guide</a>'
         " &mdash; workshop patterns for scopes, labels, and evidence boundaries.</li>\n"
         '  <li><a href="docs/governance-and-evidence-standards.html">Governance and Evidence Standards</a>'
@@ -256,7 +255,7 @@ def build_index(report_html_paths: list[tuple[str, str | None, str | None]]) -> 
         "</ul>\n"
         '<h2>Frameworks</h2>\n'
         '<table>\n'
-        '<thead><tr><th>Framework</th><th>Customer report</th><th>Technical runbook</th></tr></thead>\n'
+        '<thead><tr><th>Framework</th><th>Customer report</th><th>Reference design</th></tr></thead>\n'
         '<tbody>\n'
         + "\n".join(rows)
         + "\n</tbody>\n</table>\n"
@@ -296,7 +295,7 @@ def main() -> int:
             print(f"SKIP runbook (missing): {runbook_md}")
         else:
             print(f"  runbook -> {runbook_html.relative_to(ROOT)}")
-            run_pandoc(runbook_md, runbook_html, f"{fw_label} \u2014 Technical Runbook",
+            run_pandoc(runbook_md, runbook_html, f"{fw_label} \u2014 Reference Design",
                        runbook_md.name, runbook_md.name)
             rewrite_links(runbook_html)
             runbook_href = str(runbook_html.relative_to(ROOT))
@@ -325,7 +324,7 @@ def main() -> int:
         # on case-insensitive filesystems INDEX.html and the index.html landing
         # page are the same file, so the landing page silently overwrote it.
         out = ROOT / ("control-id-index.html" if src_name == "INDEX.md" else f"{src.stem}.html")
-        title = "Control-ID Index" if src_name == "INDEX.md" else "Cisco Secure Workload \u2014 Compliance Mapping Assets"
+        title = "Control-ID Index" if src_name == "INDEX.md" else "Cisco Secure Workload \u2014 Compliance Reference Designs & Reports"
         # For top-level files, "back to repo index" shouldn't escape one folder up.
         header = TOOLS / "_inline-header.html"
         header.write_text(f'<style>\n{CSS.read_text()}\n</style>\n', encoding="utf-8")

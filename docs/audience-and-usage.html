@@ -312,7 +312,7 @@ td.cov-evidence { background: #808080 !important; color: #fff !important;
 </style>
 </head>
 <body>
-<div class="doc-meta">Source: <a href="audience-and-usage.html">audience-and-usage.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-06T03:17:54Z UTC · Repository commit: fe71f19</div>
+<div class="doc-meta">Source: <a href="audience-and-usage.html">audience-and-usage.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-07T17:30:41Z UTC · Repository commit: a630820</div>
 <header id="title-block-header">
 <h1 class="title">Audience and usage guide</h1>
 </header>
@@ -324,8 +324,8 @@ td.cov-evidence { background: #808080 !important; color: #fff !important;
 guide</a></li>
 <li><a href="#how-to-get-the-most-out-of-this-repo" id="toc-how-to-get-the-most-out-of-this-repo">How to get the most out of
 this repo</a></li>
-<li><a href="#runbook-or-report-when-to-use-which" id="toc-runbook-or-report-when-to-use-which">Runbook or report — when to
-use which</a></li>
+<li><a href="#reference-design-or-report-when-to-use-which" id="toc-reference-design-or-report-when-to-use-which">Reference design
+or report — when to use which</a></li>
 <li><a href="#file-formats" id="toc-file-formats">File formats</a></li>
 <li><a href="#folder-structure" id="toc-folder-structure">Folder
 structure</a></li>
@@ -337,8 +337,8 @@ structure</a></li>
 <p>Companion to the <a href="../README.html">CSW Compliance Mapping
 repository</a>. Everything in this page is about <em>how to
 navigate</em> the assets — who should lead with which document, when to
-pick the runbook vs the report, which file format to share, and where to
-find things in the folder tree.</p>
+pick the reference design vs the report, which file format to share, and
+where to find things in the folder tree.</p>
 </blockquote>
 <h2 id="audience-guide">Audience guide</h2>
 <table>
@@ -380,13 +380,13 @@ use.</td>
 </tr>
 <tr>
 <td><strong>Operations / SRE / DevSecOps</strong></td>
-<td>The Markdown technical runbook</td>
+<td>The Markdown reference design</td>
 <td>Concrete configuration steps, policy patterns, and “what to show the
 auditor on day 1” playbooks.</td>
 </tr>
 <tr>
 <td><strong>You already have firewalls and EDR</strong></td>
-<td>The runbooks and the 800-207 / 207A reports</td>
+<td>The reference designs and the 800-207 / 207A reports</td>
 <td>Workload-resident telemetry and identity-aware segmentation address
 many evidence questions about <em>process-to-process</em> and
 <em>intra-host East–West</em> flows that perimeter and endpoint controls
@@ -410,18 +410,18 @@ before you dive into framework-specific control IDs.</li>
 The one tied to a current audit, a customer contractual ask, or
 board-level pressure. Skimming all thirty-four will dilute the signal —
 pick one and stay with it.</li>
-<li><strong>Start with the technical runbook
-(<code>*-Technical-Runbook.md</code> in the same folder).</strong> Each
-runbook now includes a <strong>CSW primer</strong>, <strong>universal
-evidence workflow checklists</strong>, and <strong>framework-specific
-CSW effectiveness</strong> highlights at the top — then the detailed
-phased deployment for that standard. It shows the <em>how</em>: sensor
-deployment phases, policy patterns, evidence collection cadence, and
-typical proof points to validate with your auditor or assessor. If the
-runbook’s level of detail looks plausible for your environment, that’s
-the strongest signal that the mapping is real and not marketing — and
-it’s the right place to stress-test scope before investing in a wider
-read.</li>
+<li><strong>Start with the reference design
+(<code>*-Reference-Design.md</code> in the same folder).</strong> Each
+reference design now includes a <strong>CSW primer</strong>,
+<strong>universal evidence workflow checklists</strong>, and
+<strong>framework-specific CSW effectiveness</strong> highlights at the
+top — then the detailed phased deployment for that standard. It shows
+the <em>how</em>: sensor deployment phases, policy patterns, evidence
+collection cadence, and typical proof points to validate with your
+auditor or assessor. If the reference design’s level of detail looks
+plausible for your environment, that’s the strongest signal that the
+mapping is real and not marketing — and it’s the right place to
+stress-test scope before investing in a wider read.</li>
 <li><strong>Then read the matching report.</strong> Use it to explain
 how CSW can contribute evidence, where customer-owned or complementary
 controls remain necessary, and which scope assumptions must be
@@ -442,50 +442,51 @@ workloads, your real flows, your real CVEs</em>. That converts these
 documents from abstract mappings into scope-specific artefacts you can
 validate with auditors and leadership.</li>
 </ol>
-<h2 id="runbook-or-report-when-to-use-which">Runbook or report — when to
-use which</h2>
+<h2 id="reference-design-or-report-when-to-use-which">Reference design
+or report — when to use which</h2>
 <ul>
-<li><strong>Runbook</strong> is the technical foundation everything else
-rests on. It’s written for the <strong>security engineers and platform
-owners actually doing the work</strong>: deployment playbooks, CSW
-configuration steps, sample policies, evidence-collection commands, and
-the auditor-response guidance the report cites. If a customer wants to
-know whether a mapping is real or just slideware, the runbook is where
-they look. Use <strong>Markdown</strong> when editing or diff-reviewing
-in a code editor, <strong>HTML</strong> when reading through it in a
-browser.</li>
+<li><strong>Reference design</strong> is the technical foundation
+everything else rests on. It’s written for the <strong>security
+engineers and platform owners actually doing the work</strong>:
+deployment playbooks, CSW configuration steps, sample policies,
+evidence-collection commands, and the auditor-response guidance the
+report cites. If a customer wants to know whether a mapping is real or
+just slideware, the reference design is where they look. Use
+<strong>Markdown</strong> when editing or diff-reviewing in a code
+editor, <strong>HTML</strong> when reading through it in a browser.</li>
 <li><strong>Report</strong> is the customer-facing narrative built on
-top of the runbook. It’s for <strong>leaders, auditors, customers in due
-diligence, and procurement</strong> — explaining how Cisco Secure
-Workload supports the framework, the artefacts produced, and where the
-boundaries are. Use <strong>PDF</strong> for review meetings,
-<strong>DOCX</strong> when you need to tailor placeholders before
-sharing externally, <strong>HTML</strong> for a link you can drop into
-Slack/email or read on a phone.</li>
+top of the reference design. It’s for <strong>leaders, auditors,
+customers in due diligence, and procurement</strong> — explaining how
+Cisco Secure Workload supports the framework, the artefacts produced,
+and where the boundaries are. Use <strong>PDF</strong> for review
+meetings, <strong>DOCX</strong> when you need to tailor placeholders
+before sharing externally, <strong>HTML</strong> for a link you can drop
+into Slack/email or read on a phone.</li>
 </ul>
 <h2 id="file-formats">File formats</h2>
 <ul>
-<li><strong>Markdown runbooks</strong> — The technical foundation.
-Reference for the security engineers and platform owners doing the work:
-deployment playbooks, CSW configuration steps, sample policies, and the
-auditor-response guidance the report cites. Markdown for editing or
-diff-reviewing in a code editor; HTML for reading in a browser.</li>
+<li><strong>Markdown reference designs</strong> — The technical
+foundation. Reference for the security engineers and platform owners
+doing the work: deployment playbooks, CSW configuration steps, sample
+policies, and the auditor-response guidance the report cites. Markdown
+for editing or diff-reviewing in a code editor; HTML for reading in a
+browser.</li>
 <li><strong>DOCX reports</strong> — Customer-facing editable master
-built on top of the runbook. Replace <code>[Customer Name]</code> and
-<code>[Month Year]</code> placeholders, and tailor the Compliance
-Posture Summary table to the customer’s specific scope and deployment
-stage before sharing externally.</li>
+built on top of the reference design. Replace
+<code>[Customer Name]</code> and <code>[Month Year]</code> placeholders,
+and tailor the Compliance Posture Summary table to the customer’s
+specific scope and deployment stage before sharing externally.</li>
 <li><strong>PDF reports</strong> — Render of the DOCX for customer
 review and audit conversations; renders natively in the GitHub web UI.
 Generated from the DOCX via LibreOffice; treat the DOCX as the editable
 master and re-generate the PDF after any edits.</li>
 <li><strong>Generated niche PDFs</strong> — Summary renderings for
-selected frameworks. Use the matching Markdown runbook and editable DOCX
-as the primary engineering/evidence sources; do not submit a simplified
-generated PDF alone as an audit evidence package.</li>
+selected frameworks. Use the matching Markdown reference design and
+editable DOCX as the primary engineering/evidence sources; do not submit
+a simplified generated PDF alone as an audit evidence package.</li>
 <li><strong>HTML</strong> — Browseable, mobile-friendly view for both
-runbooks and reports. Once GitHub Pages is enabled, the same HTML is
-published at
+reference designs and reports. Once GitHub Pages is enabled, the same
+HTML is published at
 <code>https://chandrapati.github.io/CSW-Compliance-Mapping/</code>
 (landing page: <a href="../index.html"><code>index.html</code></a>).</li>
 </ul>
@@ -518,8 +519,8 @@ published at
 ├── CMMC-2/              ← CMMC 2.0 (Level 2 lead, with L1 / L3 deltas)
 └── …                    ← 18 additional framework folders; see README</code></pre>
 <p>Every framework folder follows the same shape: a Markdown technical
-runbook, a DOCX (editable master) and PDF (review render) of the
-customer-facing report, and HTML versions of both built by <a href="../.html-tools/build-html.py"><code>.html-tools/build-html.py</code></a>.</p>
+reference design, a DOCX (editable master) and PDF (review render) of
+the customer-facing report, and HTML versions of both built by <a href="../.html-tools/build-html.py"><code>.html-tools/build-html.py</code></a>.</p>
 <hr />
 <p><strong>See also</strong></p>
 <ul>

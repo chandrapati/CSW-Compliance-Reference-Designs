@@ -2,7 +2,7 @@
 
 > **Audience:** Security engineers, GRC analysts, and Cisco SEs who are **new to Cisco Secure Workload (CSW)** and need a repeatable way to turn CSW deployment into **assessor-ready evidence** for any framework in this repository.
 
-Companion to [About CSW](./about-csw.md) and the per-framework **Technical Runbooks** (`*-Technical-Runbook.md`).
+Companion to [About CSW](./about-csw.md) and the per-framework **Reference Designs** (`*-Reference-Design.md`).
 
 ---
 
@@ -14,7 +14,7 @@ Companion to [About CSW](./about-csw.md) and the per-framework **Technical Runbo
 | A cadence you can run quarterly | A substitute for your QSA, OCR, or C3PAO |
 | Framework-agnostic CSW mechanics | The full control text of HIPAA, PCI, etc. |
 
-Every framework runbook maps **specific control IDs** to CSW artefacts. **Start here** for *how*; open the framework runbook for *which controls*.
+Every framework reference design maps **specific control IDs** to CSW artefacts. **Start here** for *how*; open the framework reference design for *which controls*.
 
 ---
 
@@ -141,7 +141,7 @@ Run this once per compliance boundary (CDE, PHI zone, CUI enclave, SWIFT zone, e
 
 ## Quarterly evidence pack (copy into every framework)
 
-Export these every quarter (or per your assessor's cadence). Map columns to control IDs using your framework runbook Section 10+.
+Export these every quarter (or per your assessor's cadence). Map columns to control IDs using your framework reference design Section 10+.
 
 | # | Artefact | CSW source | Typical controls |
 |---|----------|------------|------------------|
@@ -181,11 +181,11 @@ See [CSW-POV-Tooling](https://github.com/chandrapati/CSW-POV-Tooling) or Cursor 
 
 | Document | Role |
 |----------|------|
-| **This playbook + framework runbook** | Engineers execute phases; GRC maps exports to control IDs |
+| **This playbook + framework reference design** | Engineers execute phases; GRC maps exports to control IDs |
 | **Compliance Report (PDF/DOCX)** | Customer/auditor narrative; posture summary table |
 | **Framework Scope Design Guide** | Workshop: which scopes/labels before Phase 1 |
 
-Workflow: **Runbook → populate real exports → tailor Report placeholders → assessor review**.
+Workflow: **Reference design → populate real exports → tailor Report placeholders → assessor review**.
 
 ---
 
@@ -206,7 +206,7 @@ CSW does **not** replace governance, physical security, encryption key managemen
 
 ## Next steps
 
-1. Pick your framework folder → open `*-Technical-Runbook.md`.
+1. Pick your framework folder → open `*-Reference-Design.md`.
 2. Read **Reader's Guide** + **CSW primer** (injected section) for your industry.
 3. Execute Phases 1–4 above; use framework Section 10 for control ID mapping.
 4. Tailor the matching **Compliance Report** for leadership/auditor conversations.

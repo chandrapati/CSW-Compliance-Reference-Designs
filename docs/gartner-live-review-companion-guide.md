@@ -13,7 +13,7 @@
   2. `PCI-DSS-v4/CSW-PCI-DSS-Compliance-Report.pdf`
   3. `NERC-CIP/CSW-NERC-CIP-Compliance-Report.pdf`
   4. `HIPAA/CSW-HIPAA-Compliance-Report.pdf`
-  5. One **Technical Runbook** (e.g. `PCI-DSS-v4/CSW-PCI-DSS-Technical-Runbook.pdf`) to prove depth if asked
+  5. One **Reference Design** (e.g. `PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.pdf`) to prove depth if asked
 - Have the **coverage legend** (Section 2) visible — you will be asked what the colors mean.
 - Share the **specific tab**, not the whole desktop. Zoom to ~125% so tables are readable on the analyst's screen.
 - Have one sentence ready if screen-share fails: "The library maps CSW evidence to 34 frameworks; I'll walk three."
@@ -22,7 +22,7 @@
 
 ## 1. Opening frame (60–90 seconds, say this once)
 
-> "This is a Cisco Secure Workload compliance-mapping library — **34 frameworks**, each with two documents: a **customer-facing report** for compliance and audit teams, and a **technical runbook** for the engineers. Every framework ships as editable DOCX, a review PDF, and browsable HTML.
+> "This is a Cisco Secure Workload compliance-mapping library — **34 frameworks**, each with two documents: a **customer-facing report** for compliance and audit teams, and a **reference design** for the engineers. Every framework ships as editable DOCX, a review PDF, and browsable HTML.
 >
 > The honest positioning — and the part your clients care about — is this: CSW doesn't certify compliance. It turns **workload-to-workload communication, inventory, and vulnerability data into assessor-ready evidence**, mapped control-by-control, with a suggested collection cadence. The assessor still makes the call; we make their evidence trivial to produce."
 
@@ -92,7 +92,7 @@ Every report color-codes each control row by how much evidence CSW produces:
 ## 4. Gartner-specific angles (weave in where natural)
 
 - **Breadth + consistency:** 34 frameworks on one evidence model — including zero-trust (**NIST 800-207, CISA ZTMM**), sector (NERC, TSA, IEC 62443), and regional (DORA, NIS2, APRA, MAS).
-- **Two-audience design:** report for GRC/auditors, runbook for engineers — same control spine, different depth.
+- **Two-audience design:** report for GRC/auditors, reference design for engineers — same control spine, different depth.
 - **Continuous vs point-in-time:** evidence is produced continuously (flows, policy drift), replacing once-a-year sampling.
 - **Alignment to Gartner's microsegmentation guidance:** OS-level, identity-/label-based segmentation; ADM → simulation → enforce lifecycle.
 
@@ -101,7 +101,7 @@ Every report color-codes each control row by how much evidence CSW produces:
 ## 5. Likely analyst questions — crisp answers
 
 - **"Does this certify compliance?"** → "No. It produces assessor-ready evidence inputs; the qualified assessor determines status."
-- **"How is this better than a written mapping?"** → "Each row ties to a live CSW export with a cadence, plus a paired engineering runbook, consistent across 34 frameworks."
+- **"How is this better than a written mapping?"** → "Each row ties to a live CSW export with a cadence, plus a paired engineering reference design, consistent across 34 frameworks."
 - **"NERC — what about OT?"** → "IT-side only by design; pair with Cyber Vision for the OT device layer. We state that explicitly in the report."
 - **"Agent coverage gaps?"** → "Anything we can't instrument goes on a documented *cannot-instrument register* — which is itself audit evidence."
 - **"Encryption?"** → "CSW detects plaintext flows; it does not enforce encryption. Shown as Evidence Required."
