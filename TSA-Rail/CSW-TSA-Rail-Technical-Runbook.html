@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>TSA Rail Cybersecurity — Technical Runbook</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-TSA-Rail-Technical-Runbook.html">CSW-TSA-Rail-Technical-Runbook.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-16T19:26:51Z UTC · Repository commit: bdf48c6</div>
+<header id="title-block-header">
+<h1 class="title">TSA Rail Cybersecurity — Technical Runbook</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload-tsa-rail-cybersecurity" id="toc-cisco-secure-workload-tsa-rail-cybersecurity">Cisco Secure
+Workload — TSA Rail Cybersecurity</a>
+<ul>
+<li><a href="#technical-runbook-freight-passenger-railroad-owneroperators" id="toc-technical-runbook-freight-passenger-railroad-owneroperators">Technical
+Runbook | Freight &amp; Passenger Railroad Owner/Operators</a></li>
+<li><a href="#readers-guide" id="toc-readers-guide">Reader’s
+Guide</a></li>
+<li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</a></li>
+<li><a href="#universal-evidence-workflow" id="toc-universal-evidence-workflow">Universal evidence workflow</a>
+<ul>
+<li><a href="#phase-1-checklist-coverage" id="toc-phase-1-checklist-coverage">Phase 1 checklist
+(coverage)</a></li>
+<li><a href="#phase-2-checklist-baseline" id="toc-phase-2-checklist-baseline">Phase 2 checklist
+(baseline)</a></li>
+<li><a href="#phase-3-checklist-policy" id="toc-phase-3-checklist-policy">Phase 3 checklist (policy)</a></li>
+<li><a href="#phase-4-checklist-operate" id="toc-phase-4-checklist-operate">Phase 4 checklist (operate)</a></li>
+<li><a href="#what-csw-evidence-does-not-replace" id="toc-what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</a></li>
+</ul></li>
+<li><a href="#csw-effectiveness-for-this-framework" id="toc-csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</a></li>
+<li><a href="#overview" id="toc-overview">1. Overview</a></li>
+<li><a href="#the-itot-scope-boundary" id="toc-the-itot-scope-boundary">2. The IT/OT Scope Boundary</a></li>
+<li><a href="#section-iii.a-critical-cyber-system-identification" id="toc-section-iii.a-critical-cyber-system-identification">3. Section
+III.A — Critical Cyber System Identification</a></li>
+<li><a href="#section-iii.b.1-segmentation-documentation" id="toc-section-iii.b.1-segmentation-documentation">4. Section III.B.1 —
+Segmentation Documentation</a></li>
+<li><a href="#section-iii.b.2-zone-enforcement" id="toc-section-iii.b.2-zone-enforcement">5. Section III.B.2 — Zone
+Enforcement</a></li>
+<li><a href="#section-iii.c-access-control-measures" id="toc-section-iii.c-access-control-measures">6. Section III.C — Access
+Control Measures</a></li>
+<li><a href="#section-iii.d-continuous-monitoring-and-detection" id="toc-section-iii.d-continuous-monitoring-and-detection">7. Section
+III.D — Continuous Monitoring and Detection</a></li>
+<li><a href="#section-iii.e-unpatched-system-risk" id="toc-section-iii.e-unpatched-system-risk">8. Section III.E —
+Unpatched System Risk</a></li>
+<li><a href="#section-iii.f-cybersecurity-assessment-plan" id="toc-section-iii.f-cybersecurity-assessment-plan">9. Section III.F —
+Cybersecurity Assessment Plan</a></li>
+<li><a href="#reporting-evidence-and-the-boundary" id="toc-reporting-evidence-and-the-boundary">10. Reporting &amp;
+Evidence — and the Boundary</a>
+<ul>
+<li><a href="#evidence-package" id="toc-evidence-package">Evidence
+package</a></li>
+<li><a href="#what-you-must-supply-outside-csw" id="toc-what-you-must-supply-outside-csw">What you must supply outside
+CSW</a></li>
+<li><a href="#encryption-the-most-commonly-misread-boundary" id="toc-encryption-the-most-commonly-misread-boundary">Encryption — the
+most commonly misread boundary</a></li>
+</ul></li>
+<li><a href="#tsa-inspector-response-guide" id="toc-tsa-inspector-response-guide">11. TSA Inspector Response
+Guide</a></li>
+<li><a href="#related-frameworks" id="toc-related-frameworks">12.
+Related Frameworks</a></li>
+<li><a href="#disclaimer" id="toc-disclaimer">13. Disclaimer</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload-tsa-rail-cybersecurity">Cisco Secure
+Workload — TSA Rail Cybersecurity</h1>
+<h2 id="technical-runbook-freight-passenger-railroad-owneroperators">Technical
+Runbook | Freight &amp; Passenger Railroad Owner/Operators</h2>
+<p><strong>Version:</strong> 1.0 (draft — pending SME review) |
+<strong>Standard:</strong> TSA Security Directive 1580/82-2022-01E,
+<em>Rail Cybersecurity Mitigation Actions and Testing</em> (effective
+May 3, 2026 – May 2, 2027; this series is renewed annually — confirm the
+active revision letter) and the sister SD 1582-21-01 series for public
+transportation and passenger railroads | <strong>Audience:</strong>
+Freight railroad Owner/Operators subject to 49 CFR 1580.101,
+TSA-designated freight and passenger railroads, and the cybersecurity
+teams supporting them | <strong>Environment:</strong> IT estate
+supporting rail OT (PTC back office, dispatch/CAD, signaling-support
+servers, historians, engineering workstations, vendor-access hosts —
+<em>not</em> the signaling, wayside, or locomotive devices
+themselves)</p>
+<hr />
+<h2 id="readers-guide">Reader’s Guide</h2>
+<p><strong>Who this is for.</strong> Freight railroad Owner/Operators
+subject to 49 CFR 1580.101, TSA-designated freight and passenger
+railroads, rail transit agencies working to the sister SD 1582-21-01
+series, and the cybersecurity, IT, and OT teams supporting them. Also
+useful for railroads not yet TSA-designated who want to align
+proactively.</p>
+<p><strong>The single most important thing to understand.</strong>
+<strong>TSA inspects against your TSA-approved Cybersecurity
+Implementation Plan — not against the Security Directive text, and not
+against a vendor document.</strong> The SD requires you to establish a
+plan describing the specific measures and schedule for achieving the
+outcomes in Sections III.A–III.E. Every CSW artifact in this runbook
+must be mapped to a measure in that plan. An evidence pack keyed only to
+SD provision numbers will not land in an inspection.</p>
+<p><strong>Why this framework fits CSW unusually well.</strong> Section
+IV.C.2.e lists, among the records TSA inspectors may demand,
+<strong>“East-West Traffic” of Operational Technology systems</strong>
+and <strong>“North-South Traffic” between Information and Operational
+Technology systems</strong> — and Section VII defines both terms.
+Section III.B then makes network segmentation the first substantive
+requirement, with prescriptive sub-requirements for interdependency
+lists, external-connection lists, and logical zone boundaries. You are
+not translating CSW output into the regulator’s vocabulary; the
+regulator is already using it.</p>
+<p><strong>Scope boundary you must understand before reading
+further.</strong> Cisco Secure Workload (CSW) is a workload-protection
+and segmentation platform for <strong>IT estate</strong> — servers,
+virtual machines, containers, and cloud workloads. CSW does
+<strong>not</strong> enforce policy on wayside interface units, signal
+and interlocking controllers, locomotive onboard PTC hardware,
+grade-crossing predictors, track circuits, or any other Level 0–2
+device, and does not perform deep packet inspection of rail or OT
+protocols. CSW’s contribution is at the <strong>IT side of the IT/OT
+boundary</strong> and within the IT systems that support rail
+operations. See section 2.</p>
+<p><strong>Questions this runbook helps you answer:</strong></p>
+<ul>
+<li><em>Section III.A — do I have a current, defensible Critical Cyber
+System inventory, including the PTC systems the SD makes mandatory, and
+the business services whose loss causes operational
+disruption?</em></li>
+<li><em>Section III.B.1 — can I produce the IT/OT interdependency list,
+the external-connection list, and the zone-boundary description the SD
+requires, generated from observed behaviour rather than drawn by
+hand?</em></li>
+<li><em>Section III.B.2 — can I prove unauthorized inter-zone
+communication is actually prevented, not merely prohibited on
+paper?</em></li>
+<li><em>Section III.D.2.b — can I document and audit communications
+between OT and external systems that deviate from my identified
+baseline?</em></li>
+<li><em>Section III.D.4 — if an IT-side incident threatens OT safety and
+reliability, can I isolate, and can I show I have tested it?</em></li>
+<li><em>Section III.E.2.b/3 — can I prioritize CISA KEV vulnerabilities
+on Critical Cyber Systems, and evidence compensating mitigations where
+patching would degrade operations?</em></li>
+<li><em>Section III.F.2.b — when the architecture design review needs
+“verification and validation of network traffic,” where does that come
+from?</em></li>
+<li><em>Section IV.C.2 — when an inspector asks for east-west and
+north-south traffic, what exactly do I hand over?</em></li>
+</ul>
+<p><strong>What you’ll need.</strong> Your TSA-approved Cybersecurity
+Implementation Plan, your Critical Cyber System register, your current
+Cybersecurity Assessment Plan, your most recent Cybersecurity
+Architecture Design Review, your PTC system documentation, and your
+documented OT network ranges.</p>
+<p><strong>Where to start.</strong> Section 2 for the IT/OT scope
+boundary — read it before claiming anything. Section 3 if you are
+reconciling the Critical Cyber System register; sections 4–5 if Section
+III.B segmentation is the priority; section 6 if access-control evidence
+is the gap; section 7 if continuous monitoring is the open item; section
+11 for the inspector response guide.</p>
+<p><strong>Important.</strong> TSA SDs are issued under TSA’s regulatory
+authority; designated Owner/Operators are required to comply. If an
+Owner/Operator has delegated measures to a <strong>Managed Security
+Service Provider</strong> or an <strong>Authorized
+Representative</strong>, the Owner/Operator <strong>retains sole
+responsibility</strong> for compliance, and both parties are liable for
+the representative’s non-compliance. Nothing in this runbook substitutes
+for the accountable officer’s responsibility under the SD or for the
+formal TSA inspection response.</p>
+<hr />
+<!-- CSW-RUNBOOK-PRIMER:v1 -->
+<h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</h2>
+<p>Cisco Secure Workload (CSW) is a <strong>workload protection
+platform</strong>. A lightweight <strong>agent</strong> on each
+server/VM/container observes processes and network flows; <strong>cloud
+connectors</strong> add AWS/Azure/GCP inventory where agents are not
+deployed.</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW term</th>
+<th>Meaning</th>
+<th>Why compliance teams care</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Logical boundary (CDE, PHI zone, CUI enclave)</td>
+<td>Defines the systems you must prove are isolated</td>
+</tr>
+<tr>
+<td><strong>Label / filter</strong></td>
+<td>Tag or query assigning workloads to scopes</td>
+<td>Automates scope membership — reduces drift</td>
+</tr>
+<tr>
+<td><strong>ADM</strong></td>
+<td>Application Dependency Mapping from observed traffic</td>
+<td><strong>Live</strong> network/data-flow diagram for assessors</td>
+</tr>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>Policy container for one scope or application</td>
+<td>Where allow/deny rules are authored</td>
+</tr>
+<tr>
+<td><strong>Monitor → Simulation → Enforce</strong></td>
+<td>Safe rollout sequence</td>
+<td>Simulation = change-board evidence before blocking traffic</td>
+</tr>
+<tr>
+<td><strong>Denied Connections</strong></td>
+<td>Log of flows blocked by policy</td>
+<td>Primary proof that enforcement <strong>operates</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Console areas:</strong> Investigate (inventory, flows, vulns)
+· Defend/Segmentation (policy) · Manage (agents) · Platform (connectors)
+· Administration (audit log)</p>
+<p><strong>Read next:</strong> <a href="../docs/compliance-evidence-playbook.html">Compliance evidence
+playbook</a> (full step-by-step) · <a href="../docs/about-csw.html">About
+CSW</a> (platform intro)</p>
+<hr />
+<h2 id="universal-evidence-workflow">Universal evidence workflow</h2>
+<p>Execute these phases for <strong>this framework’s</strong> compliance
+boundary. Map exports to SD provisions in the <strong>Reporting &amp;
+Evidence</strong> section below.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Key CSW actions</th>
+<th>Typical duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Coverage</strong></td>
+<td>Every in-scope workload in CSW</td>
+<td>Install agents/connectors; apply compliance labels; create
+scope</td>
+<td>Days 1–10</td>
+</tr>
+<tr>
+<td><strong>2 — Baseline</strong></td>
+<td>Machine-generated flow map</td>
+<td>Run ADM ≥2 weeks; export clusters; app-owner signoff</td>
+<td>Days 11–28</td>
+</tr>
+<tr>
+<td><strong>3 — Policy</strong></td>
+<td>Designed isolation before enforce</td>
+<td>Build workspace; Simulation mode; fix false positives</td>
+<td>Days 29–45</td>
+</tr>
+<tr>
+<td><strong>4 — Operate</strong></td>
+<td>Continuous proof between audits</td>
+<td>Enforce; quarterly export pack; ADM refresh every 90 days</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-checklist-coverage">Phase 1 checklist (coverage)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>In-scope host list reconciled to CSW
+Inventory (100% or documented exceptions)</label></li>
+<li><label><input type="checkbox"></input>Labels applied:
+<code>compliance:tsa-rail</code>, <code>ccs_id</code>,
+<code>ccs_function</code>, <code>zone</code>, <code>ot_facing</code>,
+<code>ptc</code></label></li>
+<li><label><input type="checkbox"></input>CSW scope created matching the
+approved plan’s zone model</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> inventory
+CSV + agent status screenshot</label></li>
+</ul>
+<h3 id="phase-2-checklist-baseline">Phase 2 checklist (baseline)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>ADM running on compliance scope for
+full business cycle (≥2 weeks)</label></li>
+<li><label><input type="checkbox"></input>Unexpected flows documented (shadow
+IT, vendor egress, scope creep)</label></li>
+<li><label><input type="checkbox"></input>App owners signed
+cluster-to-application mapping</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> ADM diagram
++ flow samples with process context</label></li>
+</ul>
+<h3 id="phase-3-checklist-policy">Phase 3 checklist (policy)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Default-deny posture defined for
+sensitive scope</label></li>
+<li><label><input type="checkbox"></input>ADM-imported rules refined;
+Simulation run ≥1 week (≥30 days for OT-facing tiers)</label></li>
+<li><label><input type="checkbox"></input>Change tickets for false-positive
+fixes; exception register updated</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> policy
+export + simulation report</label></li>
+</ul>
+<h3 id="phase-4-checklist-operate">Phase 4 checklist (operate)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Enforcement enabled on pilot scope;
+negative test recorded in Denied Connections</label></li>
+<li><label><input type="checkbox"></input>Quarterly pack: inventory, policy,
+denies, vulns, audit log (see playbook)</label></li>
+<li><label><input type="checkbox"></input>SIEM integration verified (sample
+events)</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> enforcement
+screenshot + quarterly binder</label></li>
+</ul>
+<h3 id="what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</h3>
+<p>Multi-factor authentication, shared-account management, domain trust
+review, email and web filtering, packet capture, physical security of
+locomotive PTC components, personnel and training programmes, and the
+Cybersecurity Implementation Plan itself still require separate
+programmes. CSW addresses the <strong>workload-resident</strong> slice
+on the IT side: segmentation, flows, process context, vulnerability
+reachability, and change drift.</p>
+<hr />
+<h2 id="csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</h2>
+<ul>
+<li>Section III.B.1 interdependency, external-connection, and
+zone-boundary lists generated from observed behaviour</li>
+<li>Section III.B.2.a inter-zone enforcement with a denied-connections
+log proving the control operates</li>
+<li>Section III.D.2.b baseline-deviation detection for OT-to-external
+communications</li>
+<li>Section IV.C.2.e east-west and north-south traffic records, which
+the SD names explicitly</li>
+</ul>
+<p><strong>Compared to manual programmes:</strong> a railroad’s network
+diagram is accurate on the day it is drawn and progressively less so
+afterwards, while the Cybersecurity Assessment Plan requires at least
+one-third of the plan’s measures to be assessed every year and 100
+percent over three years. CSW ties evidence to <strong>live workload
+behaviour</strong> and regenerates it on demand, which turns the annual
+assessment from an archaeology project into a query.</p>
+<hr />
+<h2 id="overview">1. Overview</h2>
+<p>Security Directive 1580/82-2022-01E imposes mandatory,
+performance-based cybersecurity requirements on freight railroad
+carriers identified in 49 CFR 1580.101 and on additional TSA-designated
+freight and passenger railroads. The requirements were first issued in
+October 2022 and have been renewed annually; revision <strong>E</strong>
+is effective <strong>May 3, 2026 through May 2, 2027</strong>. TSA has
+stated it intends to codify them permanently through rulemaking.</p>
+<p>The SD’s substantive requirements fall under six sections:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Provision</th>
+<th>Topic</th>
+<th>CSW relevance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Section III.A</td>
+<td>Critical Cyber System identification (<strong>PTC
+mandatory</strong>)</td>
+<td>Inventory + labelling on the IT side; designation stays with the
+operator</td>
+</tr>
+<tr>
+<td>Section III.B</td>
+<td>Network segmentation (IT/OT, both directions)</td>
+<td><strong>Direct</strong> — the strongest fit; zone enforcement plus
+the III.B.1 documentation set</td>
+</tr>
+<tr>
+<td>Section III.C</td>
+<td>Access control measures</td>
+<td><strong>Narrow</strong> — network least privilege only; identity is
+not CSW’s layer</td>
+</tr>
+<tr>
+<td>Section III.D</td>
+<td>Continuous monitoring and detection</td>
+<td><strong>Direct</strong> on baseline deviation, continuous
+collection, and OT isolation</td>
+</tr>
+<tr>
+<td>Section III.E</td>
+<td>Unpatched-system risk reduction</td>
+<td><strong>Direct</strong> on CISA KEV prioritization and compensating
+mitigations</td>
+</tr>
+<tr>
+<td>Section III.F</td>
+<td>Cybersecurity Assessment Plan</td>
+<td><strong>Direct</strong> on the architecture-review input
+artifacts</td>
+</tr>
+<tr>
+<td>Section IV.C.2</td>
+<td>Records TSA may inspect</td>
+<td><strong>Direct</strong> — including east-west and north-south
+traffic, named explicitly</td>
+</tr>
+</tbody>
+</table>
+<p><strong>A defined term worth noting early.</strong> A
+<strong>Critical Cyber System</strong> is “any Information or
+Operational Technology system or data that, if compromised or exploited,
+could result in <strong>operational disruption</strong>,” and the
+definition explicitly <strong>includes business services</strong>. Crew
+scheduling, consist and waybill management, and movement planning can
+therefore be Critical Cyber Systems even though they are not signaling
+systems. Railroads routinely under-scope here.</p>
+<p><strong>Two handling rules.</strong> TSA determined this SD
+<strong>is not</strong> Sensitive Security Information, so the
+requirement text may be discussed openly. <strong>Everything you submit
+to TSA under it <em>is</em> SSI</strong> under 49 CFR part 1520. Once a
+CSW export is incorporated into a plan, assessment, or report, handle it
+as SSI.</p>
+<hr />
+<h2 id="the-itot-scope-boundary">2. The IT/OT Scope Boundary</h2>
+<p>Read this before claiming anything. Over-claiming here is the fastest
+way to lose an inspector’s confidence on the provisions where CSW
+genuinely is the primary evidence source.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>In CSW’s reach (IT-side)</th>
+<th>Out of CSW’s reach (OT device layer)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PTC Back Office Server</strong> and supporting hosts</td>
+<td>Locomotive onboard PTC components</td>
+</tr>
+<tr>
+<td>Dispatch / computer-aided dispatch (CAD) servers</td>
+<td>Wayside interface units, signal controllers</td>
+</tr>
+<tr>
+<td>Signaling-support and interlocking-support servers</td>
+<td>Grade-crossing warning devices</td>
+</tr>
+<tr>
+<td>Historians, reporting and analytics databases</td>
+<td>Track circuits, switch machines</td>
+</tr>
+<tr>
+<td>Engineering and maintenance workstations</td>
+<td>Traction power field devices</td>
+</tr>
+<tr>
+<td>Train management, movement planning, crew scheduling</td>
+<td>Programmable logic controllers</td>
+</tr>
+<tr>
+<td>Vendor and MSSP remote-access hosts</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Identity, PKI, logging, and patch infrastructure</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The PTC back office is the point worth making.</strong>
+Section III.A.2 makes PTC systems a <strong>mandatory</strong> Critical
+Cyber System, and the back office is a server workload — squarely in
+CSW’s reach. A railroad can produce genuine, workload-level Critical
+Cyber System evidence for its single most inspection-sensitive
+system.</p>
+<p>The SD’s segmentation requirement runs in <strong>both</strong>
+directions — IT protected from OT as well as OT from IT. CSW addresses
+the IT side of that requirement only. Your OT-aware monitoring stack
+(Cisco Cyber Vision, Claroty, Nozomi, Dragos, or equivalent) and your
+IT/OT boundary firewalls remain the controlling artifacts at and below
+the boundary.</p>
+<hr />
+<h2 id="section-iii.a-critical-cyber-system-identification">3. Section
+III.A — Critical Cyber System Identification</h2>
+<p>The SD requires identification of every Critical Cyber System, and
+makes PTC systems mandatory for operators required to install PTC under
+49 CFR part 236 subpart I, or voluntarily operating it under subpart H
+or I. If an operator determines it has <strong>no</strong> Critical
+Cyber Systems, it must notify TSA in writing within 60 days.</p>
+<p><strong>CSW does not perform Critical Cyber System
+designation.</strong> That is an operational risk decision your
+accountable officer signs. CSW hosts the labels that every downstream
+IT-side control depends on.</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Receive the Critical Cyber System register from the
+        operations risk function
+  → Per IT workload supporting a CCS:
+      ccs_id        reference to your Cybersecurity Implementation
+                    Plan register entry
+      ccs_function  ptc-bos | dispatch-cad | signaling-support |
+                    historian | engineering-wks | train-mgmt |
+                    identity | patch-repo | vendor-access
+      ot_facing     true | false  (does the workload reach into OT?)
+      ptc           true | false  (III.A.2 mandatory CCS)
+      site          subdivision / yard / facility
+      managed_by    internal | authorized-rep | mssp
+
+Step 2: Apply consistent labels to every CSW-managed workload
+  CSW UI → Inventory → Bulk Label
+  Mandatory: ccs_id, ccs_function, zone, ot_facing, ptc, site,
+             managed_by, compliance:tsa-rail
+
+Step 3: Build CSW Scopes to mirror the approved plan&#39;s zone model
+  CSW UI → Organize → Scopes → New
+  → Recommended hierarchy:
+        Root
+        └── Rail-Critical-Cyber-Systems
+            ├── OT-Facing-IT
+            │   ├── PTC-Back-Office        (mandatory CCS — III.A.2)
+            │   ├── Dispatch-and-CAD
+            │   ├── Signaling-Support
+            │   ├── Historians
+            │   └── Engineering-Workstations
+            ├── CCS-Supporting-IT
+            │   ├── Train-Mgmt-and-Planning
+            │   ├── Identity-and-PKI
+            │   ├── Logging-and-Monitoring
+            │   └── Patch-Repositories
+            ├── Privileged-Access-Paths
+            ├── Corporate-IT               (default-deny source)
+            └── External
+                ├── Internet-Edge
+                └── Vendor-and-MSSP-Access
+
+Step 4: Run the under-scoping check
+  → The CCS definition includes BUSINESS SERVICES whose loss causes
+    operational disruption. Assess crew scheduling, movement
+    planning, consist and waybill management — this is where
+    under-scoping hides.
+  → Cross-check CSW count vs. the register; reconcile the delta with
+    the accountable officer before sign-off</code></pre>
+<p><strong>Evidence:</strong> Per-scope membership snapshot (CSV) with
+workload identity, OS, owner, <code>ccs_id</code>,
+<code>ccs_function</code>, <code>ot_facing</code>, <code>ptc</code>,
+<code>site</code>, and last-seen timestamp. This is the IT-side
+companion to your Section III.A register.</p>
+<hr />
+<h2 id="section-iii.b.1-segmentation-documentation">4. Section III.B.1 —
+Segmentation Documentation</h2>
+<p>Section III.B.1 is unusually prescriptive. It requires a list and
+description of four things, and CSW generates three of them from
+observed behaviour rather than from a drawing.</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>III.B.1.a — IT/OT system interdependencies
+  CSW UI → Investigate → ADM
+  → Run ADM ≥ 14 days on OT-Facing-IT and CCS-Supporting-IT
+  → The dependency graph IS the interdependency list: the SD defines
+    interdependencies as &quot;relationships of reliance ... that must be
+    maintained for those systems to operate&quot;
+  → Export the cluster-to-cluster edge list with ports and processes
+
+III.B.1.b — All external connections
+  CSW UI → Investigate → Flow Search
+  Filter: source or destination outside documented operator ranges
+  → Enumerates every observed external connection, including the ones
+    absent from the documented architecture
+  → Tag vendor and MSSP paths via managed_by for Section II.A.2
+
+III.B.1.c — Zone boundaries
+  → The CSW scope tree IS the logical zone model. The SD asks for
+    zones &quot;based on criticality, consequence, and operational
+    necessity&quot; — carry those as labels:
+        zone, operational_disruption_impact, ccs_function
+  → Export the scope tree + label schema and cross-reference it to
+    the zone model in the approved plan
+
+III.B.1.d — Transit only when necessary for validated purposes
+  → Implemented as policy, not documentation: see section 5. Each
+    allow rule carries a business or operational justification in the
+    workspace notes; everything unjustified is denied and logged.</code></pre>
+<p><strong>Critical reconciliation step.</strong> If the CSW scope tree
+and the approved plan’s zone model diverge, the CSW export stops being
+evidence and becomes a contradiction an inspector will pursue. Reconcile
+before you export.</p>
+<p><strong>Evidence:</strong> (a) interdependency edge list dated within
+the period; (b) external-connection inventory; (c) scope tree + label
+schema export; (d) observed-vs-documented delta report.</p>
+<hr />
+<h2 id="section-iii.b.2-zone-enforcement">5. Section III.B.2 — Zone
+Enforcement</h2>
+<p>Section III.B.2.a requires controls that <strong>prevent</strong>
+unauthorized communication between zones. Section III.B.2.b prohibits OT
+services traversing IT and vice versa unless the content is encrypted or
+otherwise secured. The first is CSW’s strongest claim in this framework;
+the second is a boundary (see section 10).</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Create the zone-enforcement workspace
+  CSW UI → Defend → Segmentation → New Workspace
+  Name:  tsa-rail-zone-enforcement-{site}
+  Scope: Rail-Critical-Cyber-Systems (site = {site})
+
+Step 2: Import the ADM baseline from section 4
+  → Reject noise clusters; rename clusters to operational roles
+  → Capture a maintenance window in the observation period
+
+Step 3: Layer the SD-aligned rule set on the baseline
+
+  Absolute policies:
+  DENY  Corporate-IT                   → OT-Facing-IT                  (III.B.2.a)
+  DENY  OT-Facing-IT                   → Internet-Edge                 (III.B.1.d)
+  DENY  Vendor-and-MSSP-Access         → PTC-Back-Office               (III.C / II.A.2)
+  DENY  External                       → Rail-Critical-Cyber-Systems   (III.B.1.b)
+  DENY  OT-Facing-IT                   → OT-Facing-IT                  (no implicit east-west)
+
+  Allowlist policies (each with a documented justification):
+  ALLOW Dispatch-and-CAD               → PTC-Back-Office               tcp/&lt;ptc-port-tls&gt;
+  ALLOW PTC-Back-Office                → Historians                    tcp/&lt;db-port-tls&gt;
+  ALLOW Rail-Critical-Cyber-Systems    → Identity-and-PKI              tcp/636, tcp/88
+  ALLOW Privileged-Access-Paths        → OT-Facing-IT                  tcp/22, tcp/3389
+  ALLOW Rail-Critical-Cyber-Systems    → Logging-and-Monitoring        tcp/443, udp/514
+  ALLOW Patch-Repositories             → Rail-Critical-Cyber-Systems   tcp/443
+
+  Catch-all:
+  LOG   Any                            → OT-Facing-IT                  (unmatched inbound — III.D.3.a)
+  LOG   OT-Facing-IT                   → Any                           (unmatched outbound — III.D.2.b)
+  LOG   Any                            → Any                           (plaintext crossing zones — III.B.2.b)
+
+Step 4: Run in Simulation for ≥ 30 days
+  → Longer than this series&#39; usual 2 weeks: rail traffic is seasonal
+    and schedule-driven, and a short window misses patterns
+  → Resolve every legitimate-but-blocked flow with the asset owner;
+    document each exception in the workspace notes
+
+Step 5: Promote to Enforce, absolute denies first
+  → Gate by change management
+  → Assess Section VI amendment impact: a permanent change (45+ days)
+    to an approved segmentation measure must be filed with TSA within
+    50 days of taking effect</code></pre>
+<p><strong>Why the last absolute deny matters.</strong> Section
+IV.C.2.e.iii makes <strong>east-west traffic within a trust
+zone</strong> an inspectable record, which means “it is all inside one
+zone” is not an answer. Denying implicit intra-zone traffic and
+allowlisting the justified paths is what produces a defensible east-west
+record.</p>
+<p><strong>Every port is specified in its TLS-bearing form
+deliberately.</strong> Section III.B.2.b conditions cross-boundary
+traversal on the content being encrypted. If the only rule that makes a
+system work is the cleartext port, you have documented a III.B.2.b gap
+rather than closed one — which is useful, but record it as such.</p>
+<p><strong>Evidence:</strong> (a) workspace export per site; (b)
+simulation → enforcement transition log; (c) Denied Connections log as
+proof the control operates; (d) quarterly enforcement diff report.</p>
+<hr />
+<h2 id="section-iii.c-access-control-measures">6. Section III.C — Access
+Control Measures</h2>
+<p><strong>Set expectations here.</strong> The SD’s access-control
+section is predominantly about <strong>identity</strong>, which is not
+CSW’s layer. CSW delivers <em>network</em> least privilege; most of
+III.C is evidenced elsewhere.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Provision</th>
+<th>Requirement</th>
+<th>Where the evidence comes from</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>III.C.1</td>
+<td>Memorized-secret authenticator reset policy, aligned to NIST SP
+800-63</td>
+<td>Identity provider and OS policy</td>
+</tr>
+<tr>
+<td>III.C.2</td>
+<td><strong>MFA</strong>, or compensating controls for OT
+components</td>
+<td>Cisco ISE, Duo, or equivalent</td>
+</tr>
+<tr>
+<td>III.C.3</td>
+<td><strong>Least privilege and separation of duties</strong></td>
+<td><strong>CSW (network layer)</strong> + IdP for user/admin
+privilege</td>
+</tr>
+<tr>
+<td>III.C.4</td>
+<td>Shared-account limitation and management</td>
+<td>Account management / privileged-access tooling</td>
+</tr>
+<tr>
+<td>III.C.5</td>
+<td>Domain trust relationship review</td>
+<td>Directory services</td>
+</tr>
+<tr>
+<td>III.C.6</td>
+<td>PTC locomotive <strong>physical security</strong> alternative</td>
+<td>Physical security programme</td>
+</tr>
+</tbody>
+</table>
+<p><strong>CSW Implementation — network least privilege (III.C.3
+only):</strong></p>
+<pre><code>Step 1: Deny-by-default at the workload identity layer
+  → Every flow must match an explicit allow; everything else is
+    denied with audit logging
+  → Identity for CSW policy = workload + scope + label set, not IP or
+    subnet (IPs reassign in virtualised and cloud estates)
+
+Step 2: Separate functions that have no operational reason to talk
+  → Default: workloads in different ccs_function categories may not
+    communicate
+  → Explicit allow only for documented operational paths
+
+Step 3: Bound the privileged-access path
+  → ALLOW: {documented MFA-VPN pool} → Privileged-Access-Paths
+  → ALLOW: Privileged-Access-Paths → OT-Facing-IT  tcp/22, tcp/3389
+  → DENY:  any other source → OT-Facing-IT administrative ports
+
+Step 4: Cadence-based review
+  → Quarterly: sunset any allow rule whose last-observed flow is
+    older than 90 days
+  → Annual: full ruleset review with the accountable officer</code></pre>
+<p><strong>Worth flagging on III.C.6.</strong> It is a genuine relief
+valve. Operators subject to 49 CFR 232.105(h)(1–4), 236.3, or 236.553
+may rely on the physical measures already used for those rules for PTC
+components <strong>installed on locomotives</strong>, instead of
+implementing III.C.1–5 there. It applies only to those components, and
+the plan must state which physical measures are relied upon.</p>
+<p><strong>Evidence:</strong> (a) policy export with rule provenance and
+last-flow timestamp; (b) quarterly access review minutes; (c) sunset
+log.</p>
+<hr />
+<h2 id="section-iii.d-continuous-monitoring-and-detection">7. Section
+III.D — Continuous Monitoring and Detection</h2>
+<p>CSW is the primary evidence source for three of the four subsections
+and a supporting input to the rest.</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>III.D.2.b — Baseline-deviation auditing  [PRIMARY]
+  → The SD requires you to &quot;document and audit any communications
+    between the Operational Technology system and an external system
+    that deviates from the Owner/Operator&#39;s identified baseline of
+    communications.&quot; This is ADM baseline + deviation detection; the
+    SD&#39;s own wording describes the artifact.
+  CSW UI → Investigate → ADM → compare to the approved baseline
+  → Alert on new source/destination pairs crossing the boundary
+  → Export the deviation report monthly
+
+III.D.3.a — Continuous collection and analysis  [PRIMARY]
+  → Continuous flow, process, and policy-violation telemetry on
+    Critical Cyber Systems and systems directly connected to them
+  CSW UI → Defend → Forensics → Rules
+  → Out-of-the-box: privilege escalation, persistence, lateral movement
+  → Custom rules worth adding for rail:
+        &quot;Process on PTC back office writes to startup paths&quot;
+        &quot;New listening port opened on a dispatch server&quot;
+        &quot;Outbound to non-allowlisted destination from a historian&quot;
+
+III.D.4 — OT isolation on IT compromise  [PRIMARY]
+  → Build this as a STANDING, UNAPPLIED workspace, before you need it:
+    Workspace: tsa-rail-emergency-isolation  (staged, not enforced)
+      DENY  Corporate-IT               → OT-Facing-IT
+      DENY  CCS-Supporting-IT          → OT-Facing-IT
+      DENY  Vendor-and-MSSP-Access     → Rail-Critical-Cyber-Systems
+      ALLOW Privileged-Access-Paths    → OT-Facing-IT                  tcp/22, tcp/3389
+  → TEST IT during a planned maintenance window and RECORD the test
+  → The evidence an inspector wants is not that you could isolate —
+    it is that you have, and that you know how long it took
+
+III.D.1.b / III.D.1.d / III.D.1.e / III.D.2.a / III.D.2.c  [SUPPORTING]
+  → Policy can deny known-malicious addresses and C2/Tor destinations;
+    the reputation feeds are external
+  → Process and hash telemetry identifies unauthorized code execution;
+    blocking it is EDR and application control
+  → Egress flow records per workload support domain auditing;
+    domain-level attribution needs DNS logging
+
+III.D.2.d — SOAR  [SUPPORTING]
+  CSW UI → Manage → Data Tap → SIEM
+  → Splunk, QRadar, Sentinel, Cisco XDR
+  → Tag every alert with ccs_id, ptc, and site so the SOC can route
+    by criticality; pair with OT sensor alerts for full coverage
+
+III.D.3.b — Retention  [SUPPORTING]
+  → CSW retention is configurable; long-term immutable retention for
+    &quot;effective investigation&quot; belongs to the SIEM or archive</code></pre>
+<p><strong>Not CSW:</strong> III.D.1.a malicious email (email security
+gateway) and III.D.1.c malicious web domains and applications (DNS/web
+security — Cisco Umbrella or equivalent).</p>
+<p><strong>Evidence:</strong> (a) baseline-deviation report; (b)
+detection rule catalogue with last-modified dates; (c) SIEM forwarding
+configuration; (d) <strong>dated isolation test record</strong>; (e)
+MTTD trend by <code>ccs_function</code>.</p>
+<hr />
+<h2 id="section-iii.e-unpatched-system-risk">8. Section III.E —
+Unpatched System Risk</h2>
+<p>The SD requires a patch management strategy with a risk methodology,
+explicit prioritization of the <strong>CISA Known Exploited
+Vulnerabilities Catalog</strong>, and — where patching would severely
+degrade operational capability — a description and timeline of
+additional mitigations.</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>Step 1: Continuous CVE inventory at workload level
+  CSW UI → Investigate → Vulnerability Report
+  → Per-workload CVE list with CVSS and exploit availability
+  → Filter: ccs_id is set → the Critical Cyber System population
+
+Step 2: KEV prioritization  [III.E.2.b — PRIMARY]
+  → Filter the CVE inventory to the CISA KEV catalogue and intersect
+    with ccs_function and ptc labels
+  → Prioritization becomes a query rather than a spreadsheet merge
+  → Export weekly; this is the III.E.2.b evidence item
+
+Step 3: Compensating controls for unpatchable systems  [III.E.3 — PRIMARY]
+  → Railroads genuinely cannot patch on an IT cadence. Where patching
+    would severely degrade operations:
+        Restrict the source set for the vulnerable port to the one
+          justified source
+        Add behavioural detection for known exploit patterns
+        LOG every flow involving the affected port
+  → Record each compensating control in the workspace notes with a
+    timeline — this is the III.E.3 audit trail
+  → A vulnerable service made unreachable from everywhere except one
+    justified source is a materially different risk from the same
+    service left open, and CSW produces the evidence for that
+    distinction
+
+Step 4: Patch verification and reporting
+  → After patching, CSW package inventory updates on the next
+    snapshot cycle; the CVE drops from the inventory automatically
+  → Monthly: CVE backlog by ccs_function and severity
+  → Quarterly: mean-time-to-patch trend
+  → Annual: input to the Cybersecurity Assessment Plan report</code></pre>
+<p><strong>Evidence:</strong> (a) KEV exposure report intersected with
+CCS labels; (b) patch remediation tracking with ticket IDs; (c)
+<strong>compensating control register with timelines</strong> for
+unpatched-but-mitigated workloads.</p>
+<hr />
+<h2 id="section-iii.f-cybersecurity-assessment-plan">9. Section III.F —
+Cybersecurity Assessment Plan</h2>
+<p>Section III.F requires a Cybersecurity Assessment Plan that assesses
+the effectiveness of the approved Cybersecurity Implementation Plan,
+includes an architecture design review within the first 12 months and at
+least every two years thereafter, and assesses <strong>at least
+one-third of the plan’s measures each year with 100 percent over any
+three-year period</strong> — with an annual report to TSA.</p>
+<p><strong>CSW Implementation:</strong></p>
+<pre><code>III.F.2.b — Architecture design review inputs  [PRIMARY]
+  The SD defines the review as containing &quot;verification and validation
+  of network traffic, a system log review, and analysis to identify
+  cybersecurity vulnerabilities related to network design,
+  configuration, and inter-connectivity to internal and external
+  systems.&quot; CSW produces all three input artifacts:
+
+    Network traffic verification   → ADM map + flow search exports
+    System log review              → flow and process logs with
+                                     process attribution
+    Inter-connectivity analysis    → dependency graph + external-
+                                     connection inventory
+
+  The review CONCLUSION remains a human assessment. CSW supplies the
+  inputs so the reviewer analyses gaps and changes rather than
+  rebuilding the as-is picture from scratch.
+
+III.F.2.d — Sampling schedule  [SUPPORTING]
+  → Because every CSW artifact is re-exportable on demand, the
+    one-third-per-year schedule becomes a reporting cadence rather
+    than a fresh evidence-collection exercise each cycle
+  → Organise the evidence binder by plan measure, so the annual
+    sample maps directly onto exports
+
+Annual evidence pack, by SD provision:
+  III.B  → workspace export; simulation→enforcement log;
+           interdependency and external-connection lists;
+           observed-vs-documented delta
+  III.C  → policy export with rule provenance; review minutes
+  III.D  → baseline-deviation report; detection catalogue; SIEM
+           config; dated isolation test record
+  III.E  → KEV exposure report; patch tracking; compensating-control
+           register
+  Cross-cutting → inventory snapshot dated to assessment start;
+           configuration baseline diff; quarterly diff reports</code></pre>
+<p><strong>Evidence:</strong> (a) annual evidence binder organised
+<strong>by approved-plan measure</strong>; (b) prior-period delta
+showing what changed; (c) accountable officer sign-off summary.</p>
+<hr />
+<h2 id="reporting-evidence-and-the-boundary">10. Reporting &amp;
+Evidence — and the Boundary</h2>
+<h3 id="evidence-package">Evidence package</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Evidence Item</th>
+<th>CSW Source</th>
+<th>SD Provision</th>
+<th>Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CCS scope + label export</td>
+<td>Organize → Scopes</td>
+<td>III.A, IV.C.2.a</td>
+<td>Per inspection</td>
+</tr>
+<tr>
+<td>Interdependency map</td>
+<td>Investigate → ADM</td>
+<td>III.B.1.a</td>
+<td>Quarterly</td>
+</tr>
+<tr>
+<td>External-connection inventory</td>
+<td>Flow Search</td>
+<td>III.B.1.b</td>
+<td>Quarterly</td>
+</tr>
+<tr>
+<td>Zone model export</td>
+<td>Scopes + label schema</td>
+<td>III.B.1.c</td>
+<td>Per plan update</td>
+</tr>
+<tr>
+<td>Policy workspace export</td>
+<td>Defend → Policy Workspaces</td>
+<td>III.B.1.d, III.B.2.a</td>
+<td>Per inspection</td>
+</tr>
+<tr>
+<td>Denied Connections log</td>
+<td>Defend → Enforcement</td>
+<td>III.B.2.a</td>
+<td>Continuous</td>
+</tr>
+<tr>
+<td>Plaintext-crossing-zones report</td>
+<td>Flow Search</td>
+<td>III.B.2.b</td>
+<td>Quarterly</td>
+</tr>
+<tr>
+<td>Simulation report</td>
+<td>Defend → Policy Workspaces</td>
+<td>III.B, Section VI</td>
+<td>Per change</td>
+</tr>
+<tr>
+<td>Baseline-deviation report</td>
+<td>Investigate → ADM diff</td>
+<td>III.D.2.b</td>
+<td>Monthly</td>
+</tr>
+<tr>
+<td>Flow + process telemetry</td>
+<td>Flow / Process Search</td>
+<td>III.D.3.a, IV.C.2.e.i</td>
+<td>Continuous</td>
+</tr>
+<tr>
+<td><strong>East-west traffic record</strong></td>
+<td>Flow Search, intra-zone</td>
+<td><strong>IV.C.2.e.iii</strong></td>
+<td>On request</td>
+</tr>
+<tr>
+<td><strong>North-south traffic record</strong></td>
+<td>Flow Search, cross-zone</td>
+<td><strong>IV.C.2.e.iv</strong></td>
+<td>On request</td>
+</tr>
+<tr>
+<td>Isolation test record</td>
+<td>Emergency isolation workspace</td>
+<td>III.D.4</td>
+<td>Annually + per test</td>
+</tr>
+<tr>
+<td>KEV exposure report</td>
+<td>Investigate → Vulnerability</td>
+<td>III.E.2.b</td>
+<td>Weekly</td>
+</tr>
+<tr>
+<td>Compensating-control register</td>
+<td>Workspace notes + policy</td>
+<td>III.E.3</td>
+<td>Per exception</td>
+</tr>
+<tr>
+<td>Architecture-review input pack</td>
+<td>ADM + inventory + logs</td>
+<td>III.F.2.b</td>
+<td>Every 2 years</td>
+</tr>
+<tr>
+<td>Workload inventory</td>
+<td>Manage → Inventory</td>
+<td>IV.C.2.a</td>
+<td>Monthly</td>
+</tr>
+<tr>
+<td>CSW administrative audit log</td>
+<td>Administration → Audit Log</td>
+<td>III.D.3.a</td>
+<td>Per inspection</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-you-must-supply-outside-csw">What you must supply outside
+CSW</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Provision</th>
+<th>Topic</th>
+<th>Who evidences it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>III.C.1</td>
+<td>Authenticator reset policy</td>
+<td>Identity provider, OS policy (NIST SP 800-63)</td>
+</tr>
+<tr>
+<td>III.C.2</td>
+<td>MFA / OT compensating controls</td>
+<td>Cisco ISE, Duo, or equivalent</td>
+</tr>
+<tr>
+<td>III.C.4</td>
+<td>Shared-account management</td>
+<td>Account management tooling</td>
+</tr>
+<tr>
+<td>III.C.5</td>
+<td>Domain trust review</td>
+<td>Directory services</td>
+</tr>
+<tr>
+<td>III.C.6</td>
+<td>PTC locomotive physical security</td>
+<td>Physical security programme</td>
+</tr>
+<tr>
+<td>III.D.1.a</td>
+<td>Malicious email defence</td>
+<td>Email security gateway</td>
+</tr>
+<tr>
+<td>III.D.1.c</td>
+<td>Malicious web domain control</td>
+<td>DNS / web security</td>
+</tr>
+<tr>
+<td>IV.C.2.b</td>
+<td>Firewall rules</td>
+<td>Perimeter and IT/OT boundary firewalls — CSW policy is the
+workload-tier complement, not a substitute</td>
+</tr>
+<tr>
+<td>IV.C.2.e.ii</td>
+<td>Packet capture up to 24 hours</td>
+<td>Capture appliance or OT sensor — <strong>CSW records flow metadata,
+not payloads</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Also entirely outside CSW:</strong> the Cybersecurity
+Implementation Plan and its TSA approval, the Cybersecurity Assessment
+Plan and annual report, the Cybersecurity Incident Response Plan,
+incident reporting to CISA, the Cybersecurity Coordinator designation,
+personnel and training programmes, and the <strong>OT device layer in
+its entirety</strong>.</p>
+<h3 id="encryption-the-most-commonly-misread-boundary">Encryption — the
+most commonly misread boundary</h3>
+<p>Section III.B.2.b permits OT services to traverse IT, and vice versa,
+only where “the content is encrypted or, if not technologically
+feasible, otherwise secured and protected to ensure integrity and
+prevent corruption or compromise while the content is in transit.”</p>
+<p><strong>CSW does not encrypt application data.</strong> It
+contributes <em>detection</em>: the plaintext-crossing-zones filter and
+matching LOG rule identify, with flow-level evidence, which cross-zone
+paths still run cleartext protocols. Useful input to the III.B.2.b
+narrative in your plan — not the provision itself.</p>
+<p>Where encryption is not technologically feasible, as is common with
+legacy rail protocols, the SD allows the content to be “otherwise
+secured and protected.” A tightly scoped, enforced, and logged path is a
+credible component of that argument, but the argument is the operator’s
+to make in the plan, not CSW’s to assert.</p>
+<hr />
+<h2 id="tsa-inspector-response-guide">11. TSA Inspector Response
+Guide</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Inspector asks</th>
+<th>You provide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Show your Critical Cyber System inventory.”</td>
+<td>Scope + label export with <code>ccs_id</code>,
+<code>ccs_function</code>, <code>ptc</code>, <code>site</code>,
+reconciled to the register (§3)</td>
+</tr>
+<tr>
+<td>“Demonstrate your Section III.B segmentation.”</td>
+<td>Workspace export + Denied Connections log showing blocked inter-zone
+attempts (§5)</td>
+</tr>
+<tr>
+<td>“Provide your IT/OT interdependency list.”</td>
+<td>ADM dependency map with generation date (§4)</td>
+</tr>
+<tr>
+<td>“List all external connections.”</td>
+<td>External-connection inventory with vendor and MSSP paths identified
+(§4)</td>
+</tr>
+<tr>
+<td>“Describe your zone boundaries.”</td>
+<td>Scope tree + label schema, cross-referenced to the approved plan’s
+zone model (§4)</td>
+</tr>
+<tr>
+<td><strong>“Give me east-west traffic for this OT
+environment.”</strong></td>
+<td><strong>Intra-zone flow records for the site — IV.C.2.e.iii, native
+CSW output (§10)</strong></td>
+</tr>
+<tr>
+<td><strong>“Give me north-south traffic between IT and
+OT.”</strong></td>
+<td><strong>Cross-zone flow records at the boundary — IV.C.2.e.iv
+(§10)</strong></td>
+</tr>
+<tr>
+<td>“Show communications that deviated from your baseline.”</td>
+<td>Baseline-deviation report from ADM diff (§7)</td>
+</tr>
+<tr>
+<td>“How would you isolate OT if IT were compromised?”</td>
+<td>Pre-staged isolation workspace + dated test record (§7)</td>
+</tr>
+<tr>
+<td>“How are you prioritizing KEV vulnerabilities?”</td>
+<td>KEV exposure report intersected with CCS labels (§8)</td>
+</tr>
+<tr>
+<td>“You cannot patch this system. What mitigates it?”</td>
+<td>Compensating-control register + enforced policy restricting the port
+(§8)</td>
+</tr>
+<tr>
+<td>“Provide input for the architecture design review.”</td>
+<td>Traffic verification, flow/process logs, interconnectivity graph
+(§9)</td>
+</tr>
+<tr>
+<td>“Provide a 24-hour packet capture.”</td>
+<td><strong>Not a CSW answer</strong> — capture appliance or OT sensor
+(§10)</td>
+</tr>
+<tr>
+<td>“Show your MFA implementation.”</td>
+<td><strong>Not a CSW answer</strong> — identity provider evidence
+(§6)</td>
+</tr>
+<tr>
+<td>“Show your firewall rules.”</td>
+<td>Perimeter and IT/OT firewall rulesets; CSW policy export as the
+workload-tier complement (§10)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-frameworks">12. Related Frameworks</h2>
+<p>The TSA Rail SD shares substantial control surface with:</p>
+<ul>
+<li><strong>TSA Pipeline Security Directive</strong> — the sister TSA
+mode; the four performance-based outcomes are harmonized, so the zone
+model and evidence pack transfer closely. See <a href="../TSA-Pipeline/CSW-TSA-Pipeline-Technical-Runbook.html">TSA
+Pipeline runbook</a>.</li>
+<li><strong>NERC CIP</strong> — the bulk-electric-system analogue;
+identical IT-side ESP-enclave patterns apply. See <a href="../NERC-CIP/CSW-NERC-CIP-Technical-Runbook.html">NERC CIP
+runbook</a>.</li>
+<li><strong>IEC 62443</strong> — zones and conduits, the engineering
+vocabulary behind the SD’s Section III.B zone language. See <a href="../IEC-62443/CSW-IEC62443-Technical-Runbook.html">IEC 62443
+runbook</a>.</li>
+<li><strong>NIST SP 800-82 Rev 3</strong> — OT security guidance for the
+estate surrounding the devices CSW does not reach. See <a href="../NIST-800-82/CSW-NIST-800-82-Technical-Runbook.html">800-82
+runbook</a>.</li>
+<li><strong>NIST SP 800-53 Rev 5</strong> — AC-3, AC-4, SC-7, SI-4,
+RA-5, CM-8 are the control-catalogue analogues of Sections III.B–III.E.
+See <a href="../NIST-800-53/CSW-NIST-800-53-Technical-Runbook.html">800-53
+runbook</a>.</li>
+<li><strong>NIST SP 800-207 (ZTA)</strong> — the deny-by-default,
+observability-driven posture in §5 and §7 implements the ZTA tenets in
+the rail IT context. See <a href="../NIST-800-207/CSW-NIST-800-207-Technical-Runbook.html">800-207
+runbook</a>.</li>
+</ul>
+<hr />
+<h2 id="disclaimer">13. Disclaimer</h2>
+<p>This runbook is <strong>draft v1</strong> describing how Cisco Secure
+Workload capabilities can support a TSA Rail Security Directive
+cybersecurity programme on the <strong>IT side</strong> of the IT/OT
+boundary. It is <strong>not</strong> legal or regulatory advice and does
+not constitute a finding of compliance.</p>
+<p>Specifically:</p>
+<ul>
+<li>TSA Security Directives are issued and revised by the Transportation
+Security Administration; this series is <strong>renewed
+annually</strong> and the revision letter advances (01, 01A … 01E).
+Always validate against the <strong>current effective revision</strong>,
+your inspector’s current guidance, and any subsequent rulemaking that
+supersedes the SD.</li>
+<li><strong>TSA inspects against the Owner/Operator’s TSA-approved
+Cybersecurity Implementation Plan</strong>, not against the SD text and
+not against a vendor document. Map every artifact here to a measure in
+that plan.</li>
+<li>Designation as a covered Owner/Operator is a TSA determination.
+Nothing here substitutes for that designation analysis.</li>
+<li>Delegation to a Managed Security Service Provider or Authorized
+Representative does <strong>not</strong> transfer responsibility; the
+Owner/Operator retains sole responsibility for compliance.</li>
+<li>The SD text is not Sensitive Security Information, but
+<strong>everything submitted to TSA under it is SSI</strong> under 49
+CFR part
+1520. Handle CSW exports accordingly once incorporated into a plan or
+report.</li>
+<li>CSW does not enforce policy on wayside units, signal controllers,
+locomotive onboard PTC hardware, grade-crossing equipment, or PLCs, does
+not inspect rail or OT protocols, does not capture packet payloads, and
+is not certified as an architecture-review tool.</li>
+</ul>
+<p>This document should receive subject-matter-expert review for both
+TSA SD regulatory accuracy and current Cisco product capability before
+being relied upon in a formal compliance engagement.</p>
+</body>
+</html>
