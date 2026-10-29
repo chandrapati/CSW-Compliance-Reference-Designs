@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>GxP (EU GMP Annex 11 · 21 CFR Part 11) — Reference Design</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-GxP-Reference-Design.html">CSW-GxP-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-29T22:01:16Z UTC · Repository commit: 26cb503</div>
+<header id="title-block-header">
+<h1 class="title">GxP (EU GMP Annex 11 · 21 CFR Part 11) — Reference
+Design</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload-gxp-compliance-framework" id="toc-cisco-secure-workload-gxp-compliance-framework">Cisco Secure
+Workload — GxP Compliance Framework</a>
+<ul>
+<li><a href="#reference-design-life-sciences-accounts-pharma-biotech-medical-devices-cdmocro" id="toc-reference-design-life-sciences-accounts-pharma-biotech-medical-devices-cdmocro">Reference
+Design | Life Sciences Accounts (Pharma · Biotech · Medical Devices ·
+CDMO/CRO)</a></li>
+<li><a href="#overview" id="toc-overview">1. Overview</a>
+<ul>
+<li><a href="#what-gxp-means-here" id="toc-what-gxp-means-here">What GxP
+means here</a></li>
+<li><a href="#where-csw-genuinely-contributes" id="toc-where-csw-genuinely-contributes">1.1 Where CSW genuinely
+contributes</a></li>
+<li><a href="#scope-boundary-state-this-before-the-customer-asks" id="toc-scope-boundary-state-this-before-the-customer-asks">1.2 Scope
+boundary — state this before the customer asks</a></li>
+</ul></li>
+<li><a href="#pre-deployment-checklist" id="toc-pre-deployment-checklist">2. Pre-Deployment Checklist</a></li>
+<li><a href="#phase-1-sensor-deployment-days-110" id="toc-phase-1-sensor-deployment-days-110">3. Phase 1 — Sensor
+Deployment (Days 1–10)</a>
+<ul>
+<li><a href="#on-premises-workloads" id="toc-on-premises-workloads">3.1
+On-Premises Workloads</a></li>
+<li><a href="#manufacturing-ot-workloads" id="toc-manufacturing-ot-workloads">3.2 Manufacturing / OT
+Workloads</a></li>
+<li><a href="#cloud-workloads-aws-azure-gcp" id="toc-cloud-workloads-aws-azure-gcp">3.3 Cloud Workloads (AWS / Azure
+/ GCP)</a></li>
+<li><a href="#sensor-validation" id="toc-sensor-validation">3.4 Sensor
+Validation</a></li>
+</ul></li>
+<li><a href="#phase-2-scope-inventory-design-days-1118" id="toc-phase-2-scope-inventory-design-days-1118">4. Phase 2 — Scope
+&amp; Inventory Design (Days 11–18)</a>
+<ul>
+<li><a href="#gxp-scope-architecture" id="toc-gxp-scope-architecture">4.1 GxP Scope Architecture</a></li>
+<li><a href="#inventory-filters-for-gxp-system-discovery" id="toc-inventory-filters-for-gxp-system-discovery">4.2 Inventory
+Filters for GxP System Discovery</a></li>
+<li><a href="#labelling-strategy" id="toc-labelling-strategy">4.3
+Labelling Strategy</a></li>
+</ul></li>
+<li><a href="#phase-3-application-dependency-mapping-days-1940" id="toc-phase-3-application-dependency-mapping-days-1940">5. Phase 3 —
+Application Dependency Mapping (Days 19–40)</a>
+<ul>
+<li><a href="#adm-configuration" id="toc-adm-configuration">5.1 ADM
+Configuration</a></li>
+<li><a href="#adm-analysis-for-gxp" id="toc-adm-analysis-for-gxp">5.2
+ADM Analysis for GxP</a></li>
+<li><a href="#gxp-system-identification-workflow" id="toc-gxp-system-identification-workflow">5.3 GxP System
+Identification Workflow</a></li>
+</ul></li>
+<li><a href="#phase-4-policy-development-days-4160" id="toc-phase-4-policy-development-days-4160">6. Phase 4 — Policy
+Development (Days 41–60)</a>
+<ul>
+<li><a href="#gxp-aligned-policy-framework" id="toc-gxp-aligned-policy-framework">6.1 GxP-Aligned Policy
+Framework</a></li>
+<li><a href="#policy-workspace-setup" id="toc-policy-workspace-setup">6.2 Policy Workspace Setup</a></li>
+<li><a href="#enforcement-progression" id="toc-enforcement-progression">6.3 Enforcement Progression</a></li>
+</ul></li>
+<li><a href="#phase-5-gxp-control-mapping" id="toc-phase-5-gxp-control-mapping">7. Phase 5 — GxP Control
+Mapping</a>
+<ul>
+<li><a href="#eu-gmp-annex-11" id="toc-eu-gmp-annex-11">7.1 EU GMP Annex
+11</a></li>
+<li><a href="#fda-21-cfr-part-11-subpart-b-11.10-closed-systems" id="toc-fda-21-cfr-part-11-subpart-b-11.10-closed-systems">7.2 FDA 21
+CFR Part 11 — Subpart B (§11.10 Closed Systems)</a></li>
+</ul></li>
+<li><a href="#phase-6-vulnerability-management-and-the-un-patchable-system" id="toc-phase-6-vulnerability-management-and-the-un-patchable-system">8.
+Phase 6 — Vulnerability Management and the Un-Patchable System</a>
+<ul>
+<li><a href="#why-this-is-different-from-every-other-vertical" id="toc-why-this-is-different-from-every-other-vertical">8.1 Why this is
+different from every other vertical</a></li>
+<li><a href="#vulnerability-detection" id="toc-vulnerability-detection">8.2 Vulnerability Detection</a></li>
+<li><a href="#risk-based-prioritisation" id="toc-risk-based-prioritisation">8.3 Risk-Based
+Prioritisation</a></li>
+<li><a href="#the-compensating-control-workflow" id="toc-the-compensating-control-workflow">8.4 The Compensating-Control
+Workflow</a></li>
+</ul></li>
+<li><a href="#phase-7-monitoring-alerting" id="toc-phase-7-monitoring-alerting">9. Phase 7 — Monitoring &amp;
+Alerting</a>
+<ul>
+<li><a href="#gxp-required-alerts" id="toc-gxp-required-alerts">9.1
+GxP-Required Alerts</a></li>
+<li><a href="#forensic-telemetry-for-incident-management-annex-11-13" id="toc-forensic-telemetry-for-incident-management-annex-11-13">9.2
+Forensic Telemetry for Incident Management (Annex 11 §13)</a></li>
+</ul></li>
+<li><a href="#reporting-evidence-collection" id="toc-reporting-evidence-collection">10. Reporting &amp; Evidence
+Collection</a>
+<ul>
+<li><a href="#evidence-per-review-cycle" id="toc-evidence-per-review-cycle">10.1 Evidence per Review
+Cycle</a></li>
+<li><a href="#ongoing-compliance-posture" id="toc-ongoing-compliance-posture">10.2 Ongoing Compliance
+Posture</a></li>
+</ul></li>
+<li><a href="#common-pitfalls" id="toc-common-pitfalls">11. Common
+Pitfalls</a></li>
+<li><a href="#product-accuracy-guardrails" id="toc-product-accuracy-guardrails">12. Product-Accuracy
+Guardrails</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload-gxp-compliance-framework">Cisco Secure
+Workload — GxP Compliance Framework</h1>
+<h2 id="reference-design-life-sciences-accounts-pharma-biotech-medical-devices-cdmocro">Reference
+Design | Life Sciences Accounts (Pharma · Biotech · Medical Devices ·
+CDMO/CRO)</h2>
+<p><strong>Version:</strong> 1.0 <strong>Audience:</strong> Solutions
+Architects, Security Engineers <strong>Use Case:</strong> Fresh Install,
+Hybrid Environment (On-Prem + Cloud + Manufacturing OT)
+<strong>Regulatory basis:</strong> EU GMP Annex 11 · FDA 21 CFR Part 11
+· GAMP 5 (2nd Ed.) · FDA Computer Software Assurance (2022 draft
+guidance)</p>
+<hr />
+<h2 id="overview">1. Overview</h2>
+<p>This reference design guides deployment of Cisco Secure Workload
+(CSW) in regulated life-sciences environments to produce
+<strong>inspection-ready evidence</strong> for GxP computerised-system
+controls.</p>
+<p>GxP is <strong>not a certification</strong>. There is no GxP
+certificate, no attestation report, and no audit opinion. Customers are
+inspected by regulators (FDA, EMA, MHRA) and must demonstrate a
+<strong>validated state</strong> on demand. CSW’s role is to make a
+subset of those controls <em>enforced and evidenced</em> rather than
+asserted in a document.</p>
+<h3 id="what-gxp-means-here">What GxP means here</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Regulation</th>
+<th>Scope</th>
+<th>Why CSW matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EU GMP Annex 11</strong></td>
+<td>Computerised systems used in GMP activities</td>
+<td>Clauses 9 (audit trails), 10 (change control), 12 (security), 16
+(business continuity)</td>
+</tr>
+<tr>
+<td><strong>21 CFR Part 11</strong></td>
+<td>Electronic records and signatures (US)</td>
+<td>§11.10(d) access limitation, §11.10(e) audit trails, §11.10(k)
+documentation controls</td>
+</tr>
+<tr>
+<td><strong>GAMP 5 (2nd Ed.)</strong></td>
+<td>Risk-based validation methodology</td>
+<td>Infrastructure qualification; supplier assessment</td>
+</tr>
+<tr>
+<td><strong>ALCOA+</strong></td>
+<td>Data-integrity principles</td>
+<td>CSW evidences <em>control</em> integrity, not record integrity — see
+§1.2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="where-csw-genuinely-contributes">1.1 Where CSW genuinely
+contributes</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>GxP need</th>
+<th>CSW capability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Segregation of validated from non-validated
+systems</strong></td>
+<td>Scopes, labels, enforced segmentation policy with flow evidence</td>
+</tr>
+<tr>
+<td><strong>Logical access restriction to authorised
+systems</strong></td>
+<td>Workload-identity policy (not IP-based ACLs)</td>
+</tr>
+<tr>
+<td><strong>Change control on the validated environment</strong></td>
+<td>Policy versioning, simulate-before-enforce, drift detection</td>
+</tr>
+<tr>
+<td><strong>Audit trail of the security control</strong></td>
+<td>Immutable flow records, policy change history</td>
+</tr>
+<tr>
+<td><strong>Compensating controls for un-patchable validated
+systems</strong></td>
+<td>Native CVE inventory + targeted segmentation. <strong>This is the
+strongest single use case — see §8</strong></td>
+</tr>
+<tr>
+<td><strong>Incident reconstruction</strong></td>
+<td>Full flow and process forensic telemetry</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scope-boundary-state-this-before-the-customer-asks">1.2 Scope
+boundary — state this before the customer asks</h3>
+<p>CSW does <strong>not</strong>:</p>
+<ul>
+<li>Perform Computer System Validation. It cannot validate an
+application, and it is not a CSV/CSA tool.</li>
+<li>Produce <strong>ALCOA+ evidence at the record level</strong>. CSW
+never touches the GxP record itself — the batch record, LIMS result,
+chromatography data file or clinical dataset. Its audit trail is of the
+<em>security control</em>, not the <em>regulated record</em>. A quality
+auditor will make this distinction immediately.</li>
+<li>Provide <strong>electronic signature</strong> capability. All of
+Part 11 Subpart C (§11.50, §11.70, §11.100–§11.300) is out of
+scope.</li>
+<li>Qualify infrastructure on the customer’s behalf (IQ/OQ/PQ remains
+theirs).</li>
+</ul>
+<blockquote>
+<p><strong>Expect the reverse question.</strong> If CSW is deployed into
+a GxP environment, the customer’s quality organisation may require
+<strong>CSW itself to be qualified</strong> as a supporting system. Be
+ready for a supplier assessment, a request for qualification
+documentation, and for CSW upgrades to fall under their change control.
+Raise this proactively — being first to say it builds more credibility
+than any feature.</p>
+</blockquote>
+<hr />
+<h2 id="pre-deployment-checklist">2. Pre-Deployment Checklist</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>CSW cluster (SaaS or on-prem)
+provisioned and accessible</label></li>
+<li><label><input type="checkbox"></input>Network connectivity from workloads
+to CSW cluster (port 443 outbound)</label></li>
+<li><label><input type="checkbox"></input>Linux/Windows agent compatibility
+verified — <strong>including legacy OS on validated systems</strong>
+(see §11)</label></li>
+<li><label><input type="checkbox"></input>Cloud provider accounts connected
+(AWS, Azure, GCP) via CSW cloud connectors</label></li>
+<li><label><input type="checkbox"></input><strong>Validated System Inventory
+(VSI) obtained</strong> from the quality organisation — this is the
+authoritative GxP scope list, not an IT asset list</label></li>
+<li><label><input type="checkbox"></input>Stakeholders identified: <strong>QA
+/ Quality Systems</strong>, Validation Lead, CSIRT/Security,
+Manufacturing IT/OT, CISO</label></li>
+<li><label><input type="checkbox"></input><strong>Change control record
+raised</strong> for agent installation on validated systems — agent
+install on a validated system is itself a change</label></li>
+<li><label><input type="checkbox"></input>Agreement on whether CSW is in scope
+for qualification (see §1.2)</label></li>
+<li><label><input type="checkbox"></input>GxP vs non-GxP boundary agreed in
+writing with QA</label></li>
+</ul>
+<blockquote>
+<p><strong>Do not skip the change-control item.</strong> Installing
+software on a validated system without a change record is a finding in
+its own right, regardless of what the software does.</p>
+</blockquote>
+<hr />
+<h2 id="phase-1-sensor-deployment-days-110">3. Phase 1 — Sensor
+Deployment (Days 1–10)</h2>
+<p>Longer than the HIPAA equivalent by design: validated systems move
+through change control, not change windows.</p>
+<h3 id="on-premises-workloads">3.1 On-Premises Workloads</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux (RHEL/CentOS/Ubuntu)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">rpm</span> <span class="at">-ivh</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.rpm    <span class="co"># RHEL/CentOS</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">dpkg</span> <span class="at">-i</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.deb     <span class="co"># Ubuntu/Debian</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify sensor is running</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> status tetd</span></code></pre></div>
+<p><strong>Key Sensor Configuration:</strong> - Enforcement Mode:
+<strong>Monitoring Only</strong> — never enforce on a validated system
+before simulation review and QA sign-off - Data Collection: enable
+process hash, network flow, vulnerability scan - Tags from Day 1:
+<code>env:production</code>, <code>compliance:gxp</code>,
+<code>gxp:validated</code>, <code>system:&lt;VSI-ID&gt;</code></p>
+<blockquote>
+<p><strong>Tag with the Validated System Inventory ID.</strong> The
+<code>system:&lt;VSI-ID&gt;</code> label is what lets you produce
+evidence the quality organisation can reconcile against their own
+register. Without it, your reports and their register are two unrelated
+documents.</p>
+</blockquote>
+<h3 id="manufacturing-ot-workloads">3.2 Manufacturing / OT
+Workloads</h3>
+<p>GMP manufacturing sits in the Purdue model, and the segmentation
+story maps cleanly onto ISA/IEC 62443:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Purdue Level</th>
+<th>Typical systems</th>
+<th>CSW approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Level 4</strong></td>
+<td>ERP (SAP), enterprise IT</td>
+<td>Standard agent</td>
+</tr>
+<tr>
+<td><strong>Level 3.5</strong></td>
+<td>DMZ</td>
+<td>Policy boundary — the critical enforcement point</td>
+</tr>
+<tr>
+<td><strong>Level 3</strong></td>
+<td>MES, historians (OSIsoft PI, Aspen IP.21), site servers</td>
+<td>Agent where supported</td>
+</tr>
+<tr>
+<td><strong>Level 2</strong></td>
+<td>SCADA / HMI (DeltaV, PCS 7, Experion)</td>
+<td>Agent only if vendor-supported; otherwise agentless</td>
+</tr>
+<tr>
+<td><strong>Levels 0–1</strong></td>
+<td>PLCs, sensors, instruments</td>
+<td><strong>No agent.</strong> Visibility via connectors and flow
+telemetry only</td>
+</tr>
+</tbody>
+</table>
+<p>For Levels 0–2, use agentless discovery and treat CSW as the
+enforcement boundary <em>around</em> the cell rather than inside it.</p>
+<h3 id="cloud-workloads-aws-azure-gcp">3.3 Cloud Workloads (AWS / Azure
+/ GCP)</h3>
+<p><strong>Option A — Software Sensor on Cloud VMs:</strong> as
+above.</p>
+<p><strong>Option B — CSW Cloud Connectors (agentless):</strong></p>
+<pre><code>CSW UI → Platform → External Orchestrators
+  → Add AWS/Azure/GCP connector
+  → Provide IAM Role (AWS) or Service Principal (Azure)
+  → Enable VPC Flow Log ingestion</code></pre>
+<h3 id="sensor-validation">3.4 Sensor Validation</h3>
+<pre><code>CSW UI → Manage → Agents
+  → Confirm all sensors show &quot;Active&quot;
+  → Verify telemetry flowing
+  → Check agent version alignment</code></pre>
+<p><strong>GxP addition:</strong> export the agent inventory and
+reconcile against the VSI. Any validated system <em>without</em> an
+agent is a documented gap requiring either an agent or a compensating
+control — not silence.</p>
+<hr />
+<h2 id="phase-2-scope-inventory-design-days-1118">4. Phase 2 — Scope
+&amp; Inventory Design (Days 11–18)</h2>
+<h3 id="gxp-scope-architecture">4.1 GxP Scope Architecture</h3>
+<p>Design scopes around <strong>validation status first, application
+second.</strong> This is the inverse of most deployments, and it is what
+makes the Annex 11 §12 story work.</p>
+<pre><code>Root Scope
+└── LifeSciences-Org
+    ├── GxP-Validated (strict change control)
+    │   ├── Manufacturing-MES
+    │   ├── LIMS-Laboratory
+    │   ├── CDS-Chromatography        (Empower, Chromeleon, OpenLab)
+    │   ├── QMS-EDMS                  (Veeva Vault, TrackWise, MasterControl)
+    │   ├── Historian-EMS-BMS         (environmental / cleanroom monitoring)
+    │   └── Clinical-Systems          (CTMS, EDC, eTMF, Pharmacovigilance)
+    ├── GxP-Supporting (qualified infrastructure)
+    │   ├── Validated-Databases
+    │   ├── Backup-Archive
+    │   └── Time-Sync-NTP             (Annex 11 §9 — audit trail timestamps)
+    ├── Non-GxP-Corporate (standard controls)
+    │   ├── Active-Directory
+    │   ├── Email-Collaboration
+    │   └── General-IT
+    └── External-Partners
+        ├── CRO-CDMO-Access
+        └── Vendor-Remote-Support     (instrument OEM support paths)</code></pre>
+<blockquote>
+<p><strong>The <code>Non-GxP-Corporate</code> →
+<code>GxP-Validated</code> boundary is the single most valuable policy
+in this entire reference design.</strong> It is the control that Annex
+11 and GAMP both expect and that most customers can only assert on
+paper.</p>
+</blockquote>
+<h3 id="inventory-filters-for-gxp-system-discovery">4.2 Inventory
+Filters for GxP System Discovery</h3>
+<pre><code>Filter: GxP-Candidates-Laboratory
+  - Process contains: &quot;empower&quot;, &quot;chromeleon&quot;, &quot;openlab&quot;, &quot;labware&quot;,
+                      &quot;starlims&quot;, &quot;samplemanager&quot;, &quot;unicorn&quot;
+  - Port listened: 1521 (Oracle), 1433 (MSSQL)
+  - Hostname contains: &quot;lims&quot;, &quot;cds&quot;, &quot;qc&quot;, &quot;lab&quot;
+
+Filter: GxP-Candidates-Manufacturing
+  - Process contains: &quot;opcenter&quot;, &quot;pharmasuite&quot;, &quot;deltav&quot;, &quot;pcs7&quot;, &quot;pi-server&quot;
+  - Port listened: 4840 (OPC UA), 5450 (OSIsoft PI), 502 (Modbus),
+                   44818 (EtherNet/IP), 135 (OPC DA / DCOM)
+  - Hostname contains: &quot;mes&quot;, &quot;scada&quot;, &quot;hmi&quot;, &quot;historian&quot;
+
+Filter: GxP-Candidates-Quality
+  - Process contains: &quot;veeva&quot;, &quot;trackwise&quot;, &quot;mastercontrol&quot;, &quot;documentum&quot;
+  - Hostname contains: &quot;qms&quot;, &quot;edms&quot;, &quot;dms&quot;
+
+Filter: Legacy-Unpatchable
+  - OS version: Windows Server 2008/2012, RHEL 6
+  - AND scope: GxP-Validated
+  → Feeds the compensating-control workflow in §8</code></pre>
+<h3 id="labelling-strategy">4.3 Labelling Strategy</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Label Key</th>
+<th>Example Values</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gxp</code></td>
+<td>validated, supporting, none</td>
+<td><strong>Primary segregation axis</strong></td>
+</tr>
+<tr>
+<td><code>system</code></td>
+<td>VSI-0142, VSI-0291</td>
+<td>Reconciles to the quality register</td>
+</tr>
+<tr>
+<td><code>gxp_category</code></td>
+<td>gmp, glp, gcp, gdp, gvp</td>
+<td>Which GxP discipline applies</td>
+</tr>
+<tr>
+<td><code>gamp</code></td>
+<td>cat3, cat4, cat5</td>
+<td>GAMP 5 software category — drives validation rigour</td>
+</tr>
+<tr>
+<td><code>validation_state</code></td>
+<td>validated, revalidation-due, retired</td>
+<td>Lifecycle tracking</td>
+</tr>
+<tr>
+<td><code>patch_constraint</code></td>
+<td>revalidation-required, vendor-locked, none</td>
+<td><strong>Drives §8 compensating controls</strong></td>
+</tr>
+<tr>
+<td><code>env</code></td>
+<td>production, qual, dev</td>
+<td>Environment segregation</td>
+</tr>
+<tr>
+<td><code>owner</code></td>
+<td>qa-ops, mfg-it, lab-ops</td>
+<td>Accountability</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-3-application-dependency-mapping-days-1940">5. Phase 3 —
+Application Dependency Mapping (Days 19–40)</h2>
+<h3 id="adm-configuration">5.1 ADM Configuration</h3>
+<pre><code>CSW UI → Investigate → Application Dependency Mapping
+  → New Workspace
+  → Name: &quot;GxP-Validated-ADM&quot;
+  → Select Scope: GxP-Validated
+  → Time Window: 4–6 weeks
+  → Start ADM</code></pre>
+<blockquote>
+<p><strong>Run longer than you would elsewhere — 4 to 6 weeks
+minimum.</strong> GxP environments have cycles that shorter windows miss
+entirely: monthly batch release, quarterly stability testing, periodic
+review, annual product quality review, instrument calibration schedules.
+A two-week ADM in a pharma plant will generate policy that breaks at
+month-end.</p>
+</blockquote>
+<p><strong>Collection settings:</strong> - Enable <strong>process
+context</strong> - Enable <strong>user context</strong> where OS sensors
+support it - Retention: align to the customer’s GxP record retention,
+which is commonly <strong>years, not months</strong> — confirm with QA
+before assuming</p>
+<h3 id="adm-analysis-for-gxp">5.2 ADM Analysis for GxP</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Question</th>
+<th>GxP relevance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Which non-GxP systems connect into GxP-Validated?</td>
+<td><strong>Annex 11 §12.1</strong> — the core segregation finding</td>
+</tr>
+<tr>
+<td>Do validated systems reach the internet directly?</td>
+<td>Annex 11 §12 · uncontrolled change vector</td>
+</tr>
+<tr>
+<td>Which vendor/OEM remote-support paths are live?</td>
+<td>Annex 11 §3 — supplier access control</td>
+</tr>
+<tr>
+<td>Are GxP database connections encrypted?</td>
+<td>Annex 11 §7.1 — data storage security</td>
+</tr>
+<tr>
+<td>Do all validated systems reach a common NTP source?</td>
+<td><strong>Annex 11 §9</strong> — audit-trail timestamps require
+reliable time</td>
+</tr>
+<tr>
+<td>Unexpected lateral flows inside GxP-Validated?</td>
+<td>Annex 11 §12.2 · §13 incident management</td>
+</tr>
+<tr>
+<td>Which systems write to the archive/backup tier?</td>
+<td>Annex 11 §7.2 · §17 archiving</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>The <strong>NTP question is a genuine differentiator.</strong> Annex
+11 §9 audit trails and Part 11 §11.10(e) time-stamped records both
+depend on trustworthy time, and almost nobody can evidence that every
+validated system actually reaches an approved time source. CSW can show
+it in a flow query.</p>
+</blockquote>
+<h3 id="gxp-system-identification-workflow">5.3 GxP System
+Identification Workflow</h3>
+<ol type="1">
+<li><strong>Start from the VSI</strong>, not from ADM output — the
+quality register is authoritative</li>
+<li><strong>Export ADM clusters</strong> and reconcile against the
+VSI</li>
+<li><strong>Flag discrepancies in both directions</strong> — VSI entries
+with no observed traffic (retired but not decommissioned?) and active
+clusters absent from the VSI (shadow GxP system?)</li>
+<li><strong>Escalate unregistered candidates to QA.</strong> An
+unregistered system handling GxP data is a finding you have just
+discovered for them</li>
+<li><strong>Tag confirmed systems</strong> with <code>gxp</code> and
+<code>system:&lt;VSI-ID&gt;</code></li>
+<li><strong>Re-run ADM</strong> scoped to GxP-Validated for policy
+generation</li>
+</ol>
+<blockquote>
+<p>Step 3 is often the first tangible value the customer sees, and it
+arrives before any policy is written.</p>
+</blockquote>
+<hr />
+<h2 id="phase-4-policy-development-days-4160">6. Phase 4 — Policy
+Development (Days 41–60)</h2>
+<h3 id="gxp-aligned-policy-framework">6.1 GxP-Aligned Policy
+Framework</h3>
+<p><strong>Absolute Policies (always enforced):</strong></p>
+<pre><code>DENY:  Non-GxP-Corporate → GxP-Validated   (except approved jump hosts)
+DENY:  GxP-Validated → Internet            (no direct egress from validated systems)
+DENY:  External-Partners → GxP-Validated   (except brokered vendor-support paths)
+DENY:  GxP-Validated → GxP-Validated       cross-system, unless ADM-confirmed</code></pre>
+<p><strong>Allowlist Policies (least privilege):</strong></p>
+<pre><code>ALLOW: LIMS-Laboratory ↔ Validated-Databases      (1521, 1433)
+ALLOW: CDS-Chromatography → LIMS-Laboratory       (443)
+ALLOW: Manufacturing-MES ↔ Historian              (5450 PI, 4840 OPC UA)
+ALLOW: Manufacturing-MES → ERP                    (3200-3299 SAP)
+ALLOW: GxP-Validated → Time-Sync-NTP              (123)   # Annex 11 §9
+ALLOW: GxP-Validated → Backup-Archive             (per backup vendor)  # §7.2 · §17
+ALLOW: Jump-Host → GxP-Validated                  (22, 3389)
+ALLOW: Vendor-Remote-Support → &lt;named system&gt;     (time-bounded, brokered only)</code></pre>
+<p><strong>Catch-All (audit everything else):</strong></p>
+<pre><code>LOG: Any → GxP-Validated     (unmatched inbound — alert)
+LOG: GxP-Validated → Any     (unmatched outbound — alert)</code></pre>
+<h3 id="policy-workspace-setup">6.2 Policy Workspace Setup</h3>
+<pre><code>CSW UI → Defend → Segmentation
+  → New Workspace
+  → Name: &quot;GxP-Validated-Enforcement&quot;
+  → Scope: GxP-Validated
+  → Import ADM policies (auto-generated baseline)
+  → Review and refine with QA + system owners
+  → Set mode: Simulation first → then Enforcement</code></pre>
+<h3 id="enforcement-progression">6.3 Enforcement Progression</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Mode</th>
+<th>Duration</th>
+<th>Purpose</th>
+<th>QA gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Simulation</td>
+<td><strong>4 weeks</strong></td>
+<td>Validate no false positives across a full business cycle</td>
+<td>Simulation report reviewed</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Enforce — non-GxP boundary only</td>
+<td>2 weeks</td>
+<td>Enforce the Corporate → Validated deny first</td>
+<td>Change record approved</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Enforce — intra-GxP allowlist</td>
+<td>2–4 weeks</td>
+<td>Staged per system</td>
+<td>Change record per system</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Full enforcement</td>
+<td>Ongoing</td>
+<td>Steady-state posture</td>
+<td>Periodic review per Annex 11 §11</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Each enforcement step is a change to a validated environment
+and needs its own change-control record.</strong> Build the QA gate into
+the project plan from the start; discovering it at phase 2 costs weeks.
+Simulation output is the evidence package that gets the change approved
+— which makes simulate-before-enforce a <em>regulatory</em> feature
+here, not just a safety feature.</p>
+</blockquote>
+<hr />
+<h2 id="phase-5-gxp-control-mapping">7. Phase 5 — GxP Control
+Mapping</h2>
+<h3 id="eu-gmp-annex-11">7.1 EU GMP Annex 11</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Annex 11 Clause</th>
+<th>Requirement</th>
+<th>CSW Implementation</th>
+<th>Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>§3</strong> Suppliers &amp; Service Providers</td>
+<td>Assess and control supplier access</td>
+<td>Brokered, time-bounded vendor-support policy; flow evidence of every
+OEM session</td>
+<td>Partial</td>
+</tr>
+<tr>
+<td><strong>§4</strong> Validation</td>
+<td>System validated for intended use</td>
+<td><em>Customer-owned.</em> CSW supplies qualification docs for its own
+assessment</td>
+<td>Supporting</td>
+</tr>
+<tr>
+<td><strong>§7.1</strong> Data Storage</td>
+<td>Data secured against damage/unauthorised access</td>
+<td>Segmentation of data tier; detection of unencrypted paths</td>
+<td>Partial</td>
+</tr>
+<tr>
+<td><strong>§7.2</strong> Backups</td>
+<td>Regular backup, integrity checked</td>
+<td>Policy permitting and evidencing backup paths</td>
+<td>Partial</td>
+</tr>
+<tr>
+<td><strong>§9</strong> Audit Trails</td>
+<td>Secure, time-stamped record of GMP-relevant changes</td>
+<td>Immutable flow records; policy change history. <strong>Evidence of
+NTP reachability for all validated systems</strong></td>
+<td>Partial — control layer only</td>
+</tr>
+<tr>
+<td><strong>§10</strong> Change &amp; Configuration Mgmt</td>
+<td>Changes made in a controlled manner</td>
+<td>Policy versioning, simulate-before-enforce, <strong>out-of-sync
+drift detection</strong></td>
+<td><strong>Strong</strong></td>
+</tr>
+<tr>
+<td><strong>§11</strong> Periodic Evaluation</td>
+<td>Systems periodically evaluated as still valid</td>
+<td>Scheduled ADM re-runs; policy drift reports; quarterly posture
+export</td>
+<td><strong>Strong</strong></td>
+</tr>
+<tr>
+<td><strong>§12.1</strong> Security</td>
+<td>Physical/logical controls restrict access to authorised persons</td>
+<td><strong>Enforced workload-identity segmentation</strong> — the core
+control</td>
+<td><strong>Strong</strong></td>
+</tr>
+<tr>
+<td><strong>§12.2</strong> Security</td>
+<td>Extent of controls depends on criticality</td>
+<td>Scope-tiered policy: Validated / Supporting / Non-GxP</td>
+<td><strong>Strong</strong></td>
+</tr>
+<tr>
+<td><strong>§12.3</strong> Security</td>
+<td>Record creation/change/cancellation of access authorisations</td>
+<td>Policy change history with approver and timestamp</td>
+<td>Partial</td>
+</tr>
+<tr>
+<td><strong>§13</strong> Incident Management</td>
+<td>Incidents assessed, root cause identified</td>
+<td>Forensic flow and process telemetry for reconstruction</td>
+<td><strong>Strong</strong></td>
+</tr>
+<tr>
+<td><strong>§14</strong> Electronic Signature</td>
+<td>—</td>
+<td><strong>Out of scope</strong></td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>§16</strong> Business Continuity</td>
+<td>Continuity of system in event of breakdown</td>
+<td>Agents continue enforcing cached policy if the control plane is
+unreachable</td>
+<td>Partial</td>
+</tr>
+<tr>
+<td><strong>§17</strong> Archiving</td>
+<td>Data archived, readable, integrity-checked</td>
+<td>Policy permitting and evidencing archive paths</td>
+<td>Partial</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fda-21-cfr-part-11-subpart-b-11.10-closed-systems">7.2 FDA 21
+CFR Part 11 — Subpart B (§11.10 Closed Systems)</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Control</th>
+<th>Requirement</th>
+<th>CSW Implementation</th>
+<th>Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>§11.10(a)</strong></td>
+<td>Validation of systems</td>
+<td><em>Customer-owned.</em> CSW is a supporting system</td>
+<td>Supporting</td>
+</tr>
+<tr>
+<td><strong>§11.10(c)</strong></td>
+<td>Protection of records through retention period</td>
+<td>Segmentation of record and archive tiers</td>
+<td>Partial</td>
+</tr>
+<tr>
+<td><strong>§11.10(d)</strong></td>
+<td><strong>Limiting system access to authorised
+individuals</strong></td>
+<td><strong>Enforced network-layer access restriction by workload
+identity</strong></td>
+<td><strong>Strong</strong></td>
+</tr>
+<tr>
+<td><strong>§11.10(e)</strong></td>
+<td>Secure, computer-generated, time-stamped audit trails</td>
+<td>Flow and policy audit trail <em>of the control</em>; NTP path
+evidence</td>
+<td>Partial — control layer only</td>
+</tr>
+<tr>
+<td><strong>§11.10(g)</strong></td>
+<td>Authority checks</td>
+<td>Policy enforcement that only authorised systems may interact</td>
+<td>Partial</td>
+</tr>
+<tr>
+<td><strong>§11.10(h)</strong></td>
+<td>Device checks — validity of data source/input device</td>
+<td>Workload identity (OS fingerprint, process hash) rather than
+spoofable IP</td>
+<td>Partial</td>
+</tr>
+<tr>
+<td><strong>§11.10(k)</strong></td>
+<td>Documentation controls / change-record audit trail</td>
+<td>Policy versioning and change history</td>
+<td>Partial</td>
+</tr>
+<tr>
+<td><strong>§11.30</strong></td>
+<td>Open systems — additional controls</td>
+<td>Detection of unencrypted flows; egress restriction</td>
+<td>Partial</td>
+</tr>
+<tr>
+<td><strong>Subpart C</strong></td>
+<td>Electronic signatures (§11.50–§11.300)</td>
+<td><strong>Out of scope</strong></td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Use the Coverage column honestly in customer
+materials.</strong> “Strong” on four or five controls that the customer
+currently cannot evidence at all is a better position than claiming
+broad coverage that a quality auditor will dismantle in ten minutes.</p>
+</blockquote>
+<hr />
+<h2 id="phase-6-vulnerability-management-and-the-un-patchable-system">8.
+Phase 6 — Vulnerability Management and the Un-Patchable System</h2>
+<p><strong>This is the highest-value section of the reference design for
+a life-sciences buyer.</strong></p>
+<h3 id="why-this-is-different-from-every-other-vertical">8.1 Why this is
+different from every other vertical</h3>
+<p>In a GxP environment, patching a validated system is not a
+maintenance task — it is a <strong>change requiring impact assessment
+and, frequently, re-validation</strong>. The practical result is that
+known vulnerabilities sit unremediated on critical systems for months or
+years, often on operating systems well past end of support, because the
+instrument vendor only qualifies a specific OS build.</p>
+<p>The quality organisation knows this. It is a standing risk item they
+cannot close. <strong>A documented, enforced compensating control is the
+answer they have been unable to produce.</strong></p>
+<h3 id="vulnerability-detection">8.2 Vulnerability Detection</h3>
+<pre><code>CSW UI → Investigate → Vulnerability Report
+  → Scope: GxP-Validated
+  → Filter: CVSS ≥ 7.0
+  → Cross-filter: patch_constraint = revalidation-required | vendor-locked
+  → Export for the quality record</code></pre>
+<h3 id="risk-based-prioritisation">8.3 Risk-Based Prioritisation</h3>
+<p>Prioritise by <strong>exposure</strong>, not CVSS alone. A critical
+CVE on a system reachable only from one jump host is a lower real risk
+than a high CVE on a system reachable from the corporate network.</p>
+<pre><code>Priority 1: Critical CVE + reachable from Non-GxP or External  → immediate segmentation
+Priority 2: Critical CVE + GxP-internal reachability only      → segment, schedule patch
+Priority 3: High CVE + patchable without revalidation          → normal change control
+Priority 4: High CVE + vendor-locked                           → documented compensating control</code></pre>
+<h3 id="the-compensating-control-workflow">8.4 The Compensating-Control
+Workflow</h3>
+<p>For each vulnerability that cannot be patched within the risk-based
+timeline:</p>
+<ol type="1">
+<li><strong>Document the constraint</strong> — revalidation required,
+vendor-locked OS, instrument qualification</li>
+<li><strong>Reduce reachability</strong> — restrict the vulnerable port
+to named source workloads only</li>
+<li><strong>Enforce it</strong>, don’t just alert</li>
+<li><strong>Add a forensic rule</strong> on the affected process</li>
+<li><strong>Export the evidence</strong>: the CVE, the constraint, the
+enforced policy, and the flow records proving the restriction holds</li>
+<li><strong>File into the quality system</strong> as the compensating
+control for that risk item</li>
+</ol>
+<blockquote>
+<p>The deliverable is a sentence the customer could not previously
+write: <em>“CVE-XXXX-YYYY remains unpatched on VSI-0142 pending
+revalidation. Reachability is restricted by enforced policy to two named
+hosts, continuously monitored, with flow evidence retained.”</em> That
+closes an open risk item, which is worth more to a QA director than any
+dashboard.</p>
+</blockquote>
+<hr />
+<h2 id="phase-7-monitoring-alerting">9. Phase 7 — Monitoring &amp;
+Alerting</h2>
+<h3 id="gxp-required-alerts">9.1 GxP-Required Alerts</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Alert</th>
+<th>Trigger</th>
+<th>Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Non-GxP → Validated access</td>
+<td>Any unapproved corporate source → GxP-Validated</td>
+<td>Annex 11 §12.1 · Part 11 §11.10(d)</td>
+</tr>
+<tr>
+<td>Validated system egress to internet</td>
+<td>GxP-Validated → external</td>
+<td>Annex 11 §12</td>
+</tr>
+<tr>
+<td>Unbrokered vendor access</td>
+<td>External-Partners → GxP-Validated outside an approved window</td>
+<td>Annex 11 §3</td>
+</tr>
+<tr>
+<td><strong>NTP path failure</strong></td>
+<td>Validated system stops reaching approved time source</td>
+<td><strong>Annex 11 §9 · Part 11 §11.10(e)</strong></td>
+</tr>
+<tr>
+<td>Policy drift / out of sync</td>
+<td>Enforced policy no longer matches intended state</td>
+<td><strong>Annex 11 §10</strong></td>
+</tr>
+<tr>
+<td>New lateral flow inside GxP</td>
+<td>Previously unobserved east-west flow</td>
+<td>Annex 11 §12.2 · §13</td>
+</tr>
+<tr>
+<td>Unencrypted GxP data flow</td>
+<td>Cleartext protocol from validated system</td>
+<td>Annex 11 §7.1</td>
+</tr>
+<tr>
+<td>New critical CVE on validated system</td>
+<td>CVE appears on <code>gxp:validated</code> workload</td>
+<td>Annex 11 §1 risk management</td>
+</tr>
+<tr>
+<td>Agent offline on validated system</td>
+<td>Sensor stops reporting</td>
+<td>Annex 11 §9 — evidence gap</td>
+</tr>
+<tr>
+<td>Archive/backup path failure</td>
+<td>Expected backup flow absent</td>
+<td>Annex 11 §7.2 · §17</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>“Agent offline” is a GxP alert, not just an ops
+alert.</strong> A gap in the evidence record is itself a compliance
+problem — you cannot demonstrate a control was operating during a period
+you have no data for.</p>
+</blockquote>
+<h3 id="forensic-telemetry-for-incident-management-annex-11-13">9.2
+Forensic Telemetry for Incident Management (Annex 11 §13)</h3>
+<pre><code>CSW UI → Investigate → Flow Search
+  → Time range: incident window
+  → Source/Destination: affected validated system
+  → Export: full flow log with process context
+
+CSW UI → Investigate → Process Search
+  → Filter: GxP workload + time range
+  → Identify anomalous processes + parent-child relationships</code></pre>
+<p>Retain forensic exports to the customer’s <strong>GxP record
+retention period</strong> — confirm with QA. This is commonly far longer
+than security-industry norms, and in some cases extends to the product
+lifetime plus a statutory margin.</p>
+<hr />
+<h2 id="reporting-evidence-collection">10. Reporting &amp; Evidence
+Collection</h2>
+<h3 id="evidence-per-review-cycle">10.1 Evidence per Review Cycle</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Evidence Item</th>
+<th>CSW Source</th>
+<th>Annex 11 / Part 11</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GxP segregation proof</strong> — no unapproved Non-GxP →
+Validated flows</td>
+<td>Flow Search + policy analysis</td>
+<td>§12.1 · §11.10(d)</td>
+</tr>
+<tr>
+<td>Enforced policy export with version and approver</td>
+<td>Defend → Policy Analysis</td>
+<td>§10 · §11.10(k)</td>
+</tr>
+<tr>
+<td>Policy drift report vs approved baseline</td>
+<td>Policy comparison</td>
+<td>§10 · §11</td>
+</tr>
+<tr>
+<td>Vulnerability report on validated systems</td>
+<td>Investigate → Vulnerability</td>
+<td>§1 risk management</td>
+</tr>
+<tr>
+<td><strong>Compensating-control register</strong></td>
+<td>§8.4 workflow output</td>
+<td>§1 · §12.2</td>
+</tr>
+<tr>
+<td>Scope membership snapshot reconciled to VSI</td>
+<td>Inventory → Export</td>
+<td>§4 · §11</td>
+</tr>
+<tr>
+<td>NTP reachability evidence for all validated systems</td>
+<td>Flow Search (port 123)</td>
+<td>§9 · §11.10(e)</td>
+</tr>
+<tr>
+<td>Vendor/OEM access log</td>
+<td>Flow Search (External-Partners)</td>
+<td>§3</td>
+</tr>
+<tr>
+<td>Agent coverage report vs VSI</td>
+<td>Manage → Agents export</td>
+<td>§9</td>
+</tr>
+<tr>
+<td>Incident reconstruction package</td>
+<td>Flow + Process Search</td>
+<td>§13</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ongoing-compliance-posture">10.2 Ongoing Compliance Posture</h3>
+<ul>
+<li><strong>Monthly</strong> — scope/inventory reconciliation against
+the VSI; agent coverage check</li>
+<li><strong>Quarterly</strong> — policy workspace review; drift report;
+compensating-control register refresh</li>
+<li><strong>Per periodic review cycle (Annex 11 §11)</strong> — full
+evidence pack, aligned to the customer’s own periodic-evaluation
+schedule rather than a security calendar</li>
+<li><strong>Every 90 days</strong> — ADM re-run to detect new
+dependencies</li>
+<li><strong>On every validated-system change</strong> — confirm policy
+still reflects intended state</li>
+</ul>
+<blockquote>
+<p>Align the reporting calendar to <strong>their periodic review
+schedule</strong>, not to a generic quarterly security cadence. Evidence
+that arrives in the right format at the right point in the quality cycle
+gets used; evidence that arrives on a security team’s timetable gets
+filed.</p>
+</blockquote>
+<hr />
+<h2 id="common-pitfalls">11. Common Pitfalls</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pitfall</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Agent installed without a change record</strong></td>
+<td>Raise change control <em>before</em> deployment on any validated
+system. This is the most common own-goal</td>
+</tr>
+<tr>
+<td><strong>Claiming “CSW makes you GxP compliant”</strong></td>
+<td>There is no such thing. Position as evidence for specific clauses;
+name the gaps first</td>
+</tr>
+<tr>
+<td><strong>Conflating control audit trail with record audit
+trail</strong></td>
+<td>Be explicit that CSW evidences the security control, never the GxP
+record itself</td>
+</tr>
+<tr>
+<td>Legacy OS on validated systems won’t take an agent</td>
+<td>Plan agentless coverage and boundary enforcement; document as a
+known gap with compensating control</td>
+</tr>
+<tr>
+<td>ADM window too short</td>
+<td>Minimum 4–6 weeks. Must span month-end batch release and periodic
+testing cycles</td>
+</tr>
+<tr>
+<td>Enforcement breaks a manufacturing or lab system</td>
+<td>Simulation first, always. Stage by scope. Never enforce into a
+running batch</td>
+</tr>
+<tr>
+<td>Scoping from the IT asset list</td>
+<td>The <strong>Validated System Inventory from QA</strong> is
+authoritative. IT asset lists miss instruments and include retired
+systems</td>
+</tr>
+<tr>
+<td>Treating OT like IT</td>
+<td>Levels 0–2 often cannot take agents. Enforce at the boundary,
+observe inside</td>
+</tr>
+<tr>
+<td>Retention set to security norms</td>
+<td>GxP retention is often years. Confirm with QA before
+configuring</td>
+</tr>
+<tr>
+<td>Ignoring whether CSW itself needs qualification</td>
+<td>Ask early; supply the supplier assessment pack proactively</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="product-accuracy-guardrails">12. Product-Accuracy
+Guardrails</h2>
+<p>Before any of this goes into customer-facing material:</p>
+<ul>
+<li><strong>Live Protect is GA for Nexus switches. Live Protect for
+applications is not GA</strong> — it arrives in CSW 4.1 via the CSW
+unified agent with Tetragon. Do not present application-level CVE
+shielding as available today. The §8 compensating-control story stands
+on <strong>segmentation plus native CVE</strong>, both GA in CSW 4.0,
+and does not need Live Protect to work.</li>
+<li><strong>Cisco SmartSwitch (N9300) is a separate Cisco
+product</strong>, not a CSW feature. It requires its own on-prem
+VM-based controller, and the service shipping on it today is
+Hypershield. Do not imply a shared policy plane with CSW.</li>
+<li><strong>CSW 4.0 GA</strong> covers ADM/AI policy, native CVE,
+simulation, agents and connectors, Secure Firewall CVE→IPS, and the
+NVIDIA BlueField DPU agent.</li>
+</ul>
+<hr />
+<p><em>Document prepared for Cisco life-sciences account engagements.
+Replace [Customer Name] and bracketed fields before customer delivery.
+GxP is a regulatory regime, not a certification — nothing in this
+reference design should be presented as conferring compliance.</em></p>
+</body>
+</html>

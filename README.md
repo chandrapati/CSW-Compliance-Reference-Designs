@@ -19,7 +19,7 @@ that report, and HTML versions of both for browser/mobile reading.
 > **For a CISO / CIO skimming this for the first time.**
 
 - **What this is.** A reference library that maps Cisco Secure Workload
-  (CSW) capabilities to **34 security, regulatory, and zero-trust
+  (CSW) capabilities to **37 security, regulatory, and zero-trust
   frameworks** — so you can see *which* controls CSW helps you evidence,
   and *how*, before committing budget or audit hours.
 - **What you get per framework.** Two paired documents — a **reference
@@ -85,14 +85,14 @@ questions worth walking through against your own environment — see
 
 ![Cisco Secure Workload Compliance Mapping Architecture](csw-compliance-architecture.png)
 
-*The same Secure Workload capabilities — micro-segmentation, process & flow telemetry, software inventory & CVE awareness, forensic flow evidence, and authored workload policy — are mapped, control by control, to 34 compliance and zero-trust frameworks. Each framework folder pairs an engineering reference design with a customer-facing report so the same live evidence answers both the auditor and the incident responder.*
+*The same Secure Workload capabilities — micro-segmentation, process & flow telemetry, software inventory & CVE awareness, forensic flow evidence, and authored workload policy — are mapped, control by control, to 37 compliance and zero-trust frameworks. Each framework folder pairs an engineering reference design with a customer-facing report so the same live evidence answers both the auditor and the incident responder.*
 
 ---
 
 ## Per-framework reference designs
 
 Prefer a focused, shareable repo for a single framework? Every one of the
-**34 frameworks** below now has its own standalone **Reference Design**
+**37 frameworks** below now has its own standalone **Reference Design**
 repo, built to the same template so an evaluator can pick up any one of
 them and know exactly what they are looking at:
 
@@ -245,6 +245,7 @@ reach for the reference design vs. the report).
 | **UK NCSC CAF v3.2** | 14 principles for UK NIS OES and GovAssure. Direct evidence is B5.b segregation only; the other principles are supporting or out of scope. Draft v1 (Oct 2026) | [MD](./UK-NCSC-CAF/CSW-UK-NCSC-CAF-Reference-Design.md) · [Mapping](./UK-NCSC-CAF/caf-mapping.md) · [IGP scorer](./UK-NCSC-CAF/caf-igp-maturity-scorer.md) · [Evidence pack](./UK-NCSC-CAF/caf-evidence-pack-template.md) | [MD](./UK-NCSC-CAF/CSW-UK-NCSC-CAF-Compliance-Report.md) |
 | HIPAA 2025 NPRM | Mandatory network segmentation (§164.312(a)(2)(vi)); technology asset inventory; 24-month log retention architecture; 72-hour breach timeline; annual assessment evidence | [MD](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.md) · [PDF](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.pdf) · [DOCX](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.docx) · [HTML](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.html) | [PDF](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Compliance-Report.pdf) · [DOCX](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Compliance-Report.docx) · [HTML](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Compliance-Report.html) |
 | MAS TRM | Singapore financial-sector technology risk evidence; critical-system segmentation; outsourcing / third-party egress; incident investigation support | [MD](./MAS-TRM/CSW-MAS-TRM-Reference-Design.md) · [PDF](./MAS-TRM/CSW-MAS-TRM-Reference-Design.pdf) · [DOCX](./MAS-TRM/CSW-MAS-TRM-Reference-Design.docx) · [HTML](./MAS-TRM/CSW-MAS-TRM-Reference-Design.html) | [PDF](./MAS-TRM/CSW-MAS-TRM-Compliance-Report.pdf) · [DOCX](./MAS-TRM/CSW-MAS-TRM-Compliance-Report.docx) · [HTML](./MAS-TRM/CSW-MAS-TRM-Compliance-Report.html) |
+| GxP (EU GMP Annex 11 · 21 CFR Part 11) | Life sciences: segregation of the validated from the non-validated estate (Annex 11 §12.1); change control and drift detection (§10 / §12.2); periodic evaluation (§11); audit trail of the control (§9); compensating controls for validated systems that cannot be patched without revalidation. GxP is enforced by inspection, not certification — see the scope boundary | [MD](./GxP/CSW-GxP-Reference-Design.md) · [PDF](./GxP/CSW-GxP-Reference-Design.pdf) · [DOCX](./GxP/CSW-GxP-Reference-Design.docx) · [HTML](./GxP/CSW-GxP-Reference-Design.html) | [PDF](./GxP/CSW-GxP-Compliance-Report.pdf) · [DOCX](./GxP/CSW-GxP-Compliance-Report.docx) · [HTML](./GxP/CSW-GxP-Compliance-Report.html) |
 | APRA CPS 234 | Australian prudential information security; critical information assets; control testing; service-provider dependency visibility | [MD](./APRA-CPS-234/CSW-APRA-CPS234-Reference-Design.md) · [PDF](./APRA-CPS-234/CSW-APRA-CPS234-Reference-Design.pdf) · [DOCX](./APRA-CPS-234/CSW-APRA-CPS234-Reference-Design.docx) · [HTML](./APRA-CPS-234/CSW-APRA-CPS234-Reference-Design.html) | [PDF](./APRA-CPS-234/CSW-APRA-CPS234-Compliance-Report.pdf) · [DOCX](./APRA-CPS-234/CSW-APRA-CPS234-Compliance-Report.docx) · [HTML](./APRA-CPS-234/CSW-APRA-CPS234-Compliance-Report.html) |
 | NY DFS 23 NYCRR Part 500 | Covered-system workload visibility; NPI application scope; vulnerability context; third-party service-provider egress; incident support | [MD](./NY-DFS-23-NYCRR-500/CSW-NYDFS-Reference-Design.md) · [PDF](./NY-DFS-23-NYCRR-500/CSW-NYDFS-Reference-Design.pdf) · [DOCX](./NY-DFS-23-NYCRR-500/CSW-NYDFS-Reference-Design.docx) · [HTML](./NY-DFS-23-NYCRR-500/CSW-NYDFS-Reference-Design.html) | [PDF](./NY-DFS-23-NYCRR-500/CSW-NYDFS-Compliance-Report.pdf) · [DOCX](./NY-DFS-23-NYCRR-500/CSW-NYDFS-Compliance-Report.docx) · [HTML](./NY-DFS-23-NYCRR-500/CSW-NYDFS-Compliance-Report.html) |
 | TISAX / VDA ISA | Automotive prototype and confidential engineering workload segmentation; supplier/customer egress; assessment evidence support | [MD](./TISAX/CSW-TISAX-Reference-Design.md) · [PDF](./TISAX/CSW-TISAX-Reference-Design.pdf) · [DOCX](./TISAX/CSW-TISAX-Reference-Design.docx) · [HTML](./TISAX/CSW-TISAX-Reference-Design.html) | [PDF](./TISAX/CSW-TISAX-Compliance-Report.pdf) · [DOCX](./TISAX/CSW-TISAX-Compliance-Report.docx) · [HTML](./TISAX/CSW-TISAX-Compliance-Report.html) |
@@ -424,7 +425,7 @@ Learning paths, reference material, and day-2 tooling:
 | Resource | Description | Best for |
 |----------|-------------|---------|
 | [📘 User Education](https://github.com/chandrapati/CSW-User-Education) | Onboarding guides, concept explainers, and curated video library | New CSW users |
-| [📘 Compliance Reference Designs](https://github.com/chandrapati/CSW-Compliance-Reference-Designs) | Reference designs + assessor-ready reports mapping CSW to 34 frameworks | Compliance & audit |
+| [📘 Compliance Reference Designs](https://github.com/chandrapati/CSW-Compliance-Reference-Designs) | Reference designs + assessor-ready reports mapping CSW to 37 frameworks | Compliance & audit |
 | [📘 Tenant Insights](https://github.com/chandrapati/CSW-Tenant-Insights) | Tenant-level reporting and analytics | Visibility metrics |
 | [📘 Operations Toolkit](https://github.com/chandrapati/CSW-Operations-Toolkit) | Day-2 ops scripts: health checks, reporting, policy analysis | Ongoing operations |
 | [📄 Supported OS & Compatibility Matrix](https://www.cisco.com/c/m/en_us/products/security/secure-workload-compatibility-matrix.html) | Cisco's authoritative list of supported agent operating systems, external systems, and connector requirements | Platform planning & prerequisites |

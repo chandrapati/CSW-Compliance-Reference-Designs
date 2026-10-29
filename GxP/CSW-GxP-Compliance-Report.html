@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>GxP (EU GMP Annex 11 · 21 CFR Part 11) — Compliance Report</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-GxP-Compliance-Report.docx">CSW-GxP-Compliance-Report.docx</a> · <a href="../index.html">repository index</a> · Build: 2026-10-29T22:01:15Z UTC · Repository commit: 26cb503</div>
+<header id="title-block-header">
+<h1 class="title">GxP (EU GMP Annex 11 · 21 CFR Part 11) — Compliance
+Report</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload---gxp-compliance-report" id="toc-cisco-secure-workload---gxp-compliance-report">Cisco Secure
+Workload - GxP Compliance Report</a>
+<ul>
+<li><a href="#customer-facing-compliance-report" id="toc-customer-facing-compliance-report">Customer-Facing Compliance
+Report</a></li>
+<li><a href="#framework-version-note" id="toc-framework-version-note">Framework Version Note</a></li>
+<li><a href="#csw-ui-navigation-note" id="toc-csw-ui-navigation-note">CSW UI Navigation Note</a></li>
+<li><a href="#how-to-read-the-coverage-column" id="toc-how-to-read-the-coverage-column">How to read the Coverage
+column</a></li>
+<li><a href="#executive-summary" id="toc-executive-summary">Executive
+Summary</a></li>
+<li><a href="#suggested-csw-scope-pattern" id="toc-suggested-csw-scope-pattern">Suggested CSW Scope
+Pattern</a></li>
+<li><a href="#in-scope-for-csw-evidence" id="toc-in-scope-for-csw-evidence">In Scope for CSW Evidence</a></li>
+<li><a href="#out-of-scope-must-be-evidenced-by-other-controls-tools-processes" id="toc-out-of-scope-must-be-evidenced-by-other-controls-tools-processes">Out
+of Scope (Must Be Evidenced by Other Controls / Tools /
+Processes)</a></li>
+<li><a href="#framework-topic-csw-capability-map" id="toc-framework-topic-csw-capability-map">Framework Topic → CSW
+Capability Map</a></li>
+<li><a href="#evidence-collection-approach" id="toc-evidence-collection-approach">Evidence Collection
+Approach</a></li>
+<li><a href="#pov-workshop-approach" id="toc-pov-workshop-approach">POV
+/ Workshop Approach</a></li>
+<li><a href="#boundaries-and-complementary-controls" id="toc-boundaries-and-complementary-controls">Boundaries and
+Complementary Controls</a></li>
+<li><a href="#assessor-auditor-caveat" id="toc-assessor-auditor-caveat">Assessor / Auditor Caveat</a></li>
+<li><a href="#disclaimer" id="toc-disclaimer">Disclaimer</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload---gxp-compliance-report">Cisco Secure
+Workload - GxP Compliance Report</h1>
+<h2 id="customer-facing-compliance-report">Customer-Facing Compliance
+Report</h2>
+<p><strong>Framework:</strong> GxP computerised-system controls: EU GMP
+Annex 11, 21 CFR Part 11, GAMP 5 (2nd Edition)<br />
+<strong>Primary audience:</strong> Life-sciences organisations operating
+GxP-regulated computerised systems: pharmaceutical and biotech
+manufacturers, medical-device manufacturers, CDMOs and CROs, and their
+quality / validation / IT-compliance functions.<br />
+<strong>CSW positioning:</strong> Demonstrable segregation of the
+validated estate from the non-validated estate, change control and drift
+detection on validated systems, and compensating controls for validated
+systems that cannot be patched without revalidation.</p>
+<hr />
+<h2 id="framework-version-note">Framework Version Note</h2>
+<p>References EU GMP Annex 11 (current published version) and 21 CFR
+Part 11, read alongside GAMP 5 Second Edition (2022) and the FDA
+Computer Software Assurance draft guidance (September 2022). GxP is a
+regulatory regime enforced by inspection, not a certification scheme -
+there is no GxP certificate to obtain. The EU is revising Annex 11;
+validate against the version in force for the customer’s market before
+using these references in a regulatory submission.</p>
+<h2 id="csw-ui-navigation-note">CSW UI Navigation Note</h2>
+<p>Cisco does not yet publish framework-specific CSW UI navigation for
+this standard; framework-specific navigation is on the product roadmap.
+This report references CSW <em>capabilities</em> and the <em>evidence
+artifacts</em> they produce. The technical runbook
+(<code>CSW-GxP-Reference-Design.md</code>) in this folder contains the
+deeper engineering detail.</p>
+<hr />
+<h2 id="how-to-read-the-coverage-column">How to read the Coverage
+column</h2>
+<p>Every report in this set uses the same three coverage words. Coverage
+describes <strong>what evidence CSW produces</strong> for a topic — it
+never means the control is passed.</p>
+<p><strong>Direct</strong> — Secure Workload produces the primary
+evidence artifact for that topic (segmentation, policy, flow/process
+telemetry, inventory, vulnerability + reachability, forensic
+reconstruction). Direct is still evidence, not an attestation.</p>
+<p><strong>Supporting</strong> — Secure Workload contributes an input
+that feeds or complements another control, tool, or process
+(e.g. detection input only, reconciled against an external register, one
+log source among several).</p>
+<p><strong>Evidence Required</strong> — Secure Workload has no record
+for this topic. The customer supplies the contract, the analysis, or the
+HR / physical-security evidence from another control.</p>
+<blockquote>
+<p>The Coverage ratings in the topic map below are machine-derived from
+each row’s wording and are flagged for SE review before customer
+use.</p>
+</blockquote>
+<h2 id="executive-summary">Executive Summary</h2>
+<p>Cisco Secure Workload (CSW) supports a defined subset of this
+framework. The strongest customer story is not that CSW “certifies”
+compliance; it is that CSW turns workload communication and inventory
+into evidence that the customer, the customer’s compliance team, and the
+customer’s assessor can review. This report describes which framework
+topics CSW supports, which it does not, what evidence artifacts CSW
+produces, and how often the customer should collect them. CSW does
+<strong>not</strong> replace the customer’s governance, policy, or
+assessor judgement, and this report is <strong>not</strong> a control
+attestation.</p>
+<h2 id="suggested-csw-scope-pattern">Suggested CSW Scope Pattern</h2>
+<pre><code>GxP
+├── GxP-Validated (MES, LIMS, EBR, SCADA-Historian, Chromatography-Data-Systems)
+├── GxP-Supporting (Backup, Monitoring, Time-Sync, Infrastructure-Services)
+├── Non-GxP-Corporate (Office-IT, Email, General-Business-Applications)
+└── External-Partners (CDMO, CRO, Instrument-Vendor-Remote-Support)</code></pre>
+<p>This scope pattern should be validated with the customer’s
+architecture, application owners, compliance team, and assessor before
+it is used for formal evidence.</p>
+<h2 id="in-scope-for-csw-evidence">In Scope for CSW Evidence</h2>
+<ul>
+<li>Annex 11 §12.1 - physical and logical segregation of validated
+systems</li>
+<li>Annex 11 §10 / §12.2 - change control and unauthorised-change
+detection</li>
+<li>Annex 11 §11 - periodic evaluation evidence for the network control
+layer</li>
+<li>Annex 11 §9 - audit trail of the segmentation control itself</li>
+<li>Annex 11 §13 - incident scoping and workload-level timeline
+reconstruction</li>
+<li>Annex 11 §7.1 / §16 - data-store and continuity dependency
+visibility</li>
+<li>21 CFR Part 11 §11.10(d) - limiting system access to authorised
+individuals (network layer)</li>
+<li>Compensating controls for validated systems that cannot be
+patched</li>
+<li>Validated System Inventory (VSI) reconciliation inputs</li>
+<li>GMP manufacturing OT boundary hardening on the IT side of the Purdue
+model</li>
+</ul>
+<h2 id="out-of-scope-must-be-evidenced-by-other-controls-tools-processes">Out
+of Scope (Must Be Evidenced by Other Controls / Tools / Processes)</h2>
+<ul>
+<li>Computer System Validation (CSV) - IQ/OQ/PQ of the regulated
+application</li>
+<li>Record-level ALCOA+ attributes (attributable, legible,
+contemporaneous, original, accurate)</li>
+<li>Electronic signature capability (21 CFR Part 11 Subpart C)</li>
+<li>Application-level audit trails and audit-trail review (Part 11
+§11.10(e) at record level)</li>
+<li>Quality Management System, SOPs, deviation and CAPA processes</li>
+<li>Supplier qualification and vendor assessment</li>
+<li>Data integrity governance and periodic data-integrity review</li>
+<li>Qualification of CSW itself, which may be required where CSW is
+relied upon as a GxP control</li>
+</ul>
+<h2 id="framework-topic-csw-capability-map">Framework Topic → CSW
+Capability Map</h2>
+<table style="width:85%;">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr>
+<th><strong>Framework topic</strong></th>
+<th><strong>Coverage</strong></th>
+<th><strong>CSW capability</strong></th>
+<th><strong>Evidence artifact</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Annex 11 §12.1 - access/segregation of validated systems</td>
+<td class="cov-direct"><strong>Direct</strong></td>
+<td>Scope tree keyed on validation status; enforced allowlist between
+GxP-Validated and all other scopes</td>
+<td>Policy workspace export showing the Non-GxP-Corporate to
+GxP-Validated boundary with enforcement state</td>
+</tr>
+<tr>
+<td>Annex 11 §12.2 - unauthorised change detection</td>
+<td class="cov-direct"><strong>Direct</strong></td>
+<td>Policy drift / ‘out of sync’ detection on enforced workloads</td>
+<td>Drift report listing workloads whose host firewall no longer matches
+the approved policy</td>
+</tr>
+<tr>
+<td>Annex 11 §10 - change control</td>
+<td class="cov-direct"><strong>Direct</strong></td>
+<td>Simulate-before-enforce impact analysis on the validated estate</td>
+<td>Simulation output attached to the change record as
+pre-implementation impact evidence</td>
+</tr>
+<tr>
+<td>Annex 11 §11 - periodic evaluation</td>
+<td class="cov-direct"><strong>Direct</strong></td>
+<td>Scheduled inventory, policy and flow extracts for the validated
+estate</td>
+<td>Periodic evaluation pack covering scope membership, policy state and
+observed flows</td>
+</tr>
+<tr>
+<td>Annex 11 §9 - audit trail of the control</td>
+<td class="cov-direct"><strong>Direct</strong></td>
+<td>CSW change log for scopes, policies and enforcement state</td>
+<td>Control-plane audit trail; note this is the audit trail of the
+control, not of the GxP record</td>
+</tr>
+<tr>
+<td>Annex 11 §13 - incident management</td>
+<td class="cov-direct"><strong>Direct</strong></td>
+<td>Forensic flow and process search scoped to the validated estate</td>
+<td>Investigation pack with affected validated workloads and time
+window</td>
+</tr>
+<tr>
+<td>Annex 11 §16 - business continuity</td>
+<td class="cov-supporting"><strong>Supporting</strong></td>
+<td>Dependency mapping for validated systems and their supporting
+services</td>
+<td>Observed-dependency map used as input to continuity impact
+analysis</td>
+</tr>
+<tr>
+<td>21 CFR Part 11 §11.10(d) - authorised access</td>
+<td class="cov-direct"><strong>Direct</strong></td>
+<td>Workload-to-workload allowlist restricting reachability of Part 11
+systems</td>
+<td>Enforced policy set for systems holding Part 11 electronic
+records</td>
+</tr>
+<tr>
+<td>Un-patchable validated systems</td>
+<td class="cov-direct"><strong>Direct</strong></td>
+<td>Reachability-weighted CVE plus compensating segmentation policy</td>
+<td>Compensating-control register linking each deferred CVE to the
+policy that contains it</td>
+</tr>
+<tr>
+<td>Validated System Inventory reconciliation</td>
+<td class="cov-supporting"><strong>Supporting</strong></td>
+<td>Workload inventory with validation-status labels</td>
+<td>Inventory export reconciled against the quality-owned VSI</td>
+</tr>
+</tbody>
+</table>
+<h2 id="evidence-collection-approach">Evidence Collection Approach</h2>
+<p>The table below describes per-topic evidence collection - what to
+collect, the CSW source area, and a suggested cadence. The cadence
+should be tuned to the customer’s audit cycle, regulatory cadence, and
+risk appetite.</p>
+<table style="width:85%;">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr>
+<th><strong>Topic</strong></th>
+<th><strong>What to collect</strong></th>
+<th><strong>CSW source</strong></th>
+<th><strong>Suggested cadence</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Validated-estate inventory</td>
+<td>Workload inventory with validation-status labels and scope
+membership</td>
+<td>Workload inventory + scope membership export</td>
+<td>Monthly, and before each periodic evaluation</td>
+</tr>
+<tr>
+<td>Validated/non-validated boundary</td>
+<td>Enforced policy set at the GxP-Validated boundary</td>
+<td>Policy workspace export with enforcement state</td>
+<td>Quarterly + after each change</td>
+</tr>
+<tr>
+<td>Change-control impact evidence</td>
+<td>Pre-implementation simulation for each policy change on validated
+systems</td>
+<td>Policy simulation output</td>
+<td>Per change request</td>
+</tr>
+<tr>
+<td>Drift / unauthorised change</td>
+<td>Workloads out of sync with approved policy</td>
+<td>Policy drift report</td>
+<td>Weekly</td>
+</tr>
+<tr>
+<td>Periodic evaluation pack</td>
+<td>Inventory, policy, drift and flow extracts for the validated
+estate</td>
+<td>Combined scope, workspace and flow exports</td>
+<td>Per the periodic-evaluation schedule, typically annually</td>
+</tr>
+<tr>
+<td>Compensating controls for deferred patches</td>
+<td>Deferred CVE paired with the containing policy</td>
+<td>Vulnerability report scoped to GxP-Validated + matching policy
+export</td>
+<td>Monthly</td>
+</tr>
+<tr>
+<td>Time-synchronisation path</td>
+<td>Reachability of the authoritative NTP source from validated
+workloads</td>
+<td>Flow search confirming NTP reachability</td>
+<td>Quarterly</td>
+</tr>
+<tr>
+<td>Incident sample</td>
+<td>Workload-level timeline for one representative incident on a
+validated system</td>
+<td>Flow + process search</td>
+<td>Per incident; one representative sample per evaluation cycle</td>
+</tr>
+</tbody>
+</table>
+<h2 id="pov-workshop-approach">POV / Workshop Approach</h2>
+<ol type="1">
+<li>Confirm the framework version and assessment cycle with the
+customer’s compliance team.</li>
+<li>Select one business service, regulated boundary, or critical
+workload group to start with; do not attempt to instrument the entire
+estate in the POV.</li>
+<li>Validate workload coverage and install sensors or configure
+supported connectors. Document the cannot-instrument register; this is
+itself evidence.</li>
+<li>Apply labels for application, environment, owner, data class,
+criticality, compliance scope, and any framework-specific tags
+(e.g. <code>tenant</code>, <code>prototype</code>,
+<code>isa_level</code>, <code>npi</code>, <code>cui</code>,
+<code>ephi</code>).</li>
+<li>Observe flows over a representative business window. Minimum two
+weeks; longer if the customer has month-end, quarterly, or seasonal
+cycles relevant to the scope.</li>
+<li>Use ADM to generate a candidate policy. Review with the application
+owner. Run in Simulation mode for at least two weeks before any
+enforcement.</li>
+<li>Package inventory, scope, flows, policy, exceptions, and known gaps
+as the evidence output. Cross-reference this report’s evidence
+collection table with the customer’s existing audit work-papers.</li>
+</ol>
+<h2 id="boundaries-and-complementary-controls">Boundaries and
+Complementary Controls</h2>
+<p>CSW does not perform Computer System Validation, does not produce
+record-level ALCOA+ evidence, provides no electronic-signature
+capability, and does not supply application-level audit trails. The CSW
+audit trail covers the segmentation control, not the GxP record. Where
+CSW is relied upon as a GxP control, the customer’s quality function may
+require CSW itself to be qualified. GxP is enforced by inspection and
+nothing here confers compliance.</p>
+<h2 id="assessor-auditor-caveat">Assessor / Auditor Caveat</h2>
+<p>CSW provides technical evidence inputs. The customer’s qualified
+assessor, auditor, certifying body, or regulator determines compliance
+status. Validate all framework-topic mappings, control IDs, paragraph
+references, and section numbers in this report against the current
+official framework text. If the customer is being assessed against a
+version other than the one referenced in the framework version note
+above, revalidate before use.</p>
+<h2 id="disclaimer">Disclaimer</h2>
+<p>This report is for informational and planning purposes. It is not
+legal, regulatory, audit, or certification advice. Validate all mappings
+against the current official framework text, the customer’s environment,
+and qualified compliance, legal, and audit professionals.</p>
+</body>
+</html>
