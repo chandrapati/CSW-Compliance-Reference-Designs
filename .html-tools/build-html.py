@@ -53,6 +53,7 @@ FRAMEWORKS = [
     ("GDPR",          "GDPR (EU 2016/679)",                         "GDPR/CSW-GDPR-Compliance-Report",           "GDPR/CSW-GDPR-Reference-Design"),
     ("MITRE-ATTACK",  "MITRE ATT&CK (Enterprise)",                  "MITRE-ATTACK/CSW-MITRE-ATTACK-Compliance-Report", "MITRE-ATTACK/CSW-MITRE-ATTACK-Reference-Design"),
     ("FedRAMP",       "FedRAMP (Moderate)",                         "FedRAMP/CSW-FedRAMP-Compliance-Report",      "FedRAMP/CSW-FedRAMP-Reference-Design"),
+    ("GxP",           "GxP (EU GMP Annex 11 · 21 CFR Part 11)",     "GxP/CSW-GxP-Compliance-Report",              "GxP/CSW-GxP-Reference-Design"),
     ("SWIFT-CSCF",    "SWIFT CSCF (v2024)",                         "SWIFT-CSCF/CSW-SWIFT-CSCF-Compliance-Report", "SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design"),
     ("HITRUST-CSF",   "HITRUST CSF (v11)",                          "HITRUST-CSF/CSW-HITRUST-Compliance-Report",  "HITRUST-CSF/CSW-HITRUST-Reference-Design"),
     ("NIST-800-171",  "NIST SP 800-171 Rev. 3",                     "NIST-800-171/CSW-NIST-800-171-Compliance-Report", "NIST-800-171/CSW-NIST-800-171-Reference-Design"),
