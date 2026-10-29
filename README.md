@@ -127,6 +127,11 @@ them and know exactly what they are looking at:
 | [HIPAA 2025 NPRM](https://github.com/chandrapati/CSW-HIPAA-NPRM-Reference-Design) | *Proposed* mandatory segmentation, asset inventory, and breach-timeline design |
 | [HITRUST CSF v11](https://github.com/chandrapati/CSW-HITRUST-Reference-Design) | Harmonized HIPAA+ISO+NIST+PCI control evidence for e1 / i1 / r2 |
 
+### Life sciences
+| Framework | What you build &amp; evidence |
+|---|---|
+| [GxP (EU GMP Annex 11 &middot; 21 CFR Part 11)](https://github.com/chandrapati/CSW-GxP-Reference-Design) | Segregation of the validated estate, change control and drift evidence, and compensating controls for systems that cannot be patched |
+
 ### US federal &amp; defense
 | Framework | What you build &amp; evidence |
 |---|---|
