@@ -19,7 +19,7 @@ that report, and HTML versions of both for browser/mobile reading.
 > **For a CISO / CIO skimming this for the first time.**
 
 - **What this is.** A reference library that maps Cisco Secure Workload
-  (CSW) capabilities to **34 security, regulatory, and zero-trust
+  (CSW) capabilities to **37 security, regulatory, and zero-trust
   frameworks** — so you can see *which* controls CSW helps you evidence,
   and *how*, before committing budget or audit hours.
 - **What you get per framework.** Two paired documents — a **reference
@@ -85,14 +85,14 @@ questions worth walking through against your own environment — see
 
 ![Cisco Secure Workload Compliance Mapping Architecture](csw-compliance-architecture.png)
 
-*The same Secure Workload capabilities — micro-segmentation, process & flow telemetry, software inventory & CVE awareness, forensic flow evidence, and authored workload policy — are mapped, control by control, to 34 compliance and zero-trust frameworks. Each framework folder pairs an engineering reference design with a customer-facing report so the same live evidence answers both the auditor and the incident responder.*
+*The same Secure Workload capabilities — micro-segmentation, process & flow telemetry, software inventory & CVE awareness, forensic flow evidence, and authored workload policy — are mapped, control by control, to 37 compliance and zero-trust frameworks. Each framework folder pairs an engineering reference design with a customer-facing report so the same live evidence answers both the auditor and the incident responder.*
 
 ---
 
 ## Per-framework reference designs
 
 Prefer a focused, shareable repo for a single framework? Every one of the
-**34 frameworks** below now has its own standalone **Reference Design**
+**37 frameworks** below now has its own standalone **Reference Design**
 repo, built to the same template so an evaluator can pick up any one of
 them and know exactly what they are looking at:
 
@@ -425,7 +425,7 @@ Learning paths, reference material, and day-2 tooling:
 | Resource | Description | Best for |
 |----------|-------------|---------|
 | [📘 User Education](https://github.com/chandrapati/CSW-User-Education) | Onboarding guides, concept explainers, and curated video library | New CSW users |
-| [📘 Compliance Reference Designs](https://github.com/chandrapati/CSW-Compliance-Reference-Designs) | Reference designs + assessor-ready reports mapping CSW to 34 frameworks | Compliance & audit |
+| [📘 Compliance Reference Designs](https://github.com/chandrapati/CSW-Compliance-Reference-Designs) | Reference designs + assessor-ready reports mapping CSW to 37 frameworks | Compliance & audit |
 | [📘 Tenant Insights](https://github.com/chandrapati/CSW-Tenant-Insights) | Tenant-level reporting and analytics | Visibility metrics |
 | [📘 Operations Toolkit](https://github.com/chandrapati/CSW-Operations-Toolkit) | Day-2 ops scripts: health checks, reporting, policy analysis | Ongoing operations |
 | [📄 Supported OS & Compatibility Matrix](https://www.cisco.com/c/m/en_us/products/security/secure-workload-compatibility-matrix.html) | Cisco's authoritative list of supported agent operating systems, external systems, and connector requirements | Platform planning & prerequisites |
