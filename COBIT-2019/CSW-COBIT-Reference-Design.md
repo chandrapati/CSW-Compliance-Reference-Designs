@@ -397,7 +397,7 @@ Document these explicitly in control narratives to avoid over-claiming COBIT sat
 - **Third-party contractual and procurement controls**: CSW does not manage vendor SLAs or contract clauses.
 - **Physical security**: no facility controls; only **logical** network path restrictions.
 - **Identity lifecycle, credentials, MFA, and authorization decisions** (IdP/PAM): CSW does not replace IAM; it **restricts network paths** and **observes** process behavior.
-- **Full SOX/financial controls or GRC workflow**: integrate CSW exports into your GRC tool; CSW is not a controls library.
+- **Full SOX/financial controls or GRC workflow**: integrate CSW exports into your GRC tool; CSW is not a controls library. For the IT general controls portion of a SOX programme, see the companion [SOX ITGC reference design](../SOX/CSW-SOX-Reference-Design.md).
 - **All 40 COBIT objectives**: this reference design targets **technology-evidence-friendly** objectives; others require policy, process, and other tools.
 
 ---
@@ -469,6 +469,7 @@ Many enterprises map COBIT to ISO/IEC 27001 or NIST SP 800-53. CSW technical evi
 - [NIST SP 800-53 Rev 5](../NIST-800-53/CSW-NIST-800-53-Reference-Design.md) — detailed security control language often used alongside COBIT in regulated enterprises.
 - [ISO/IEC 27001:2022](../ISO-27001-2022/CSW-ISO27001-Reference-Design.md) — ISMS audits frequently pair with COBIT governance reviews.
 - [NIST SP 800-207](../NIST-800-207/CSW-NIST-800-207-Reference-Design.md) — zero trust architecture patterns underpinning segmentation evidence for **DSS05.02**.
+- [SOX ITGC](../SOX/CSW-SOX-Reference-Design.md) — the same DSS05 / BAI / MEA evidence, restructured for the four ITGC domains a SOX tester works to.
 
 
 - [UK NCSC CAF v3.2](../UK-NCSC-CAF/caf-mapping.md) — APO13 is the reuse path for CAF A1 governance telemetry.

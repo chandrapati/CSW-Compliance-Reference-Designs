@@ -40,6 +40,7 @@ supports evidence for it.
 | "How do I position CSW for TISAX / automotive supplier assessments?" | [TISAX / VDA ISA prototype, engineering, customer-confidential workload segmentation](./TISAX/CSW-TISAX-Reference-Design.md) |
 | "How do I evidence OT-adjacent IT segmentation under NIST 800-82?" | [NIST SP 800-82 OT-facing IT systems, jump hosts, historians, vendor access](./NIST-800-82/CSW-NIST-800-82-Reference-Design.md) |
 | "How do I support BSI C5 cloud assurance?" | [BSI C5 cloud service scope, tenant/shared-service boundaries, cloud communication security](./BSI-C5/CSW-BSI-C5-Reference-Design.md) |
+| "How do I support a SOX ITGC audit over financially-relevant systems?" | [SOX ITGC domains APD / PC / CO](./SOX/CSW-SOX-Reference-Design.md), [COBIT DSS05.02 / BAI06 / MEA02](./COBIT-2019/CSW-COBIT-Reference-Design.md), [SOC 2 CC6.x operating effectiveness](./SOC2/CSW-SOC2-Reference-Design.md) |
 | "How do I evidence UK NCSC CAF for NIS OES or GovAssure?" | [CAF A1–D2 crosswalk](./UK-NCSC-CAF/caf-mapping.md), [Reference design](./UK-NCSC-CAF/CSW-UK-NCSC-CAF-Reference-Design.md), [IGP scorer](./UK-NCSC-CAF/caf-igp-maturity-scorer.md), [Evidence pack](./UK-NCSC-CAF/caf-evidence-pack-template.md) |
 ---
 
@@ -692,6 +693,39 @@ Source: [`COBIT-2019/CSW-COBIT-Reference-Design.md`](./COBIT-2019/CSW-COBIT-Refe
 | BAI06 | Managed IT changes | Post-change package / listener deltas |
 | BAI10 | Managed configuration | Baseline listeners & process sets |
 | EDM03 | Ensured risk optimization (inputs) | CVE + reachability prioritisation for risk committees |
+
+---
+
+## Sarbanes-Oxley (SOX) IT General Controls
+
+Source: [`SOX/CSW-SOX-Reference-Design.md`](./SOX/CSW-SOX-Reference-Design.md)
+
+> **SOX has no official control catalogue.** The rows below are the four
+> conventional ITGC domains used by SOX programmes and audit firms, not SOX
+> control identifiers. Align the wording to your own control library and your
+> external auditor before use. CSW is never a SOX control by itself — it
+> implements part of the network-access restriction and produces the evidence.
+
+| Domain / anchor | Topic | CSW can support evidence for |
+|---|---|---|
+| APD | Access to programs and data — **network-path layer only** | Enforced segmentation policy; Denied Connections across the period; boundary deny between in-scope and out-of-scope |
+| APD | Administrative access paths | Source-locked admin-port rules; observed admin flows *(IdP/PAM/MFA complementary)* |
+| APD | Production / non-production segregation | Scope-to-scope deny plus denied-flow record |
+| APD | Completeness of the in-scope population | Inventory reconciled to the scoping memo; exception list; agent coverage |
+| PC | Program changes — **detective only** | Weekly inventory deltas; deltas with no matching change ticket; ADM diff across a change window |
+| PC | Change to the access control itself | Policy version history with checksums; Administration audit log |
+| CO | Computer operations — batch and interfaces | Flow/process telemetry on scheduling and file-transfer tiers across a close cycle |
+| CO | Monitoring and incident reconstruction | Alert history; agent availability; forensic flow and process search |
+| PD | Program development | **No CSW contribution** |
+| Section 302 | Quarterly certification cadence | Quarterly evidence pack (see reference design §11.1) |
+| Section 404(a) / (b) | Management assessment and auditor attestation | Operating-effectiveness evidence across the fiscal period; IPE integrity records |
+| PCAOB AS 2201 | Understanding the flow of transactions | ADM baseline spanning a full month-end or quarter-end close |
+
+**Not covered:** user entitlement review, authentication and MFA, segregation of
+duties inside the financial application, application-layer authorisation (CSW is
+L3/L4 with connection detail through L5), change authorisation workflow, SDLC,
+backup and recovery, management review controls, entity-level COSO controls, and
+attestation. See reference design §10.
 
 ---
 
