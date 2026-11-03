@@ -1,6 +1,6 @@
 # Control-ID Index
 
-A lookup index across all thirty-five frameworks in this repository.
+A lookup index across all thirty-eight frameworks in this repository.
 Use it to jump from a specific control / requirement / article to the
 reference design section that explains how Cisco Secure Workload (CSW)
 supports evidence for it.
@@ -41,6 +41,7 @@ supports evidence for it.
 | "How do I evidence OT-adjacent IT segmentation under NIST 800-82?" | [NIST SP 800-82 OT-facing IT systems, jump hosts, historians, vendor access](./NIST-800-82/CSW-NIST-800-82-Reference-Design.md) |
 | "How do I support BSI C5 cloud assurance?" | [BSI C5 cloud service scope, tenant/shared-service boundaries, cloud communication security](./BSI-C5/CSW-BSI-C5-Reference-Design.md) |
 | "How do I support a SOX ITGC audit over financially-relevant systems?" | [SOX ITGC domains APD / PC / CO](./SOX/CSW-SOX-Reference-Design.md), [COBIT DSS05.02 / BAI06 / MEA02](./COBIT-2019/CSW-COBIT-Reference-Design.md), [SOC 2 CC6.x operating effectiveness](./SOC2/CSW-SOC2-Reference-Design.md) |
+| "How do I segregate a validated GxP estate and evidence change control?" | [Annex 11 §12 segregation, §10 change control, §11 periodic evaluation](./GxP/CSW-GxP-Reference-Design.md), [21 CFR Part 11 §11.10(d)](./GxP/CSW-GxP-Reference-Design.md) |
 | "How do I evidence UK NCSC CAF for NIS OES or GovAssure?" | [CAF A1–D2 crosswalk](./UK-NCSC-CAF/caf-mapping.md), [Reference design](./UK-NCSC-CAF/CSW-UK-NCSC-CAF-Reference-Design.md), [IGP scorer](./UK-NCSC-CAF/caf-igp-maturity-scorer.md), [Evidence pack](./UK-NCSC-CAF/caf-evidence-pack-template.md) |
 ---
 
@@ -726,6 +727,30 @@ duties inside the financial application, application-layer authorisation (CSW is
 L3/L4 with connection detail through L5), change authorisation workflow, SDLC,
 backup and recovery, management review controls, entity-level COSO controls, and
 attestation. See reference design §10.
+
+---
+
+## GxP — EU GMP Annex 11 · FDA 21 CFR Part 11
+
+Source: [`GxP/CSW-GxP-Reference-Design.md`](./GxP/CSW-GxP-Reference-Design.md)
+
+| Citation | Topic | CSW can support evidence for |
+|---|---|---|
+| **Annex 11 §3** | Suppliers & service providers | Brokered, time-bounded vendor-support policy and flow evidence of every OEM session |
+| **Annex 11 §4** | Validation | *Customer-owned.* CSW supplies qualification documentation for its own assessment |
+| **Annex 11 §7.1 / §7.2** | Data storage and backups | Data-tier segmentation, detection of unencrypted paths, evidenced backup paths |
+| **Annex 11 §9** | Audit trails | Immutable flow records, policy change history, and NTP reachability for every validated system |
+| **Annex 11 §10** | Change & configuration management | Policy versioning, simulate-before-enforce, out-of-sync drift detection |
+| **Annex 11 §11** | Periodic evaluation | Scheduled ADM re-runs, policy drift reports, quarterly posture export |
+| **Annex 11 §12.1 / §12.2 / §12.3** | Security | Enforced workload-identity segmentation, scope-tiered policy, authorisation change history |
+| **Annex 11 §13** | Incident management | Forensic flow and process telemetry for reconstruction |
+| **Annex 11 §16 / §17** | Business continuity and archiving | Cached-policy enforcement when the control plane is unreachable; evidenced archive paths |
+| **Annex 11 §14** | Electronic signature | *Out of scope* |
+| **21 CFR §11.10(c)** | Protection of records through retention | Segmentation of the record and archive tiers |
+| **21 CFR §11.10(d)** | Limiting system access to authorised individuals | Enforced network-layer access restriction by workload identity — the core control |
+| **21 CFR §11.10(e)** | Time-stamped audit trails | Audit trail *of the control* plus NTP path evidence |
+| **21 CFR §11.10(g)** | Authority checks | Policy enforcement that only authorised systems may interact |
+| **21 CFR Subpart C** | Electronic signatures (§11.50 – §11.300) | *Out of scope* |
 
 ---
 

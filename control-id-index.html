@@ -312,12 +312,12 @@ td.cov-evidence { background: #808080 !important; color: #fff !important;
 </style>
 </head>
 <body>
-<div class="doc-meta">Source: <a href="control-id-index.html">INDEX.md</a> · <a href="index.html">repository index</a> · Build: 2026-10-07T17:30:41Z UTC · Repository commit: a630820</div>
+<div class="doc-meta">Source: <a href="control-id-index.html">INDEX.md</a> · <a href="index.html">repository index</a> · Build: 2026-11-03T19:10:55Z UTC · Repository commit: c8e3f63</div>
 <header id="title-block-header">
 <h1 class="title">Control-ID Index</h1>
 </header>
 <h1 id="control-id-index">Control-ID Index</h1>
-<p>A lookup index across all thirty-five frameworks in this repository.
+<p>A lookup index across all thirty-eight frameworks in this repository.
 Use it to jump from a specific control / requirement / article to the
 reference design section that explains how Cisco Secure Workload (CSW)
 supports evidence for it.</p>
@@ -355,7 +355,8 @@ reference design calls these out explicitly.</p>
 §164.312(a)(1)</a>, <a href="./NIST-800-53/CSW-NIST-800-53-Reference-Design.html">NIST AC-4</a>,
 <a href="./DORA/CSW-DORA-Reference-Design.html">DORA Art. 9</a>, <a href="./NERC-CIP/CSW-NERC-CIP-Reference-Design.html">NERC CIP-005 R1</a>,
 <a href="./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.html">TSA SD
-Section III.A</a>, <a href="./IEC-62443/CSW-IEC62443-Reference-Design.html">IEC 62443 SR
+Section III.A</a>, <a href="./TSA-Rail/CSW-TSA-Rail-Reference-Design.html">TSA Rail III.B</a>,
+<a href="./IEC-62443/CSW-IEC62443-Reference-Design.html">IEC 62443 SR
 5.1–5.4</a>, <a href="./GDPR/CSW-GDPR-Reference-Design.html">GDPR Art. 25
 / Art. 32</a>, <a href="./FedRAMP/CSW-FedRAMP-Reference-Design.html">FedRAMP AC-4 /
 SC-7</a>, <a href="./SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design.html">SWIFT CSCF
@@ -374,7 +375,8 @@ IVS-09</a></td>
 <td><a href="./NIST-800-53/CSW-NIST-800-53-Reference-Design.html">NIST
 CA-7 / SI-4</a>, <a href="./PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.html">PCI Req 11</a>, <a href="./SOC2/CSW-SOC2-Reference-Design.html">SOC 2 CC7.2</a>, <a href="./NIS2/CSW-NIS2-Reference-Design.html">NIS2 Art. 21(2)(b)</a>, <a href="./NERC-CIP/CSW-NERC-CIP-Reference-Design.html">NERC CIP-007 R4</a>,
 <a href="./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.html">TSA SD
-Section III.C</a>, <a href="./FedRAMP/CSW-FedRAMP-Reference-Design.html">FedRAMP CA-7 /
+Section III.C</a>, <a href="./TSA-Rail/CSW-TSA-Rail-Reference-Design.html">TSA Rail III.D</a>,
+<a href="./FedRAMP/CSW-FedRAMP-Reference-Design.html">FedRAMP CA-7 /
 SI-4</a>, <a href="./IEC-62443/CSW-IEC62443-Reference-Design.html">IEC
 62443 SR 6</a>, <a href="./SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design.html">SWIFT CSCF
 6.4</a>, <a href="./HITRUST-CSF/CSW-HITRUST-Reference-Design.html">HITRUST
@@ -436,7 +438,8 @@ TVM</a>, <a href="./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.html">HIPAA 
 <td>“How do I evidence IT/OT segmentation on the IT side?”</td>
 <td><a href="./NERC-CIP/CSW-NERC-CIP-Reference-Design.html">NERC CIP-005
 R1 (IT-side ESP enclave)</a>, <a href="./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.html">TSA SD
-Section III.A</a>, <a href="./IEC-62443/CSW-IEC62443-Reference-Design.html">IEC 62443 SR 5
+Section III.A</a>, <a href="./TSA-Rail/CSW-TSA-Rail-Reference-Design.html">TSA Rail III.B</a>,
+<a href="./IEC-62443/CSW-IEC62443-Reference-Design.html">IEC 62443 SR 5
 (zones &amp; conduits)</a>, <a href="./NIST-800-53/CSW-NIST-800-53-Reference-Design.html">NIST AC-4 /
 SC-7</a></td>
 </tr>
@@ -517,6 +520,21 @@ access</a></td>
 <td><a href="./BSI-C5/CSW-BSI-C5-Reference-Design.html">BSI C5 cloud
 service scope, tenant/shared-service boundaries, cloud communication
 security</a></td>
+</tr>
+<tr>
+<td>“How do I support a SOX ITGC audit over financially-relevant
+systems?”</td>
+<td><a href="./SOX/CSW-SOX-Reference-Design.html">SOX ITGC domains APD /
+PC / CO</a>, <a href="./COBIT-2019/CSW-COBIT-Reference-Design.html">COBIT
+DSS05.02 / BAI06 / MEA02</a>, <a href="./SOC2/CSW-SOC2-Reference-Design.html">SOC 2 CC6.x operating
+effectiveness</a></td>
+</tr>
+<tr>
+<td>“How do I segregate a validated GxP estate and evidence change
+control?”</td>
+<td><a href="./GxP/CSW-GxP-Reference-Design.html">Annex 11 §12
+segregation, §10 change control, §11 periodic evaluation</a>, <a href="./GxP/CSW-GxP-Reference-Design.html">21 CFR Part 11
+§11.10(d)</a></td>
 </tr>
 <tr>
 <td>“How do I evidence UK NCSC CAF for NIS OES or GovAssure?”</td>
@@ -992,7 +1010,7 @@ programmes up; the pillars describe outcomes, not a guarantee of
 maturity tier.</p>
 <hr />
 <h2 id="fips-140-140-2-140-3">FIPS 140 (140-2 / 140-3)</h2>
-<p>Source: <a href="./FIPS-140/fips-reference%20design.html"><code>FIPS-140/fips-reference design.md</code></a></p>
+<p>Source: <a href="./FIPS-140/CSW-FIPS-Reference-Design.html"><code>FIPS-140/CSW-FIPS-Reference-Design.md</code></a></p>
 <p>CSW is <strong>not a FIPS-validated cryptographic module</strong>.
 The reference design describes how CSW can support elements of an
 organisation’s posture toward FIPS — for instance by restricting obvious
@@ -2840,6 +2858,212 @@ complementary)</em></td>
 <td>EDM03</td>
 <td>Ensured risk optimization (inputs)</td>
 <td>CVE + reachability prioritisation for risk committees</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="sarbanes-oxley-sox-it-general-controls">Sarbanes-Oxley (SOX) IT
+General Controls</h2>
+<p>Source: <a href="./SOX/CSW-SOX-Reference-Design.html"><code>SOX/CSW-SOX-Reference-Design.md</code></a></p>
+<blockquote>
+<p><strong>SOX has no official control catalogue.</strong> The rows
+below are the four conventional ITGC domains used by SOX programmes and
+audit firms, not SOX control identifiers. Align the wording to your own
+control library and your external auditor before use. CSW is never a SOX
+control by itself — it implements part of the network-access restriction
+and produces the evidence.</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Domain / anchor</th>
+<th>Topic</th>
+<th>CSW can support evidence for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>APD</td>
+<td>Access to programs and data — <strong>network-path layer
+only</strong></td>
+<td>Enforced segmentation policy; Denied Connections across the period;
+boundary deny between in-scope and out-of-scope</td>
+</tr>
+<tr>
+<td>APD</td>
+<td>Administrative access paths</td>
+<td>Source-locked admin-port rules; observed admin flows
+<em>(IdP/PAM/MFA complementary)</em></td>
+</tr>
+<tr>
+<td>APD</td>
+<td>Production / non-production segregation</td>
+<td>Scope-to-scope deny plus denied-flow record</td>
+</tr>
+<tr>
+<td>APD</td>
+<td>Completeness of the in-scope population</td>
+<td>Inventory reconciled to the scoping memo; exception list; agent
+coverage</td>
+</tr>
+<tr>
+<td>PC</td>
+<td>Program changes — <strong>detective only</strong></td>
+<td>Weekly inventory deltas; deltas with no matching change ticket; ADM
+diff across a change window</td>
+</tr>
+<tr>
+<td>PC</td>
+<td>Change to the access control itself</td>
+<td>Policy version history with checksums; Administration audit log</td>
+</tr>
+<tr>
+<td>CO</td>
+<td>Computer operations — batch and interfaces</td>
+<td>Flow/process telemetry on scheduling and file-transfer tiers across
+a close cycle</td>
+</tr>
+<tr>
+<td>CO</td>
+<td>Monitoring and incident reconstruction</td>
+<td>Alert history; agent availability; forensic flow and process
+search</td>
+</tr>
+<tr>
+<td>PD</td>
+<td>Program development</td>
+<td><strong>No CSW contribution</strong></td>
+</tr>
+<tr>
+<td>Section 302</td>
+<td>Quarterly certification cadence</td>
+<td>Quarterly evidence pack (see reference design §11.1)</td>
+</tr>
+<tr>
+<td>Section 404(a) / (b)</td>
+<td>Management assessment and auditor attestation</td>
+<td>Operating-effectiveness evidence across the fiscal period; IPE
+integrity records</td>
+</tr>
+<tr>
+<td>PCAOB AS 2201</td>
+<td>Understanding the flow of transactions</td>
+<td>ADM baseline spanning a full month-end or quarter-end close</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not covered:</strong> user entitlement review, authentication
+and MFA, segregation of duties inside the financial application,
+application-layer authorisation (CSW is L3/L4 with connection detail
+through L5), change authorisation workflow, SDLC, backup and recovery,
+management review controls, entity-level COSO controls, and attestation.
+See reference design §10.</p>
+<hr />
+<h2 id="gxp-eu-gmp-annex-11-fda-21-cfr-part-11">GxP — EU GMP Annex 11 ·
+FDA 21 CFR Part 11</h2>
+<p>Source: <a href="./GxP/CSW-GxP-Reference-Design.html"><code>GxP/CSW-GxP-Reference-Design.md</code></a></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Citation</th>
+<th>Topic</th>
+<th>CSW can support evidence for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Annex 11 §3</strong></td>
+<td>Suppliers &amp; service providers</td>
+<td>Brokered, time-bounded vendor-support policy and flow evidence of
+every OEM session</td>
+</tr>
+<tr>
+<td><strong>Annex 11 §4</strong></td>
+<td>Validation</td>
+<td><em>Customer-owned.</em> CSW supplies qualification documentation
+for its own assessment</td>
+</tr>
+<tr>
+<td><strong>Annex 11 §7.1 / §7.2</strong></td>
+<td>Data storage and backups</td>
+<td>Data-tier segmentation, detection of unencrypted paths, evidenced
+backup paths</td>
+</tr>
+<tr>
+<td><strong>Annex 11 §9</strong></td>
+<td>Audit trails</td>
+<td>Immutable flow records, policy change history, and NTP reachability
+for every validated system</td>
+</tr>
+<tr>
+<td><strong>Annex 11 §10</strong></td>
+<td>Change &amp; configuration management</td>
+<td>Policy versioning, simulate-before-enforce, out-of-sync drift
+detection</td>
+</tr>
+<tr>
+<td><strong>Annex 11 §11</strong></td>
+<td>Periodic evaluation</td>
+<td>Scheduled ADM re-runs, policy drift reports, quarterly posture
+export</td>
+</tr>
+<tr>
+<td><strong>Annex 11 §12.1 / §12.2 / §12.3</strong></td>
+<td>Security</td>
+<td>Enforced workload-identity segmentation, scope-tiered policy,
+authorisation change history</td>
+</tr>
+<tr>
+<td><strong>Annex 11 §13</strong></td>
+<td>Incident management</td>
+<td>Forensic flow and process telemetry for reconstruction</td>
+</tr>
+<tr>
+<td><strong>Annex 11 §16 / §17</strong></td>
+<td>Business continuity and archiving</td>
+<td>Cached-policy enforcement when the control plane is unreachable;
+evidenced archive paths</td>
+</tr>
+<tr>
+<td><strong>Annex 11 §14</strong></td>
+<td>Electronic signature</td>
+<td><em>Out of scope</em></td>
+</tr>
+<tr>
+<td><strong>21 CFR §11.10(c)</strong></td>
+<td>Protection of records through retention</td>
+<td>Segmentation of the record and archive tiers</td>
+</tr>
+<tr>
+<td><strong>21 CFR §11.10(d)</strong></td>
+<td>Limiting system access to authorised individuals</td>
+<td>Enforced network-layer access restriction by workload identity — the
+core control</td>
+</tr>
+<tr>
+<td><strong>21 CFR §11.10(e)</strong></td>
+<td>Time-stamped audit trails</td>
+<td>Audit trail <em>of the control</em> plus NTP path evidence</td>
+</tr>
+<tr>
+<td><strong>21 CFR §11.10(g)</strong></td>
+<td>Authority checks</td>
+<td>Policy enforcement that only authorised systems may interact</td>
+</tr>
+<tr>
+<td><strong>21 CFR Subpart C</strong></td>
+<td>Electronic signatures (§11.50 – §11.300)</td>
+<td><em>Out of scope</em></td>
 </tr>
 </tbody>
 </table>

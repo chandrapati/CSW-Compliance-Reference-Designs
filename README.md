@@ -3,7 +3,7 @@
 ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=chandrapati.CSW-Compliance-Mapping&left_text=visitors)
 
 Customer-facing reports and matching **reference designs** that map Cisco
-Secure Workload (CSW) controls to **thirty-four** compliance, sector, and
+Secure Workload (CSW) controls to **thirty-eight** compliance, sector, and
 zero-trust frameworks. Every framework folder ships the same set of
 assets: a Markdown **reference design** (the engineering view — architecture
 intent, configuration steps, sample policies, and the exact evidence
@@ -19,7 +19,7 @@ that report, and HTML versions of both for browser/mobile reading.
 > **For a CISO / CIO skimming this for the first time.**
 
 - **What this is.** A reference library that maps Cisco Secure Workload
-  (CSW) capabilities to **37 security, regulatory, and zero-trust
+  (CSW) capabilities to **38 security, regulatory, and zero-trust
   frameworks** — so you can see *which* controls CSW helps you evidence,
   and *how*, before committing budget or audit hours.
 - **What you get per framework.** Two paired documents — a **reference
@@ -85,16 +85,23 @@ questions worth walking through against your own environment — see
 
 ![Cisco Secure Workload Compliance Mapping Architecture](csw-compliance-architecture.png)
 
-*The same Secure Workload capabilities — micro-segmentation, process & flow telemetry, software inventory & CVE awareness, forensic flow evidence, and authored workload policy — are mapped, control by control, to 37 compliance and zero-trust frameworks. Each framework folder pairs an engineering reference design with a customer-facing report so the same live evidence answers both the auditor and the incident responder.*
+*The same Secure Workload capabilities — micro-segmentation, process & flow telemetry, software inventory & CVE awareness, forensic flow evidence, and authored workload policy — are mapped, control by control, to 38 compliance and zero-trust frameworks. Every framework folder carries an engineering reference design, and most also carry a customer-facing report, so the same live evidence answers both the auditor and the incident responder.*
 
 ---
 
 ## Per-framework reference designs
 
-Prefer a focused, shareable repo for a single framework? Every one of the
-**37 frameworks** below now has its own standalone **Reference Design**
-repo, built to the same template so an evaluator can pick up any one of
-them and know exactly what they are looking at:
+Prefer a focused, shareable repo for a single framework? **39 standalone
+Reference Design repos** are listed below, built to the same template so an
+evaluator can pick up any one of them and know exactly what they are looking at.
+
+Two notes on the arithmetic, so the numbers reconcile. **CJIS** and **TSA
+Aviation** ship as standalone repos only and do not have a folder in this
+repository, which makes **40 frameworks across the library**. **UK NCSC CAF**
+runs the other way — it lives here but has no standalone repo yet, so its row
+below points into this repository.
+
+Each standalone repo carries:
 
 - a hero overview and a **coverage snapshot** — Direct / Supporting / Evidence Required;
 - a **reference architecture** diagram and an **evidence-flow** diagram (rendered natively on GitHub);
@@ -140,6 +147,7 @@ them and know exactly what they are looking at:
 | [FedRAMP (Moderate)](https://github.com/chandrapati/CSW-FedRAMP-Reference-Design) | ConMon evidence and POA&amp;M inputs on the 800-53 Moderate baseline |
 | [CMMC 2.0](https://github.com/chandrapati/CSW-CMMC-Reference-Design) | Level-2 CUI-scope segmentation and AC/AU/CM/SC/SI evidence |
 | [FIPS 140](https://github.com/chandrapati/CSW-FIPS-Reference-Design) | Plaintext-protocol DENY enforcement and programme-level crypto-posture visibility |
+| [CJIS Security Policy](https://github.com/chandrapati/CSW-CJIS-Reference-Design) | Criminal-justice-information boundary segmentation and §5 audit / access evidence — *standalone repo only* |
 
 ### Zero trust
 | Framework | What you build &amp; evidence |
@@ -163,6 +171,7 @@ them and know exactly what they are looking at:
 | [NERC CIP](https://github.com/chandrapati/CSW-NERC-CIP-Reference-Design) | IT-side ESP/EACMS hardening plus ports / baseline / VA evidence (BES) |
 | [TSA Pipeline](https://github.com/chandrapati/CSW-TSA-Pipeline-Reference-Design) | IT-side IT/OT segmentation and CIRP / CAP evidence packs |
 | [TSA Rail](https://github.com/chandrapati/CSW-TSA-Rail-Reference-Design) | Section III.B zone enforcement, PTC back office, east-west / north-south traffic records |
+| [TSA Aviation (EA 23-01)](https://github.com/chandrapati/CSW-TSA-Aviation-Reference-Design) | Aircraft and airport operator IT/OT segmentation, built from public sources only — *standalone repo only* |
 
 ### Governance &amp; cross-framework
 | Framework | What you build &amp; evidence |
@@ -170,7 +179,7 @@ them and know exactly what they are looking at:
 | [NIST CSF 2.0](https://github.com/chandrapati/CSW-CSF-Reference-Design) | Govern plus ID / PR / DE / RS Subcategory evidence pack |
 | [CIS Controls v8.1](https://github.com/chandrapati/CSW-CIS-Reference-Design) | Direct on Controls 1/2/4/7/8/13 with IG1→IG3 deltas |
 | [COBIT 2019](https://github.com/chandrapati/CSW-COBIT-Reference-Design) | DSS05 / APO13 / MEA conformance and change/config evidence |
-| **Sarbanes-Oxley (SOX) ITGC** | ITGC evidence for the network-access layer: period operating effectiveness, close-cycle baseline, IPE integrity. Draft v1 (Nov 2026) |
+| [Sarbanes-Oxley (SOX) ITGC](https://github.com/chandrapati/CSW-SOX-Reference-Design) | ITGC evidence for the network-access layer: period operating effectiveness, close-cycle baseline, IPE integrity. Draft v1 (Nov 2026) |
 | [MITRE ATT&amp;CK (Enterprise)](https://github.com/chandrapati/CSW-MITRE-ATTACK-Reference-Design) | Tactic-by-tactic detection/prevention mapping and SOC integration |
 
 ### Regional &amp; sector
@@ -180,6 +189,7 @@ them and know exactly what they are looking at:
 | [NIS2 (EU 2022/2555)](https://github.com/chandrapati/CSW-NIS2-Reference-Design) | Art. 21(2) risk-management and Art. 23 24h/72h/1-month incident dossier |
 | [Australian Essential Eight](https://github.com/chandrapati/CSW-Essential-Eight-Reference-Design) | ML1–ML3 maturity and patch prioritisation via CVE + EPSS |
 | [UK Cyber Essentials Plus](https://github.com/chandrapati/CSW-Cyber-Essentials-Reference-Design) | Workload firewall, secure configuration, and patch evidence |
+| [UK NCSC CAF](./UK-NCSC-CAF/CSW-UK-NCSC-CAF-Reference-Design.md) | Objective B4 / B2 outcomes and IGP maturity scoring — *in this repository; no standalone repo yet* |
 | [TISAX / VDA ISA](https://github.com/chandrapati/CSW-TISAX-Reference-Design) | Automotive prototype / engineering workload segmentation and supplier egress |
 
 ## Customer design aids
@@ -246,7 +256,7 @@ reach for the reference design vs. the report).
 | NIST SP 800-171 Rev. 3 | CUI enclave isolation; 03.01/03.13 flow enforcement; Rev 3 family alignment with 800-53; CMMC L2 underpinning evidence | [MD](./NIST-800-171/CSW-NIST-800-171-Reference-Design.md) · [PDF](./NIST-800-171/CSW-NIST-800-171-Reference-Design.pdf) · [DOCX](./NIST-800-171/CSW-NIST-800-171-Reference-Design.docx) · [HTML](./NIST-800-171/CSW-NIST-800-171-Reference-Design.html) | [PDF](./NIST-800-171/CSW-NIST-800-171-Compliance-Report.pdf) · [DOCX](./NIST-800-171/CSW-NIST-800-171-Compliance-Report.docx) · [HTML](./NIST-800-171/CSW-NIST-800-171-Compliance-Report.html) |
 | CSA CCM v4 | Cloud workload segmentation; IVS-09 network security; DSP data isolation; TVM reachability; STAR certification evidence support | [MD](./CSA-CCM/CSW-CSA-CCM-Reference-Design.md) · [PDF](./CSA-CCM/CSW-CSA-CCM-Reference-Design.pdf) · [DOCX](./CSA-CCM/CSW-CSA-CCM-Reference-Design.docx) · [HTML](./CSA-CCM/CSW-CSA-CCM-Reference-Design.html) | [PDF](./CSA-CCM/CSW-CSA-CCM-Compliance-Report.pdf) · [DOCX](./CSA-CCM/CSW-CSA-CCM-Compliance-Report.docx) · [HTML](./CSA-CCM/CSW-CSA-CCM-Compliance-Report.html) |
 | COBIT 2019 | DSS05.02 network security; APO13 managed security; MEA01/02 conformance monitoring; BAI06/10 change and configuration evidence | [MD](./COBIT-2019/CSW-COBIT-Reference-Design.md) · [PDF](./COBIT-2019/CSW-COBIT-Reference-Design.pdf) · [DOCX](./COBIT-2019/CSW-COBIT-Reference-Design.docx) · [HTML](./COBIT-2019/CSW-COBIT-Reference-Design.html) | [PDF](./COBIT-2019/CSW-COBIT-Compliance-Report.pdf) · [DOCX](./COBIT-2019/CSW-COBIT-Compliance-Report.docx) · [HTML](./COBIT-2019/CSW-COBIT-Compliance-Report.html) |
-| **Sarbanes-Oxley (SOX) ITGC** | Four conventional ITGC domains (APD / PC / PD / CO) with COBIT and PCAOB AS 2201 cross-references. Direct evidence is the **network-access layer of APD** plus CO monitoring; PC is detective only and PD is out of scope. Close-cycle ADM baseline, period operating-effectiveness evidence, and IPE integrity records. **SOX has no official control catalogue** — draft v1 (Nov 2026) | [MD](./SOX/CSW-SOX-Reference-Design.md) | — |
+| **Sarbanes-Oxley (SOX) ITGC** | Four conventional ITGC domains (APD / PC / PD / CO) with COBIT and PCAOB AS 2201 cross-references. Direct evidence is the **network-access layer of APD** plus CO monitoring; PC is detective only and PD is out of scope. Close-cycle ADM baseline, period operating-effectiveness evidence, and IPE integrity records. **SOX has no official control catalogue** — draft v1 (Nov 2026) | [MD](./SOX/CSW-SOX-Reference-Design.md) · [PDF](./SOX/CSW-SOX-Reference-Design.pdf) · [DOCX](./SOX/CSW-SOX-Reference-Design.docx) · [HTML](./SOX/CSW-SOX-Reference-Design.html) | — |
 | Australian Essential Eight | ML1–ML3 maturity evidence; E2/E6 patch prioritisation via CVE+EPSS; E5 admin privilege path restriction; E1 application control support | [MD](./AU-Essential-Eight/CSW-Essential-Eight-Reference-Design.md) · [PDF](./AU-Essential-Eight/CSW-Essential-Eight-Reference-Design.pdf) · [DOCX](./AU-Essential-Eight/CSW-Essential-Eight-Reference-Design.docx) · [HTML](./AU-Essential-Eight/CSW-Essential-Eight-Reference-Design.html) | [PDF](./AU-Essential-Eight/CSW-Essential-Eight-Compliance-Report.pdf) · [DOCX](./AU-Essential-Eight/CSW-Essential-Eight-Compliance-Report.docx) · [HTML](./AU-Essential-Eight/CSW-Essential-Eight-Compliance-Report.html) |
 | UK Cyber Essentials Plus | CE1 workload-level firewall; CE2 secure configuration baseline; CE5 patch management evidence; Plus technical verification support | [MD](./UK-Cyber-Essentials/CSW-Cyber-Essentials-Reference-Design.md) · [PDF](./UK-Cyber-Essentials/CSW-Cyber-Essentials-Reference-Design.pdf) · [DOCX](./UK-Cyber-Essentials/CSW-Cyber-Essentials-Reference-Design.docx) · [HTML](./UK-Cyber-Essentials/CSW-Cyber-Essentials-Reference-Design.html) | [PDF](./UK-Cyber-Essentials/CSW-Cyber-Essentials-Compliance-Report.pdf) · [DOCX](./UK-Cyber-Essentials/CSW-Cyber-Essentials-Compliance-Report.docx) · [HTML](./UK-Cyber-Essentials/CSW-Cyber-Essentials-Compliance-Report.html) |
 | **UK NCSC CAF v3.2** | 14 principles for UK NIS OES and GovAssure. Direct evidence is B5.b segregation only; the other principles are supporting or out of scope. Draft v1 (Oct 2026) | [MD](./UK-NCSC-CAF/CSW-UK-NCSC-CAF-Reference-Design.md) · [Mapping](./UK-NCSC-CAF/caf-mapping.md) · [IGP scorer](./UK-NCSC-CAF/caf-igp-maturity-scorer.md) · [Evidence pack](./UK-NCSC-CAF/caf-evidence-pack-template.md) | [MD](./UK-NCSC-CAF/CSW-UK-NCSC-CAF-Compliance-Report.md) |
@@ -259,7 +269,7 @@ reach for the reference design vs. the report).
 | NIST SP 800-82 | OT-adjacent IT segmentation; jump hosts, historians, patch repositories, identity services, vendor access; pair with OT visibility | [MD](./NIST-800-82/CSW-NIST-800-82-Reference-Design.md) · [PDF](./NIST-800-82/CSW-NIST-800-82-Reference-Design.pdf) · [DOCX](./NIST-800-82/CSW-NIST-800-82-Reference-Design.docx) · [HTML](./NIST-800-82/CSW-NIST-800-82-Reference-Design.html) | [PDF](./NIST-800-82/CSW-NIST-800-82-Compliance-Report.pdf) · [DOCX](./NIST-800-82/CSW-NIST-800-82-Compliance-Report.docx) · [HTML](./NIST-800-82/CSW-NIST-800-82-Compliance-Report.html) |
 | BSI C5 | Cloud service assurance; tenant/shared-service workload boundaries; cloud communication security; vulnerability and incident evidence | [MD](./BSI-C5/CSW-BSI-C5-Reference-Design.md) · [PDF](./BSI-C5/CSW-BSI-C5-Reference-Design.pdf) · [DOCX](./BSI-C5/CSW-BSI-C5-Reference-Design.docx) · [HTML](./BSI-C5/CSW-BSI-C5-Reference-Design.html) | [PDF](./BSI-C5/CSW-BSI-C5-Compliance-Report.pdf) · [DOCX](./BSI-C5/CSW-BSI-C5-Compliance-Report.docx) · [HTML](./BSI-C5/CSW-BSI-C5-Compliance-Report.html) |
 > **Quickly find a control?** See [`INDEX.md`](./INDEX.md) for a
-> control-ID-keyed index across all thirty-five frameworks (e.g. *PCI Req
+> control-ID-keyed index across all thirty-eight frameworks (e.g. *PCI Req
 > 1.2*, *HIPAA §164.312(a)(1)*, *DORA Art. 9*, *NIS2 Art. 21(2)(d)*,
 > *NIST AC-4*, *NERC CIP-005 R1*, *TSA SD Section III.A*, *IEC 62443 SR 5.3*,
 > *GDPR Art. 32*, *FedRAMP AC-4*, *SWIFT CSCF 1.4*, *HITRUST 01.m*, *MITRE TA0008*,
@@ -321,7 +331,7 @@ reach for the reference design vs. the report).
 - **[Audience and usage guide](./docs/audience-and-usage.md)** — who
   should lead with which document, reference-design-vs-report guidance, file
   format guidance, and the full folder layout.
-- **[`INDEX.md`](./INDEX.md)** — control-ID lookup across all thirty-five
+- **[`INDEX.md`](./INDEX.md)** — control-ID lookup across all thirty-eight
   frameworks.
 - **[CSW Epic EHR Microsegmentation Guide](https://github.com/chandrapati/CSW-Epic-Microsegmentation-Guide)** —
   step-by-step practitioner guide for Epic tier scopes, ADM, Interconnect/HL7
@@ -432,7 +442,7 @@ Learning paths, reference material, and day-2 tooling:
 | Resource | Description | Best for |
 |----------|-------------|---------|
 | [📘 User Education](https://github.com/chandrapati/CSW-User-Education) | Onboarding guides, concept explainers, and curated video library | New CSW users |
-| [📘 Compliance Reference Designs](https://github.com/chandrapati/CSW-Compliance-Reference-Designs) | Reference designs + assessor-ready reports mapping CSW to 37 frameworks | Compliance & audit |
+| [📘 Compliance Reference Designs](https://github.com/chandrapati/CSW-Compliance-Reference-Designs) | Reference designs + assessor-ready reports mapping CSW to 38 frameworks | Compliance & audit |
 | [📘 Tenant Insights](https://github.com/chandrapati/CSW-Tenant-Insights) | Tenant-level reporting and analytics | Visibility metrics |
 | [📘 Operations Toolkit](https://github.com/chandrapati/CSW-Operations-Toolkit) | Day-2 ops scripts: health checks, reporting, policy analysis | Ongoing operations |
 | [📄 Supported OS & Compatibility Matrix](https://www.cisco.com/c/m/en_us/products/security/secure-workload-compatibility-matrix.html) | Cisco's authoritative list of supported agent operating systems, external systems, and connector requirements | Platform planning & prerequisites |

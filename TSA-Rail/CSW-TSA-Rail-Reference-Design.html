@@ -312,7 +312,7 @@ td.cov-evidence { background: #808080 !important; color: #fff !important;
 </style>
 </head>
 <body>
-<div class="doc-meta">Source: <a href="CSW-TSA-Rail-Reference-Design.html">CSW-TSA-Rail-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-10-16T19:26:51Z UTC · Repository commit: bdf48c6</div>
+<div class="doc-meta">Source: <a href="CSW-TSA-Rail-Reference-Design.html">CSW-TSA-Rail-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-11-03T19:10:46Z UTC · Repository commit: c8e3f63</div>
 <header id="title-block-header">
 <h1 class="title">TSA Rail Cybersecurity — Reference Design</h1>
 </header>
@@ -321,8 +321,8 @@ td.cov-evidence { background: #808080 !important; color: #fff !important;
 <li><a href="#cisco-secure-workload-tsa-rail-cybersecurity" id="toc-cisco-secure-workload-tsa-rail-cybersecurity">Cisco Secure
 Workload — TSA Rail Cybersecurity</a>
 <ul>
-<li><a href="#technical-reference design-freight-passenger-railroad-owneroperators" id="toc-technical-reference design-freight-passenger-railroad-owneroperators">Technical
-Reference Design | Freight &amp; Passenger Railroad Owner/Operators</a></li>
+<li><a href="#reference-design-freight-passenger-railroad-owneroperators" id="toc-reference-design-freight-passenger-railroad-owneroperators">Reference
+Design | Freight &amp; Passenger Railroad Owner/Operators</a></li>
 <li><a href="#readers-guide" id="toc-readers-guide">Reader’s
 Guide</a></li>
 <li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
@@ -376,8 +376,8 @@ Related Frameworks</a></li>
 </nav>
 <h1 id="cisco-secure-workload-tsa-rail-cybersecurity">Cisco Secure
 Workload — TSA Rail Cybersecurity</h1>
-<h2 id="technical-reference design-freight-passenger-railroad-owneroperators">Technical
-Reference Design | Freight &amp; Passenger Railroad Owner/Operators</h2>
+<h2 id="reference-design-freight-passenger-railroad-owneroperators">Reference
+Design | Freight &amp; Passenger Railroad Owner/Operators</h2>
 <p><strong>Version:</strong> 1.0 (draft — pending SME review) |
 <strong>Standard:</strong> TSA Security Directive 1580/82-2022-01E,
 <em>Rail Cybersecurity Mitigation Actions and Testing</em> (effective
@@ -404,9 +404,9 @@ proactively.</p>
 Implementation Plan — not against the Security Directive text, and not
 against a vendor document.</strong> The SD requires you to establish a
 plan describing the specific measures and schedule for achieving the
-outcomes in Sections III.A–III.E. Every CSW artifact in this reference design
-must be mapped to a measure in that plan. An evidence pack keyed only to
-SD provision numbers will not land in an inspection.</p>
+outcomes in Sections III.A–III.E. Every CSW artifact in this reference
+design must be mapped to a measure in that plan. An evidence pack keyed
+only to SD provision numbers will not land in an inspection.</p>
 <p><strong>Why this framework fits CSW unusually well.</strong> Section
 IV.C.2.e lists, among the records TSA inspectors may demand,
 <strong>“East-West Traffic” of Operational Technology systems</strong>
@@ -428,7 +428,8 @@ device, and does not perform deep packet inspection of rail or OT
 protocols. CSW’s contribution is at the <strong>IT side of the IT/OT
 boundary</strong> and within the IT systems that support rail
 operations. See section 2.</p>
-<p><strong>Questions this reference design helps you answer:</strong></p>
+<p><strong>Questions this reference design helps you
+answer:</strong></p>
 <ul>
 <li><em>Section III.A — do I have a current, defensible Critical Cyber
 System inventory, including the PTC systems the SD makes mandatory, and
@@ -472,9 +473,9 @@ Owner/Operator has delegated measures to a <strong>Managed Security
 Service Provider</strong> or an <strong>Authorized
 Representative</strong>, the Owner/Operator <strong>retains sole
 responsibility</strong> for compliance, and both parties are liable for
-the representative’s non-compliance. Nothing in this reference design substitutes
-for the accountable officer’s responsibility under the SD or for the
-formal TSA inspection response.</p>
+the representative’s non-compliance. Nothing in this reference design
+substitutes for the accountable officer’s responsibility under the SD or
+for the formal TSA inspection response.</p>
 <hr />
 <!-- CSW-RUNBOOK-PRIMER:v1 -->
 <h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
@@ -1530,14 +1531,14 @@ workload-tier complement (§10)</td>
 <ul>
 <li><strong>TSA Pipeline Security Directive</strong> — the sister TSA
 mode; the four performance-based outcomes are harmonized, so the zone
-model and evidence pack transfer closely. See <a href="../TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.html">TSA
-Pipeline reference design</a>.</li>
+model and evidence pack transfer closely. See <a href="../TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.html">TSA Pipeline
+reference design</a>.</li>
 <li><strong>NERC CIP</strong> — the bulk-electric-system analogue;
-identical IT-side ESP-enclave patterns apply. See <a href="../NERC-CIP/CSW-NERC-CIP-Reference-Design.html">NERC CIP
-reference design</a>.</li>
+identical IT-side ESP-enclave patterns apply. See <a href="../NERC-CIP/CSW-NERC-CIP-Reference-Design.html">NERC CIP reference
+design</a>.</li>
 <li><strong>IEC 62443</strong> — zones and conduits, the engineering
-vocabulary behind the SD’s Section III.B zone language. See <a href="../IEC-62443/CSW-IEC62443-Reference-Design.html">IEC 62443
-reference design</a>.</li>
+vocabulary behind the SD’s Section III.B zone language. See <a href="../IEC-62443/CSW-IEC62443-Reference-Design.html">IEC 62443 reference
+design</a>.</li>
 <li><strong>NIST SP 800-82 Rev 3</strong> — OT security guidance for the
 estate surrounding the devices CSW does not reach. See <a href="../NIST-800-82/CSW-NIST-800-82-Reference-Design.html">800-82
 reference design</a>.</li>
@@ -1552,11 +1553,11 @@ reference design</a>.</li>
 </ul>
 <hr />
 <h2 id="disclaimer">13. Disclaimer</h2>
-<p>This reference design is <strong>draft v1</strong> describing how Cisco Secure
-Workload capabilities can support a TSA Rail Security Directive
-cybersecurity programme on the <strong>IT side</strong> of the IT/OT
-boundary. It is <strong>not</strong> legal or regulatory advice and does
-not constitute a finding of compliance.</p>
+<p>This reference design is <strong>draft v1</strong> describing how
+Cisco Secure Workload capabilities can support a TSA Rail Security
+Directive cybersecurity programme on the <strong>IT side</strong> of the
+IT/OT boundary. It is <strong>not</strong> legal or regulatory advice
+and does not constitute a finding of compliance.</p>
 <p>Specifically:</p>
 <ul>
 <li>TSA Security Directives are issued and revised by the Transportation

@@ -67,7 +67,10 @@ FRAMEWORKS = [
     ("NY-DFS-23-NYCRR-500", "NY DFS 23 NYCRR Part 500",              "NY-DFS-23-NYCRR-500/CSW-NYDFS-Compliance-Report", "NY-DFS-23-NYCRR-500/CSW-NYDFS-Reference-Design"),
     ("TISAX",         "TISAX / VDA ISA",                             "TISAX/CSW-TISAX-Compliance-Report",          "TISAX/CSW-TISAX-Reference-Design"),
     ("NIST-800-82",   "NIST SP 800-82",                              "NIST-800-82/CSW-NIST-800-82-Compliance-Report", "NIST-800-82/CSW-NIST-800-82-Reference-Design"),
-    ("BSI-C5",        "BSI C5",                                      "BSI-C5/CSW-BSI-C5-Compliance-Report",        "BSI-C5/CSW-BSI-C5-Reference-Design"),]
+    ("BSI-C5",        "BSI C5",                                      "BSI-C5/CSW-BSI-C5-Compliance-Report",        "BSI-C5/CSW-BSI-C5-Reference-Design"),
+    ("UK-NCSC-CAF",   "UK NCSC CAF",                                 "UK-NCSC-CAF/CSW-UK-NCSC-CAF-Compliance-Report","UK-NCSC-CAF/CSW-UK-NCSC-CAF-Reference-Design"),
+    # SOX has no Compliance Report yet; the builder skips a missing report and still emits the design.
+    ("SOX",           "Sarbanes-Oxley (SOX) ITGC",                   "SOX/CSW-SOX-Compliance-Report",              "SOX/CSW-SOX-Reference-Design"),]
 
 
 def build_provenance() -> str:

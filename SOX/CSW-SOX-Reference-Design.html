@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sarbanes-Oxley (SOX) ITGC — Reference Design</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-SOX-Reference-Design.html">CSW-SOX-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-11-03T19:10:54Z UTC · Repository commit: c8e3f63</div>
+<header id="title-block-header">
+<h1 class="title">Sarbanes-Oxley (SOX) ITGC — Reference Design</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cisco-secure-workload-sarbanes-oxley-sox-it-general-controls" id="toc-cisco-secure-workload-sarbanes-oxley-sox-it-general-controls">Cisco
+Secure Workload — Sarbanes-Oxley (SOX) IT General Controls</a>
+<ul>
+<li><a href="#reference-design-internal-audit-sox-pmo-it-compliance-teams" id="toc-reference-design-internal-audit-sox-pmo-it-compliance-teams">Reference
+Design | Internal Audit, SOX PMO &amp; IT Compliance Teams</a></li>
+<li><a href="#scoping-note-read-this-first" id="toc-scoping-note-read-this-first">Scoping note — read this
+first</a></li>
+<li><a href="#readers-guide" id="toc-readers-guide">Reader’s
+Guide</a></li>
+<li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</a></li>
+<li><a href="#universal-evidence-workflow" id="toc-universal-evidence-workflow">Universal evidence workflow</a>
+<ul>
+<li><a href="#phase-1-checklist-coverage" id="toc-phase-1-checklist-coverage">Phase 1 checklist
+(coverage)</a></li>
+<li><a href="#phase-2-checklist-baseline" id="toc-phase-2-checklist-baseline">Phase 2 checklist
+(baseline)</a></li>
+<li><a href="#phase-3-checklist-policy" id="toc-phase-3-checklist-policy">Phase 3 checklist (policy)</a></li>
+<li><a href="#phase-4-checklist-operate" id="toc-phase-4-checklist-operate">Phase 4 checklist (operate)</a></li>
+<li><a href="#what-csw-evidence-does-not-replace" id="toc-what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</a></li>
+</ul></li>
+<li><a href="#csw-effectiveness-for-this-framework" id="toc-csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</a></li>
+<li><a href="#overview" id="toc-overview">1. Overview</a>
+<ul>
+<li><a href="#itgc-domains-and-csw-relevance-summary" id="toc-itgc-domains-and-csw-relevance-summary">1.1 ITGC Domains and CSW
+Relevance (Summary)</a></li>
+</ul></li>
+<li><a href="#pre-deployment-checklist" id="toc-pre-deployment-checklist">2. Pre-Deployment Checklist</a></li>
+<li><a href="#phase-1-sensor-deployment-days-15" id="toc-phase-1-sensor-deployment-days-15">3. Phase 1 — Sensor
+Deployment (Days 1–5)</a>
+<ul>
+<li><a href="#on-premises-workloads" id="toc-on-premises-workloads">3.1
+On-Premises Workloads</a></li>
+<li><a href="#cloud-workloads-aws-azure-gcp" id="toc-cloud-workloads-aws-azure-gcp">3.2 Cloud Workloads (AWS / Azure
+/ GCP)</a></li>
+<li><a href="#sensor-validation" id="toc-sensor-validation">3.3 Sensor
+Validation</a></li>
+</ul></li>
+<li><a href="#phase-2-scope-and-inventory-design-days-610" id="toc-phase-2-scope-and-inventory-design-days-610">4. Phase 2 — Scope
+and Inventory Design (Days 6–10)</a>
+<ul>
+<li><a href="#sox-aligned-scope-hierarchy" id="toc-sox-aligned-scope-hierarchy">4.1 SOX-Aligned Scope
+Hierarchy</a></li>
+<li><a href="#label-design" id="toc-label-design">4.2 Label
+Design</a></li>
+<li><a href="#inventory-filters-for-in-scope-platforms" id="toc-inventory-filters-for-in-scope-platforms">4.3 Inventory Filters
+for In-Scope Platforms</a></li>
+</ul></li>
+<li><a href="#phase-3-visibility-baseline-and-adm-days-1145" id="toc-phase-3-visibility-baseline-and-adm-days-1145">5. Phase 3 —
+Visibility, Baseline, and ADM (Days 11–45)</a>
+<ul>
+<li><a href="#the-close-cycle-governs-your-baseline-window" id="toc-the-close-cycle-governs-your-baseline-window">5.1 The close
+cycle governs your baseline window</a></li>
+<li><a href="#baseline-questions-mapped-to-itgc-objectives" id="toc-baseline-questions-mapped-to-itgc-objectives">5.2 Baseline
+Questions Mapped to ITGC Objectives</a></li>
+<li><a href="#undeclared-interfaces-are-a-finding-not-a-nuisance" id="toc-undeclared-interfaces-are-a-finding-not-a-nuisance">5.3
+Undeclared interfaces are a finding, not a nuisance</a></li>
+<li><a href="#change-and-configuration-signals-pc" id="toc-change-and-configuration-signals-pc">5.4 Change and
+Configuration Signals (<strong>PC</strong>)</a></li>
+</ul></li>
+<li><a href="#phase-4-policy-design-and-enforcement-days-4670" id="toc-phase-4-policy-design-and-enforcement-days-4670">6. Phase 4 —
+Policy Design and Enforcement (Days 46–70)</a>
+<ul>
+<li><a href="#sox-oriented-policy-workspace" id="toc-sox-oriented-policy-workspace">6.1 SOX-Oriented Policy
+Workspace</a></li>
+<li><a href="#policy-workspace-setup" id="toc-policy-workspace-setup">6.2 Policy Workspace Setup</a></li>
+<li><a href="#enforcement-progression" id="toc-enforcement-progression">6.3 Enforcement Progression</a></li>
+<li><a href="#rollback-is-part-of-the-control-design" id="toc-rollback-is-part-of-the-control-design">6.4 Rollback is part of
+the control design</a></li>
+</ul></li>
+<li><a href="#phase-5-control-objective-mapping" id="toc-phase-5-control-objective-mapping">7. Phase 5 —
+Control-Objective Mapping</a></li>
+<li><a href="#phase-6-vulnerability-reachability-and-risk-inputs" id="toc-phase-6-vulnerability-reachability-and-risk-inputs">8. Phase 6 —
+Vulnerability, Reachability, and Risk Inputs</a>
+<ul>
+<li><a href="#vulnerability-and-exposure-reporting" id="toc-vulnerability-and-exposure-reporting">8.1 Vulnerability and
+Exposure Reporting</a></li>
+<li><a href="#prioritisation-pattern" id="toc-prioritisation-pattern">8.2 Prioritisation Pattern</a></li>
+<li><a href="#how-this-lands-in-a-sox-conversation" id="toc-how-this-lands-in-a-sox-conversation">8.3 How this lands in a
+SOX conversation</a></li>
+</ul></li>
+<li><a href="#phase-7-monitoring-drift-and-period-evidence" id="toc-phase-7-monitoring-drift-and-period-evidence">9. Phase 7 —
+Monitoring, Drift, and Period Evidence</a>
+<ul>
+<li><a href="#monitoring-patterns" id="toc-monitoring-patterns">9.1
+Monitoring Patterns</a></li>
+<li><a href="#agent-gaps-are-period-evidence-gaps" id="toc-agent-gaps-are-period-evidence-gaps">9.2 Agent gaps are
+period-evidence gaps</a></li>
+<li><a href="#continuous-evidence-supports-roll-forward-and-benchmarking" id="toc-continuous-evidence-supports-roll-forward-and-benchmarking">9.3
+Continuous evidence supports roll-forward and benchmarking</a></li>
+<li><a href="#forensic-use" id="toc-forensic-use">9.4 Forensic
+Use</a></li>
+</ul></li>
+<li><a href="#boundaries-what-csw-does-not-cover" id="toc-boundaries-what-csw-does-not-cover">10. Boundaries — What CSW
+Does <strong>Not</strong> Cover</a></li>
+<li><a href="#audit-preparation-and-evidence-export" id="toc-audit-preparation-and-evidence-export">11. Audit Preparation and
+Evidence Export</a>
+<ul>
+<li><a href="#typical-evidence-package-quarterly-aligned-to-section-302" id="toc-typical-evidence-package-quarterly-aligned-to-section-302">11.1
+Typical Evidence Package (Quarterly, aligned to Section 302)</a></li>
+<li><a href="#ipe-integrity-treat-csw-exports-as-information-produced-by-the-entity" id="toc-ipe-integrity-treat-csw-exports-as-information-produced-by-the-entity">11.2
+IPE integrity — treat CSW exports as Information Produced by the
+Entity</a></li>
+<li><a href="#control-testing-tips" id="toc-control-testing-tips">11.3
+Control Testing Tips</a></li>
+</ul></li>
+<li><a href="#common-pitfalls" id="toc-common-pitfalls">12. Common
+Pitfalls</a></li>
+<li><a href="#appendix-a-sox-coso-and-cobit-orientation" id="toc-appendix-a-sox-coso-and-cobit-orientation">Appendix A — SOX,
+COSO, and COBIT Orientation</a></li>
+<li><a href="#appendix-b-related-frameworks" id="toc-appendix-b-related-frameworks">Appendix B — Related
+Frameworks</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cisco-secure-workload-sarbanes-oxley-sox-it-general-controls">Cisco
+Secure Workload — Sarbanes-Oxley (SOX) IT General Controls</h1>
+<h2 id="reference-design-internal-audit-sox-pmo-it-compliance-teams">Reference
+Design | Internal Audit, SOX PMO &amp; IT Compliance Teams</h2>
+<p><strong>Version:</strong> 1.0 (draft v1 — see scoping note below)
+<strong>Use Case:</strong> Fresh Install, Hybrid Environment (On-Prem +
+Cloud)</p>
+<hr />
+<h2 id="scoping-note-read-this-first">Scoping note — read this
+first</h2>
+<p><strong>SOX is a statute, not a control catalogue.</strong> The
+Sarbanes-Oxley Act of 2002 requires management to assess internal
+control over financial reporting (<strong>Section 404(a)</strong>) and,
+for accelerated filers, requires the external auditor to attest to it
+(<strong>Section 404(b)</strong>). Neither the Act nor the SEC publishes
+a list of controls to implement. Companies satisfy SOX by selecting
+frameworks — <strong>COSO 2013</strong> for the entity-level and
+<strong>COBIT 2019</strong> for IT general controls — and by designing
+controls that support the assertions in their financial statements.</p>
+<p>This reference design therefore maps CSW to the <strong>four
+conventional ITGC domains</strong> used by virtually every SOX programme
+and external audit firm, and cross-references <strong>COBIT
+2019</strong> objectives and <strong>PCAOB AS 2201</strong>
+requirements. It deliberately does <strong>not</strong> invent SOX
+control identifiers.</p>
+<p>The honest summary of CSW’s contribution:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>ITGC domain</th>
+<th>CSW contribution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Access to Programs and Data</strong></td>
+<td>Substantial — for the <strong>network-path</strong> portion of
+logical access</td>
+</tr>
+<tr>
+<td><strong>Computer Operations</strong></td>
+<td>Moderate — monitoring, availability signals, incident
+reconstruction</td>
+</tr>
+<tr>
+<td><strong>Program Changes</strong></td>
+<td>Limited — technical drift detection, not change authorisation</td>
+</tr>
+<tr>
+<td><strong>Program Development</strong></td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>CSW does not address user entitlement review, segregation of duties
+inside the financial application, or change-management workflow. Those
+remain with IAM, PAM, the application, and ITSM. Read Section 10 before
+writing any control narrative.</p>
+<hr />
+<h2 id="readers-guide">Reader’s Guide</h2>
+<p><strong>Who this is for.</strong> SOX programme managers and internal
+audit teams scoping IT general controls over financially-relevant
+systems; IT compliance teams preparing evidence for 404(a) management
+testing or 404(b) external audit; and security architects who need their
+segmentation programme to produce artefacts the SOX testers will
+accept.</p>
+<p><strong>Questions this reference design helps you
+answer:</strong></p>
+<ul>
+<li><em>Which of my workloads are genuinely in the SOX boundary, and can
+I defend that boundary to an external auditor with something better than
+a spreadsheet?</em></li>
+<li><em>How do I evidence the flow of transactions through the financial
+reporting system, as PCAOB AS 2201 expects, using a live technical
+data-flow rather than an aged architecture diagram?</em></li>
+<li><em>How do I demonstrate <strong>operating</strong> effectiveness of
+a network access control across the full fiscal period, not just design
+effectiveness on the walkthrough date?</em></li>
+<li><em>How do I keep CSW exports admissible as Information Produced by
+the Entity (IPE), so a tester can rely on them without re-performing the
+query?</em></li>
+<li><em>Which ITGC control objectives can carry CSW evidence, and which
+must I leave entirely to IAM, ITSM, and the application?</em></li>
+<li><em>Can continuous CSW evidence support a benchmarking or
+roll-forward strategy and reduce year-end testing effort?</em></li>
+</ul>
+<p><strong>What you’ll need.</strong> The current SOX scoping memo
+(significant accounts, in-scope business cycles, and the
+financially-relevant application list), the infrastructure supporting
+those applications, your fiscal calendar including quarter-end and
+year-end close windows, and either CSW already deployed or documented
+scope decisions for sensor and connector coverage.</p>
+<p><strong>Where to start.</strong> Sections 1–4 if you are defining the
+SOX boundary; 5–7 if you are baselining transaction flows and designing
+policy; 8–11 if you are collecting evidence for a testing cycle or an
+external audit request.</p>
+<hr />
+<!-- CSW-RUNBOOK-PRIMER:v1 -->
+<h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</h2>
+<p>Cisco Secure Workload (CSW) is a <strong>workload protection
+platform</strong>. A lightweight <strong>agent</strong> on each
+server/VM/container observes processes and network flows; <strong>cloud
+connectors</strong> add AWS/Azure/GCP inventory where agents are not
+deployed.</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW term</th>
+<th>Meaning</th>
+<th>Why compliance teams care</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Logical boundary (CDE, PHI zone, CUI enclave)</td>
+<td>Defines the systems you must prove are isolated</td>
+</tr>
+<tr>
+<td><strong>Label / filter</strong></td>
+<td>Tag or query assigning workloads to scopes</td>
+<td>Automates scope membership — reduces drift</td>
+</tr>
+<tr>
+<td><strong>ADM</strong></td>
+<td>Application Dependency Mapping from observed traffic</td>
+<td><strong>Live</strong> network/data-flow diagram for assessors</td>
+</tr>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>Policy container for one scope or application</td>
+<td>Where allow/deny rules are authored</td>
+</tr>
+<tr>
+<td><strong>Monitor → Simulation → Enforce</strong></td>
+<td>Safe rollout sequence</td>
+<td>Simulation = change-board evidence before blocking traffic</td>
+</tr>
+<tr>
+<td><strong>Denied Connections</strong></td>
+<td>Log of flows blocked by policy</td>
+<td>Primary proof that enforcement <strong>operates</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Console areas:</strong> Investigate (inventory, flows, vulns)
+· Defend/Segmentation (policy) · Manage (agents) · Platform (connectors)
+· Administration (audit log)</p>
+<p><strong>Read next:</strong> <a href="../docs/compliance-evidence-playbook.html">Compliance evidence
+playbook</a> (full step-by-step) · <a href="../docs/about-csw.html">About
+CSW</a> (platform intro)</p>
+<hr />
+<h2 id="universal-evidence-workflow">Universal evidence workflow</h2>
+<p>Execute these phases for <strong>this framework’s</strong> compliance
+boundary. Map exports to control objectives in the <strong>Reporting
+&amp; Evidence</strong> section below.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Key CSW actions</th>
+<th>Typical duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Coverage</strong></td>
+<td>Every in-scope workload in CSW</td>
+<td>Install agents/connectors; apply SOX labels; create scope</td>
+<td>Days 1–10</td>
+</tr>
+<tr>
+<td><strong>2 — Baseline</strong></td>
+<td>Machine-generated flow map</td>
+<td>Run ADM across a <strong>full close cycle</strong>; export clusters;
+app-owner signoff</td>
+<td>Days 11–45</td>
+</tr>
+<tr>
+<td><strong>3 — Policy</strong></td>
+<td>Designed isolation before enforce</td>
+<td>Build workspace; Simulation mode; fix false positives</td>
+<td>Days 46–70</td>
+</tr>
+<tr>
+<td><strong>4 — Operate</strong></td>
+<td>Continuous proof across the fiscal period</td>
+<td>Enforce; quarterly export pack; ADM refresh every 90 days</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note the longer Phase 2.</strong> SOX is the one framework in
+this library where a two-week baseline is actively insufficient. See
+Section 5.1.</p>
+<h3 id="phase-1-checklist-coverage">Phase 1 checklist (coverage)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>SOX-relevant host list reconciled to
+CSW Inventory (100% or documented exceptions)</label></li>
+<li><label><input type="checkbox"></input>Labels applied:
+<code>sox_scope</code>, <code>sox_cycle</code>,
+<code>itgc_domain</code>, <code>financial_app</code></label></li>
+<li><label><input type="checkbox"></input>CSW scope created matching the SOX
+boundary from the scoping memo</label></li>
+<li><label><input type="checkbox"></input>Coverage gaps logged in the
+deficiency tracker, not just an IT backlog</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> inventory
+CSV + agent status screenshot, both timestamped</label></li>
+</ul>
+<h3 id="phase-2-checklist-baseline">Phase 2 checklist (baseline)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>ADM running on the SOX scope across
+<strong>at least one full month-end close</strong>, ideally a
+quarter-end</label></li>
+<li><label><input type="checkbox"></input>Batch, interface, and file-transfer
+flows captured and attributed to a business cycle</label></li>
+<li><label><input type="checkbox"></input>Unexpected flows documented
+(undeclared interfaces, vendor egress, scope creep)</label></li>
+<li><label><input type="checkbox"></input>Application and process owners
+signed the cluster-to-application mapping</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> ADM diagram
++ flow samples with process context</label></li>
+</ul>
+<h3 id="phase-3-checklist-policy">Phase 3 checklist (policy)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Default-deny posture defined for the
+financial reporting core</label></li>
+<li><label><input type="checkbox"></input>ADM-imported rules refined;
+Simulation run across a close window</label></li>
+<li><label><input type="checkbox"></input>Change tickets raised for every
+false-positive fix; exception register updated</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> policy
+export + simulation report, linked to change record IDs</label></li>
+</ul>
+<h3 id="phase-4-checklist-operate">Phase 4 checklist (operate)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Enforcement enabled; negative test
+recorded in Denied Connections</label></li>
+<li><label><input type="checkbox"></input>Quarterly pack: inventory, policy,
+denies, vulns, audit log (see playbook)</label></li>
+<li><label><input type="checkbox"></input>IPE integrity controls applied to
+every export (see Section 11.2)</label></li>
+<li><label><input type="checkbox"></input>SIEM integration verified (sample
+events)</label></li>
+<li><label><input type="checkbox"></input><strong>Export:</strong> enforcement
+screenshot + quarterly binder with hash manifest</label></li>
+</ul>
+<h3 id="what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</h3>
+<p>User access reviews and entitlement recertification, segregation of
+duties within the financial application, change authorisation workflow,
+SDLC and program development controls, backup and recovery testing,
+management review controls, entity-level COSO controls, and external
+auditor attestation all require separate programmes. CSW addresses the
+<strong>workload-resident</strong> slice: the network paths into
+financially-relevant systems, the flows between them, process context,
+vulnerability reachability, and change drift.</p>
+<hr />
+<h2 id="csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</h2>
+<ul>
+<li><strong>Operating effectiveness across the period</strong>, rather
+than a walkthrough sample — Denied Connections provides a continuous
+record that the access restriction held</li>
+<li><strong>A defensible scope boundary</strong> — labels and ADM show
+what actually communicates with the financial reporting core, which
+frequently corrects the scoping memo</li>
+<li><strong>The flow of transactions</strong>, machine-generated, as AS
+2201 expects the auditor to understand</li>
+<li><strong>Drift detection</strong> between testing cycles, supporting
+a benchmarking argument for automated controls</li>
+</ul>
+<p><strong>Compared to manual programmes:</strong> SOX ITGC testing has
+historically relied on point-in-time samples — a firewall rule
+screenshot, a quarterly access list. Those show the control
+<em>existed</em> on one date. CSW ties evidence to <strong>live workload
+behaviour</strong> across the whole period and produces queryable
+exports on demand, which is what “operated effectively throughout the
+period” actually requires.</p>
+<hr />
+<h2 id="overview">1. Overview</h2>
+<p>The Sarbanes-Oxley Act of 2002 was enacted following a series of
+financial reporting failures. For technology teams, three provisions
+matter:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Provision</th>
+<th>Requirement</th>
+<th>Relevance to CSW</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Section 302</strong></td>
+<td>Quarterly management certification of disclosure controls</td>
+<td>Quarterly evidence cadence</td>
+</tr>
+<tr>
+<td><strong>Section 404(a)</strong></td>
+<td>Annual management assessment of internal control over financial
+reporting (ICFR)</td>
+<td>The testing programme CSW feeds</td>
+</tr>
+<tr>
+<td><strong>Section 404(b)</strong></td>
+<td>External auditor attestation on ICFR (accelerated filers)</td>
+<td>The audience that will challenge the evidence</td>
+</tr>
+<tr>
+<td><strong>Section 409</strong></td>
+<td>Rapid disclosure of material changes</td>
+<td>Incident reconstruction support</td>
+</tr>
+</tbody>
+</table>
+<p>ICFR is assessed against a recognised framework, in practice
+<strong>COSO 2013</strong>. The IT portion — <strong>IT general
+controls</strong> — is where CSW participates, and most organisations
+structure ITGC against <strong>COBIT 2019</strong>. The external auditor
+works to <strong>PCAOB AS 2201</strong>, which requires a top-down,
+risk-based approach: identify significant accounts and disclosures,
+understand the <strong>flow of transactions</strong>, identify where
+misstatement could occur, and test the controls that address those
+risks.</p>
+<p><strong>CSW is an IT general control over logical access at the
+network layer, plus a monitoring and evidence source.</strong> It is
+never, by itself, a SOX control. The control is the organisation’s
+restriction of access to financially-relevant systems; CSW implements
+part of that restriction and produces the artefacts that prove it
+operated.</p>
+<h3 id="itgc-domains-and-csw-relevance-summary">1.1 ITGC Domains and CSW
+Relevance (Summary)</h3>
+<p>The four domains below are conventional industry and audit-firm
+structure, not official SOX nomenclature. The abbreviations are used
+throughout this document for brevity.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>ITGC domain</th>
+<th>Focus</th>
+<th>CSW Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>APD</strong> — Access to Programs and Data</td>
+<td>Logical access to applications, databases, operating systems,
+networks</td>
+<td><strong>Strong for the network-path layer.</strong> Restricts and
+evidences which systems may reach financially-relevant workloads, and
+which administrative paths exist. Does <strong>not</strong> govern user
+accounts, entitlements, or authentication</td>
+</tr>
+<tr>
+<td><strong>PC</strong> — Program Changes</td>
+<td>Authorisation, testing, and approval of changes to in-scope
+systems</td>
+<td><strong>Detective only.</strong> Surfaces new packages, new
+listeners, and dependency changes after a change window. Authorisation
+remains in ITSM</td>
+</tr>
+<tr>
+<td><strong>PD</strong> — Program Development</td>
+<td>SDLC, acquisition, implementation of new systems</td>
+<td><strong>Out of scope.</strong> CSW observes a system once it runs;
+it has no role in how it was built</td>
+</tr>
+<tr>
+<td><strong>CO</strong> — Computer Operations</td>
+<td>Job scheduling, backup, incident management, monitoring</td>
+<td><strong>Moderate.</strong> Evidences batch and interface
+connectivity, agent and workload availability signals, and provides
+forensic reconstruction for incidents</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="pre-deployment-checklist">2. Pre-Deployment Checklist</h2>
+<p>Before deploying CSW sensors and connectors, confirm the
+following:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>CSW cluster (SaaS or on-premises) is
+provisioned and reachable from scoped workloads</label></li>
+<li><label><input type="checkbox"></input>Outbound connectivity from
+workloads/agents to the CSW cluster (typically TCP 443)</label></li>
+<li><label><input type="checkbox"></input>Linux, Windows, <strong>AIX, and
+Solaris</strong> sensor compatibility verified — financial reporting
+estates are frequently long-lived</label></li>
+<li><label><input type="checkbox"></input>Cloud provider accounts connected
+(AWS, Azure, GCP) via CSW cloud connectors where applicable</label></li>
+<li><label><input type="checkbox"></input>Current SOX scoping memo obtained:
+significant accounts, in-scope cycles, financially-relevant
+applications</label></li>
+<li><label><input type="checkbox"></input>Supporting infrastructure identified
+for each in-scope application: database, middleware, job scheduler,
+managed file transfer, identity dependency</label></li>
+<li><label><input type="checkbox"></input>Fiscal calendar obtained, with
+month-end, quarter-end, and year-end close windows marked</label></li>
+<li><label><input type="checkbox"></input>Stakeholders identified: SOX PMO,
+internal audit, IT compliance, application owners, external audit
+liaison</label></li>
+<li><label><input type="checkbox"></input>Change-management approval obtained
+for agent installation and, separately, for enforcement
+windows</label></li>
+<li><label><input type="checkbox"></input>Agreement with internal audit on
+<strong>which ITGC control objectives CSW evidence will be attached
+to</strong> (Section 7 as a starting point) — secure this
+<em>before</em> building, so evidence is designed to the
+test</label></li>
+<li><label><input type="checkbox"></input>Agreement with internal audit on
+<strong>IPE integrity requirements</strong> for CSW exports (Section
+11.2)</label></li>
+</ul>
+<blockquote>
+<p><strong>Timing.</strong> Avoid introducing enforcement during a close
+window. Align the Phase 3 to Phase 4 transition with a post-close period
+and document the rationale — auditors view change discipline around
+close favourably.</p>
+</blockquote>
+<hr />
+<h2 id="phase-1-sensor-deployment-days-15">3. Phase 1 — Sensor
+Deployment (Days 1–5)</h2>
+<h3 id="on-premises-workloads">3.1 On-Premises Workloads</h3>
+<p><strong>Install software sensors:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux (RHEL/CentOS/Ubuntu family)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> rpm <span class="at">-ivh</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.rpm    <span class="co"># RHEL/CentOS family</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dpkg <span class="at">-i</span> tet-sensor-<span class="op">&lt;</span>version<span class="op">&gt;</span>.deb    <span class="co"># Debian/Ubuntu family</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify the agent service</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> status csw-agent <span class="kw">||</span> <span class="ex">systemctl</span> status tetration-agent</span></code></pre></div>
+<p><strong>Key sensor configuration (SOX-aligned):</strong></p>
+<ul>
+<li>Enforcement mode: <strong>Monitoring Only</strong> initially — never
+introduce blocking on a financially-relevant system before
+baselining</li>
+<li>Collection: Enable process, network flow, and software inventory
+where supported; enable vulnerability features to support risk-ranking
+of in-scope hosts</li>
+<li>Tags: Apply SOX scoping metadata from day one, for example
+<code>sox_scope:in-scope</code>,
+<code>sox_cycle:record-to-report</code>,
+<code>financial_app:erp-prod</code>,
+<code>itgc_domain:access</code></li>
+</ul>
+<h3 id="cloud-workloads-aws-azure-gcp">3.2 Cloud Workloads (AWS / Azure
+/ GCP)</h3>
+<p><strong>Option A — Software sensor on cloud VMs:</strong> Same
+installation pattern as on-premises. Preferred for in-scope workloads,
+because process-level visibility is part of what makes the evidence
+persuasive.</p>
+<p><strong>Option B — CSW cloud connectors (agentless inventory/flow
+context):</strong></p>
+<pre><code>CSW UI → Platform → External Orchestrators
+  → Add AWS / Azure / GCP connector
+  → Attach least-privilege IAM role (AWS) or service principal (Azure)
+  → Enable flow log or cloud network telemetry ingestion per vendor guidance</code></pre>
+<blockquote>
+<p><strong>Document the distinction in your control narrative.</strong>
+Agentless coverage gives inventory and flow context and enforces through
+cloud security groups and NSGs. <strong>Process-level visibility comes
+from the agent.</strong> If an in-scope workload is agentless, say so
+and state what evidence is therefore unavailable, rather than letting a
+tester assume parity.</p>
+</blockquote>
+<h3 id="sensor-validation">3.3 Sensor Validation</h3>
+<pre><code>CSW UI → Manage → Agents
+  → Confirm agents are Active and versions are standardized
+  → Verify telemetry (flows/process events) visible for each in-scope application</code></pre>
+<p><strong>Reconcile deliberately.</strong> Compare the CSW agent list
+against the SOX in-scope host list from the scoping memo. Every
+difference is one of three things: a host that should be in scope and
+was missed by the memo, a host in the memo that no longer exists, or a
+coverage gap. The first two are scoping corrections worth raising with
+the SOX PMO. The third belongs in the deficiency tracker.</p>
+<hr />
+<h2 id="phase-2-scope-and-inventory-design-days-610">4. Phase 2 — Scope
+and Inventory Design (Days 6–10)</h2>
+<h3 id="sox-aligned-scope-hierarchy">4.1 SOX-Aligned Scope
+Hierarchy</h3>
+<p>Design scopes to mirror the financial reporting architecture and the
+business cycles in your scoping memo, not network topology:</p>
+<pre><code>Root Scope
+└── SOX-Relevant
+    ├── Financial-Reporting-Core
+    │   ├── ERP-Production            (general ledger, sub-ledgers)
+    │   └── Consolidation-and-Close   (EPM, consolidation, statutory reporting)
+    ├── Feeder-Systems
+    │   ├── Order-to-Cash             (billing, AR, revenue)
+    │   ├── Procure-to-Pay            (AP, procurement)
+    │   ├── Payroll-and-HCM
+    │   └── Treasury-and-Banking
+    ├── Supporting-Infrastructure
+    │   ├── Database-Tier
+    │   ├── Batch-and-Scheduling
+    │   ├── Managed-File-Transfer
+    │   └── Identity-Dependencies
+    └── Admin-Access                  (jump hosts, privileged tooling)
+
+└── Non-SOX-Adjacent                  (retained deliberately — see note)</code></pre>
+<blockquote>
+<p><strong>Keep a Non-SOX-Adjacent scope.</strong> The most valuable
+segmentation evidence in a SOX audit is not what the in-scope systems
+talk to — it is proof that out-of-scope systems <strong>cannot
+reach</strong> the financial reporting core. A deny rule between these
+two scopes, with a Denied Connections record behind it, is the clearest
+boundary evidence available.</p>
+</blockquote>
+<h3 id="label-design">4.2 Label Design</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Label Key</th>
+<th>Example Values</th>
+<th>SOX / ITGC Tie-In</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sox_scope</code></td>
+<td><code>in-scope</code>, <code>boundary</code>,
+<code>out-of-scope</code></td>
+<td>Defines and defends the audit boundary</td>
+</tr>
+<tr>
+<td><code>sox_cycle</code></td>
+<td><code>order-to-cash</code>, <code>procure-to-pay</code>,
+<code>record-to-report</code>, <code>payroll</code>,
+<code>treasury</code></td>
+<td>Links technical evidence to significant accounts and business
+cycles</td>
+</tr>
+<tr>
+<td><code>financial_app</code></td>
+<td><code>erp-prod</code>, <code>consolidation-prod</code></td>
+<td>Traceability to the financially-relevant application list</td>
+</tr>
+<tr>
+<td><code>fiscal_relevance</code></td>
+<td><code>transaction-processing</code>, <code>key-report</code>,
+<code>supporting</code></td>
+<td>Risk-ranking for a top-down AS 2201 approach</td>
+</tr>
+<tr>
+<td><code>itgc_domain</code></td>
+<td><code>access</code>, <code>change</code>,
+<code>operations</code></td>
+<td>Reporting filters per control-objective owner</td>
+</tr>
+<tr>
+<td><code>app_owner</code></td>
+<td>team name</td>
+<td>Attribution for walkthrough and signoff</td>
+</tr>
+<tr>
+<td><code>env</code></td>
+<td><code>prod</code>, <code>nonprod</code>, <code>dr</code></td>
+<td>Production versus non-production separation evidence</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong><code>fiscal_relevance:key-report</code> earns its
+keep.</strong> Auditors test the completeness and accuracy of key
+reports used in financial reporting. Labelling the hosts that generate
+them lets you produce access and change evidence for exactly those
+systems on request.</p>
+</blockquote>
+<h3 id="inventory-filters-for-in-scope-platforms">4.3 Inventory Filters
+for In-Scope Platforms</h3>
+<pre><code>Filter: Financial-Database-Tier
+  - Process: oracle, sqlservr, db2sysc, postgres, mysqld
+  - Ports: 1521, 1433, 50000, 5432, 3306
+
+Filter: Batch-and-Interface
+  - Process: cron, at, autosys, control-m agents, sqlldr, informatica
+  - Use to confirm close-cycle jobs are captured in the ADM window
+
+Filter: Managed-File-Transfer
+  - Process: sftp-server, connect-direct, mftps-style agents (validate locally)
+  - Ports: 22, 1364, vendor-specific
+  - Interfaces are where undeclared financial data flows are usually found
+
+Filter: Admin-Tooling
+  - Process: sshd, winrm, RDP-related patterns (validate in your environment)
+  - Use for APD administrative-path review — not identity or MFA</code></pre>
+<hr />
+<h2 id="phase-3-visibility-baseline-and-adm-days-1145">5. Phase 3 —
+Visibility, Baseline, and ADM (Days 11–45)</h2>
+<h3 id="the-close-cycle-governs-your-baseline-window">5.1 The close
+cycle governs your baseline window</h3>
+<p><strong>This is the most important operational point in this
+reference design.</strong> A financial reporting estate does not look
+the same mid-month as it does at close. Consolidation jobs,
+inter-company interfaces, revaluation batches, statutory reporting
+extracts, and reconciliation tooling may run <strong>once a month or
+once a quarter</strong>. A two-week ADM window taken mid-month will miss
+them, and the resulting policy will block the close.</p>
+<p>Run ADM across <strong>at least one complete month-end
+close</strong>, and preferably a <strong>quarter-end</strong>, before
+authoring policy. Where a year-end-only process exists — statutory
+consolidation, audit extract jobs — document it as a known exception and
+either extend the window or hold an explicit allow rule with an owner
+attached.</p>
+<pre><code>CSW UI → Investigate → Application Dependency Mapping
+  → New Workspace
+  → Name: &quot;SOX-FinancialCore-Baseline-ADM&quot;
+  → Scope: Financial-Reporting-Core (expand iteratively)
+  → Time window: 30–45 days minimum, spanning a full close
+  → Start ADM</code></pre>
+<p><strong>ADM settings:</strong></p>
+<ul>
+<li>Enable <strong>process context</strong> on connections — a tester
+distinguishing an approved interface from an ad-hoc one relies on
+it</li>
+<li>Enable <strong>user context</strong> where the sensor supports it,
+for administrative-path analysis</li>
+<li>Retain sufficient history to cover the testing period and the
+roll-forward to year-end; align with your records retention
+schedule</li>
+</ul>
+<h3 id="baseline-questions-mapped-to-itgc-objectives">5.2 Baseline
+Questions Mapped to ITGC Objectives</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Question during ADM review</th>
+<th>Primary ITGC domain</th>
+<th>COBIT anchor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Can any out-of-scope or non-production system reach the financial
+reporting core?</td>
+<td><strong>APD</strong></td>
+<td>DSS05.02</td>
+</tr>
+<tr>
+<td>Are administrative paths into in-scope systems constrained to
+approved jump hosts?</td>
+<td><strong>APD</strong></td>
+<td>DSS05.05</td>
+</tr>
+<tr>
+<td>Which interfaces move financial data in or out, and are they all
+declared in the scoping memo?</td>
+<td><strong>APD</strong>, <strong>CO</strong></td>
+<td>DSS05.02, DSS01</td>
+</tr>
+<tr>
+<td>Do batch and close jobs run from the systems the process
+documentation claims?</td>
+<td><strong>CO</strong></td>
+<td>DSS01</td>
+</tr>
+<tr>
+<td>Did new software versions or listeners appear without a matching
+change ticket?</td>
+<td><strong>PC</strong></td>
+<td>BAI06, BAI10</td>
+</tr>
+<tr>
+<td>Which in-scope hosts carry exploitable vulnerabilities on a
+reachable path?</td>
+<td><strong>APD</strong></td>
+<td>EDM03</td>
+</tr>
+</tbody>
+</table>
+<h3 id="undeclared-interfaces-are-a-finding-not-a-nuisance">5.3
+Undeclared interfaces are a finding, not a nuisance</h3>
+<p>Expect ADM to surface flows nobody declared — a reporting tool
+pulling directly from the general ledger database, a departmental server
+receiving an extract, a vendor connection into a feeder system. Treat
+each as a <strong>scoping question for the SOX PMO</strong>, because an
+undeclared data flow into or out of a financially-relevant system may
+widen the boundary.</p>
+<p>Raise these early. Discovering them during external audit fieldwork
+is materially worse than discovering them in Phase 2.</p>
+<h3 id="change-and-configuration-signals-pc">5.4 Change and
+Configuration Signals (<strong>PC</strong>)</h3>
+<p>Use CSW to <strong>detect</strong> technical drift; ITSM remains the
+system of record for <strong>authorisation</strong>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Illustrative weekly drift workflow</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. CSW UI → Investigate → Inventory → Export CSV (weekly, in-scope scope only)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Diff against prior week for: new packages, new listening ports, new long-lived processes</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Attach diff to the change record, or raise an exception if no ticket exists</span></span></code></pre></div>
+<p>An inventory delta with <strong>no corresponding change
+ticket</strong> is the useful output here. It is a detective control
+over the change process itself, and it is reportable evidence for the PC
+domain — but only if the comparison runs on a schedule and the results
+are retained.</p>
+<hr />
+<h2 id="phase-4-policy-design-and-enforcement-days-4670">6. Phase 4 —
+Policy Design and Enforcement (Days 46–70)</h2>
+<h3 id="sox-oriented-policy-workspace">6.1 SOX-Oriented Policy
+Workspace</h3>
+<p>Translate the access objective into segmentation policy. The target
+state is that financially-relevant systems accept connections only from
+declared, approved sources.</p>
+<p><strong>Illustrative absolute policies (tune to your
+ADM):</strong></p>
+<pre><code>DENY: Non-SOX-Adjacent    → Financial-Reporting-Core (all ports)
+DENY: Development-Test    → Financial-Reporting-Core (all ports)
+DENY: Any-NonJumpHost     → SOX-Relevant (ports 22, 3389, WinRM ranges)
+DENY: Financial-Reporting-Core → Internet (default; explicit egress exceptions only)</code></pre>
+<p><strong>Illustrative allowlist policies:</strong></p>
+<pre><code>ALLOW: ERP-Production         → Database-Tier (application ports from ADM)
+ALLOW: Feeder-Systems         → ERP-Production (declared interface ports only)
+ALLOW: Consolidation-and-Close → ERP-Production (close-window interfaces)
+ALLOW: Batch-and-Scheduling   → SOX-Relevant (job-execution paths from ADM)
+ALLOW: Managed-File-Transfer  → Feeder-Systems (declared transfer ports)
+ALLOW: SOX-Relevant           → Identity-Dependencies (LDAPS 636 / Kerberos as validated)
+ALLOW: Monitored-Jump-Host    → SOX-Relevant (admin ports, source-locked)
+ALLOW: Scoped-Workloads       → CSW-Cluster (443 to telemetry endpoints)</code></pre>
+<p><strong>Catch-all instrumentation:</strong></p>
+<pre><code>LOG:   unmatched inbound to Financial-Reporting-Core
+LOG:   unmatched outbound from Financial-Reporting-Core
+ALERT: first-seen external destination from SOX-Relevant
+ALERT: any flow from Non-SOX-Adjacent to Financial-Reporting-Core</code></pre>
+<h3 id="policy-workspace-setup">6.2 Policy Workspace Setup</h3>
+<pre><code>CSW UI → Defend → Segmentation
+  → New Workspace
+  → Name: &quot;SOX-FinancialCore-Access&quot;
+  → Scope: Financial-Reporting-Core
+  → Import ADM-recommended rules → refine with application owners
+  → Mode: Simulation → Enforcement (staged)</code></pre>
+<h3 id="enforcement-progression">6.3 Enforcement Progression</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Mode</th>
+<th>Duration</th>
+<th>SOX intent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Simulation</td>
+<td>Spanning a full close</td>
+<td>Observe deviation before blocking; produces the change-board
+evidence</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Selective enforcement</td>
+<td>2–4 weeks</td>
+<td>Reduce access risk incrementally on lower-risk tiers first</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Full enforcement (approved ruleset)</td>
+<td>Ongoing</td>
+<td>The sustained APD control that testing will sample</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Document the approval.</strong> Every stage transition should
+carry a change record, an application-owner acknowledgement, and the
+simulation report that justified it. That package is itself evidence of
+change discipline over the control, which the PC domain will ask
+about.</p>
+<h3 id="rollback-is-part-of-the-control-design">6.4 Rollback is part of
+the control design</h3>
+<p>CSW programmes the native host firewall and is not an inline
+data-path component, so last-applied policy persists if the control
+plane is unreachable. Enforcement can be withdrawn by workspace. State
+the rollback path in the control narrative and, ideally, record one
+controlled rollback test. Change-control and audit functions both
+respond well to a demonstrated reversal path.</p>
+<hr />
+<h2 id="phase-5-control-objective-mapping">7. Phase 5 —
+Control-Objective Mapping</h2>
+<p>The table maps <strong>conventional ITGC control objectives</strong>
+to CSW capabilities and representative evidence, with COBIT 2019
+cross-references. The objective wording below is illustrative of common
+practice; <strong>align it to your own control library and your external
+auditor’s expectations before use.</strong></p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>ITGC domain</th>
+<th>Control objective (illustrative wording)</th>
+<th>CSW capability</th>
+<th>Evidence produced</th>
+<th>COBIT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>APD</strong></td>
+<td>Network access to financially-relevant systems is restricted to
+authorised sources</td>
+<td>Microsegmentation with explicit allow/deny; enforcement on the
+native host firewall</td>
+<td>Enforced policy export; Denied Connections for the period; boundary
+deny rule between in-scope and out-of-scope scopes</td>
+<td>DSS05.02</td>
+</tr>
+<tr>
+<td><strong>APD</strong></td>
+<td>Administrative access paths to in-scope systems are restricted and
+monitored</td>
+<td>Source-locked admin-port policy; visibility into admin tooling
+paths</td>
+<td>Rules restricting 22/3389/WinRM to jump hosts; flow records of paths
+actually used</td>
+<td>DSS05.05</td>
+</tr>
+<tr>
+<td><strong>APD</strong></td>
+<td>Production and non-production environments are segregated</td>
+<td>Scope-to-scope deny with enforcement</td>
+<td>Policy export plus denied-flow record proving the separation
+held</td>
+<td>DSS05.02</td>
+</tr>
+<tr>
+<td><strong>APD</strong></td>
+<td>The population of in-scope systems is complete and accurate</td>
+<td>Inventory, labels, and ADM reconciliation against the scoping
+memo</td>
+<td>Inventory CSV reconciled to the memo; exception list; agent coverage
+report</td>
+<td>BAI10</td>
+</tr>
+<tr>
+<td><strong>APD</strong></td>
+<td>Reachable technical vulnerabilities on in-scope systems are
+identified and prioritised</td>
+<td>CVE awareness with reachability and exposure context</td>
+<td>Vulnerability report filtered to <code>sox_scope:in-scope</code>;
+reachability analysis</td>
+<td>EDM03</td>
+</tr>
+<tr>
+<td><strong>PC</strong></td>
+<td>Changes to in-scope systems are identified and reconciled to
+authorised change records</td>
+<td>Software inventory deltas; new listener and process detection;
+policy versioning</td>
+<td>Weekly inventory diff; list of deltas without a matching ticket; ADM
+diff across a change window</td>
+<td>BAI06, BAI10</td>
+</tr>
+<tr>
+<td><strong>PC</strong></td>
+<td>Changes to the access control itself are authorised and
+traceable</td>
+<td>Policy version history; Administration audit log</td>
+<td>Policy export history with checksums; audit-log extract of who
+changed policy and when</td>
+<td>MEA02</td>
+</tr>
+<tr>
+<td><strong>CO</strong></td>
+<td>Scheduled jobs and interfaces supporting financial reporting execute
+as documented</td>
+<td>Flow and process telemetry on batch, scheduling, and file-transfer
+tiers</td>
+<td>Flow records of close-cycle jobs with process context; interface
+inventory</td>
+<td>DSS01</td>
+</tr>
+<tr>
+<td><strong>CO</strong></td>
+<td>Monitoring is in place to detect events affecting in-scope
+systems</td>
+<td>Alerting on policy violations, first-seen egress, agent loss</td>
+<td>Alert history; agent availability report; SIEM forwarding
+samples</td>
+<td>MEA01, DSS01</td>
+</tr>
+<tr>
+<td><strong>CO</strong></td>
+<td>Incidents affecting in-scope systems can be investigated and
+reconstructed</td>
+<td>Forensic flow and process search with parent/child context</td>
+<td>Incident-timeline export; filtered flow capture for the event
+window</td>
+<td>DSS02</td>
+</tr>
+<tr>
+<td><strong>PD</strong></td>
+<td>—</td>
+<td><strong>No CSW contribution.</strong> Program development is out of
+scope</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Attach, do not substitute.</strong> Where a control objective
+also requires user entitlement review, approval workflow, or management
+review, keep CSW evidence <strong>adjacent</strong> under the same
+objective and make clear in the narrative which portion it supports.</p>
+</blockquote>
+<hr />
+<h2 id="phase-6-vulnerability-reachability-and-risk-inputs">8. Phase 6 —
+Vulnerability, Reachability, and Risk Inputs</h2>
+<h3 id="vulnerability-and-exposure-reporting">8.1 Vulnerability and
+Exposure Reporting</h3>
+<pre><code>CSW UI → Investigate → Vulnerability Report
+  → Scope: SOX-Relevant
+  → Filters: fiscal_relevance, CVSS, EPSS (where available), known exploit context
+  → Export for the SOX PMO and IT risk working papers</code></pre>
+<h3 id="prioritisation-pattern">8.2 Prioritisation Pattern</h3>
+<ol type="1">
+<li><strong>Externally or partner-exposed</strong> in-scope workloads
+with critical CVEs — patch or segment first</li>
+<li><strong>Laterally reachable</strong> financial reporting core
+systems from lower-trust entry points</li>
+<li><strong>Deep internal</strong> in-scope workloads with CVEs but no
+observed risky path — document the compensating segmentation</li>
+</ol>
+<h3 id="how-this-lands-in-a-sox-conversation">8.3 How this lands in a
+SOX conversation</h3>
+<p>Vulnerability data is not itself an ITGC. Its value is in supporting
+the <strong>risk assessment</strong> that drives a top-down AS 2201
+approach, and in evidencing compensating controls where patching is
+deferred on a system that cannot easily be taken down during a close
+period. Frame it that way; presenting a CVE list as a SOX control
+invites a challenge you will lose.</p>
+<hr />
+<h2 id="phase-7-monitoring-drift-and-period-evidence">9. Phase 7 —
+Monitoring, Drift, and Period Evidence</h2>
+<h3 id="monitoring-patterns">9.1 Monitoring Patterns</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Monitor</th>
+<th>Trigger</th>
+<th>ITGC relevance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Denied flow from out-of-scope to financial core</td>
+<td>Any occurrence</td>
+<td><strong>APD</strong> — boundary evidence, and a possible scoping
+issue</td>
+</tr>
+<tr>
+<td>Policy violation rate spike</td>
+<td>Sudden change in denies</td>
+<td><strong>APD</strong>, <strong>CO</strong></td>
+</tr>
+<tr>
+<td>New external destination</td>
+<td>First-seen egress from in-scope</td>
+<td><strong>APD</strong></td>
+</tr>
+<tr>
+<td>Inventory delta without a change ticket</td>
+<td>Weekly diff</td>
+<td><strong>PC</strong></td>
+</tr>
+<tr>
+<td>Agent offline on an in-scope host</td>
+<td>Loss of visibility</td>
+<td><strong>CO</strong> — and a potential evidence gap for the
+period</td>
+</tr>
+<tr>
+<td>Scope drift</td>
+<td>Untagged assets communicating with in-scope systems</td>
+<td><strong>APD</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="agent-gaps-are-period-evidence-gaps">9.2 Agent gaps are
+period-evidence gaps</h3>
+<p>Treat an agent that was offline for part of the fiscal period as a
+<strong>control deficiency candidate</strong>, not merely an operational
+issue. If the control is “network access is restricted and monitored,” a
+host with no telemetry for six weeks has no evidence for those six
+weeks. Log the outage window, the affected hosts, and any compensating
+evidence, and give it to internal audit rather than letting a tester
+find the hole.</p>
+<h3 id="continuous-evidence-supports-roll-forward-and-benchmarking">9.3
+Continuous evidence supports roll-forward and benchmarking</h3>
+<p>SOX testing is usually performed at an interim date and then rolled
+forward to year-end. Continuous CSW evidence suits this well: the
+interim test establishes the control operated, and the policy version
+history plus Denied Connections for the intervening period support the
+roll-forward without re-performing the full test.</p>
+<p>The same logic applies to <strong>benchmarking</strong> an automated
+control. Where the automated element has not changed, prior-period
+testing can be relied upon. A versioned, checksummed policy export
+demonstrating the ruleset is unchanged since the last test is exactly
+the artefact that argument needs. <strong>Agree any benchmarking
+strategy with your external auditor in advance</strong> — it is their
+judgement to accept, not yours to assert.</p>
+<h3 id="forensic-use">9.4 Forensic Use</h3>
+<pre><code>CSW UI → Investigate → Flow Search
+  → Time range: incident window
+  → Source/Destination: affected workload or subnet
+  → Export: CSV/JSON with process attributes
+
+CSW UI → Investigate → Process Search
+  → Filter: workload + time + suspicious parent chain
+  → Export for the incident record</code></pre>
+<p>Align retention with enterprise records management. CSW exports are
+<strong>copies</strong> held for audit and legal purposes.</p>
+<hr />
+<h2 id="boundaries-what-csw-does-not-cover">10. Boundaries — What CSW
+Does <strong>Not</strong> Cover</h2>
+<p>Document these explicitly in control narratives to avoid
+over-claiming SOX coverage:</p>
+<ul>
+<li><strong>Attestation.</strong> CSW is not an attestation and does not
+make an organisation SOX compliant. It produces artefacts that
+management and the external auditor evaluate.</li>
+<li><strong>User access and entitlement review.</strong> The majority of
+the APD domain — who holds accounts, what entitlements they carry,
+whether access was recertified, whether leavers were removed — is IAM,
+PAM, and application-level. <strong>CSW consumes identity from Active
+Directory, Entra ID, and Cisco ISE; it is not the identity
+system.</strong></li>
+<li><strong>Authentication and MFA.</strong> Out of scope entirely.</li>
+<li><strong>Segregation of duties within the financial
+application.</strong> Whether one person can both create and approve a
+payment is an application control. CSW enforces network paths and cannot
+see it.</li>
+<li><strong>Application-layer authorisation.</strong> Enforcement is
+<strong>L3/L4</strong>, with connection detail through L5. “Which user
+may post a journal entry” is beyond reach.</li>
+<li><strong>Change authorisation workflow.</strong> CSW detects drift;
+ITSM authorises change. CSW cannot tell you whether a change was
+approved, only that something changed.</li>
+<li><strong>Program development and SDLC.</strong> No contribution.</li>
+<li><strong>Backup, recovery, and job-failure handling.</strong> CSW
+evidences connectivity for batch tiers; it does not manage, verify, or
+restore backups.</li>
+<li><strong>Management review controls and entity-level COSO
+controls.</strong> Out of scope.</li>
+<li><strong>Financial reporting logic, reconciliations, and journal
+entry controls.</strong> Out of scope.</li>
+<li><strong>A controls library or GRC workflow.</strong> Integrate CSW
+exports into your GRC tool; CSW does not maintain control narratives,
+test plans, or deficiency workflow.</li>
+</ul>
+<hr />
+<h2 id="audit-preparation-and-evidence-export">11. Audit Preparation and
+Evidence Export</h2>
+<h3 id="typical-evidence-package-quarterly-aligned-to-section-302">11.1
+Typical Evidence Package (Quarterly, aligned to Section 302)</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Evidence item</th>
+<th>CSW source</th>
+<th>Suggested frequency</th>
+<th>Mapped domain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enforced segmentation policy export</td>
+<td>Defend → Segmentation</td>
+<td>Each release + quarterly</td>
+<td><strong>APD</strong></td>
+</tr>
+<tr>
+<td>Denied Connections extract for the period</td>
+<td>Investigate → Flows / Denied</td>
+<td>Quarterly, full period</td>
+<td><strong>APD</strong> — operating effectiveness</td>
+</tr>
+<tr>
+<td>Boundary proof: out-of-scope to in-scope denies</td>
+<td>Flow Search, scope-filtered</td>
+<td>Quarterly</td>
+<td><strong>APD</strong></td>
+</tr>
+<tr>
+<td>Simulation report and enforcement approval</td>
+<td>Policy lifecycle records</td>
+<td>Per cutover</td>
+<td><strong>PC</strong></td>
+</tr>
+<tr>
+<td>ADM baseline snapshot spanning a close</td>
+<td>Investigate → ADM</td>
+<td>90 days</td>
+<td><strong>CO</strong>, <strong>APD</strong></td>
+</tr>
+<tr>
+<td>Inventory baseline + weekly delta</td>
+<td>Investigate → Inventory</td>
+<td>Weekly, summarised quarterly</td>
+<td><strong>PC</strong></td>
+</tr>
+<tr>
+<td>Deltas without a matching change ticket</td>
+<td>Inventory diff + ITSM reconciliation</td>
+<td>Monthly</td>
+<td><strong>PC</strong></td>
+</tr>
+<tr>
+<td>Agent coverage and availability report</td>
+<td>Manage → Agents</td>
+<td>Monthly</td>
+<td><strong>CO</strong></td>
+</tr>
+<tr>
+<td>Policy change audit log</td>
+<td>Administration → Audit Log</td>
+<td>Quarterly</td>
+<td><strong>PC</strong>, SoD over the control</td>
+</tr>
+<tr>
+<td>Vulnerability + reachability summary</td>
+<td>Investigate → Vulnerability</td>
+<td>Monthly</td>
+<td>Risk assessment input</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ipe-integrity-treat-csw-exports-as-information-produced-by-the-entity">11.2
+IPE integrity — treat CSW exports as Information Produced by the
+Entity</h3>
+<p>This section is the one most often overlooked, and it decides whether
+a tester can rely on your evidence or has to re-perform it.</p>
+<p>When a CSW export is used as audit evidence, it becomes
+<strong>IPE</strong>, and the auditor must satisfy themselves it is
+complete and accurate. An undated CSV with no indication of who produced
+it, from which scope, over what period, is weak evidence regardless of
+how good the underlying control is.</p>
+<p>For every export retained for SOX purposes, capture:</p>
+<ul>
+<li><strong>Who</strong> ran it, and under which CSW role</li>
+<li><strong>When</strong> it was produced, with timezone</li>
+<li><strong>Parameters</strong>: scope, label filter, and the exact time
+range</li>
+<li><strong>The source</strong>: CSW cluster identifier and software
+version</li>
+<li><strong>Integrity</strong>: a hash of the file, recorded separately
+from the file</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env bash</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Illustrative: archive a quarterly evidence bundle with an IPE cover record</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="va">DATE</span><span class="op">=</span><span class="va">$(</span><span class="fu">date</span> +%F<span class="va">)</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="va">EXPORT_DIR</span><span class="op">=</span><span class="st">&quot;/secure/evidence/csw/sox/</span><span class="va">${DATE}</span><span class="st">&quot;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">&quot;</span><span class="va">${EXPORT_DIR}</span><span class="st">&quot;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace with your approved CSW API/export mechanism:</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># curl -sS -H &quot;Authorization: Bearer ${CSW_API_TOKEN}&quot; \</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   &quot;https://&lt;csw-cluster&gt;/api/v1/inventory/export?scope=sox-relevant&quot; \</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   -o &quot;${EXPORT_DIR}/inventory-sox.csv&quot;</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> <span class="st">&quot;</span><span class="va">${EXPORT_DIR}</span><span class="st">/IPE-COVER.txt&quot;</span> <span class="op">&lt;&lt;EOF</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="st">Produced by   : </span><span class="va">${USER}</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="st">Produced at   : </span><span class="va">$(</span><span class="fu">date</span> <span class="at">-Is</span><span class="va">)</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="st">CSW cluster   : &lt;cluster-identifier&gt;</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="st">CSW version   : &lt;version&gt;</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="st">Scope         : SOX-Relevant</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="st">Label filter  : sox_scope=in-scope</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="st">Period covered: &lt;start&gt; to &lt;end&gt;</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="st">Purpose       : SOX ITGC evidence, APD and PC domains</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="fu">sha256sum</span> <span class="st">&quot;</span><span class="va">${EXPORT_DIR}</span><span class="st">&quot;</span>/<span class="pp">*</span> <span class="op">&gt;</span> <span class="st">&quot;</span><span class="va">${EXPORT_DIR}</span><span class="st">/MANIFEST.sha256&quot;</span> <span class="kw">||</span> <span class="fu">true</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;Bundle prepared at </span><span class="va">${EXPORT_DIR}</span><span class="st">&quot;</span></span></code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> Use your organisation’s approved API tokens,
+IP allow lists, and secrets management. Never embed live tokens in
+scripts committed to repositories.</p>
+</blockquote>
+<h3 id="control-testing-tips">11.3 Control Testing Tips</h3>
+<ul>
+<li><strong>Design effectiveness.</strong> Show that in-scope workloads
+are fully sensor-covered, that the policy expresses the intended
+restriction, and that enforcement mode matches the narrative.</li>
+<li><strong>Operating effectiveness.</strong> This is where CSW is
+strongest. Sample time windows across the period and produce Denied
+Connections showing the restricted paths remained restricted. A negative
+test — an attempted connection that was blocked and logged — is the
+single most persuasive artefact available.</li>
+<li><strong>Population completeness.</strong> Expect the tester to
+challenge the in-scope population. Have the inventory-to-memo
+reconciliation and the exception list ready.</li>
+<li><strong>Gap handling.</strong> Where a control objective requires
+entitlement review or change approval, keep CSW evidence adjacent under
+the same objective but never substitutive.</li>
+<li><strong>Deficiency framing.</strong> An agent coverage gap, an
+undocumented interface, or an inventory delta without a ticket are all
+findings. Surfacing them yourself with a remediation plan is a
+materially better position than having them discovered in
+fieldwork.</li>
+</ul>
+<hr />
+<h2 id="common-pitfalls">12. Common Pitfalls</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pitfall</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Asserting CSW “provides SOX compliance” or satisfies an ITGC domain
+outright</td>
+<td>Decompose to control objectives; attach evidence only to the
+network-path portion of APD and the stated CO and PC items</td>
+</tr>
+<tr>
+<td>Mapping APD to IAM, entitlement review, or MFA</td>
+<td>Keep the narrative precise: CSW enforces <strong>logical network
+paths</strong> and observes admin tooling. IdP and PAM own identity and
+entitlements</td>
+</tr>
+<tr>
+<td>ADM window that misses the close cycle</td>
+<td>Baseline across a full month-end, ideally a quarter-end. This is the
+most common cause of a blocked close after enforcement</td>
+</tr>
+<tr>
+<td>Introducing enforcement during a close window</td>
+<td>Schedule the Phase 3 to Phase 4 transition post-close, and document
+the rationale</td>
+</tr>
+<tr>
+<td>Exports with no IPE cover record</td>
+<td>Apply Section 11.2 to every retained export, from the first testing
+cycle onward</td>
+</tr>
+<tr>
+<td>Agent gaps treated as an IT backlog item</td>
+<td>Log them as period-evidence gaps and route to internal audit</td>
+</tr>
+<tr>
+<td>Undeclared interfaces quietly allowlisted</td>
+<td>Raise each as a scoping question to the SOX PMO before writing the
+allow rule</td>
+</tr>
+<tr>
+<td>Claiming a benchmarking strategy unilaterally</td>
+<td>Agree benchmarking and roll-forward reliance with the external
+auditor in advance</td>
+</tr>
+<tr>
+<td>Presenting a CVE list as a SOX control</td>
+<td>Position vulnerability data as risk-assessment input and
+compensating-control support</td>
+</tr>
+<tr>
+<td>Policy drift undocumented between testing cycles</td>
+<td>Version policy exports with checksums and store alongside change
+tickets</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="appendix-a-sox-coso-and-cobit-orientation">Appendix A — SOX,
+COSO, and COBIT Orientation</h2>
+<p>SOX requires an ICFR assessment; <strong>COSO 2013</strong> is the
+framework almost universally used for it; <strong>COBIT 2019</strong> is
+the usual structure for the IT general controls beneath it. CSW evidence
+generated for connectivity security and monitoring feeds the COBIT
+layer, which in turn supports the COSO control activities component.</p>
+<p>Practically, this means <strong>CSW evidence built for COBIT is the
+same evidence a SOX tester wants.</strong> Maintain a single evidence
+repository keyed by control objective, so one export serves the COBIT
+assessment, the SOX ITGC test, and any SOC 2 or ISO engagement running
+in parallel. Duplicating the work per framework is the most common
+source of wasted compliance effort.</p>
+<hr />
+<h2 id="appendix-b-related-frameworks">Appendix B — Related
+Frameworks</h2>
+<ul>
+<li><a href="../COBIT-2019/CSW-COBIT-Reference-Design.html">COBIT 2019</a>
+— the ITGC structure most SOX programmes map through; the direct
+companion to this document.</li>
+<li><a href="../SOC2/CSW-SOC2-Reference-Design.html">SOC 2 Type II</a> —
+operating-effectiveness-over-a-period evidence, the same testing model
+as SOX.</li>
+<li><a href="../NIST-800-53/CSW-NIST-800-53-Reference-Design.html">NIST SP
+800-53 Rev 5</a> — detailed control language where a SOX programme needs
+more specific wording for AC-4 and SC-7.</li>
+<li><a href="../ISO-27001-2022/CSW-ISO27001-Reference-Design.html">ISO/IEC
+27001:2022</a> — frequently runs in parallel at public companies; shares
+the segmentation evidence.</li>
+<li><a href="../NY-DFS-23-NYCRR-500/CSW-NYDFS-Reference-Design.html">NY
+DFS 23 NYCRR Part 500</a> — overlapping scope at financial-services
+filers.</li>
+</ul>
+<hr />
+<p><em>Document prepared for Cisco customer engagements. SOX has no
+official control catalogue; the ITGC domains and control-objective
+wording here are conventional industry structure and must be aligned to
+your own control library, your SOX PMO, and your external auditor before
+external sharing. Replace bracketed placeholders and tailor scopes to
+your assessment boundary.</em></p>
+</body>
+</html>

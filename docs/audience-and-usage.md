@@ -30,7 +30,7 @@ time:
    framework-specific control IDs.
 1. **Open the framework that's actually on your roadmap.** The one tied
    to a current audit, a customer contractual ask, or board-level
-   pressure. Skimming all thirty-four will dilute the signal — pick one
+   pressure. Skimming all thirty-eight will dilute the signal — pick one
    and stay with it.
 2. **Start with the reference design (`*-Reference-Design.md` in the
    same folder).** Each reference design now includes a **CSW primer**, **universal

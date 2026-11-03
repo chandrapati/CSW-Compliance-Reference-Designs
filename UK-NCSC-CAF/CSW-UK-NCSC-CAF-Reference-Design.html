@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>UK NCSC CAF — Reference Design</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style>
+:root {
+--fg: #1f2328;
+--fg-muted: #59636e;
+--bg: #ffffff;
+--bg-muted: #f6f8fa;
+--border: #d1d9e0;
+--link: #0969da;
+--link-hover: #0349b4;
+--code-bg: #f6f8fa;
+--accent: #cf222e;
+--max-width: 920px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--fg-muted: #9198a1;
+--bg: #0d1117;
+--bg-muted: #151b23;
+--border: #3d444d;
+--link: #4493f8;
+--link-hover: #6cb6ff;
+--code-bg: #151b23;
+--accent: #ff7b72;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+margin: 0 auto;
+max-width: var(--max-width);
+padding: 2rem 1.25rem 4rem;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 16px;
+line-height: 1.6;
+color: var(--fg);
+background: var(--bg);
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 2rem;
+margin-bottom: 1rem;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5, h6 { font-size: .875rem; color: var(--fg-muted); }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1rem; }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+ul, ol { padding-left: 1.6rem; }
+li + li { margin-top: .15rem; }
+blockquote {
+margin: 0 0 1rem;
+padding: .5rem 1rem;
+color: var(--fg-muted);
+border-left: .25rem solid var(--border);
+background: var(--bg-muted);
+border-radius: 0 6px 6px 0;
+}
+code, pre, kbd, samp {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+font-size: .9em;
+}
+code {
+background: var(--code-bg);
+padding: .15rem .35rem;
+border-radius: 4px;
+}
+pre {
+background: var(--code-bg);
+padding: 1rem;
+border-radius: 6px;
+overflow: auto;
+font-size: .85rem;
+line-height: 1.45;
+}
+pre code { background: transparent; padding: 0; font-size: inherit; }
+table {
+display: block;
+width: 100%;
+overflow: auto;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid var(--border);
+padding: .5rem .75rem;
+vertical-align: top;
+text-align: left;
+}
+th {
+background: var(--bg-muted);
+font-weight: 600;
+}
+tbody tr:nth-child(2n) { background: var(--bg-muted); }
+hr {
+border: 0;
+height: 1px;
+background: var(--border);
+margin: 2rem 0;
+}
+img { max-width: 100%; height: auto; }
+
+.doc-meta {
+margin: 0 0 2rem;
+padding: .75rem 1rem;
+border: 1px solid var(--border);
+border-radius: 6px;
+background: var(--bg-muted);
+font-size: .9rem;
+color: var(--fg-muted);
+}
+.doc-meta a { font-weight: 500; }
+
+th {
+background: #003366;
+color: #ffffff;
+border-color: #003366;
+}
+thead th { background: #003366; color: #ffffff; }
+td.cov-direct { background: #107C41; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-supporting { background: #C55A11; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+td.cov-evidence { background: #808080; color: #fff; font-weight: 600; text-align: center; white-space: nowrap; }
+
+@media print {
+body { max-width: none; padding: 0; color: #000; background: #fff; }
+a { color: #000; text-decoration: underline; }
+pre, code, blockquote { background: #f5f5f5; }
+th { background: #003366 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-direct { background: #107C41 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-supporting { background: #C55A11 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td.cov-evidence { background: #808080 !important; color: #fff !important;
+-webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="doc-meta">Source: <a href="CSW-UK-NCSC-CAF-Reference-Design.html">CSW-UK-NCSC-CAF-Reference-Design.md</a> · <a href="../index.html">repository index</a> · Build: 2026-11-03T19:10:54Z UTC · Repository commit: c8e3f63</div>
+<header id="title-block-header">
+<h1 class="title">UK NCSC CAF — Reference Design</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#csw-uk-ncsc-caf-reference-design" id="toc-csw-uk-ncsc-caf-reference-design">CSW — UK NCSC CAF Reference
+Design</a>
+<ul>
+<li><a href="#readers-guide" id="toc-readers-guide">Reader’s
+Guide</a></li>
+<li><a href="#csw-primer-if-you-are-new-to-cisco-secure-workload" id="toc-csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</a></li>
+<li><a href="#universal-evidence-workflow" id="toc-universal-evidence-workflow">Universal evidence workflow</a>
+<ul>
+<li><a href="#what-csw-evidence-does-not-replace" id="toc-what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</a></li>
+</ul></li>
+<li><a href="#csw-effectiveness-for-this-framework" id="toc-csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</a></li>
+<li><a href="#prerequisites" id="toc-prerequisites">0.
+Prerequisites</a></li>
+<li><a href="#phase-1-scope-definition" id="toc-phase-1-scope-definition">1. Phase 1 — Scope definition</a>
+<ul>
+<li><a href="#recommended-csw-scope-pattern" id="toc-recommended-csw-scope-pattern">Recommended CSW scope
+pattern</a></li>
+<li><a href="#labels-tags-to-apply-per-workload" id="toc-labels-tags-to-apply-per-workload">Labels / tags to apply (per
+workload)</a></li>
+<li><a href="#deliverable-from-phase-1" id="toc-deliverable-from-phase-1">Deliverable from Phase 1</a></li>
+</ul></li>
+<li><a href="#phase-2-policy-authoring-per-caf-principle" id="toc-phase-2-policy-authoring-per-caf-principle">2. Phase 2 — Policy
+authoring per CAF principle</a>
+<ul>
+<li><a href="#policy-design-per-principle" id="toc-policy-design-per-principle">Policy design per
+principle</a></li>
+<li><a href="#adm-simulate-enforce-workflow" id="toc-adm-simulate-enforce-workflow">ADM → simulate → enforce
+workflow</a></li>
+<li><a href="#deliverable-from-phase-2" id="toc-deliverable-from-phase-2">Deliverable from Phase 2</a></li>
+</ul></li>
+<li><a href="#phase-3-evidence-collection-per-caf-objective" id="toc-phase-3-evidence-collection-per-caf-objective">3. Phase 3 —
+Evidence collection per CAF Objective</a>
+<ul>
+<li><a href="#monthly-per-cluster" id="toc-monthly-per-cluster">Monthly
+(per cluster)</a></li>
+<li><a href="#weekly-per-cluster" id="toc-weekly-per-cluster">Weekly
+(per cluster)</a></li>
+<li><a href="#per-enforcement-change" id="toc-per-enforcement-change">Per enforcement change</a></li>
+<li><a href="#mapping-evidence-artefacts-to-caf-objectives" id="toc-mapping-evidence-artefacts-to-caf-objectives">Mapping evidence
+artefacts to CAF Objectives</a></li>
+</ul></li>
+<li><a href="#phase-4-quarterly-caf-evidence-pack" id="toc-phase-4-quarterly-caf-evidence-pack">4. Phase 4 — Quarterly CAF
+evidence pack</a>
+<ul>
+<li><a href="#pack-structure" id="toc-pack-structure">Pack
+structure</a></li>
+</ul></li>
+<li><a href="#common-assessor-questions-and-the-csw-answer" id="toc-common-assessor-questions-and-the-csw-answer">5. Common assessor
+questions and the CSW answer</a></li>
+<li><a href="#se-sa-conversation-starters" id="toc-se-sa-conversation-starters">6. SE / SA conversation
+starters</a></li>
+<li><a href="#known-limitations-and-pairings" id="toc-known-limitations-and-pairings">7. Known limitations and
+pairings</a></li>
+<li><a href="#related-frameworks" id="toc-related-frameworks">Related
+frameworks</a></li>
+<li><a href="#disclaimer" id="toc-disclaimer">Disclaimer</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="csw-uk-ncsc-caf-reference-design">CSW — UK NCSC CAF Reference
+Design</h1>
+<p>Engineering reference design mapping Cisco Secure Workload (CSW)
+controls to the <strong>UK NCSC Cyber Assessment Framework (CAF)
+v3.2</strong>, used by UK Competent Authorities for NIS Regulations
+(OES) assessments and by the Cabinet Office GSG for GovAssure.</p>
+<p><strong>Audience:</strong> CSW administrators, Cisco SEs/SAs, and
+compliance engineers preparing CAF evidence for an OES Competent
+Authority or a GovAssure 3rd-party assessor.</p>
+<p><strong>Companion documents.</strong> See <a href="./caf-mapping.html">caf-mapping.md</a> for the
+principle-by-principle crosswalk against sister frameworks already in
+this repo. See <a href="./CSW-UK-NCSC-CAF-Compliance-Report.html">CSW-UK-NCSC-CAF-Compliance-Report.md</a>
+for the customer-facing narrative. See <a href="./caf-igp-maturity-scorer.html">caf-igp-maturity-scorer.md</a> for
+the IGP rubric.</p>
+<p><strong>Status:</strong> Draft v1 — SME review required.</p>
+<hr />
+<h2 id="readers-guide">Reader’s Guide</h2>
+<p><strong>Who this is for.</strong> UK NIS Operators of Essential
+Services and GovAssure (Cabinet Office Government Security Group) teams,
+plus the Cisco SEs and compliance engineers preparing CAF evidence for a
+Competent Authority or a GovAssure assessor.</p>
+<p><strong>Questions this reference design helps you
+answer:</strong></p>
+<ul>
+<li><em>A3 — which workloads are inside the essential function, and
+which were deliberately left out?</em></li>
+<li><em>B5 — what actually enforces segmentation between those
+workloads, and can I show it still held on a given day?</em></li>
+<li><em>B1 — is the policy a document, or is it versioned and
+enforced?</em></li>
+<li><em>C1 — can I produce flow evidence with process context, not a
+sample of firewall logs?</em></li>
+<li><em>B2 and B6 — what must I point to outside CSW?</em></li>
+</ul>
+<p><strong>Where to start.</strong> The applicability table below, then
+Phase 1 if the essential-function boundary is not yet a CSW scope. The
+principle-by-principle crosswalk is <a href="./caf-mapping.html">caf-mapping.md</a>.</p>
+<hr />
+<h2 id="csw-primer-if-you-are-new-to-cisco-secure-workload">CSW primer —
+if you are new to Cisco Secure Workload</h2>
+<p>Cisco Secure Workload (CSW) is a <strong>workload protection
+platform</strong>. A lightweight <strong>agent</strong> on each
+server/VM/container observes processes and network flows; <strong>cloud
+connectors</strong> add AWS/Azure/GCP inventory where agents are not
+deployed.</p>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 20%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW term</th>
+<th>Meaning</th>
+<th>Why a CAF assessor cares</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Logical boundary for an essential function</td>
+<td>The systems the assessment actually covers</td>
+</tr>
+<tr>
+<td><strong>Label</strong></td>
+<td>Tag assigning a workload to that boundary</td>
+<td>Shows what was included and what was carved out</td>
+</tr>
+<tr>
+<td><strong>ADM</strong></td>
+<td>Application Dependency Mapping from observed traffic</td>
+<td>The live flow diagram behind B5</td>
+</tr>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>Policy container for one essential function</td>
+<td>Where B1 policies are authored and versioned</td>
+</tr>
+<tr>
+<td><strong>Monitor → Simulation → Enforce</strong></td>
+<td>Safe rollout sequence</td>
+<td>Simulation is evidence before traffic is blocked</td>
+</tr>
+<tr>
+<td><strong>Denied Connections</strong></td>
+<td>Flows blocked by policy</td>
+<td>Proof that B5 enforcement operates</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Read next:</strong> <a href="../docs/compliance-evidence-playbook.html">Compliance evidence
+playbook</a> · <a href="../docs/about-csw.html">About CSW</a></p>
+<hr />
+<h2 id="universal-evidence-workflow">Universal evidence workflow</h2>
+<p>Run these phases on the CAF essential-function boundary. The
+CAF-specific scope tree, labels, and artefact names are in the phases
+below.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 35%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Key CSW actions</th>
+<th>Typical duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Coverage</strong></td>
+<td>Every in-scope workload is visible</td>
+<td>Agents or connectors; CAF labels; essential-function scope</td>
+<td>Days 1–10</td>
+</tr>
+<tr>
+<td><strong>2 — Baseline</strong></td>
+<td>Observed flows, not a diagram from memory</td>
+<td>ADM for at least two business cycles</td>
+<td>Days 11–28</td>
+</tr>
+<tr>
+<td><strong>3 — Policy</strong></td>
+<td>Designed isolation before enforce</td>
+<td>Workspace; Simulation; exception register</td>
+<td>Days 29–45</td>
+</tr>
+<tr>
+<td><strong>4 — Operate</strong></td>
+<td>Evidence between assessments</td>
+<td>Enforce; monthly snapshot; quarterly pack</td>
+<td>Ongoing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-csw-evidence-does-not-replace">What CSW evidence does not
+replace</h3>
+<p>Identity and MFA (B2), staff training (B6), encryption and key
+management, backups and restore, perimeter and DDoS controls, and the OT
+device tier still need their own programmes. CSW covers the
+workload-resident slice: inventory, segmentation, flows, process
+context, vulnerability reachability, and change between snapshots.</p>
+<hr />
+<h2 id="csw-effectiveness-for-this-framework">CSW effectiveness for this
+framework</h2>
+<p>Applicability uses the repository standard. <strong>Direct
+evidence</strong> means the CSW artefact is material to one contributing
+outcome. In this mapping that is B5.b only. It does not mean the
+principle is Achieved. <strong>Supporting evidence</strong> means CSW
+supplements a control owned elsewhere. <strong>Out of scope</strong>
+means point the assessor somewhere else.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Principle</th>
+<th>Applicability</th>
+<th>What to show</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1 Governance</td>
+<td>Supporting evidence</td>
+<td>Posture summary for the board pack. Not roles, resourcing, or risk
+appetite.</td>
+</tr>
+<tr>
+<td>A2 Risk management</td>
+<td>Supporting evidence</td>
+<td>Exposure and enforcement-gap trends for a risk process CSW does not
+own.</td>
+</tr>
+<tr>
+<td>A3 Asset management</td>
+<td>Supporting evidence</td>
+<td>Sensor census and package inventory. Not people, power, or
+cooling.</td>
+</tr>
+<tr>
+<td>A4 Supply chain</td>
+<td>Supporting evidence</td>
+<td>Observed vendor egress versus the supplier register.</td>
+</tr>
+<tr>
+<td>B1 Service protection policies</td>
+<td>Supporting evidence</td>
+<td>Versioned workspace policy. Not the full policy, process, and
+procedure set.</td>
+</tr>
+<tr>
+<td>B2 Identity and access</td>
+<td>Out of scope</td>
+<td>IdP and PAM. ISE can feed identity into policy; it does not replace
+them.</td>
+</tr>
+<tr>
+<td>B3 Data security</td>
+<td>Supporting evidence</td>
+<td>East-west path control and plaintext-protocol deny. Not encryption
+or DLP.</td>
+</tr>
+<tr>
+<td>B4 System security</td>
+<td>Supporting evidence</td>
+<td>Per-workload CVE and package inventory. Not secure-by-design or
+patching.</td>
+</tr>
+<tr>
+<td>B5 Resilient networks</td>
+<td>Direct evidence for B5.b only</td>
+<td>Host-firewall segregation and denied connections. Not backups
+(B5.c).</td>
+</tr>
+<tr>
+<td>B6 Staff awareness</td>
+<td>Out of scope</td>
+<td>Training programme.</td>
+</tr>
+<tr>
+<td>C1 Security monitoring</td>
+<td>Supporting evidence</td>
+<td>Host flow telemetry with process context. Not the log store or
+authentication logs.</td>
+</tr>
+<tr>
+<td>C2 Proactive discovery</td>
+<td>Supporting evidence</td>
+<td>Unexpected-communication baselines. Pair with threat intelligence
+and EDR.</td>
+</tr>
+<tr>
+<td>D1 Response and recovery</td>
+<td>Supporting evidence</td>
+<td>Containment and a forensic timeline. Not backup, RTO, or
+restore.</td>
+</tr>
+<tr>
+<td>D2 Lessons learned</td>
+<td>Supporting evidence</td>
+<td>Snapshot delta that a lessons-learned review can use.</td>
+</tr>
+</tbody>
+</table>
+<p>B5.b is the only direct evidence contribution. Twelve principles are
+supporting. B2 and B6 are out of scope.</p>
+<hr />
+<h2 id="prerequisites">0. Prerequisites</h2>
+<ul>
+<li>CSW cluster deployed and reachable; agents installed on all
+workloads in scope for the essential service.</li>
+<li>API key with capabilities: <code>sensor_management</code>,
+<code>app_policy_management</code>, <code>flow_inventory_query</code>,
+<code>software_inventory</code>, <code>user_data_upload</code>.</li>
+<li>Operations toolkit cloned (<a href="https://github.com/chandrapati/CSW-Operations-Toolkit">CSW_POV_Template</a>
+or equivalent) — specifically <code>cluster_snapshot.py</code>,
+<code>generate_vuln_report.py</code>,
+<code>generate_forensics_report.py</code>,
+<code>generate_executive_report.py</code>.</li>
+<li>Scope hierarchy modelled with CAF scope in mind (see Phase 1
+below).</li>
+</ul>
+<hr />
+<h2 id="phase-1-scope-definition">1. Phase 1 — Scope definition</h2>
+<p>CAF applies to <strong>essential functions</strong> and the systems
+supporting them. The first engineering job is to translate “essential
+functions” into a CSW scope hierarchy an auditor can read.</p>
+<h3 id="recommended-csw-scope-pattern">Recommended CSW scope
+pattern</h3>
+<pre><code>root-scope
+├── CAF:Essential-Function:&lt;name&gt;        ← one per essential function
+│   ├── Tier:Web
+│   ├── Tier:App
+│   ├── Tier:Data
+│   └── Tier:Support                      ← identity, patching, backup
+├── CAF:Supporting:&lt;name&gt;                 ← systems supporting an EF but not the EF itself
+└── CAF:Out-of-Scope                      ← explicitly carved out</code></pre>
+<p>Workloads inside <code>CAF:Essential-Function:*</code> are “in scope”
+for the CAF assessment. The explicit <code>CAF:Out-of-Scope</code> scope
+exists so an assessor can see what was deliberately excluded and
+why.</p>
+<h3 id="labels-tags-to-apply-per-workload">Labels / tags to apply (per
+workload)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Label</th>
+<th>Example values</th>
+<th>CAF principle this feeds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>caf_essential_function</code></td>
+<td><code>electricity_distribution</code>,
+<code>patient_record_system</code></td>
+<td>A3, B5</td>
+</tr>
+<tr>
+<td><code>caf_tier</code></td>
+<td><code>web</code>, <code>app</code>, <code>data</code>,
+<code>support</code>, <code>ot_adjacent</code></td>
+<td>B5, B1</td>
+</tr>
+<tr>
+<td><code>caf_data_classification</code></td>
+<td><code>ePHI</code>, <code>PII</code>, <code>operational</code>,
+<code>public</code></td>
+<td>A3, B3</td>
+</tr>
+<tr>
+<td><code>caf_criticality</code></td>
+<td><code>critical</code>, <code>high</code>, <code>medium</code>,
+<code>low</code></td>
+<td>A2</td>
+</tr>
+<tr>
+<td><code>caf_owner_team</code></td>
+<td><code>payments_eng</code>, <code>clinical_apps</code></td>
+<td>A1, A3</td>
+</tr>
+<tr>
+<td><code>caf_regulator</code></td>
+<td><code>ofgem</code>, <code>ofcom</code>, <code>dwi</code>,
+<code>caa</code>, <code>dft</code>, <code>dhsc</code>,
+<code>govassure</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Push these as annotations via <code>user_data_upload</code> from your
+CMDB.</p>
+<h3 id="deliverable-from-phase-1">Deliverable from Phase 1</h3>
+<ul>
+<li><code>scope-model.md</code> — explains the scope tree and the
+labels, signed off by the CAF scoping SME.</li>
+<li><code>scope-workloads.json</code> — snapshot of which workload lives
+in which CAF scope (produced via <code>cluster_snapshot.py</code>).</li>
+</ul>
+<hr />
+<h2 id="phase-2-policy-authoring-per-caf-principle">2. Phase 2 — Policy
+authoring per CAF principle</h2>
+<p>Policies live inside CSW workspaces. One workspace per essential
+function is the recommended pattern.</p>
+<h3 id="policy-design-per-principle">Policy design per principle</h3>
+<ul>
+<li><strong>B5 (segmentation):</strong> Default-deny between CAF
+essential-function scopes; explicit allows only for documented data
+flows; cross-tier flows restricted to the specific ports/processes ADM
+identified. For IT/OT separation, add an explicit
+<code>CAF:Essential-Function:*</code> → <code>CAF:OT-Zone:*</code> deny
+with narrow exceptions.</li>
+<li><strong>B1 (policies &amp; processes):</strong> Every policy carries
+a human-readable description; version tagged with change ticket; owner
+labelled.</li>
+<li><strong>B4 (system security):</strong> Policies that deny
+known-vulnerable-service ports (telnet, old SMB, plaintext SNMP) across
+all CAF scopes.</li>
+<li><strong>B3 (data security — in transit):</strong> FIPS-aligned deny
+of plaintext protocols for workloads tagged
+<code>caf_data_classification=PII</code> or stricter (see <a href="../FIPS-140/">FIPS 140 reference design</a> for pattern).</li>
+</ul>
+<h3 id="adm-simulate-enforce-workflow">ADM → simulate → enforce
+workflow</h3>
+<ol type="1">
+<li>Run ADM on each <code>CAF:Essential-Function:*</code> workspace to
+get a baseline policy proposal.</li>
+<li>Review in CSW UI; adjust against the documented authorised data
+flows for the essential function.</li>
+<li><strong>Simulate</strong> for at least two full business cycles
+(typically 2 weeks) before enforcement. Simulation reports become
+evidence for A2 (“continuous, not annual”).</li>
+<li>Enforce in staged rings: Tier:Support → Tier:Web → Tier:App →
+Tier:Data.</li>
+<li>Keep ADM version history as change log — this is B1 evidence.</li>
+</ol>
+<h3 id="deliverable-from-phase-2">Deliverable from Phase 2</h3>
+<ul>
+<li><code>policies-authored.json</code> (via
+<code>download_policies.py</code>) — the current policy set per
+workspace.</li>
+<li><code>simulation-report-&lt;yyyy-mm-dd&gt;.html</code> per essential
+function — pre-enforcement evidence of what would be allowed vs
+rejected.</li>
+<li><code>policy-change-log-&lt;yyyy-mm-dd&gt;.md</code> — ADM versions
+and the human-approved changes between them.</li>
+</ul>
+<hr />
+<h2 id="phase-3-evidence-collection-per-caf-objective">3. Phase 3 —
+Evidence collection per CAF Objective</h2>
+<p>Automate the following so evidence is produced on a cadence, not
+scrambled for the audit.</p>
+<h3 id="monthly-per-cluster">Monthly (per cluster)</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> cluster_snapshot.py            <span class="co"># A3, A2, B4 (point-in-time inventory + posture)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> generate_vuln_report.py        <span class="co"># B4, A2 (CVE inventory tied to workloads)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> generate_forensics_report.py   <span class="co"># C2 (MITRE technique coverage)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> download_flows.py <span class="at">--hours</span> 720  <span class="co"># C1 (30-day flow archive)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> generate_executive_report.py <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--snapshot-latest</span> <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--prepared-for</span> <span class="st">&quot;&lt;Essential Function Owner&gt;&quot;</span> <span class="dt">\</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--prepared-by</span> <span class="st">&quot;SecOps&quot;</span>               <span class="co"># A1, A2 governance telemetry</span></span></code></pre></div>
+<h3 id="weekly-per-cluster">Weekly (per cluster)</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> cluster_delta.py <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--from</span> snapshots/snapshot-<span class="op">&lt;</span>prev-week<span class="op">&gt;</span>.json <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--to</span>   snapshots/snapshot-<span class="op">&lt;</span>this-week<span class="op">&gt;</span>.json   <span class="co"># D2 improvement evidence</span></span></code></pre></div>
+<h3 id="per-enforcement-change">Per enforcement change</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> download_policies.py           <span class="co"># B1 change log</span></span></code></pre></div>
+<h3 id="mapping-evidence-artefacts-to-caf-objectives">Mapping evidence
+artefacts to CAF Objectives</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>CSW artefact</th>
+<th>CAF Objectives served</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>snapshot-*.json</code></td>
+<td>A2, A3, A4 (partial), B4</td>
+</tr>
+<tr>
+<td><code>vulnerabilities-*.csv</code></td>
+<td>A2, B4</td>
+</tr>
+<tr>
+<td><code>policies-all.json</code> + ADM version history</td>
+<td>B1, B5</td>
+</tr>
+<tr>
+<td><code>conversations-*.json</code> / <code>flows-*.csv</code></td>
+<td>C1, B5 (verification), D1 (IR timeline)</td>
+</tr>
+<tr>
+<td><code>forensics-posture-*.html</code></td>
+<td>C2</td>
+</tr>
+<tr>
+<td><code>simulation-report-*.html</code></td>
+<td>A2, B1</td>
+</tr>
+<tr>
+<td><code>executive-summary-*.html</code> / <code>.md</code></td>
+<td>A1, A2</td>
+</tr>
+<tr>
+<td><code>cluster-delta-*.md</code></td>
+<td>D2</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-4-quarterly-caf-evidence-pack">4. Phase 4 — Quarterly CAF
+evidence pack</h2>
+<p>A GovAssure or OES Competent Authority submission typically wants an
+evidence pack covering each CAF principle. Pre-stage the files monthly;
+assemble the pack quarterly.</p>
+<h3 id="pack-structure">Pack structure</h3>
+<pre><code>caf-evidence-pack-&lt;yyyy-qq&gt;/
+├── 00_overview.md                      ← executive summary + scope attestation
+├── A1_Governance/
+├── A2_Risk_Management/
+├── A3_Asset_Management/
+├── A4_Supply_Chain/
+├── B1_Policies_Processes/
+├── B2_Identity_Access/                 ← pointer to IdP evidence (no CSW output)
+├── B3_Data_Security/
+├── B4_System_Security/
+├── B5_Resilient_Networks/
+├── B6_Staff_Awareness/                 ← pointer to training evidence
+├── C1_Security_Monitoring/
+├── C2_Proactive_Discovery/
+├── D1_Response_Recovery/
+├── D2_Improvements/
+└── 99_disclaimers_and_pairings.md</code></pre>
+<p>See <a href="./caf-evidence-pack-template.html">caf-evidence-pack-template.md</a>
+for exactly what file goes in each folder.</p>
+<hr />
+<h2 id="common-assessor-questions-and-the-csw-answer">5. Common assessor
+questions and the CSW answer</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Question</th>
+<th>CSW evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>“Prove the control still held last Tuesday, not just
+today.”</em></td>
+<td>Monthly <code>snapshot-*.json</code> and flow archive —
+point-in-time attestation.</td>
+</tr>
+<tr>
+<td><em>“How do you know you’d see an attacker moving
+laterally?”</em></td>
+<td>Flow telemetry + rejected-flows report + MITRE forensics
+coverage.</td>
+</tr>
+<tr>
+<td><em>“How do you measure improvement since the last
+assessment?”</em></td>
+<td><code>cluster_delta.py</code> output +
+<code>executive-summary</code> trend.</td>
+</tr>
+<tr>
+<td><em>“What enforces the segmentation — is it just a firewall rule you
+hope stays?”</em></td>
+<td>Policies are enforced in-kernel on every host (nftables / WFP); CSW
+continuously verifies.</td>
+</tr>
+<tr>
+<td><em>“How do you handle supplier access?”</em></td>
+<td>Scope-tagged egress flows; vendor-package inventory; pair with
+TPRM.</td>
+</tr>
+<tr>
+<td><em>“What about identity?”</em></td>
+<td>Explicit: CSW is not an IAM tool. Point to IdP + PAM evidence.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="se-sa-conversation-starters">6. SE / SA conversation
+starters</h2>
+<p>Lift from the repo’s <a href="../docs/se-compliance-cyber-insurance-roleplay.html">SE compliance
+role-play</a> but tailored to a UK assessor conversation:</p>
+<ol type="1">
+<li><em>“Which of your essential functions is being assessed first — and
+how many workloads sit inside its boundary?”</em> → scopes problem to
+real numbers.</li>
+<li><em>“Who is your Competent Authority for this programme (Ofgem? DWI?
+GSG?) and what have they flagged in prior assessments?”</em> → anchors
+conversation in regulator language.</li>
+<li><em>“Can you show which systems that support the essential function
+are separated from other business systems, and which connections were
+denied?”</em> → this is B5.b. CAF does not ask for a Purdue model.</li>
+<li><em>“When you need to tell your Competent Authority that control X
+still held last Tuesday, where does that evidence come from?”</em> →
+surfaces continuous-vs-annual pain, where CSW shines.</li>
+</ol>
+<hr />
+<h2 id="known-limitations-and-pairings">7. Known limitations and
+pairings</h2>
+<ul>
+<li><strong>B2 (Identity):</strong> CSW cannot satisfy. Pair with IdP +
+PAM. Use <a href="https://github.com/chandrapati/csw-ise-integration">ISE
+integration</a> for identity-aware segmentation (identity assertion from
+ISE).</li>
+<li><strong>B6 (Training):</strong> Out of scope.</li>
+<li><strong>D1 (Backup/DR):</strong> CSW contains blast radius; it does
+not restore services. Pair with backup/DR platform.</li>
+<li><strong>OT device tier:</strong> CSW does not run on PLCs/RTUs/IEDs.
+Pair with Cyber Vision / Claroty / Nozomi / Dragos.</li>
+<li><strong>Perimeter / DDoS:</strong> CSW is east-west only. Pair with
+Secure Firewall and DDoS service.</li>
+</ul>
+<hr />
+<h2 id="related-frameworks">Related frameworks</h2>
+<p>Reuse the engineering detail already written for the sister control,
+then attach it to the CAF principle in <a href="./caf-mapping.html">caf-mapping.md</a>:</p>
+<ul>
+<li><a href="../NIS2/CSW-NIS2-Reference-Design.html">NIS2</a> — A2, A4,
+and incident timelines</li>
+<li><a href="../ISO-27001-2022/CSW-ISO27001-Reference-Design.html">ISO/IEC
+27001:2022</a> — A.8.20–A.8.22 for B5</li>
+<li><a href="../NIST-CSF-2/CSW-CSF-Reference-Design.html">NIST CSF 2.0</a>
+— outcomes language across A–D</li>
+<li><a href="../NIST-800-53/CSW-NIST-800-53-Reference-Design.html">NIST SP
+800-53</a> — AC-4 / SC-7 for B5</li>
+<li><a href="../CIS-Controls-v8/CSW-CIS-Reference-Design.html">CIS
+Controls v8.1</a> — inventory, vuln, and monitoring</li>
+<li><a href="../IEC-62443/CSW-IEC-62443-Reference-Design.html">IEC
+62443</a> — zones and conduits for B5</li>
+<li><a href="../NIST-800-82/CSW-NIST-800-82-Reference-Design.html">NIST SP
+800-82</a> — IT side of an IT/OT boundary</li>
+<li><a href="../MITRE-ATTACK/CSW-MITRE-ATTACK-Reference-Design.html">MITRE
+ATT&amp;CK</a> — C2</li>
+<li><a href="../DORA/CSW-DORA-Reference-Design.html">DORA</a> — supplier
+egress (A4) and incident dossier (D1)</li>
+<li><a href="../FIPS-140/CSW-FIPS-Reference-Design.html">FIPS 140</a> —
+plaintext-protocol deny for B3</li>
+</ul>
+<hr />
+<h2 id="disclaimer">Disclaimer</h2>
+<p>Draft v1. Requires SME review against the current CAF text (v3.2 at
+time of authoring) and against your Competent Authority’s expectations
+before relied upon in a formal assessment. See <a href="../README.html#disclaimer">repository disclaimer</a>.</p>
+</body>
+</html>

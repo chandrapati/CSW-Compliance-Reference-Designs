@@ -10,7 +10,7 @@ This library is a field mapping maintained for customer conversations. It is an 
 
 Cisco Secure Workload watches workload-to-workload communication: which process talked to which host, on which port, whether policy permitted it, and what changed. The library takes that evidence and lines it up with a framework’s control language.
 
-Two documents sit in every framework folder:
+Each framework folder carries a reference design, and most also carry a compliance report:
 
 - The **report** is the narrative for a CISO, a GRC lead, or an assessor. It says which requirement the evidence can support and where another control still has to be filed.
 - The **reference design** is the engineering view. It shows scope design, policy shape, and which export to pull. If a claim in the report is real, the steps are in the reference design.
