@@ -884,6 +884,178 @@ FRAMEWORKS = [
         "boundaries": "CSW does not perform Computer System Validation, does not produce record-level ALCOA+ evidence, provides no electronic-signature capability, and does not supply application-level audit trails. The CSW audit trail covers the segmentation control, not the GxP record. Where CSW is relied upon as a GxP control, the customer's quality function may require CSW itself to be qualified. GxP is enforced by inspection and nothing here confers compliance.",
         "runbook_filename": "CSW-GxP-Reference-Design.md",
     },
+    # The three entries below are Markdown-first in their own standalone
+    # repositories rather than in a framework folder here, so they carry
+    # `standalone_repo` and render next to the reference design they cite.
+    {
+        "folder": "CJIS",
+        "standalone_repo": "CSW-CJIS-Reference-Design",
+        "title": "Cisco Secure Workload - CJIS Compliance Report",
+        "stem": "CSW-CJIS-Compliance-Report",
+        "standard": "FBI CJIS Security Policy (CJISSECPOL)",
+        "version_note": "References CJISSECPOL v6.1, effective 06/25/2026. The v6.x series is restructured around NIST SP 800-53 Rev 5 control families, retaining only Policy Area 1 (Information Exchange Agreements) and Policy Area 20 (Mobile Devices) from the older numbering. Sanctionable requirements today are the pre-v5.9 set plus those marked [Priority 1]; Priority 2-4 requirements sit in a zero-cycle window through 09/30/2027. Some state CSAs still audit against an earlier revision - confirm the audited version with your CSA before use.",
+        "audience": "Law enforcement agencies, courts, corrections, state CSAs, and private contractors handling Criminal Justice Information under a Security Addendum.",
+        "driver": "CJI enclave boundary enforcement, AC-4 and SC-7 evidence, continuously reconciled inventory, and reachability-weighted vulnerability context.",
+        "scope_pattern": "CJIS\n├── CJI-Enclave (CJI-Applications, CJI-Data-Stores, State-Interface)\n├── CJI-Adjacent (Identity-Services, Logging-and-Monitoring, Patch-and-Config-Mgmt)\n├── Privileged-Access-Paths\n├── Non-CJI-Agency\n└── External (Internet-Edge, Vendor-Remote-Support)",
+        "in_scope": [
+            "AC-3 / AC-4 / AC-17 (enclave access enforcement, information flow, remote administration paths)",
+            "AU (flow and process telemetry as an audit record source)",
+            "CA-7 (continuous monitoring of the enclave boundary)",
+            "CM-7 / CM-8 (least functionality, component inventory)",
+            "RA-5 (vulnerability identification with reachability context)",
+            "SC-7 (boundary protection between CJI and non-CJI)",
+            "SI-4 (system monitoring of enclave communications)",
+        ],
+        "out_of_scope": [
+            "Personnel security, fingerprinting, and background screening",
+            "Physically secure location requirements",
+            "Advanced authentication and identity lifecycle",
+            "Encryption of CJI in transit and at rest",
+            "Security awareness training and the LASO function",
+            "Media protection, sanitization, and disposal",
+            "Information exchange agreements and the Security Addendum",
+            "Incident response execution and CSA / FBI notification decisions",
+        ],
+        "topic_map": [
+            ("CJI enclave identification", "Workload inventory with CJI labels; scope membership export", "Inventory export reconciled to the agency CJI system register"),
+            ("Access enforcement (AC-3)", "Enforced workload allowlist on the host firewall", "Policy workspace snapshot plus denied-connections log"),
+            ("Information flow enforcement (AC-4)", "Inter-scope deny with documented justified exceptions", "Enforced policy export and exception register"),
+            ("Boundary protection (SC-7)", "CJI-Enclave to Non-CJI-Agency default-deny", "Boundary deny rule plus blocked-flow record proving it operates"),
+            ("Remote access paths (AC-17)", "Privileged-access path restriction and observation", "Rules limiting 22/3389/WinRM to named jump hosts, with flows actually used"),
+            ("Third-party access (AC-20)", "Vendor-remote-support egress visibility", "Vendor-path flow report reconciled against Security Addendum signatories"),
+            ("Component inventory (CM-8)", "Continuously reconciled workload inventory", "Inventory delta report since the previous audit cycle"),
+            ("Least functionality (CM-7)", "Observed listening ports and running processes per workload", "Process and port inventory with deviation list"),
+            ("Continuous monitoring (CA-7)", "Flow and process telemetry across the enclave", "Monitoring evidence scoped to CJI-Enclave"),
+            ("Vulnerability identification (RA-5)", "CVE inventory weighted by reachability into the enclave", "Prioritised exposure list with compensating-control register"),
+            ("System monitoring (SI-4)", "Policy-violation and unmatched-flow detection", "Deviation log for the audit period"),
+        ],
+        "evidence_collection": [
+            ("CJI system inventory", "Inventory export with scope, CJI labels, and owner", "Workload inventory plus scope membership export", "Monthly"),
+            ("Enclave boundary enforcement", "Boundary policy and proof it blocks", "Policy workspace export plus denied-connections log", "Quarterly and after each change"),
+            ("Approved vs. observed flows", "ADM output compared to enforced policy", "ADM workspace export", "Quarterly"),
+            ("Remote and vendor access", "Administrative and vendor paths actually used", "Flow search filtered to privileged and vendor sources", "Monthly"),
+            ("Vulnerability plus reachability", "CVE list weighted by reach into CJI-Enclave", "Vulnerability report scoped to CJIS", "Monthly"),
+            ("Audit-cycle pack", "Combined inventory, policy, deviation, and exposure bundle", "Scoped exports assembled per the evidence checklist", "Per CSA audit cycle, typically triennial"),
+        ],
+        "boundaries": "CSW does not supply personnel screening, physically secure location controls, advanced authentication, encryption of CJI, awareness training, media protection, information exchange agreements, or notification decisions. No product is 'CJIS certified' - compliance is assessed against the agency, not the vendor. The deployment model question (on-premises versus SaaS) is the agency's determination and is addressed in the reference design rather than resolved here.",
+        "runbook_filename": "CSW-CJIS-Reference-Design.md",
+    },
+    {
+        "folder": "TSA-Rail",
+        "standalone_repo": "CSW-TSA-Rail-Reference-Design",
+        "title": "Cisco Secure Workload - TSA Rail Cybersecurity Compliance Report",
+        "stem": "CSW-TSA-Rail-Compliance-Report",
+        "standard": "TSA Security Directive 1580/82-2022-01E, Rail Cybersecurity Mitigation Actions and Testing",
+        "version_note": "References SD 1580/82-2022-01E, effective May 3, 2026 through May 2, 2027, which supersedes 01D. This series is renewed annually and the revision letter advances - confirm the active letter before use. TSA determined the SD text is not Sensitive Security Information, but everything submitted to TSA under it is SSI under 49 CFR part 1520.",
+        "audience": "Freight railroad Owner/Operators subject to 49 CFR 1580.101, additional TSA-designated freight and passenger railroads, and the cybersecurity, IT, and OT teams supporting them.",
+        "driver": "Section III.B zone enforcement, interdependency and external-connection documentation generated from observed behaviour, baseline-deviation auditing, and the east-west / north-south traffic records the directive names explicitly.",
+        "scope_pattern": "Rail-Critical-Cyber-Systems\n├── OT-Facing-IT (PTC-Back-Office, Dispatch-and-CAD, Signaling-Support, Historians, Engineering-Workstations)\n├── CCS-Supporting-IT (Train-Mgmt-and-Planning, Identity-and-PKI, Logging-and-Monitoring, Patch-Repositories)\n├── Privileged-Access-Paths\n├── Corporate-IT\n└── External (Internet-Edge, Vendor-and-MSSP-Access)",
+        "in_scope": [
+            "III.A - Critical Cyber System identification on the IT side, including the PTC back office",
+            "III.B.1 - interdependency, external-connection, and logical zone documentation",
+            "III.B.2 - inter-zone enforcement and detection of unencrypted cross-boundary traffic",
+            "III.C - restriction and observation of local and remote administrative access paths",
+            "III.D - continuous monitoring, baseline-deviation auditing, and pre-staged OT isolation",
+            "III.E - unpatched-system risk with CISA KEV prioritisation and compensating controls",
+            "III.F.2.b - network traffic verification and validation input to the architecture design review",
+            "IV.C.2.e - east-west and north-south traffic records",
+        ],
+        "out_of_scope": [
+            "The OT device layer: wayside interface units, signal and interlocking controllers, locomotive onboard PTC, grade-crossing predictors, PLCs",
+            "Deep packet inspection of rail or OT protocols",
+            "Multi-factor authentication, shared-account management, domain trust review",
+            "Encryption of traffic crossing the IT/OT boundary",
+            "Patch deployment and OT maintenance coordination",
+            "Physical security of locomotive PTC components",
+            "Packet capture (IV.C.2.e.ii)",
+            "The Cybersecurity Implementation Plan, Assessment Plan, and Incident Response Plan themselves",
+        ],
+        "topic_map": [
+            ("Critical Cyber System identification (III.A)", "Workload inventory with CCS labels", "Inventory export reconciled to the CCS register in the approved plan"),
+            ("PTC back office as mandatory CCS (III.A.2)", "Workload-level instrumentation of the PTC back office and dependencies", "Scoped inventory and dependency map for the PTC tier"),
+            ("Interdependency list (III.B.1.a)", "ADM dependency mapping from observed flows", "Machine-generated interdependency list with process context"),
+            ("External connection list (III.B.1.b)", "External and vendor connection detection", "External-connection export reconciled against the plan"),
+            ("Logical zones (III.B.1.c)", "Scope tree implementing the zone model", "Scope architecture export matching the plan's zone diagram"),
+            ("Zone enforcement (III.B.2.a)", "Inter-zone default-deny with justified allowlist", "Policy workspace snapshot plus denied-connections log"),
+            ("Cross-boundary protection (III.B.2.b)", "Detection of cleartext flows crossing zones", "Plaintext-crossing report with remediation or compensating control"),
+            ("Access control measures (III.C)", "Administrative path restriction and observation", "Rules limiting admin protocols plus the paths actually used"),
+            ("Baseline deviation (III.D.2.b)", "Unmatched-flow and policy-violation logging", "Deviation log for OT-to-external communications"),
+            ("Detection of unauthorised communication (III.D.3.a)", "Denied-connections record", "Blocked-attempt log for the reporting period"),
+            ("OT isolation capability (III.D.4)", "Pre-staged, unapplied isolation workspace", "Workspace export plus a timed isolation test record"),
+            ("Unpatched system risk (III.E.2.b)", "CVE inventory weighted by reachability and CISA KEV presence", "Prioritised exposure list scoped to Critical Cyber Systems"),
+            ("Architecture review input (III.F.2.b)", "Current topology and enforced policy state", "As-built ADM topology and policy export"),
+            ("East-west and north-south records (IV.C.2.e)", "Flow telemetry within and across trust zones", "East-west and north-south traffic exports as the SD defines them"),
+        ],
+        "evidence_collection": [
+            ("Critical Cyber System inventory", "Inventory with ccs_id, function, zone, and OT-facing flag", "Workload inventory plus scope membership export", "Monthly"),
+            ("Zone documentation set", "Interdependencies, external connections, zone boundaries", "ADM export plus external-connection filter exports", "Quarterly"),
+            ("Zone enforcement evidence", "Policy snapshot and proof it blocks, both directions", "Policy workspace export plus denied-connections log", "Quarterly and after each change"),
+            ("Baseline deviation log", "Communications deviating from the identified baseline", "Policy-violation and unmatched-flow history", "Monthly"),
+            ("Isolation readiness", "Pre-staged isolation workspace and test result", "Workspace export plus maintenance-window test record", "Annually at minimum"),
+            ("Unpatched-system exposure", "KEV-present CVEs reachable from a lower-trust zone", "Vulnerability report scoped to Critical Cyber Systems", "Monthly"),
+            ("Assessment-cycle pack", "Evidence for the third of measures assessed this year", "Scoped exports assembled per the evidence checklist", "Annually; 100 percent of measures over three years"),
+        ],
+        "boundaries": "CSW addresses the IT side of the IT/OT boundary and does not reach wayside units, signal controllers, locomotive onboard PTC, or PLCs, and does not inspect OT protocol payloads. It detects unencrypted cross-boundary traffic but does not encrypt it. TSA inspects against the Owner/Operator's TSA-approved Cybersecurity Implementation Plan, not against the SD text and not against a vendor document - every artifact here must be mapped to a measure in that plan. Delegation to an MSSP or Authorized Representative does not transfer responsibility.",
+        "runbook_filename": "CSW-TSA-Rail-Reference-Design.md",
+    },
+    {
+        "folder": "TSA-Aviation",
+        "standalone_repo": "CSW-TSA-Aviation-Reference-Design",
+        "title": "Cisco Secure Workload - TSA Aviation Cybersecurity Compliance Report",
+        "stem": "CSW-TSA-Aviation-Compliance-Report",
+        "standard": "TSA Joint Emergency Amendment (EA) 23-01, issued March 7, 2023",
+        "version_note": "Joint EA 23-01 is Sensitive Security Information under 49 CFR 1520.5(b) and its text is not public. This report is built only from public sources: TSA's March 7, 2023 press release (the four performance-based measures, quoted verbatim), the public appellate record of Spokane Airport Board v. TSA, No. 23-1155 (D.C. Cir. Jan. 20, 2026), and 89 FR 28569. No EA provision numbers appear anywhere in this report, and no claim is made that the four public measures are the complete set of EA requirements. Whether a given operator is covered, and whether a revision or successor has been issued, are questions for that operator's TSA principal security inspector.",
+        "audience": "TSA-regulated aircraft operators (airlines) holding security programs under 49 CFR part 1544 and airport operators under part 1542 whose programs TSA has designated as covered.",
+        "driver": "Bidirectional segmentation between operational and information systems, continuously reconciled critical-systems inventory, continuous monitoring, risk-based patch prioritisation, and the effectiveness evidence the annual assessment obligation asks for.",
+        "scope_pattern": "Aviation-Critical-Cyber-Systems\n├── Flight-Operations (Dispatch-and-Flight-Following, Flight-Planning-and-Weight-Balance, Crew-Scheduling-and-Tracking, Datalink-Ground-Gateway)\n├── Passenger-Service-Systems (Reservations-and-Inventory, Departure-Control-and-Checkin, Baggage-Reconciliation)\n├── Maintenance-and-Engineering (MRO-and-Airworthiness, EFB-Content-Distribution)\n├── Cargo-Operations\n├── CCS-Supporting-IT\n├── Station-and-Airport-Facing\n├── Privileged-Access-Paths\n├── Corporate-IT\n└── External (Internet-Edge, Industry-Networks, Vendor-and-Ground-Handler-Access)",
+        "in_scope": [
+            "Measure 1 - network segmentation so operational systems keep running if IT is compromised, and the reverse",
+            "Measure 2 - restriction of network reachability and administrative paths to critical cyber systems",
+            "Measure 3 - continuous monitoring and detection of anomalies affecting critical system operations",
+            "Measure 4 - risk-based prioritisation of unpatched-system exposure using reachability and CISA KEV",
+            "Critical-systems identification and keeping the list current as the estate changes",
+            "Annual effectiveness assessment evidence, as distinct from implementation evidence",
+        ],
+        "out_of_scope": [
+            "Aircraft: avionics, onboard networks, flight-deck and cabin systems, the aircraft end of any datalink",
+            "Airport OT: baggage conveyor controls, access control and camera field devices, airfield lighting, boarding bridges, fuel systems, PLCs",
+            "Endpoint fleets: crew and pilot EFB tablets, kiosks, handhelds, gate workstations",
+            "Multi-factor authentication, account and credential management, shared accounts, domain trusts",
+            "Patch deployment and verification",
+            "Encryption of traffic crossing zones",
+            "Endpoint and user-behaviour detection, email and web filtering",
+            "CISA incident reporting, the cybersecurity coordinator designation, and the Incident Response Plan",
+            "Clause-level traceability to the EA, which is SSI",
+        ],
+        "topic_map": [
+            ("Critical-systems identification", "Workload inventory with critical-system labels", "Inventory export reconciled to the submitted critical-systems list"),
+            ("Keeping the list complete", "Scope-membership reconciliation on a schedule", "Delta report of estate workloads absent from the submitted list"),
+            ("Zone model (Measure 1)", "Scope tree implementing the zone model in the approved plan", "Scope architecture export"),
+            ("Interdependency enumeration (Measure 1)", "ADM dependency mapping from observed flows", "Machine-generated dependency map with process context"),
+            ("External connections (Measure 1)", "Industry-network and ground-handler path detection", "External-connection export covering SITA/ARINC, GDS, interline and codeshare paths"),
+            ("Inter-zone prevention (Measure 1)", "Default-deny between zones with justified allowlist", "Policy workspace snapshot plus denied-connections log"),
+            ("Bidirectional isolation (Measure 1)", "Paired deny rules and a two-direction negative test", "Blocked-attempt records into and out of the operational core"),
+            ("Reachability restriction (Measure 2)", "Administrative path restriction to named sources and ports", "Policy export plus the administrative paths actually used"),
+            ("Continuous visibility (Measure 3)", "Flow telemetry with process attribution", "Monitoring evidence scoped to critical systems"),
+            ("Baseline deviation (Measure 3)", "Unmatched-flow and policy-violation logging", "Deviation log for the reporting period"),
+            ("Configuration drift (Measure 3)", "Process and package inventory change history", "Drift record per critical workload"),
+            ("Risk-based prioritisation (Measure 4)", "CVE inventory weighted by reachability and CISA KEV presence", "Prioritised exposure list scoped to critical systems"),
+            ("Compensating controls (Measure 4)", "Targeted segmentation around unpatchable workloads", "Policy export serving as compensating-control evidence"),
+            ("Annual effectiveness assessment", "Simulation, denial, negative-test and drift evidence", "Effectiveness pack distinct from the implementation pack"),
+        ],
+        "evidence_collection": [
+            ("Critical-systems inventory", "Inventory with critical-system id, function, zone, and designation provenance", "Workload inventory plus scope membership export", "Monthly"),
+            ("Scope reconciliation delta", "Workloads present in the estate but absent from the submitted list", "Scope-membership delta export", "Monthly"),
+            ("External connection list", "Industry-network, GDS, interline and ground-handler paths", "Filter exports for industry networks and handler access", "Quarterly"),
+            ("Segmentation enforcement", "Policy snapshot plus proof it blocks in both directions", "Policy workspace export plus denied-connections log", "Quarterly and after each change"),
+            ("Bidirectional negative test", "A blocked attempt into and out of the operational core", "Denied-connections log filtered to the test window", "Quarterly"),
+            ("Monitoring and drift", "Deviation and configuration-change history", "Policy-violation history plus workload drift records", "Monthly"),
+            ("Unpatched-system exposure", "KEV-present CVEs reachable from a lower-trust zone", "Vulnerability report scoped to critical systems", "Monthly"),
+            ("Effectiveness pack", "Evidence that measures work, not only that they exist", "Simulation report, denials, negative tests, drift trend", "Annually, ahead of the assessment submission"),
+        ],
+        "boundaries": "CSW has no reach into aircraft, the airport OT field-device layer, or endpoint fleets, and it detects unencrypted cross-zone traffic without encrypting it. Because EA 23-01 is SSI, no vendor document can provide clause-level traceability; that mapping must be completed inside the operator by someone with authorized access to the EA and the approved plan. TSA inspects against the operator's approved Cybersecurity Implementation Plan, and because that plan forms part of the TSA-approved security program, changes to it may require TSA approval under 49 CFR 1542.105(b).",
+        "runbook_filename": "CSW-TSA-Aviation-Reference-Design.md",
+    },
 ]
 
 
@@ -1127,13 +1299,36 @@ def run_pandoc(markdown: str, output_path: Path, to_format: str, title: str) -> 
             header_path.unlink(missing_ok=True)
 
 
+def output_folder(item: dict) -> Path | None:
+    """Where this framework's report is written.
+
+    Most frameworks render into their folder in this repository. A framework
+    carrying `standalone_repo` is Markdown-first in its own repository, so the
+    report renders there instead — next to the reference design it cites. That
+    repository has to be checked out beside this one; if it is not, the caller
+    skips the entry rather than creating an orphan folder here.
+    """
+    standalone = item.get("standalone_repo")
+    if standalone:
+        sibling = ROOT.parent / str(standalone)
+        return sibling if sibling.is_dir() else None
+    return ROOT / str(item["folder"])
+
+
 def main() -> int:
     for item in FRAMEWORKS:
-        folder = ROOT / str(item["folder"])
+        folder = output_folder(item)
+        if folder is None:
+            print(f"SKIP {item['stem']}: {item['standalone_repo']} not checked out beside this repo")
+            continue
         folder.mkdir(parents=True, exist_ok=True)
         markdown = report_markdown(item)
         stem = folder / str(item["stem"])
-        print(f"report (docx source) -> {stem.relative_to(ROOT)}.docx")
+        try:
+            shown = stem.relative_to(ROOT)
+        except ValueError:
+            shown = Path(folder.name) / str(item["stem"])
+        print(f"report (docx source) -> {shown}.docx")
         # DOCX is the source of truth. Table styling (standardize-reports.py),
         # PDF (LibreOffice) and HTML (build-html.py) are produced downstream so
         # every framework in the set is rendered through one consistent pipeline.
