@@ -21,13 +21,13 @@ supports evidence for it.
 
 | If you're asking… | Start here |
 |---|---|
-| "How do I prove my segmentation actually works?" | [PCI Req 1](./PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.md), [HIPAA §164.312(a)(1)](./HIPAA/CSW-HIPAA-Reference-Design.md), [NIST AC-4](./NIST-800-53/CSW-NIST-800-53-Reference-Design.md), [DORA Art. 9](./DORA/CSW-DORA-Reference-Design.md), [NERC CIP-005 R1](./NERC-CIP/CSW-NERC-CIP-Reference-Design.md), [TSA SD Section III.A](./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.md), [TSA Rail III.B](./TSA-Rail/CSW-TSA-Rail-Reference-Design.md), [IEC 62443 SR 5.1–5.4](./IEC-62443/CSW-IEC62443-Reference-Design.md), [GDPR Art. 25 / Art. 32](./GDPR/CSW-GDPR-Reference-Design.md), [FedRAMP AC-4 / SC-7](./FedRAMP/CSW-FedRAMP-Reference-Design.md), [SWIFT CSCF 1.1](./SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design.md), [HITRUST 01.m](./HITRUST-CSF/CSW-HITRUST-Reference-Design.md), [CIS Safeguard 13.4](./CIS-Controls-v8/CSW-CIS-Reference-Design.md), [CSF PR.IR-01](./NIST-CSF-2/CSW-CSF-Reference-Design.md), [CMMC SC.L2-3.13.1 / 3.13.6](./CMMC-2/CSW-CMMC-Reference-Design.md), [NIST 800-171 03.01.03 / 03.13.06](./NIST-800-171/CSW-NIST-800-171-Reference-Design.md), [HIPAA NPRM §164.312(a)(2)(vi)](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.md), [UK CE1](./UK-Cyber-Essentials/CSW-Cyber-Essentials-Reference-Design.md), [AU E5](./AU-Essential-Eight/CSW-Essential-Eight-Reference-Design.md), [CSA IVS-09](./CSA-CCM/CSW-CSA-CCM-Reference-Design.md) |
-| "How do I demonstrate continuous monitoring?" | [NIST CA-7 / SI-4](./NIST-800-53/CSW-NIST-800-53-Reference-Design.md), [PCI Req 11](./PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.md), [SOC 2 CC7.2](./SOC2/CSW-SOC2-Reference-Design.md), [NIS2 Art. 21(2)(b)](./NIS2/CSW-NIS2-Reference-Design.md), [NERC CIP-007 R4](./NERC-CIP/CSW-NERC-CIP-Reference-Design.md), [TSA SD Section III.C](./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.md), [TSA Rail III.D](./TSA-Rail/CSW-TSA-Rail-Reference-Design.md), [FedRAMP CA-7 / SI-4](./FedRAMP/CSW-FedRAMP-Reference-Design.md), [IEC 62443 SR 6](./IEC-62443/CSW-IEC62443-Reference-Design.md), [SWIFT CSCF 6.4](./SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design.md), [HITRUST 09.ab](./HITRUST-CSF/CSW-HITRUST-Reference-Design.md), [CIS Safeguards 13.1 / 13.6](./CIS-Controls-v8/CSW-CIS-Reference-Design.md), [CSF DE.CM-01 / DE.CM-09](./NIST-CSF-2/CSW-CSF-Reference-Design.md), [CMMC SI.L2-3.14.6](./CMMC-2/CSW-CMMC-Reference-Design.md), [COBIT MEA01 / MEA02](./COBIT-2019/CSW-COBIT-Reference-Design.md), [CSA LOG](./CSA-CCM/CSW-CSA-CCM-Reference-Design.md) |
+| "How do I prove my segmentation actually works?" | [PCI Req 1](./PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.md), [HIPAA §164.312(a)(1)](./HIPAA/CSW-HIPAA-Reference-Design.md), [NIST AC-4](./NIST-800-53/CSW-NIST-800-53-Reference-Design.md), [DORA Art. 9](./DORA/CSW-DORA-Reference-Design.md), [NERC CIP-005 R1](./NERC-CIP/CSW-NERC-CIP-Reference-Design.md), [TSA SD Section III.A](./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.md), [TSA Rail III.B](./TSA-Rail/CSW-TSA-Rail-Reference-Design.md), [TSA Aviation Measure 1](https://github.com/chandrapati/CSW-TSA-Aviation-Reference-Design), [CJIS AC-4 / SC-7](https://github.com/chandrapati/CSW-CJIS-Reference-Design), [IEC 62443 SR 5.1–5.4](./IEC-62443/CSW-IEC62443-Reference-Design.md), [GDPR Art. 25 / Art. 32](./GDPR/CSW-GDPR-Reference-Design.md), [FedRAMP AC-4 / SC-7](./FedRAMP/CSW-FedRAMP-Reference-Design.md), [SWIFT CSCF 1.1](./SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design.md), [HITRUST 01.m](./HITRUST-CSF/CSW-HITRUST-Reference-Design.md), [CIS Safeguard 13.4](./CIS-Controls-v8/CSW-CIS-Reference-Design.md), [CSF PR.IR-01](./NIST-CSF-2/CSW-CSF-Reference-Design.md), [CMMC SC.L2-3.13.1 / 3.13.6](./CMMC-2/CSW-CMMC-Reference-Design.md), [NIST 800-171 03.01.03 / 03.13.06](./NIST-800-171/CSW-NIST-800-171-Reference-Design.md), [HIPAA NPRM §164.312(a)(2)(vi)](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.md), [UK CE1](./UK-Cyber-Essentials/CSW-Cyber-Essentials-Reference-Design.md), [AU E5](./AU-Essential-Eight/CSW-Essential-Eight-Reference-Design.md), [CSA IVS-09](./CSA-CCM/CSW-CSA-CCM-Reference-Design.md) |
+| "How do I demonstrate continuous monitoring?" | [NIST CA-7 / SI-4](./NIST-800-53/CSW-NIST-800-53-Reference-Design.md), [PCI Req 11](./PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.md), [SOC 2 CC7.2](./SOC2/CSW-SOC2-Reference-Design.md), [NIS2 Art. 21(2)(b)](./NIS2/CSW-NIS2-Reference-Design.md), [NERC CIP-007 R4](./NERC-CIP/CSW-NERC-CIP-Reference-Design.md), [TSA SD Section III.C](./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.md), [TSA Rail III.D](./TSA-Rail/CSW-TSA-Rail-Reference-Design.md), [TSA Aviation Measure 3](https://github.com/chandrapati/CSW-TSA-Aviation-Reference-Design), [CJIS CA-7 / SI-4](https://github.com/chandrapati/CSW-CJIS-Reference-Design), [FedRAMP CA-7 / SI-4](./FedRAMP/CSW-FedRAMP-Reference-Design.md), [IEC 62443 SR 6](./IEC-62443/CSW-IEC62443-Reference-Design.md), [SWIFT CSCF 6.4](./SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design.md), [HITRUST 09.ab](./HITRUST-CSF/CSW-HITRUST-Reference-Design.md), [CIS Safeguards 13.1 / 13.6](./CIS-Controls-v8/CSW-CIS-Reference-Design.md), [CSF DE.CM-01 / DE.CM-09](./NIST-CSF-2/CSW-CSF-Reference-Design.md), [CMMC SI.L2-3.14.6](./CMMC-2/CSW-CMMC-Reference-Design.md), [COBIT MEA01 / MEA02](./COBIT-2019/CSW-COBIT-Reference-Design.md), [CSA LOG](./CSA-CCM/CSW-CSA-CCM-Reference-Design.md) |
 | "How do I produce an incident-reporting evidence pack?" | [DORA Art. 19](./DORA/CSW-DORA-Reference-Design.md), [NIS2 Art. 23](./NIS2/CSW-NIS2-Reference-Design.md), [HIPAA §164.308(a)(6)](./HIPAA/CSW-HIPAA-Reference-Design.md), [GDPR Art. 33–34](./GDPR/CSW-GDPR-Reference-Design.md), [NERC CIP-008](./NERC-CIP/CSW-NERC-CIP-Reference-Design.md), [TSA CIRP / 24-hour CISA](./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.md), [SWIFT CSCF 7.1](./SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design.md), [HITRUST 11.a / 11.c](./HITRUST-CSF/CSW-HITRUST-Reference-Design.md), [CIS Control 17](./CIS-Controls-v8/CSW-CIS-Reference-Design.md), [CSF RS.AN-03 / RS.AN-07](./NIST-CSF-2/CSW-CSF-Reference-Design.md), [CMMC IR.L2-3.6.x](./CMMC-2/CSW-CMMC-Reference-Design.md), [HIPAA NPRM §164.308(a)(6)](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.md) |
 | "How do I show my supply chain / third-party exposure?" | [DORA Art. 28](./DORA/CSW-DORA-Reference-Design.md), [NIS2 Art. 21(2)(d)](./NIS2/CSW-NIS2-Reference-Design.md), [GDPR Art. 28](./GDPR/CSW-GDPR-Reference-Design.md), [ISO A.5.19–A.5.22](./ISO-27001-2022/CSW-ISO27001-Reference-Design.md), [NERC CIP-013](./NERC-CIP/CSW-NERC-CIP-Reference-Design.md), [CIS Control 15](./CIS-Controls-v8/CSW-CIS-Reference-Design.md), [CSF GV.SC-04 / GV.SC-07](./NIST-CSF-2/CSW-CSF-Reference-Design.md) |
 | "Where does CSW fit in a Zero Trust architecture?" | [NIST 800-207 Tenets](./NIST-800-207/CSW-NIST-800-207-Reference-Design.md), [NIST 800-207A PDP/PEP/PA/PIP](./NIST-800-207A/CSW-NIST-800-207A-Reference-Design.md), [CISA ZTMM](./CISA-ZeroTrust/CSW-CISA-ZTMM-Reference-Design.md), [FedRAMP AC-4 / SC-7 (workload tier)](./FedRAMP/CSW-FedRAMP-Reference-Design.md), [CSF PR.IR / PR.AA](./NIST-CSF-2/CSW-CSF-Reference-Design.md) |
 | "How do I evidence vulnerability management?" | [PCI Req 6, 11.3](./PCI-DSS-v4/CSW-PCI-DSS-Reference-Design.md), [NIST RA-5](./NIST-800-53/CSW-NIST-800-53-Reference-Design.md), [ISO A.8.8](./ISO-27001-2022/CSW-ISO27001-Reference-Design.md), [NIS2 Art. 21(2)(e)](./NIS2/CSW-NIS2-Reference-Design.md), [NERC CIP-010 R3](./NERC-CIP/CSW-NERC-CIP-Reference-Design.md), [TSA SD Section III.D](./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.md), [FedRAMP RA-5](./FedRAMP/CSW-FedRAMP-Reference-Design.md), [HITRUST 10.m](./HITRUST-CSF/CSW-HITRUST-Reference-Design.md), [IEC 62443 SR 3](./IEC-62443/CSW-IEC62443-Reference-Design.md), [CIS Control 7](./CIS-Controls-v8/CSW-CIS-Reference-Design.md), [CSF ID.RA-01 / ID.RA-05](./NIST-CSF-2/CSW-CSF-Reference-Design.md), [CMMC RA.L2-3.11.2 / 3.11.3](./CMMC-2/CSW-CMMC-Reference-Design.md), [AU E2 / E6](./AU-Essential-Eight/CSW-Essential-Eight-Reference-Design.md), [UK CE5](./UK-Cyber-Essentials/CSW-Cyber-Essentials-Reference-Design.md), [CSA TVM](./CSA-CCM/CSW-CSA-CCM-Reference-Design.md), [HIPAA NPRM §164.308(a)(2)](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.md) |
-| "How do I evidence IT/OT segmentation on the IT side?" | [NERC CIP-005 R1 (IT-side ESP enclave)](./NERC-CIP/CSW-NERC-CIP-Reference-Design.md), [TSA SD Section III.A](./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.md), [TSA Rail III.B](./TSA-Rail/CSW-TSA-Rail-Reference-Design.md), [IEC 62443 SR 5 (zones & conduits)](./IEC-62443/CSW-IEC62443-Reference-Design.md), [NIST AC-4 / SC-7](./NIST-800-53/CSW-NIST-800-53-Reference-Design.md) |
+| "How do I evidence IT/OT segmentation on the IT side?" | [NERC CIP-005 R1 (IT-side ESP enclave)](./NERC-CIP/CSW-NERC-CIP-Reference-Design.md), [TSA SD Section III.A](./TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.md), [TSA Rail III.B](./TSA-Rail/CSW-TSA-Rail-Reference-Design.md), [TSA Aviation Measure 1](https://github.com/chandrapati/CSW-TSA-Aviation-Reference-Design), [IEC 62443 SR 5 (zones & conduits)](./IEC-62443/CSW-IEC62443-Reference-Design.md), [NIST AC-4 / SC-7](./NIST-800-53/CSW-NIST-800-53-Reference-Design.md) |
 | "How do I map workload telemetry to MITRE ATT&CK?" | [TA0001–TA0011, TA0040](./MITRE-ATTACK/CSW-MITRE-ATTACK-Reference-Design.md) |
 | "How do I evidence a SWIFT secure zone at the workload layer?" | [SWIFT CSCF 1.1 / 1.4 / 2.1](./SWIFT-CSCF/CSW-SWIFT-CSCF-Reference-Design.md) |
 | "How do I evidence asset and software inventory?" | [CIS Controls 1 + 2](./CIS-Controls-v8/CSW-CIS-Reference-Design.md), [NIST CM-8](./NIST-800-53/CSW-NIST-800-53-Reference-Design.md), [CSF ID.AM-01 / ID.AM-02](./NIST-CSF-2/CSW-CSF-Reference-Design.md), [CMMC CM.L2-3.4.1 / 3.4.6](./CMMC-2/CSW-CMMC-Reference-Design.md), [HIPAA NPRM §164.308(a)(1)(ii)(A)](./HIPAA-2025-NPRM/CSW-HIPAA-NPRM-Reference-Design.md), [NIST 800-171 03.04.x](./NIST-800-171/CSW-NIST-800-171-Reference-Design.md) |
@@ -923,6 +923,45 @@ Source: [`BSI-C5/CSW-BSI-C5-Reference-Design.md`](./BSI-C5/CSW-BSI-C5-Reference-
 | Supplier/customer boundaries | Tenant/service egress and shared-service communication |
 
 ---
+
+## CJIS Security Policy (CJISSECPOL v6.1) — *standalone repo*
+
+> **Scope.** CSW evidences the **CJI enclave boundary** — AC-3 / AC-4 /
+> AC-17 enforcement, SC-7 boundary protection, CM-7 / CM-8 inventory and
+> least functionality, CA-7 monitoring, RA-5 reachability, SI-4 detection.
+> Personnel screening, physically secure location, advanced
+> authentication, CJI encryption, awareness training, and media
+> protection come from elsewhere. No product is "CJIS certified" —
+> compliance is assessed against the agency, not the vendor. Draft v1 —
+> apply SME judgment.
+>
+> **Version note.** v6.x is restructured around NIST SP 800-53 Rev 5
+> families. Sanctionable today is the pre-v5.9 set plus `[Priority 1]`;
+> some state CSAs still audit an earlier revision, so confirm the audited
+> version with the CSA.
+
+Source: [`CSW-CJIS-Reference-Design`](https://github.com/chandrapati/CSW-CJIS-Reference-Design) — this framework ships as a standalone repo and has no folder here.
+
+## TSA Aviation — Joint Emergency Amendment 23-01 — *standalone repo*
+
+> **Scope.** CSW addresses the operator's **ground IT estate** —
+> flight operations, passenger service systems, maintenance, cargo, and
+> the supporting identity / logging / patch tiers. CSW has **no reach
+> into aircraft** (avionics, onboard networks, flight-deck systems, the
+> aircraft end of a datalink), none into the **airport OT field layer**
+> (baggage conveyor controls, access-control and camera field devices,
+> airfield lighting, boarding bridges, fuel systems), and none into
+> **endpoint fleets** (crew EFB tablets, kiosks, gate workstations).
+> Draft v1 — apply SME judgment.
+>
+> **Source-text note.** EA 23-01 is **Sensitive Security Information**
+> under 49 CFR 1520.5(b), so no clause-level mapping is possible. That
+> design maps to the four measures TSA described publicly plus the plan
+> obligations in the public appellate record, and carries no EA provision
+> numbers. TSA inspects against the operator's approved Cybersecurity
+> Implementation Plan.
+
+Source: [`CSW-TSA-Aviation-Reference-Design`](https://github.com/chandrapati/CSW-TSA-Aviation-Reference-Design) — this framework ships as a standalone repo and has no folder here.
 
 ## Reverse Lookup — common CSW capabilities → frameworks
 

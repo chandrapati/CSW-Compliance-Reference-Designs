@@ -354,7 +354,7 @@ attach it to the CAF principle in [caf-mapping.md](./caf-mapping.md):
 - [NIST CSF 2.0](../NIST-CSF-2/CSW-CSF-Reference-Design.md) — outcomes language across A–D
 - [NIST SP 800-53](../NIST-800-53/CSW-NIST-800-53-Reference-Design.md) — AC-4 / SC-7 for B5
 - [CIS Controls v8.1](../CIS-Controls-v8/CSW-CIS-Reference-Design.md) — inventory, vuln, and monitoring
-- [IEC 62443](../IEC-62443/CSW-IEC-62443-Reference-Design.md) — zones and conduits for B5
+- [IEC 62443](../IEC-62443/CSW-IEC62443-Reference-Design.md) — zones and conduits for B5
 - [NIST SP 800-82](../NIST-800-82/CSW-NIST-800-82-Reference-Design.md) — IT side of an IT/OT boundary
 - [MITRE ATT&CK](../MITRE-ATTACK/CSW-MITRE-ATTACK-Reference-Design.md) — C2
 - [DORA](../DORA/CSW-DORA-Reference-Design.md) — supplier egress (A4) and incident dossier (D1)

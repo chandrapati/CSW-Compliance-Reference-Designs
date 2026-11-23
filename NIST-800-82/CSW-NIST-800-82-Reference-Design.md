@@ -370,7 +370,7 @@ Per incident, retain on the IT side:
 - [NIST SP 800-53 Rev 5](../NIST-800-53/CSW-NIST-800-53-Reference-Design.md) — the control catalogue underlying 800-82
 - [NERC CIP](../NERC-CIP/CSW-NERC-CIP-Reference-Design.md) — for North American Bulk Electric System operators
 - [TSA Pipeline](../TSA-Pipeline/CSW-TSA-Pipeline-Reference-Design.md) — for US pipeline operators
-- [IEC 62443](../IEC-62443/CSW-IEC-62443-Reference-Design.md) — adjacent OT cybersecurity standard
+- [IEC 62443](../IEC-62443/CSW-IEC62443-Reference-Design.md) — adjacent OT cybersecurity standard
 
 
 - [UK NCSC CAF v3.2](../UK-NCSC-CAF/caf-mapping.md) — OT-adjacent IT segmentation is the reuse path for CAF B5.
